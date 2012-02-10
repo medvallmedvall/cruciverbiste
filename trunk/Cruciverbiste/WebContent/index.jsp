@@ -7,6 +7,6 @@
 <title>Bienvenue</title>
 </head>
 <body>
-<%out.println("Helloooo les cruciverbistes!"); %>
+<%out.println("Bienvenue les cruciverbistes!"); %>
 </body>
 </html>
