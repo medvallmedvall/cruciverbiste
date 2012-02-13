@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+"-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+"http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+	<package name="actions" namespace="/" extends="struts-default">
+		<!--default-action-ref name="index" /-->
+		
+		<action name="jouer_mots_croises" class="actions.PlayCrosswordAction">
+			<result name="success">index.jsp</result>
+			<result name="error">index.jsp</result>
+		</action>
+		
+		<action name="jouer_mots_fleches" class="actions.PlayArrowordAction">
+			<result name="success">index.jsp</result>
+			<result name="error">index.jsp</result>
+		</action>
+	</package>
+
+</struts>
