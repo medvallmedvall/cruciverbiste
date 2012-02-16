@@ -1,11 +1,10 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Bienvenue</title>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<title>Grille en cours</title>
 <link href="css/stylebegin.css" rel="stylesheet" type="text/css" media="screen" />
 	<link href="css/jquery.ui.all.css" rel="stylesheet" type="text/css" media="screen" />
     <script type="text/javascript" src="js/jquery-1.7.1.js"></script>
@@ -19,11 +18,6 @@
     <script type="text/javascript" src="js/jsbeginadd.js"></script>
 </head>
 <body>
-<!-- <%out.println("Bienvenue les cruciverbistes!"); %>
-<br/>
-Exemple de lien pour la selection d'une grille  
-<a href="jouer_mots_croises?idGrid=3">Teste struts</a> <br/>
-<c:out value="${idGrid}"/>-->
 <div id="barre">
 		<a tabindex="0" href="#search-engines" class="fg-button fg-button-icon-right ui-widget ui-state-default ui-corner-all" id="flat"><span class="ui-icon ui-icon-triangle-1-s"></span>Langage</a>
 		<div id="search-engines" class="hidden">
@@ -37,7 +31,7 @@ Exemple de lien pour la selection d'une grille
 			<button id="connexion">Connexion</button>
 			<button id="create-user">Inscription</button>
 		</div>
-</div>
+	</div>
 	<div id="lignetop"></div>
 	<div id="top">
 		<div id="logo">
@@ -45,25 +39,46 @@ Exemple de lien pour la selection d'une grille
 		</div> 
 	</div>
 	<div id="lignetop"></div>
-		<div id="sidebar1">
+	<div id="sidebar1">
 		<div class="glossymenu">
-		<a class="menuitem" href="#">Jouer</a>
-		<a class="menuitem" href="#" >Grilles en cours</a>
-		<a class="menuitem" href="#">CrÃ©er une grille</a>
-		<a class="menuitem" href="#">Mes Grilles</a>
-		<a class="menuitem" href="#">Jeux concours</a>
-		<a class="menuitem" href="#">Forum</a>	
+			<a class="menuitem" href="#">Jouer</a>
+			<a class="menuitem" href="#" >Grilles en cours</a>
+			<a class="menuitem" href="#">Créer une grille</a>
+			<a class="menuitem" href="#">Mes Grilles</a>
+			<a class="menuitem" href="#">Jeux concours</a>
+			<a class="menuitem" href="#">Forum</a>
 		</div>
 	</div>
-	<div id="content"></div>
-		
-		<div id="content">
-			<img alt="images" src="images/grille.jpg"/>
-		</div>
-		
-
-<div id="footer">
+<div id="content"></div>
+<div id="dialog-form" title="Create new user">
+	<p class="validateTips">All form fields are required.</p>
+	<form>
+		<fieldset>
+			<label for="name">Name</label>
+			<input type="text" name="name" id="name" class="text ui-widget-content ui-corner-all" />
+			<label for="email">Email</label>
+			<input type="text" name="email" id="email" value="" class="text ui-widget-content ui-corner-all" />
+			<label for="password">Password</label>
+			<input type="password" name="password" id="password" value="" class="text ui-widget-content ui-corner-all" />
+		</fieldset>
+	</form>
+</div>
+<div id="dialog-connexion" title="Connexion">
+	<p class="validateTips">All form fields are required.</p>
+	<form>
+	<fieldset>
+		<label for="pseudo">pseudo</label>
+		<input type="text" name="pseudo" id="pseudo" class="text ui-widget-content ui-corner-all" />
+		<label for="password">Password</label>
+		<input type="password" name="password" id="password" value="" class="text ui-widget-content ui-corner-all" />
+	</fieldset>
+	</form>
+</div>
+	<div id="footer">
 		<p>Copyright 2012</p>
 	</div>
+
 </body>
 </html>
+		
+	
