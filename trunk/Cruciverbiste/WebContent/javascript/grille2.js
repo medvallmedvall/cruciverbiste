@@ -1,4 +1,4 @@
-horizontal = true;
+horizontal = false;
 
 //perte de focus sur input, tout deselectionner.
 
@@ -12,7 +12,7 @@ function clickGrille() {
 				var contenuCase = $(this).children(":first");
 				//si ce n'est pas une definition, ni une case qui est en train d'etre editée
 				if (contenuCase.length == 0) {
-					//horizontal = true;
+					horizontal = true;
 					selectionnerCase($(this));
 				}
 				else {
@@ -108,18 +108,22 @@ function clickGrille() {
 					switch(c) {
 					case 37:
 						//left
+						horizontal = true;
 						selectPreviousCaseH();
 						break;
 					case 38:
 						//up
+						horizontal = false;
 						selectPreviousCaseV();
 						break;
 					case 39:
 						//right
+						horizontal = true;
 						selectNextCaseH();
 						break;
 					case 40:
 						//bottom
+						horizontal = false;
 						selectNextCaseV();
 						break;
 					}

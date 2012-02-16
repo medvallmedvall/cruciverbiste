@@ -24,7 +24,15 @@
 				</c:when>
 				<c:when test="${(i == 2) && (j == 3)}">
 					<td>
-						<p class="caseDefinition2">def2 &rarr; 
+					
+						<p class="caseDefinition2">
+						
+						<a id="defini2" href="#" original-title="Hello World">def2</a>
+								
+						<script type='text/javascript'>
+							$('#defini2').tipsy();
+						</script>
+												
 						<span class="direction">right</span>
 						</p>
 						<p class="caseDefinition2">def3 &darr;
