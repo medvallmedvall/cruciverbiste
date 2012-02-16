@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Test JQuery</title>
+<title>Test mots croises</title>
 <link rel="stylesheet" type="text/css" href="css/style.css" />
 </head>
 <body>
@@ -161,7 +161,7 @@
 	<div id="divTest" style="clear: both;">
 	</div>
 
-	<script type="text/javascript" src="javascript/jquery-1.7.1.min.js"></script>
+	<script type="text/javascript" src="javascript/jquery-1.7.1.js"></script>
 	<script type="text/javascript" src="javascript/grille2.js"></script>
 </body>
 </html>
