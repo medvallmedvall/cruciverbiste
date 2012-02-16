@@ -1,5 +1,3 @@
-horizontal = false;
-
 //perte de focus sur input, tout deselectionner.
 
 function clickGrille() {

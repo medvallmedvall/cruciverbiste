@@ -1,5 +1,3 @@
-horizontal = true;
-
 function clickGrille() {
 	$("#grille1 td").click(
 			function() {
@@ -59,18 +57,22 @@ function clickGrille() {
 					switch(c) {
 						case 37:
 							//left
+							horizontal = true;
 							selectPreviousCaseH();
 							break;
 						case 38:
 							//up
+							horizontal = false;
 							selectPreviousCaseV();
 							break;
 						case 39:
 							//right
+							horizontal = true;
 							selectNextCaseH();
 							break;
 						case 40:
 							//bottom
+							horizontal = false;
 							selectNextCaseV();
 							break;
 					}
