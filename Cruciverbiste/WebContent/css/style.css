@@ -22,8 +22,8 @@ td {
 }
 
 #caseTexte {
-	height: 99%;
-	width: 99%;
+	height: 92%;
+	width: 93%;
 	background-color: #99FFFF;
 	color : black;
 	text-transform: uppercase;
@@ -31,6 +31,7 @@ td {
 	font-size: 100%;
 	text-align: center;
 	border: 1px solid yellow;
+	margin: 0px;
 }
 
 .caseDefinition1 {
@@ -59,4 +60,50 @@ td {
 
 .caseMotSelectionne {
 	background-color: yellow;
+}
+
+.caseNoire {
+	background-color: black;
+}
+
+.caseNoire p {
+	display: none;
+}
+
+th {
+	padding-left: 5px;
+	padding-right: 5px;
+}
+
+#definitions {
+	border: 1px solid black;
+	margin-left: 20px;
+	margin-right: 20px;
+	float: right;
+	width: 300px;
+}
+
+.titreDefinitions {
+	text-align: center;
+	color: red;
+}
+
+.ligne_definition {
+	//background-color: lightblue;
+	margin: 0px;
+	padding: 5px 10px;
+}
+
+#defHorizontales, #defVerticales {
+	border: 1px solid black;
+	margin: 10px;
+}
+
+.definitionSelectionnee2 {
+	background-color: red;
+	border: 1px solid yellow;
+}
+
+.colIndex, .rowIndex {
+	display : none;
 }
