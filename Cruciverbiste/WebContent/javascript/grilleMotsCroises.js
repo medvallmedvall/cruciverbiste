@@ -1,5 +1,19 @@
+//perte de focus sur input, tout deselectionner.
+
+//function clickGrille() {
+
+function addCaseNoire(coordonnees) {
+	$("#coordonnes").addClass("caseNoire");
+}
+
+
+
 $("#grille1 td").click(
 		function() {
+			if ($(this).hasClass("caseNoire")) {
+				$("#caseTexte").focus();
+				return;
+			}
 			var contenuCase = $(this).children(":first");
 			//si ce n'est pas une definition, ni une case qui est en train d'etre editée
 			if (contenuCase.length == 0) {
@@ -13,40 +27,83 @@ $("#grille1 td").click(
 					selectionnerCase($(this));
 				}
 			}
-
+			selectDefinition($(this));
 		}
 );
 
+function selectDefinition(mCase) {
+	//on doit changer la definition
+	$(".ligne_definition").removeClass("definitionSelectionnee2");
+	var x = -1;
+	var y = -1;
+	var c = null;
+	var selector = "";
+	if (horizontal) {
+		//on doit chercher la 1ere case qui compose ce mot afin de selectionner les coordonnees et selectionner
+		//la definition associee
+		c = selectCaseDebutH(mCase);
+		selector = "#defHorizontales .ligne_definition";
+	}
+	else {
+		c = selectCaseDebutV(mCase);
+		selector = "#defVerticales .ligne_definition";
+	}
+	x = c.index() - 1;
+	y = c.parent("tr").index() - 1;
+	var definitions = $(selector);
+	for (var i = 0; i < definitions.length; i++) {
+		var mDef = $(selector).eq(i);
+		var rowIdx =  parseInt(mDef.children(".rowIndex").eq(0).text());
+		var colIdx = parseInt(mDef.children(".colIndex").eq(0).text());
+		//alert(rowIdx + " - " + colIdx + "////" + x + " - " + y);
+		if ((rowIdx == y) && (colIdx == x)) {
+			mDef.addClass("definitionSelectionnee2");
+			return;
+		}
+	}
+	//definition non trouvée : on change le sens
+}
 
-//corriger le selecteur
-$("p").click(
+function selectCaseDebutH(mCase) {
+	var c = mCase;
+	while ((c.prev("td").length != 0) && (!c.prev("td").hasClass("caseNoire"))) {
+		c = c.prev("td");
+	}
+	return c;
+}
+
+function selectCaseDebutV(mCase) {
+	var c = mCase;
+	var idColonne =  mCase.index();
+	var trTag =  mCase.parents("tr");
+	var tmpElem = trTag.prev("tr").children("td").eq(idColonne - 1);
+	while ((tmpElem.length != 0) && (!tmpElem.hasClass("caseNoire"))) {
+		c = tmpElem;
+		trTag =  c.parents("tr");
+		tmpElem = trTag.prev("tr").children("td").eq(idColonne - 1);
+	}
+	return c;
+}
+
+$(".ligne_definition").click(
 		function() {
-			//on deselectionne tout
-			$("p").removeClass("definitionSelectionnee");
-			$(this).addClass("definitionSelectionnee");
-			$("#grille1 td").removeClass("caseMotSelectionne");
+			$(".ligne_definition").removeClass("definitionSelectionnee2");
 			deselectionnnerCase();
-			horizontal = true;
-			//on recupere la direction du mot dans la balise span cachée
-			var text = $(this).children("span").text();
-			if (text.indexOf("right") != -1) {
-				//a factoriser
-				var trTag = $(this).parents("tr");
-				var index = $(this).parent().index();
-				var children = trTag.children("td");
-				selectionnerCase(children.eq(index + 1));
+			$(this).addClass("definitionSelectionnee2");
+			$("#grille1 td").removeClass("caseMotSelectionne");
+			//si c'est une definition horizontale
+			if ($(this).parent("div").attr("id") == "defHorizontales") {
+				horizontal = true;
 			}
-			if (text.indexOf("down") != -1) {
-				var trTag = $(this).parents("tr");
-				var indexCol = $(this).parent().index();
-				var indexRow = trTag.index();
-				var childrenTr = $("#grille1 tr");
+			else {
 				horizontal = false;
-				selectionnerCase(childrenTr.eq(indexRow + 1).children("td").eq(indexCol));
 			}
+			var rowIdx =  parseInt($(this).children(".rowIndex").eq(0).text());
+			var colIdx = parseInt($(this).children(".colIndex").eq(0).text());
+			var mCase = $("tr").eq(rowIdx + 1).children().eq(colIdx + 1);
+			selectionnerCase(mCase);
+		});
 
-		}
-);
 $("#grille1").keyup(
 		function(event) {
 			var c = codeTouche(event);
@@ -83,6 +140,9 @@ $("#grille1").keyup(
 			return false;
 		}
 );
+
+
+
 $("#grille1").keypress(
 		function(event) {
 			event.preventDefault();
@@ -105,37 +165,7 @@ $("#grille1").keypress(
 			return false;
 		}
 );
-$("p").mouseenter(
-		function(event) {
-			alert("debut");
-			
-			getPosition($(this));
-			
-			alert("fin");
-		}
-);
 
-function getPosition(element)
-{
-	//alert(element);
-	var left = 0;
-	var top = 0;
-	/*On r�cup�re l'�l�ment*/
-	var e = element;
-	/*Tant que l'on a un �l�ment parent*/
-	while (e.offsetParent != undefined && e.offsetParent != null)
-	{
-		/*On ajoute la position de l'�l�ment parent*/
-		
-		left += e.offsetLeft + (e.clientLeft != null ? e.clientLeft : 0);
-		alert(e.offsetLeft);
-		top += e.offsetTop + (e.clientTop != null ? e.clientTop : 0);
-		e = e.offsetParent;
-	}
-	//alert(top);
-	//alert(left);
-	return new Array(left,top);
-}
 
 function deselectionnnerCase() {
 	//on deselectionne la case et enleve le champ input
@@ -147,15 +177,13 @@ function deselectionnnerCase() {
 
 function selectionnerCase(mCase) {
 	deselectionnnerCase();
-	//si on a selectionné une case qui ne fait pas parti du mots en cours de selection on deselectionne...
-	//if (!mCase.hasClass("caseMotSelectionne")) {
 	$("#grille1 td").removeClass("caseMotSelectionne");
 	$("p").removeClass("definitionSelectionnee");
-	//}
 
 	if (horizontal) {
 		var index = mCase.index();
 		var children = mCase.parent().children("td");
+		//selection des cases apres 
 		for (var i = index; i < children.length; i++) {
 			var mCaseTmp = children.eq(i);
 			if (mCaseTmp.children(":first").length != 0) {
@@ -163,11 +191,18 @@ function selectionnerCase(mCase) {
 			}
 			mCaseTmp.addClass("caseMotSelectionne");
 		}
+		//selection des cases avants
+		var c = mCase;
+		while ((c.length != 0) && (!c.hasClass("caseNoire"))) {
+			c.addClass("caseMotSelectionne");
+			c = c.prev("td");
+		}
 	}
 	else {
 		var trTag = mCase.parents("tr");
-		var indexCol = mCase.index();
-		var indexRow = trTag.index();
+		var indexCol = mCase.index() - 1;
+		var indexRow = trTag.index() + 1;
+		//selection des cases avant
 		var childrenTr = $("#grille1 tr");
 		for (var i = indexRow; i < childrenTr.length; i++) {
 			var mCaseTmp = childrenTr.eq(i).children("td").eq(indexCol);
@@ -175,6 +210,14 @@ function selectionnerCase(mCase) {
 				break;
 			}
 			mCaseTmp.addClass("caseMotSelectionne");
+		}
+		//selection des cases apres
+		var c = mCase;
+		//var tmpElem = trTag.prev("tr").children("td").eq(idColonne);
+		while ((c.length != 0) && (!c.hasClass("caseNoire"))) {
+			c.addClass("caseMotSelectionne");
+			trTag =  c.parents("tr");
+			c = trTag.prev("tr").children("td").eq(indexCol);
 		}
 	}
 
@@ -191,16 +234,16 @@ function selectionnerCase(mCase) {
 }
 
 function selectNextCaseH() {
-	var nextElem = $("#caseTexte").parent().next();
+	var nextElem = $("#caseTexte").parents("td").next("td");
 	//si la case suivante existe et qu'elle n'est une definition
-	if ((nextElem.length != 0) && (nextElem.children(":first").length == 0))  {
+	if ((nextElem.length != 0) && (!nextElem.hasClass("caseNoire")))  {
 		selectionnerCase(nextElem);
 	}
 }
 
 function selectPreviousCaseH() {
-	var prevElem = $("#caseTexte").parent().prev();
-	if ((prevElem.length != 0) && (prevElem.children(":first").length == 0)) {
+	var prevElem = $("#caseTexte").parent("td").prev("td");
+	if ((prevElem.length != 0) && (!prevElem.hasClass("caseNoire"))) {
 		selectionnerCase(prevElem);
 	}
 }
@@ -208,9 +251,9 @@ function selectPreviousCaseH() {
 function selectNextCaseV() {
 	var idColonne =  $("#caseTexte").parent().index();
 	var trTag =  $("#caseTexte").parents("tr");
-	var nextElem = trTag.next("tr").children("td").eq(idColonne);
+	var nextElem = trTag.next("tr").children("td").eq(idColonne - 1);
 	//si la case suivante existe et qu'elle n'est pas une definition
-	if ((nextElem.length != 0) && (nextElem.children(":first").length == 0))  {
+	if ((nextElem.length != 0) && (!nextElem.hasClass("caseNoire")))  {
 		selectionnerCase(nextElem);
 	}
 }
@@ -218,9 +261,9 @@ function selectNextCaseV() {
 function selectPreviousCaseV() {
 	var idColonne =  $("#caseTexte").parent().index();
 	var trTag =  $("#caseTexte").parents("tr");
-	var prevElem = trTag.prev("tr").children("td").eq(idColonne);
+	var prevElem = trTag.prev("tr").children("td").eq(idColonne - 1);
 	//si la case precedente existe et qu'elle n'est pas une definition
-	if ((prevElem.length != 0) && (prevElem.children(":first").length == 0)) {
+	if ((prevElem.length != 0) && (!prevElem.hasClass("caseNoire"))) {
 		selectionnerCase(prevElem);
 	}
 }
@@ -234,3 +277,5 @@ function codeTouche(event) {
 	}
 	return event.keyCode;
 }
+
+//clickGrille();
