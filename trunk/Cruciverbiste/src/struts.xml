@@ -7,14 +7,17 @@
 	<package name="actions" namespace="/" extends="struts-default">
 		<!--default-action-ref name="index" /-->
 		
-		<action name="jouer_mots_croises" class="actions.PlayCrosswordAction">
-			<result name="success">index.jsp</result>
-			<result name="error">index.jsp</result>
+		<action name="jouer" class="actions.PlayAction">
+			<result name="success">jouer.jsp</result>
+			<result name="error">erreur.jsp</result>
 		</action>
-		
-		<action name="jouer_mots_fleches" class="actions.PlayArrowordAction">
-			<result name="success">index.jsp</result>
-			<result name="error">index.jsp</result>
+		<action name="choixGrilleMotsFleches" class="actions.getArrowordListAction">
+			<result name="success">choixGrilleMotsFleches.jsp</result>
+			<result name="error">erreur.jsp</result>
+		</action>
+		<action name="choixGrilleMotsCroises" class="actions.getCrosswordListAction">
+			<result name="success">choixGrilleMotsCroises.jsp</result>
+			<result name="error">erreur.jsp</result>
 		</action>
 	</package>
 
