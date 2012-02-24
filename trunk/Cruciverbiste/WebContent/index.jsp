@@ -47,7 +47,7 @@ Exemple de lien pour la selection d'une grille
 	<div id="lignetop"></div>
 		<div id="sidebar1">
 		<div class="glossymenu">
-		<a class="menuitem" href="#">Jouer</a>
+		<a class="menuitem" href="jouer?idGrid=2">Jouer</a>
 		<a class="menuitem" href="#" >Grilles en cours</a>
 		<a class="menuitem" href="#">Créer une grille</a>
 		<a class="menuitem" href="#">Mes Grilles</a>
