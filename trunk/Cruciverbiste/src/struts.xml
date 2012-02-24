@@ -8,8 +8,8 @@
 		<!--default-action-ref name="index" /-->
 		
 		<action name="jouer" class="actions.PlayAction">
-			<!--result name="success">jouer.jsp</result-->
-			<result name="success">motsCroises.jsp</result>
+			<result name="success">jouer.jsp</result>
+			<!--result name="success">motsCroises.jsp</result-->
 			<result name="error">erreur.jsp</result>
 		</action>
 		<action name="choixGrilleMotsFleches" class="actions.getArrowordListAction">
