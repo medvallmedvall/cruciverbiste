@@ -5,21 +5,28 @@ import hibernate.GrillesHome;
 
 import com.opensymphony.xwork2.ActionSupport;
 
+import dao.GrilleDao;
+
+import entities.Grille;
+
 @SuppressWarnings("serial")
 public class PlayAction extends ActionSupport {
 	private int idGrid;
-	private Grilles grille;
+	//private Grilles grille;
+	private Grille grille;
 	
 	public PlayAction() {
 		super();
-		idGrid = -1;
+		idGrid = 2;
 	}
 	
 	public String execute() throws Exception {
 		//selectionner la grille avec l'id idGrid
-		GrillesHome home = new GrillesHome();
-		grille = home.findById(idGrid);
-		//si la grille n'existe pas on retourne une erreur
+		//GrillesHome home = new GrillesHome();
+		//grille = home.findById(idGrid);
+		////si la grille n'existe pas on retourne une erreur
+		GrilleDao dao = new GrilleDao();
+		grille = dao.findById(idGrid);
 		if (grille == null) {
 			return ERROR;
 		}
@@ -34,7 +41,11 @@ public class PlayAction extends ActionSupport {
 		this.idGrid = idGrid;
 	}
 	
-	public Grilles getGrille() {
+	public Grille getGrille() {
 		return grille;
 	}
+	
+	/*public Grilles getGrille() {
+		return grille;
+	}*/
 }

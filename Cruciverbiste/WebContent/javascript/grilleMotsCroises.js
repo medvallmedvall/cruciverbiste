@@ -3,7 +3,8 @@
 //function clickGrille() {
 
 function addCaseNoire(coordonnees) {
-	$("#coordonnes").addClass("caseNoire");
+	var mSelector = "#" + coordonnees;
+	$(mSelector).addClass("caseNoire");
 }
 
 
