@@ -187,7 +187,8 @@ function selectionnerCase(mCase) {
 		//selection des cases apres 
 		for (var i = index; i < children.length; i++) {
 			var mCaseTmp = children.eq(i);
-			if (mCaseTmp.children(":first").length != 0) {
+			//if (mCaseTmp.children(":first").length != 0) {
+			if (mCaseTmp.hasClass("caseNoire")) {
 				break;
 			}
 			mCaseTmp.addClass("caseMotSelectionne");
@@ -198,6 +199,7 @@ function selectionnerCase(mCase) {
 			c.addClass("caseMotSelectionne");
 			c = c.prev("td");
 		}
+		selectDefinition(mCase);
 	}
 	else {
 		var trTag = mCase.parents("tr");
@@ -207,7 +209,8 @@ function selectionnerCase(mCase) {
 		var childrenTr = $("#grille1 tr");
 		for (var i = indexRow; i < childrenTr.length; i++) {
 			var mCaseTmp = childrenTr.eq(i).children("td").eq(indexCol);
-			if (mCaseTmp.children(":first").length != 0) {
+			if ((mCaseTmp.children(":first").length != 0) 
+					|| mCaseTmp.hasClass("caseNoire")) {
 				break;
 			}
 			mCaseTmp.addClass("caseMotSelectionne");
@@ -220,6 +223,7 @@ function selectionnerCase(mCase) {
 			trTag =  c.parents("tr");
 			c = trTag.prev("tr").children("td").eq(indexCol);
 		}
+		selectDefinition(mCase);
 	}
 
 
@@ -231,7 +235,6 @@ function selectionnerCase(mCase) {
 	mCase.append(input);
 	$("#caseTexte").val(letter);
 	$("#caseTexte").focus();
-
 }
 
 function selectNextCaseH() {
