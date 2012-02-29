@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 23 f??vr. 2012 22:45:54 by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="hibernate.CasesNoires" table="casesNoires" catalog="174463_cruci">
+        <composite-id name="id" class="hibernate.CasesNoiresId">
+            <key-property name="idGrille" type="int">
+                <column name="id_grille" />
+            </key-property>
+            <key-property name="coordX" type="int">
+                <column name="coordX" />
+            </key-property>
+            <key-property name="coordY" type="int">
+                <column name="coordY" />
+            </key-property>
+        </composite-id>
+        <many-to-one name="grilles" class="hibernate.Grilles" update="false" insert="false" fetch="select">
+            <column name="id_grille" not-null="true" />
+        </many-to-one>
+    </class>
+</hibernate-mapping>

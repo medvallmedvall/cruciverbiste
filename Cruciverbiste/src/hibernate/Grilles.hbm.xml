@@ -1,0 +1,78 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 23 f??vr. 2012 22:45:54 by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="hibernate.Grilles" table="grilles" catalog="174463_cruci">
+        <id name="idGrille" type="java.lang.Integer">
+            <column name="id_grille" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="langues" class="hibernate.Langues" fetch="select">
+            <column name="id_Langue" not-null="true" />
+        </many-to-one>
+        <many-to-one name="typegrille" class="hibernate.Typegrille" fetch="select">
+            <column name="id_typegrille" not-null="true" />
+        </many-to-one>
+        <many-to-one name="utilisateurs" class="hibernate.Utilisateurs" fetch="select">
+            <column name="idUtilisateurConcepteur" not-null="true" />
+        </many-to-one>
+        <property name="nomGrille" type="string">
+            <column name="nomGrille" length="30" not-null="true" />
+        </property>
+        <property name="largeur" type="int">
+            <column name="largeur" not-null="true" />
+        </property>
+        <property name="longueur" type="int">
+            <column name="longueur" not-null="true" />
+        </property>
+        <property name="dateCreation" type="date">
+            <column name="date_creation" length="10" not-null="true" />
+        </property>
+        <property name="estFinie" type="boolean">
+            <column name="estFinie" not-null="true" />
+        </property>
+        <property name="estValidee" type="boolean">
+            <column name="estValidee" not-null="true" />
+        </property>
+        <property name="dateValidation" type="date">
+            <column name="date_validation" length="10" not-null="true" />
+        </property>
+        <property name="niveau" type="int">
+            <column name="niveau" not-null="true" />
+        </property>
+        <property name="idTheme" type="int">
+            <column name="id_theme" not-null="true" />
+        </property>
+        <set name="commentaireses" table="commentaires" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="id_grille" not-null="true" />
+            </key>
+            <one-to-many class="hibernate.Commentaires" />
+        </set>
+        <set name="grillemotses" table="grillemots" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="idGrille" not-null="true" />
+            </key>
+            <one-to-many class="hibernate.Grillemots" />
+        </set>
+        <set name="casesNoireses" table="casesNoires" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="id_grille" not-null="true" />
+            </key>
+            <one-to-many class="hibernate.CasesNoires" />
+        </set>
+        <set name="grillesutilisateursjoues" table="grillesutilisateursjoue" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="id_grille" not-null="true" />
+            </key>
+            <one-to-many class="hibernate.Grillesutilisateursjoue" />
+        </set>
+        <set name="grillesutilisateursencourses" table="grillesutilisateursencours" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="id_Grille" not-null="true" />
+            </key>
+            <one-to-many class="hibernate.Grillesutilisateursencours" />
+        </set>
+    </class>
+</hibernate-mapping>

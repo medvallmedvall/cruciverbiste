@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 23 f??vr. 2012 22:45:54 by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="hibernate.Definitionsfr" table="definitionsfr" catalog="174463_cruci">
+        <id name="idDefintion" type="java.lang.Integer">
+            <column name="id_defintion" />
+            <generator class="identity" />
+        </id>
+        <property name="definition" type="string">
+            <column name="definition" length="65535" not-null="true" />
+        </property>
+        <property name="existe" type="boolean">
+            <column name="existe" not-null="true" />
+        </property>
+    </class>
+</hibernate-mapping>
