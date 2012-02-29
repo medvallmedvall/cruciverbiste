@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC
+"-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+    <session-factory name="SessionFactory">
+        <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
+        <property name="hibernate.connection.password">cruci</property>
+        <property name="hibernate.connection.url">jdbc:mysql://pma.olympe-network.com/174463_cruci</property>
+        <property name="hibernate.connection.username">174463_cruci</property>
+        <property name="hibernate.dialect">org.hibernate.dialect.MySQL5Dialect</property>
+        <property name="hibernate.search.autoregister_listeners">false</property>
+        <property name="hibernate.transaction.factory_class">org.hibernate.transaction.JDBCTransactionFactory</property>
+        <!--property name="current_session_context_class">jta</property-->
+        <property name="current_session_context_class">thread</property>
+        <!--  property name="transaction.factory_class">
+            org.hibernate.transaction.JTATransactionFactory
+        </property>
+        <property name="jta.UserTransaction">java:comp/UserTransaction</property>
+        <property name="transaction.manager_lookup_class">org.hibernate.transaction.JBossTransactionManagerLookup</property-->
+        
+        
+<!--property name="transaction.manager_lookup_class">
+org.hibernate.transaction.BTMTransactionManagerLookup</property-->
+        
+        
+        
+        <!--property name="current_session_context_class">thread</property-->
+        <mapping resource="hibernate/Definitionsfr.hbm.xml" />
+        <mapping resource="hibernate/Orientationmots.hbm.xml" />
+        <mapping resource="hibernate/Grillesutilisateursencours.hbm.xml" />
+        <mapping resource="hibernate/Typegrille.hbm.xml" />
+        <mapping resource="hibernate/Grilles.hbm.xml" />
+        <mapping resource="hibernate/Utilisateurs.hbm.xml" />
+        <mapping resource="hibernate/Synonymesfr.hbm.xml" />
+        <mapping resource="hibernate/Droits.hbm.xml" />
+        <mapping resource="hibernate/Langues.hbm.xml" />
+        <mapping resource="hibernate/CasesNoires.hbm.xml" />
+        <mapping resource="hibernate/Themes.hbm.xml" />
+        <mapping resource="hibernate/Dictionnairefr.hbm.xml" />
+        <mapping resource="hibernate/Grillesutilisateursjoue.hbm.xml" />
+        <mapping resource="hibernate/Commentaires.hbm.xml" />
+        <mapping resource="hibernate/Grillemots.hbm.xml" />
+    </session-factory>
+</hibernate-configuration>
