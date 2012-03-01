@@ -1,4 +1,18 @@
-$("#grille1 td").click(
+function addDefinition(idCase, direction, textDef) {
+	var mSelector = "#" + idCase;
+	var mCase = $(mSelector);
+	var mElement = "<p class='definition'>" + textDef + "<span>" + direction + "</span></p>";
+	mCase.append(mElement);
+	//creation de l'element
+	//var mDefP = $(mSelector).add("p");
+	//mDefP.addClass("definition");
+	//mDefP.text(textDef);
+	//mDefP.add("span");
+	//mDefP.text(direction);
+}
+
+
+$("#grilleMotFleche td").click(
 		function() {
 			var contenuCase = $(this).children(":first");
 			//si ce n'est pas une definition, ni une case qui est en train d'etre editée
@@ -19,35 +33,56 @@ $("#grille1 td").click(
 
 
 //corriger le selecteur
-$("p").click(
+$("#grilleMotFleche .definition").click(
 		function() {
-			//on deselectionne tout
-			$("p").removeClass("definitionSelectionnee");
+			alert("click sur def");
+			/*//on deselectionne tout
+			$(".definition").removeClass("definitionSelectionnee");
 			$(this).addClass("definitionSelectionnee");
 			$("#grille1 td").removeClass("caseMotSelectionne");
 			deselectionnnerCase();
 			horizontal = true;
 			//on recupere la direction du mot dans la balise span cachée
 			var text = $(this).children("span").text();
-			if (text.indexOf("right") != -1) {
-				//a factoriser
-				var trTag = $(this).parents("tr");
-				var index = $(this).parent().index();
-				var children = trTag.children("td");
-				selectionnerCase(children.eq(index + 1));
-			}
-			if (text.indexOf("down") != -1) {
-				var trTag = $(this).parents("tr");
-				var indexCol = $(this).parent().index();
-				var indexRow = trTag.index();
-				var childrenTr = $("#grille1 tr");
+			var orientation = parseInt(text);
+			var idCase = $(this).parents("td").attr("id");
+			var tab = idCase.split('-');
+			var x = tab[0];
+			var y = tab[1];
+			switch (orientation) {
+			case 1:
+				//droite
+				x++;
+				horizontal = true;
+				break;
+			case 2:
+				//bas
+				y++;
 				horizontal = false;
-				selectionnerCase(childrenTr.eq(indexRow + 1).children("td").eq(indexCol));
+				break;
+			case 3:
+				//droite-bas
+				x++;
+				horizontal = false;
+				break;
+			case 4:
+				//bas-droite
+				y++;
+				horizontal = true;
+				break;
+
+			default:
+				//erreur
+				break;
 			}
+			var selector = "#" + x + "-" + y;
+			var firstCase = $(selector);
+			selectionnerCase(firstCase);*/
+		
 
 		}
 );
-$("#grille1").keyup(
+$("#grilleMotFleche").keyup(
 		function(event) {
 			var c = codeTouche(event);
 			//si on a appuyé sur des fleches directionnelles
@@ -83,7 +118,7 @@ $("#grille1").keyup(
 			return false;
 		}
 );
-$("#grille1").keypress(
+$("#grilleMotFleche").keypress(
 		function(event) {
 			event.preventDefault();
 			var c = codeTouche(event);
@@ -139,7 +174,7 @@ function getPosition(element)
 
 function deselectionnnerCase() {
 	//on deselectionne la case et enleve le champ input
-	$("#grille1 td").removeClass("caseSelectionnee");
+	$("#grilleMotFleche td").removeClass("caseSelectionnee");
 	var letter = $("#caseTexte").val();
 	$("#caseTexte").parent().text(letter);
 	$("#caseTexte").remove();
@@ -149,7 +184,7 @@ function selectionnerCase(mCase) {
 	deselectionnnerCase();
 	//si on a selectionné une case qui ne fait pas parti du mots en cours de selection on deselectionne...
 	//if (!mCase.hasClass("caseMotSelectionne")) {
-	$("#grille1 td").removeClass("caseMotSelectionne");
+	$("#grilleMotFleche td").removeClass("caseMotSelectionne");
 	$("p").removeClass("definitionSelectionnee");
 	//}
 
@@ -168,7 +203,7 @@ function selectionnerCase(mCase) {
 		var trTag = mCase.parents("tr");
 		var indexCol = mCase.index();
 		var indexRow = trTag.index();
-		var childrenTr = $("#grille1 tr");
+		var childrenTr = $("#grilleMotFleche tr");
 		for (var i = indexRow; i < childrenTr.length; i++) {
 			var mCaseTmp = childrenTr.eq(i).children("td").eq(indexCol);
 			if (mCaseTmp.children(":first").length != 0) {

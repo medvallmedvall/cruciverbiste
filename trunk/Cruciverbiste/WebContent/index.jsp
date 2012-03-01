@@ -68,7 +68,7 @@
 		<div id="principal">
 		<h3>Grille du jour</h3> 
 			
-		<div id="grille"><a href="jouer?idGrid=2"><img alt="Grille" src="images/grille.jpg" ></a></div>
+		<div id="grille"><a href="jouer?idGrid=1"><img alt="Grille" src="images/grille.jpg" ></a></div>
 			
 		</div><!-- fin principale-->
 
