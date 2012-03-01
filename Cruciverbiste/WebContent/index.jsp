@@ -18,6 +18,7 @@
 					<li><a href="jouerMotsFleches.jsp">Mots fléchés</a></li>
 					<li><a href="index.html">Créer une grille</a></li>
 					<li><a href="jeuxConcours.jsp">Jeux concours</a></li>
+					<li><a href="jeuxConcours.jsp">Contacts</a></li>
 					<li><a href="forum.jsp">Forum</a></li>
 				</ul>
 			</div><!-- fin navigation-->
