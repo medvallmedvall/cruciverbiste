@@ -3,7 +3,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Test mots croises</title>
+<title>Jouer mots croises</title>
 <link rel="stylesheet" type="text/css" href="css/style.css" />
 </head>
 <body>
