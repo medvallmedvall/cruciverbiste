@@ -6,7 +6,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Choix grille</title>
-<link rel="stylesheet" type="text/css" href="styles/main.css" media="all" />
+
 <link rel="stylesheet" type="text/css" href="styles/style.css" media="screen" />
 
 <!-- Begin Stylesheets -->
@@ -26,52 +26,10 @@
 
 </head>
 <body>
-	<div id="global">
-
-		<div id="langue">
-					
-						<a href="#" title="Anglais"><img style="cursor:pointer; cursor:hand;" alt="English" src="images/Angleterre.png" /></a>
-						<a href="#" title="Allemand"><img style="cursor:pointer; cursor:hand;" alt="Allemand" src="images/Allemagne.png" /></a>
-						<a href="#" title="Espagnol"><img style="cursor:pointer; cursor:hand;" alt="Espagnol" src="images/Espagne.png" /></a>
-	</div>
-	<div id="entete">
-	<div id="login">
 	
-			<form action="Connexion" method="post">
-				<table>
-					
-					<tr>
-						<td>Identifiant</td>
-						<td><input type="text" name="identifiant"></td>
-					</tr>
-					<tr>
-						<td>Mot de passe</td>
-						<td><input type="password" name="motdepasse" ></td>
-					</tr>
-					<tr>
-						<td style="text-align:right;"><a href="inscription.jsp"> <input type="button" value="Inscription" /></a></td>
-						<td style="text-align:right;" ><input type="submit" value="Connexion"></td>	
-					</tr>
-				</table>
-			</form>
-		</div><!-- login-->
-		
-		<div id="logo">
-			<a href="index.jsp">
-			<h1>
-				<img alt="Cruciverbiste" src="images/cruciverbiste.jpg" />
-				<span>Cruciverbiste</span>
-				
-			</h1>
-			
-		</a> </div>
-		<div id="pub">
-		<a href="#" title="Pub"><img style="cursor:pointer; cursor:hand;" alt="English" src="images/pub.png" /></a>
-		</div> <!-- fin pub-->	
-		
-		
-	</div> <!-- fin entete-->
 
+		<%@ include file="entete.jspf" %>
+		
 	<div id="centre">
 		<div id="navigation">
 			<ul>
@@ -82,7 +40,25 @@
 				<li><a href="forum.jsp">Forum</a></li>
 			</ul>
 		</div><!-- fin navigation-->
-
+		<div id="secondaire">
+			<table>
+			   <caption><strong>Sujets récents</strong></caption>
+					   <tr>
+							<td><a href="Forum">C'est quoi les mots croisés?</a></td>
+					   </tr>
+					   <tr>
+							<td><a href="Forum">C'est quoi les mots fléchés?</a></td>
+					   </tr>
+					   <tr>
+							<td><a href="Forum">Une grille défi pour tous!</a></td>
+					   </tr>
+					   <tr>
+							<td><a href="Forum">Le sens du mot cruciverbiste?</a></td>
+					   </tr>
+					   <tr>
+							<td><a href="Forum">C'est quoi un mot palindrome?</a></td>
+			</table>
+		</div> <!-- fin secondaire-->
 		<div id="principal">
 			
 				<div class="coda-slider-wrapper">
@@ -105,24 +81,8 @@
 				<p>Cras luctus fringilla odio vel hendrerit. Cras pulvinar auctor sollicitudin. Sed lacus quam, sodales sit amet feugiat sit amet, viverra nec augue. Sed enim ipsum, malesuada quis blandit vel, posuere eget erat. Sed a arcu justo. Integer ultricies, nunc at lobortis facilisis, ligula lacus vestibulum quam, id tincidunt sapien arcu in velit. Vestibulum consequat augue et turpis condimentum mollis sed vitae metus. Morbi leo libero, tincidunt lobortis fermentum eget, rhoncus vel sem. Morbi varius viverra velit vel tempus. Morbi enim turpis, facilisis vel volutpat at, condimentum quis erat. Morbi auctor rutrum libero sed placerat. Etiam ipsum velit, eleifend in vehicula eu, tristique a ipsum. Donec vitae quam vel diam iaculis bibendum eget ut diam. Fusce quis interdum diam. Ut urna justo, dapibus a tempus sit amet, bibendum at lectus. Sed venenatis molestie commodo.</p>
 			</div>
 		</div>
-		<div class="panel">
-			<div class="panel-wrapper">
-				<h2 class="title">Panel 4</h2>
-				<p>Nulla ultricies ornare erat, a rutrum lacus varius nec. Pellentesque vehicula lobortis dignissim. Ut scelerisque auctor eros sed porttitor. Nullam pulvinar ultrices malesuada. Quisque lobortis bibendum nisi et condimentum. Mauris quis erat vel dui lobortis dignissim.</p>
-			</div>
-		</div>
-		<div class="panel">
-			<div class="panel-wrapper">
-				<h2 class="title">Panel 5</h2>
-				<p>Nulla ultricies ornare erat, a rutrum lacus varius nec. Pellentesque vehicula lobortis dignissim. Ut scelerisque auctor eros sed porttitor. Nullam pulvinar ultrices malesuada. Quisque lobortis bibendum nisi et condimentum. Mauris quis erat vel dui lobortis dignissim.</p>
-			</div>
-		</div>
-		<div class="panel">
-			<div class="panel-wrapper">
-				<h2 class="title">Panel 6</h2>
-				<p>Nulla ultricies ornare erat, a rutrum lacus varius nec. Pellentesque vehicula lobortis dignissim. Ut scelerisque auctor eros sed porttitor. Nullam pulvinar ultrices malesuada. Quisque lobortis bibendum nisi et condimentum. Mauris quis erat vel dui lobortis dignissim.</p>
-			</div>
-		</div>
+		
+	
 		
 		
 	</div><!-- .coda-slider -->
@@ -134,27 +94,9 @@
 
 
 
-		<div id="secondaire">
-			<table>
-			   <caption><strong>Sujets récents</strong></caption>
-					   <tr>
-							<td><a href="Forum">C'est quoi les mots croisés?</a></td>
-					   </tr>
-					   <tr>
-							<td><a href="Forum">C'est quoi les mots fléchés?</a></td>
-					   </tr>
-					   <tr>
-							<td><a href="Forum">Une grille défi pour tous!</a></td>
-					   </tr>
-					   <tr>
-							<td><a href="Forum">Le sens du mot cruciverbiste?</a></td>
-					   </tr>
-					   <tr>
-							<td><a href="Forum">C'est quoi un mot palindrome?</a></td>
-			</table>
-		</div> <!-- fin secondaire-->
+
 
 	</div><!-- fin centre-->
-</div><!-- fin global-->
+
 </body>
 </html>

@@ -6,11 +6,10 @@
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Bienvenue NomClient</title>
 
-<link rel="stylesheet" type="text/css" href="styles/main.css" media="all" />
 <link rel="stylesheet" type="text/css" href="styles/style.css" media="screen" />
 </head>
 <body>
-<div id="global">
+
 <div id="langue">
 					
 						<a href="#" title="Anglais"><img style="cursor:pointer; cursor:hand;" alt="English" src="images/Angleterre.png" /></a>
@@ -62,26 +61,7 @@
 			</ul>
 		</div><!-- fin navigation-->
 
-		<div id="principal">
-			Et promittentes industria hos et Emissa hos nec et Epigonus Montius et quaestor philosophus sint magna sint quaerebatur nequ
-			id nec quaerebatur efflaturus ducitur et promittentes increpabat et hos aliquotiens manus nec Emissa philosophus quia orator 
-			Lycia et nec dilancinantium aliquotiens manus nec inter dignitatem hos nec fabricarum ostendens nec orator Eusebium cognomento
-			armorum insimulasset aliquotiens qui quaestor nec promittentes ducitur dignitatem si Eusebium nec magna Lycia promitte
-			ntes Pittacas Eusebius efflaturus nec orator promittentes qui novas cum concitatus nec professionem Lycia quia industria ho
-			s Epigonus aliquotiens conperissent pro
-			Et promittentes industria hos et Emissa hos nec et Epigonus Montius et quaestor philosophus sint magna sint quaerebatur nequ
-			id nec quaerebatur efflaturus ducitur et promittentes increpabat et hos aliquotiens manus nec Emissa philosophus quia orator 
-			Lycia et nec dilancinantium aliquotiens manus nec inter dignitatem hos nec fabricarum ostendens nec orator Eusebium cognomento
-			armorum insimulasset aliquotiens qui quaestor nec promittentes ducitur dignitatem si Eusebium nec magna Lycia promitte
-			ntes Pittacas Eusebius efflaturus nec orator promittentes qui novas cum concitatus nec professionem Lycia quia industria ho
-			s Epigonus aliquotiens conperissent pro
-			Et promittentes industria hos et Emissa hos nec et Epigonus Montius et quaestor philosophus sint magna sint quaerebatur nequ
-			id nec quaerebatur efflaturus ducitur et promittentes increpabat et hos aliquotiens manus nec Emissa philosophus quia orator 
-			
 		
-		
-			
-		</div><!-- fin principale-->
 
 		<div id="secondaire">
 			<table>
@@ -102,9 +82,27 @@
 							<td><a href="Forum">C'est quoi un mot palindrome?</a></td>
 			</table>
 		</div> <!-- fin secondaire-->
-
+<div id="principal">
+			Et promittentes industria hos et Emissa hos nec et Epigonus Montius et quaestor philosophus sint magna sint quaerebatur nequ
+			id nec quaerebatur efflaturus ducitur et promittentes increpabat et hos aliquotiens manus nec Emissa philosophus quia orator 
+			Lycia et nec dilancinantium aliquotiens manus nec inter dignitatem hos nec fabricarum ostendens nec orator Eusebium cognomento
+			armorum insimulasset aliquotiens qui quaestor nec promittentes ducitur dignitatem si Eusebium nec magna Lycia promitte
+			ntes Pittacas Eusebius efflaturus nec orator promittentes qui novas cum concitatus nec professionem Lycia quia industria ho
+			s Epigonus aliquotiens conperissent pro
+			Et promittentes industria hos et Emissa hos nec et Epigonus Montius et quaestor philosophus sint magna sint quaerebatur nequ
+			id nec quaerebatur efflaturus ducitur et promittentes increpabat et hos aliquotiens manus nec Emissa philosophus quia orator 
+			Lycia et nec dilancinantium aliquotiens manus nec inter dignitatem hos nec fabricarum ostendens nec orator Eusebium cognomento
+			armorum insimulasset aliquotiens qui quaestor nec promittentes ducitur dignitatem si Eusebium nec magna Lycia promitte
+			ntes Pittacas Eusebius efflaturus nec orator promittentes qui novas cum concitatus nec professionem Lycia quia industria ho
+			s Epigonus aliquotiens conperissent pro
+			Et promittentes industria hos et Emissa hos nec et Epigonus Montius et quaestor philosophus sint magna sint quaerebatur nequ
+			id nec quaerebatur efflaturus ducitur et promittentes increpabat et hos aliquotiens manus nec Emissa philosophus quia orator 
+			
+		
+		
+			
+		</div><!-- fin principale-->
 	</div><!-- fin centre-->
 
-</div><!-- fin global-->
 </body>
 </html>
