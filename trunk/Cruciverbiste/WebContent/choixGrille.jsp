@@ -27,42 +27,14 @@
 </head>
 <body>
 	
-
-		<%@ include file="entete.jspf" %>
+	<%@ include file="entete.jspf" %>
+ 	<%@ include file="menu.jspf" %>
+ 	<%@ include file="secondaire.jspf" %>
 		
-	<div id="centre">
-		<div id="navigation">
-			<ul>
-				<li><a href="jouerMotsCroises.jsp">Mots croisés</a></li>
-				<li><a href="jouerMotsFleches.jsp">Mots fléchés</a></li>
-				<li><a href="index.html">Créer une grille</a></li>
-				<li><a href="jeuxConcours.jsp">Jeux concours</a></li>
-				<li><a href="forum.jsp">Forum</a></li>
-			</ul>
-		</div><!-- fin navigation-->
-		<div id="secondaire">
-			<table>
-			   <caption><strong>Sujets récents</strong></caption>
-					   <tr>
-							<td><a href="Forum">C'est quoi les mots croisés?</a></td>
-					   </tr>
-					   <tr>
-							<td><a href="Forum">C'est quoi les mots fléchés?</a></td>
-					   </tr>
-					   <tr>
-							<td><a href="Forum">Une grille défi pour tous!</a></td>
-					   </tr>
-					   <tr>
-							<td><a href="Forum">Le sens du mot cruciverbiste?</a></td>
-					   </tr>
-					   <tr>
-							<td><a href="Forum">C'est quoi un mot palindrome?</a></td>
-			</table>
-		</div> <!-- fin secondaire-->
 		<div id="principal">
 			
 				<div class="coda-slider-wrapper">
-	<div class="coda-slider preload" id="coda-slider-1">
+		<div class="coda-slider preload" id="coda-slider-1">
 		<div class="panel">
 			<div class="panel-wrapper">
 				<h2 class="title">Panel 1</h2>
@@ -96,7 +68,4 @@
 
 
 
-	</div><!-- fin centre-->
-
-</body>
-</html>
+	<%@ include file="pied.jspf" %>	

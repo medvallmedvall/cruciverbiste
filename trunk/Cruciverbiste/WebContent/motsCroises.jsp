@@ -7,7 +7,8 @@
 <link rel="stylesheet" type="text/css" href="css/style.css" />
 </head>
 <body>
-
+ <%@ include file="entete.jspf" %>
+ <%@ include file="menu.jspf" %>
 <h2>${grille.nomGrille}</h2>
 
 
@@ -81,7 +82,4 @@
 	</script>
 </c:forEach>
 
-
-</body>
-</html>
-
+<%@ include file="pied.jspf" %>	

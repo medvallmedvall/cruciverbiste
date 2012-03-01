@@ -10,16 +10,8 @@
 </head>
 <body>
 	<%@ include file="entete.jspf" %>
-	<div id="centre">
-		<div id="navigation">
-			<ul>
-				<li><a href="jouerMotsCroises.jsp">Mots croisés</a></li>
-				<li><a href="jouerMotsFleches.jsp">Mots fléchés</a></li>
-				<li><a href="index.html">Créer une grille</a></li>
-				<li><a href="jeuxConcours.jsp">Jeux concours</a></li>
-				<li><a href="forum.jsp">Forum</a></li>
-			</ul>
-		</div> <!-- fin navigation-->
+ 	<%@ include file="menu.jspf" %>
+ 
 
 		<div id="principal">
 			
@@ -27,22 +19,4 @@
 	
 		</div><!-- fin principale-->
 
-		<div id="secondaire">
-		<form action="Rechercher" method="get">
-			<table>
-			  <caption>Rechercher un mot</caption>
-					   <tr>
-							<td><input type="text" name="motif"/></td>
-							<td><input type="submit" value="OK"/></td>
-					   </tr>
-					   <tr>
-							<td colspan="2"><textarea id="patern"></textarea></td>
-					   </tr>
-			</table>
-		</form>	
-		</div> <!-- fin secondaire-->
-
-	</div><!-- fin centre-->
-
-</body>
-</html>
+		<%@ include file="pied.jspf" %>	
