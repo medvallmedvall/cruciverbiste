@@ -7,7 +7,8 @@
 <link rel="stylesheet" type="text/css" href="css/style.css" />
 </head>
 <body>
-
+ <%@ include file="entete.jspf" %>
+ <%@ include file="menu.jspf" %>
 <h2>${grille.nomGrille}</h2>
 
 
@@ -41,7 +42,6 @@
 <script type="text/javascript" src="javascripts/jquery-1.7.1.js"></script>
 <script type="text/javascript" src="javascripts/grilleMotsFleches.js"></script>
 
+<%@ include file="pied.jspf" %>	
 
-</body>
-</html>
 

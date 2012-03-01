@@ -10,38 +10,8 @@
 </head>
 <body>
 	<%@ include file="entete.jspf" %>
-	<div id="centre">
-		<div id="navigation">
-			<ul>
-				<li><a href="jouerMotsCroises.jsp">Mots croisés</a></li>
-				<li><a href="jouerMotsFleches.jsp">Mots fléchés</a></li>
-				<li><a href="index.html">Créer une grille</a></li>
-				<li><a href="index.html">Jeux concours</a></li>
-				<li><a href="index.html">Forum</a></li>
-			</ul>
-		</div><!-- fin navigation-->
-
-		
-
-		<div id="secondaire">
-			<table>
-			   <caption><strong>Sujets récents</strong></caption>
-					   <tr>
-							<td><a href="Forum">C'est quoi les mots croisés?</a></td>
-					   </tr>
-					   <tr>
-							<td><a href="Forum">C'est quoi les mots fléchés?</a></td>
-					   </tr>
-					   <tr>
-							<td><a href="Forum">Une grille défi pour tous!</a></td>
-					   </tr>
-					   <tr>
-							<td><a href="Forum">Le sens du mot cruciverbiste?</a></td>
-					   </tr>
-					   <tr>
-							<td><a href="Forum">C'est quoi un mot palindrome?</a></td>
-			</table>
-		</div> <!-- fin secondaire-->
+ <%@ include file="menu.jspf" %>
+ <%@ include file="secondaire.jspf" %>
 		<div id="principal">
 		
 		 <h3>Inscription du client :</h3>
@@ -76,7 +46,4 @@
 		
 			
 		</div><!-- fin principale-->
-
-	</div> <!-- fin centre-->
-</body>
-</html>
+<%@ include file="pied.jspf" %>	

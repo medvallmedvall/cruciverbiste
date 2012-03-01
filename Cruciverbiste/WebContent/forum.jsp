@@ -10,5 +10,4 @@
 <body>
 <%@ include file="entete.jspf" %>
 <IFRAME SRC="http://localhost/phpBB3/index.php" width="80%" height="780" scrolling="no" ></IFRAME>
-</body>
-</html>
+<%@ include file="pied.jspf" %>	

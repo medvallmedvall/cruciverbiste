@@ -1,0 +1,20 @@
+<div id="secondaire"><!-- debut secondaire -->
+				<table>
+			   		<caption><strong>Sujets récents</strong></caption>
+					<tr>
+						<td><a href="Forum">C'est quoi les mots croisés?</a></td>
+					</tr>
+				   	<tr>
+						<td><a href="Forum">C'est quoi les mots fléchés?</a></td>
+				   	</tr>
+				   	<tr>
+						<td><a href="Forum">Une grille défi pour tous!</a></td>
+				   	</tr>
+				   	<tr>
+						<td><a href="Forum">Le sens du mot cruciverbiste?</a></td>
+				   	</tr>
+				   	<tr>
+						<td><a href="Forum">C'est quoi un mot palindrome?</a></td>
+				   	</tr>
+				</table>
+</div> <!-- fin secondaire-->
