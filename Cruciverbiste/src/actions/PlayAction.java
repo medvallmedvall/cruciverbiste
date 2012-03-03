@@ -1,7 +1,5 @@
 package actions;
 
-import hibernate.Grilles;
-import hibernate.GrillesHome;
 
 import com.opensymphony.xwork2.ActionSupport;
 
