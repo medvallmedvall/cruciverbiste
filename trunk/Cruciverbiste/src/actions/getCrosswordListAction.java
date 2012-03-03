@@ -2,15 +2,16 @@ package actions;
 
 import java.util.List;
 
-import hibernate.Grilles;
-import hibernate.GrillesHome;
-
 import com.opensymphony.xwork2.ActionSupport;
+
+import dao.GrilleDao;
+import dao.GrilleDao.TypeGrille;
+import entities.Grille;
 
 @SuppressWarnings("serial")
 public class getCrosswordListAction extends ActionSupport {
 	private int idGrid;
-	private List<Grilles> grilles;
+	private List<Grille> grilles;
 
 	public getCrosswordListAction() {
 		super();
@@ -20,8 +21,8 @@ public class getCrosswordListAction extends ActionSupport {
 	@SuppressWarnings("unchecked")
 	public String execute() throws Exception {
 		//on recupere les grilles
-		GrillesHome home = new GrillesHome();
-		//grilles = home.getGrillesMotsCroises();
+		GrilleDao dao = new GrilleDao();
+		grilles = dao.getGrilles(TypeGrille.MOTS_FLECHES);
 		if ((grilles == null) || (grilles.isEmpty())) {
 			return ERROR;
 		}
@@ -36,7 +37,7 @@ public class getCrosswordListAction extends ActionSupport {
 		this.idGrid = idGrid;
 	}
 
-	public List<Grilles> getGrilles() {
+	public List<Grille> getGrilles() {
 		return grilles;
 	}
 
