@@ -162,12 +162,12 @@ public class Grille {
 		this.langues = langues;
 	}*/
 
-	public int getTypegrille() {
+	public int getIdTypeGrille() {
 		return this.idTypeGrille;
 	}
 
-	public void setTypegrille(int typegrille) {
-		this.idTypeGrille = typegrille;
+	public void setIdTypeGrille(int idTypeGrille) {
+		this.idTypeGrille = idTypeGrille;
 	}
 
 	public int getUtilisateurs() {

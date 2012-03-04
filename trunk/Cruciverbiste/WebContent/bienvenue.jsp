@@ -26,4 +26,4 @@
 		
 			
 		</div><!-- fin principale-->
-	<%@ include file="pied.jspf" %>	>
+	<%@ include file="pied.jspf" %>	

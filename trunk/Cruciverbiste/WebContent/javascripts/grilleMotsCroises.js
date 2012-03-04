@@ -18,19 +18,55 @@ $("#grille1 td").click(
 			var contenuCase = $(this).children(":first");
 			//si ce n'est pas une definition, ni une case qui est en train d'etre editée
 			if (contenuCase.length == 0) {
-				horizontal = true;
+				horizontal = false;
+				if (canSwitchOrientation($(this))) {
+					horizontal = !horizontal;
+				}
 				selectionnerCase($(this));
 			}
 			else {
 				//si c'est une case entrain d'etre éditée
 				if (contenuCase.attr("id") == "caseTexte") {
-					horizontal = !horizontal;
-					selectionnerCase($(this));
+					if (canSwitchOrientation($(this))) {
+						horizontal = !horizontal;
+						selectionnerCase($(this));
+					}
 				}
 			}
 			selectDefinition($(this));
 		}
 );
+
+function canSwitchOrientation(mCase) {
+	var mIdString = mCase.attr("id");
+	var mTab = mIdString.split("-");
+	var x = mTab[0];
+	var y = mTab[1];
+	var mPrevCase;
+	var mNextCase;
+	if (horizontal) {
+		//on regarde si il y a une case au dessus et en dessous
+		y--;
+		mPrevCase = $("#" + x + "-" + y);
+		y+= 2;
+		mNextCase = $("#" + x + "-" + y);
+	}
+	else {
+		//on regarde si il y a une case avant et apres
+		x--;
+		mPrevCase = $("#" + x + "-" + y);
+		x+= 2;
+		mNextCase = $("#" + x + "-" + y);
+	}
+	//si la case suivante existe et qu'elle n'est pas une definition
+	if ((mPrevCase.length != 0) && (!mPrevCase.hasClass("caseNoire")))  {
+		return true;
+	}
+	if ((mNextCase.length != 0) && (!mNextCase.hasClass("caseNoire")))  {
+		return true;
+	}
+	return false;
+}
 
 function selectDefinition(mCase) {
 	//on doit changer la definition
