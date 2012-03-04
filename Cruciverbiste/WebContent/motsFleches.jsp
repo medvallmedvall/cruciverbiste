@@ -1,14 +1,5 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Jouer mots fleches</title>
-<link rel="stylesheet" type="text/css" href="css/style.css" />
-</head>
-<body>
- <%@ include file="entete.jspf" %>
- <%@ include file="menu.jspf" %>
+
 <h2>${grille.nomGrille}</h2>
 
 
@@ -16,7 +7,7 @@
 
 
 <table id="grille1">
-	<c:forEach var="i" begin="0" end="${grille.longueur - 1}">
+	<c:forEach var="i" begin="0" end="${grille.hauteur - 1}">
 		<tr>
 			<c:forEach var="j" begin="0" end="${grille.largeur - 1}">
 				<td id="${i}-${j}"></td>
@@ -24,6 +15,9 @@
 		</tr>
 	</c:forEach>
 </table>	
+
+<script type="text/javascript" src="javascripts/jquery-1.7.1.js"></script>
+<script type="text/javascript" src="javascripts/grilleMotsFleches.js"></script>
 
 
 <!-- Ajout des définitions dans les cases -->
@@ -36,12 +30,6 @@
 		addDefinition(idCase, direction, "textDef");
 	</script>
 </c:forEach>
-	
-	
-	
-<script type="text/javascript" src="javascripts/jquery-1.7.1.js"></script>
-<script type="text/javascript" src="javascripts/grilleMotsFleches.js"></script>
 
-<%@ include file="pied.jspf" %>	
 
 
