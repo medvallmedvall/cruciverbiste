@@ -1,99 +1,92 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<jsp:include page="entete.jsp">
-	<jsp:param value="monTitre" name="titre" />
-	<jsp:param value="true" name="afficherMenu" />
-	<jsp:param value="false" name="afficherSecondaire"/>
-</jsp:include>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+	pageEncoding="ISO-8859-1"%>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<title>Liste des grilles</title>
 
-<!-- style ici -->
+<link rel="stylesheet" type="text/css" href="styles/style.css"
+	media="screen" />
+<link rel="stylesheet" href="styles/coda-slider-2.0.css" type="text/css"
+	media="screen" />
+</head>
+<body>
+	<%@ include file="entete.jspf"%>
+	<%@ include file="menu.jspf"%>
+	<%@ include file="secondaire.jspf"%>
 
-<!-- Begin JavaScript -->
-<script type="text/javascript" src="javascripts/jquery-1.3.2.min.js"></script>
-<script type="text/javascript" src="javascripts/jquery.easing.1.3.js"></script>
-<script type="text/javascript"
-	src="javascripts/jquery.coda-slider-2.0.js"></script>
-<script type="text/javascript">
-	$().ready(function() {
-		$('#coda-slider-1').codaSlider();
-	});
-</script>
-<!-- End JavaScript -->
+	<!-- Begin JavaScript -->
+	<script type="text/javascript" src="javascripts/jquery-1.3.2.min.js"></script>
+	<script type="text/javascript" src="javascripts/jquery.easing.1.3.js"></script>
+	<script type="text/javascript"
+		src="javascripts/jquery.coda-slider-2.0.js"></script>
+	<script type="text/javascript">
+		$().ready(function() {
+			$('#coda-slider-1').codaSlider();
+		});
+	</script>
+	<!-- End JavaScript -->
 
+	<div id="principal">
 
-<c:choose>
-	<c:when test="${idGridType == 1}">
-		<h1>Mots Fléchés</h1>
-	</c:when>
-	<c:when test="${idGridType == 2}">
-		<h1>Mots Croisés</h1>
-	</c:when>
-	<c:otherwise>
-		<h1>Erreur...</h1>
-	</c:otherwise>
-</c:choose>
+		<c:choose>
+			<c:when test="${idTypeGrid == 1}">
+				<h1>Mots Fléchés </h1>
+			</c:when>
+			<c:when test="${idTypeGrid == 2}">
+				<h1>Mots Croisés</h1>
+			</c:when>
+		</c:choose>
 
-<c:forEach>
+		<!-- On cree les panneaux pour chaque themes -->
 
+		<div class="coda-slider-wrapper">
+			<div class="coda-slider preload" id="coda-slider-1">
+				<c:forEach var="mTheme" items="${themesList}">
+					<div class="panel">
+						<div class="panel-wrapper">
+							<h2 class="title">${mTheme.nomTheme}</h2>
+							<table class="tableGrilles" id="tableTheme${mTheme.idTheme}">
+								<!--tr>
+									<th>Nom grille</th>
+									<th>Createur</th>
+									<th>Taille</th>
+									<th>Niveau</th>
+								</tr-->
+							</table>
+						</div>
+					</div>
+				</c:forEach>
 
-</c:forEach>
+			</div><!-- .coda-slider -->
+		</div><!--fin .coda-slider-wrapper -->
+		
+		<!-- On ajoute les grilles aux panneaux -->
+		
+		<c:forEach var="g" items="${grillesList}">
+			<script type="text/javascript">
+				var mId = "#tableTheme" + ${g.idTheme};
+				var mUrl = "jouer?idGrille=" + ${g.idGrille};
+				var mElement = "<tr onclick=\"location.href='"+ mUrl + "'\">" +
+									"<td>${g.nomGrille}</td>" +
+									"<td>concepteur</td>" +
+									"<td>" + ${g.largeur} + "x" + ${g.hauteur} + "</td>" +
+									"<td>" + ${g.niveau} + "</td>" +
+								"</tr>";
+				var mTable = $(mId);
+				mTable.append(mElement);
+			</script>
+		</c:forEach>
 
+	</div><!-- fin de principal -->
+	
+	<script type="text/javascript">
+		$('table.tableGrilles tr:nth-child(even)').addClass('lignePaire').css('cursor','pointer');
+		$('table.tableGrilles tr:nth-child(odd)').addClass('ligneImpaire').css('cursor','pointer');
+	</script>
+	
+	
 
-
-
-
-
-
-<div class="coda-slider-wrapper">
-	<div class="coda-slider preload" id="coda-slider-1">
-		<div class="panel">
-			<div class="panel-wrapper">
-				<h2 class="title">Panel 1</h2>
-				<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-					Maecenas metus nulla, commodo a sodales sed, dignissim pretium
-					nunc. Nam et lacus neque. Sed volutpat ante id mauris laoreet
-					vestibulum. Nam blandit felis non neque cursus aliquet. Morbi vel
-					enim dignissim massa dignissim commodo vitae quis tellus. Nunc non
-					mollis nulla. Sed consectetur elit id mi consectetur bibendum. Ut
-					enim massa, sodales tempor convallis et, iaculis ac massa. Etiam
-					suscipit nisl eget lorem pellentesque quis iaculis mi mattis.
-					Aliquam sit amet purus lectus. Maecenas tempor ornare sollicitudin.</p>
-			</div>
-		</div>
-		<div class="panel">
-			<div class="panel-wrapper">
-				<h2 class="title">Panel 2</h2>
-				<p>Proin nec turpis eget dolor dictum lacinia. Nullam nunc
-					magna, tincidunt eu porta in, faucibus sed magna. Suspendisse
-					laoreet ornare ullamcorper. Nulla in tortor nibh. Pellentesque sed
-					est vitae odio vestibulum aliquet in nec leo.</p>
-			</div>
-		</div>
-		<div class="panel">
-			<div class="panel-wrapper">
-				<h2 class="title">Panel 3</h2>
-				<p>Cras luctus fringilla odio vel hendrerit. Cras pulvinar
-					auctor sollicitudin. Sed lacus quam, sodales sit amet feugiat sit
-					amet, viverra nec augue. Sed enim ipsum, malesuada quis blandit
-					vel, posuere eget erat. Sed a arcu justo. Integer ultricies, nunc
-					at lobortis facilisis, ligula lacus vestibulum quam, id tincidunt
-					sapien arcu in velit. Vestibulum consequat augue et turpis
-					condimentum mollis sed vitae metus. Morbi leo libero, tincidunt
-					lobortis fermentum eget, rhoncus vel sem. Morbi varius viverra
-					velit vel tempus. Morbi enim turpis, facilisis vel volutpat at,
-					condimentum quis erat. Morbi auctor rutrum libero sed placerat.
-					Etiam ipsum velit, eleifend in vehicula eu, tristique a ipsum.
-					Donec vitae quam vel diam iaculis bibendum eget ut diam. Fusce quis
-					interdum diam. Ut urna justo, dapibus a tempus sit amet, bibendum
-					at lectus. Sed venenatis molestie commodo.</p>
-			</div>
-		</div>
-
-
-
-
-	</div>
-	<!-- .coda-slider -->
-</div>
-<!-- .coda-slider-wrapper -->
-
-<jsp:include page="pied.jsp"/>
+	<jsp:include page="pied.jspf" />

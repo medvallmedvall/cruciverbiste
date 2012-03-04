@@ -5,13 +5,16 @@ import java.util.List;
 import com.opensymphony.xwork2.ActionSupport;
 
 import dao.GrilleDao;
+import dao.ThemeDao;
 import dao.GrilleDao.TypeGrille;
 import entities.Grille;
+import entities.Theme;
 
 @SuppressWarnings("serial")
 public class GetGridListAction extends ActionSupport {
 	private int idTypeGrid;
-	private List<Grille> grilles;
+	private List<Grille> grillesList;
+	private List<Theme> themesList;
 	
 	public GetGridListAction() {
 		super();
@@ -20,18 +23,26 @@ public class GetGridListAction extends ActionSupport {
 	
 	public String execute() throws Exception {
 		//on recupere les grilles
-		GrilleDao dao = new GrilleDao();
+		GrilleDao grilleDao = new GrilleDao();
 		if (idTypeGrid == 1) {
-			grilles = dao.getGrilles(TypeGrille.MOTS_FLECHES);
+			grillesList = grilleDao.getGrilles(TypeGrille.MOTS_FLECHES);
 		}
 		else if (idTypeGrid == 2) {
-			grilles = dao.getGrilles(TypeGrille.MOTS_CROISES);
+			grillesList = grilleDao.getGrilles(TypeGrille.MOTS_CROISES);
 		}
 		else {
+			addActionError("Type de grille inconnu");
 			return ERROR;
 		}
-		//grilles = home.getGrillesMotsFleches();
-		if ((grilles == null) || (grilles.isEmpty())) {
+		if ((grillesList == null) || (grillesList.isEmpty())) {
+			addActionError("Impossible d'avoir la liste de grilles");
+			return ERROR;
+		}
+		//on recupere la liste 
+		ThemeDao themeDao = new ThemeDao();
+		themesList = themeDao.getThemes();
+		if ((themesList == null) || (themesList.isEmpty())) {
+			addActionError("Impossible d'avoir la liste de themes");
 			return ERROR;
 		}
 		return SUCCESS;
@@ -45,7 +56,11 @@ public class GetGridListAction extends ActionSupport {
 		this.idTypeGrid = idTypeGrid;
 	}
 	
-	public List<Grille> getGrilles() {
-		return grilles;
+	public List<Grille> getGrillesList() {
+		return grillesList;
+	}
+	
+	public List<Theme> getThemesList() {
+		return themesList;
 	}
 }
