@@ -9,41 +9,37 @@ import entities.Grille;
 
 @SuppressWarnings("serial")
 public class PlayAction extends ActionSupport {
-	private int idGrid;
+	private int idGrille;
 	//private Grilles grille;
 	private Grille grille;
 	
 	public PlayAction() {
 		super();
-		idGrid = 2;
+		idGrille = -1;
 	}
 	
 	public String execute() throws Exception {
 		//selectionner la grille avec l'id idGrid
-		//GrillesHome home = new GrillesHome();
-		//grille = home.findById(idGrid);
-		////si la grille n'existe pas on retourne une erreur
 		GrilleDao dao = new GrilleDao();
-		grille = dao.findById(idGrid);
+		grille = dao.findById(idGrille);
+		//si la grille n'existe pas on retourne une erreur
 		if (grille == null) {
+			addActionError("La grille (" + idGrille + ") est nulle");
 			return ERROR;
 		}
 		return SUCCESS;
 	}
 	
-	public int getIdGrid() {
-		return idGrid;
+	public int getIdGrille() {
+		return idGrille;
 	}
 	
-	public void setIdGrid(int idGrid) {
-		this.idGrid = idGrid;
+	public void setIdGrille(int idGrille) {
+		this.idGrille = idGrille;
 	}
 	
 	public Grille getGrille() {
 		return grille;
 	}
 	
-	/*public Grilles getGrille() {
-		return grille;
-	}*/
 }

@@ -12,12 +12,8 @@
 			<!--result name="success">motsCroises.jsp</result-->
 			<result name="error">erreur.jsp</result>
 		</action>
-		<action name="choixGrilleMotsFleches" class="actions.getArrowordListAction">
-			<result name="success">choixGrilleMotsFleches.jsp</result>
-			<result name="error">erreur.jsp</result>
-		</action>
-		<action name="choixGrilleMotsCroises" class="actions.getCrosswordListAction">
-			<result name="success">choixGrilleMotsCroises.jsp</result>
+		<action name="choixGrilles" class="actions.GetGridListAction">
+			<result name="success">choixGrilles.jsp</result>
 			<result name="error">erreur.jsp</result>
 		</action>
 	</package>

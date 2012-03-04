@@ -15,7 +15,7 @@ public class Grille {
 	private int idUtilisateur;
 	private String nomGrille;
 	private int largeur;
-	private int longueur;
+	private int hauteur;
 	private Date dateCreation;
 	private boolean estFinie;
 	private boolean estValidee;
@@ -33,16 +33,17 @@ public class Grille {
 	public Grille() {
 	}
 	
-	public Grille(int idLangue, int typeGrille,
+	public Grille(int idGrille, int idLangue, int typeGrille,
 			int idUtilisateur, String nomGrille, int largeur,
-			int longueur, Date dateCreation, boolean estFinie,
+			int hauteur, Date dateCreation, boolean estFinie,
 			boolean estValidee, Date dateValidation, int niveau, int idTheme) {
+		this.idGrille = idGrille;
 		this.idLangue = idLangue;
 		this.idTypeGrille = typeGrille;
 		this.idUtilisateur = idUtilisateur;
 		this.nomGrille = nomGrille;
 		this.largeur = largeur;
-		this.longueur = longueur;
+		this.hauteur = hauteur;
 		this.dateCreation = dateCreation;
 		this.estFinie = estFinie;
 		this.estValidee = estValidee;
@@ -51,17 +52,18 @@ public class Grille {
 		this.idTheme = idTheme;
 	}
 	
-	public Grille(int idLangue, int typeGrille,
+	public Grille(int idGrille, int idLangue, int typeGrille,
 			int idUtilisateur, String nomGrille, int largeur,
-			int longueur, Date dateCreation, boolean estFinie,
+			int hauteur, Date dateCreation, boolean estFinie,
 			boolean estValidee, Date dateValidation, int niveau, int idTheme,
 			Set<CaseNoire> casesNoires, Set<MotGrille> motsGrille) {
+		this.idGrille = idGrille;
 		this.idLangue = idLangue;
 		this.idTypeGrille = typeGrille;
 		this.idUtilisateur = idUtilisateur;
 		this.nomGrille = nomGrille;
 		this.largeur = largeur;
-		this.longueur = longueur;
+		this.hauteur = hauteur;
 		this.dateCreation = dateCreation;
 		this.estFinie = estFinie;
 		this.estValidee = estValidee;
@@ -192,12 +194,12 @@ public class Grille {
 		this.largeur = largeur;
 	}
 
-	public int getLongueur() {
-		return this.longueur;
+	public int getHauteur() {
+		return this.hauteur;
 	}
 
-	public void setLongueur(int longueur) {
-		this.longueur = longueur;
+	public void setHauteur(int hauteur) {
+		this.hauteur = hauteur;
 	}
 
 	public Date getDateCreation() {

@@ -3,7 +3,6 @@ package dao;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Date;
-import java.util.HashSet;
 import java.util.LinkedHashSet;
 import java.util.LinkedList;
 import java.util.List;
@@ -18,40 +17,6 @@ public class GrilleDao extends Dao<Grille> {
 	public GrilleDao() {
 		super();
 	}
-	
-	
-	public List<Grille> getGrilles(TypeGrille type) {
-		List<Grille> mList = new LinkedList<Grille>();
-		int idType = type.ordinal() + 1;
-		String query = "SELECT * FROM grilles WHERE id_typegrille = " + idType;
-		ResultSet results = null;
-		try {
-			results = this.connection.createStatement().executeQuery(query);
-			while (results.next()) {
-				int idLangue  = results.getInt("id_Langue");
-				int idTypeGrille  = results.getInt("id_typegrille");
-				int idUtilisateur = results.getInt("idUtilisateurConcepteur");
-				String nomGrille = results.getString("nomGrille");
-				int largeur = results.getInt("largeur");
-				int longueur = results.getInt("longueur");
-				Date dateCreation = results.getDate("date_Creation");
-				boolean estFinie = results.getBoolean("estFinie");
-				boolean estValidee = results.getBoolean("estValidee");
-				Date dateValidation = results.getDate("date_validation");
-				int niveau = results.getInt("niveau");
-				int idTheme = results.getInt("id_theme");
-				Grille grille = new Grille(idLangue, idTypeGrille, idUtilisateur,
-						nomGrille, largeur, longueur, dateCreation, estFinie,
-						estValidee, dateValidation, niveau, idTheme);
-				mList.add(grille);
-			}
-			
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return mList;
-	}
 
 	@Override
 	public Grille findById(int id) {
@@ -60,7 +25,7 @@ public class GrilleDao extends Dao<Grille> {
 		ResultSet results = null;
 		try {
 			results = this.connection.createStatement().executeQuery(query3);
-			while(results.next()) {
+			if (!results.first()) {
 				return null;
 			}
 			int idLangue  = results.getInt("id_Langue");
@@ -75,7 +40,7 @@ public class GrilleDao extends Dao<Grille> {
 			Date dateValidation = results.getDate("date_validation");
 			int niveau = results.getInt("niveau");
 			int idTheme = results.getInt("id_theme");
-			grille = new Grille(idLangue, idTypeGrille, idUtilisateur,
+			grille = new Grille(id, idLangue, idTypeGrille, idUtilisateur,
 					nomGrille, largeur, longueur, dateCreation, estFinie,
 					estValidee, dateValidation, niveau, idTheme);
 			String query2 = "";
@@ -146,6 +111,40 @@ public class GrilleDao extends Dao<Grille> {
 	public void delete(Grille obj) {
 		// TODO Auto-generated method stub
 
+	}
+	
+	public List<Grille> getGrilles(TypeGrille type) {
+		List<Grille> mList = new LinkedList<Grille>();
+		int idType = type.ordinal() + 1;
+		String query = "SELECT * FROM grilles WHERE id_typegrille = " + idType;
+		ResultSet results = null;
+		try {
+			results = this.connection.createStatement().executeQuery(query);
+			while (results.next()) {
+				int idGrille = results.getInt("id_grille");
+				int idLangue  = results.getInt("id_Langue");
+				int idTypeGrille  = results.getInt("id_typegrille");
+				int idUtilisateur = results.getInt("idUtilisateurConcepteur");
+				String nomGrille = results.getString("nomGrille");
+				int largeur = results.getInt("largeur");
+				int longueur = results.getInt("longueur");
+				Date dateCreation = results.getDate("date_Creation");
+				boolean estFinie = results.getBoolean("estFinie");
+				boolean estValidee = results.getBoolean("estValidee");
+				Date dateValidation = results.getDate("date_validation");
+				int niveau = results.getInt("niveau");
+				int idTheme = results.getInt("id_theme");
+				Grille grille = new Grille(idGrille, idLangue, idTypeGrille, idUtilisateur,
+						nomGrille, largeur, longueur, dateCreation, estFinie,
+						estValidee, dateValidation, niveau, idTheme);
+				mList.add(grille);
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return mList;
 	}
 	
 	public enum TypeGrille {
