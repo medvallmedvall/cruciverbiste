@@ -1,13 +1,33 @@
-<div id="navigation"><!-- debut navigation -->
-				<ul>
-					<!--li><a href="jouerMotsCroises.jsp">Mots croisés</a></li>
-					<li><a href="jouerMotsFleches.jsp">Mots fléchés</a></li-->
-					<li><a href="choixGrilles?idTypeGrid=1">Mots fléchés</a></li>
-					<li><a href="choixGrilles?idTypeGrid=2">Mots croisés</a></li>
-					<li><a href="index.html">Créer une grille</a></li>
-					<li><a href="jeuxConcours.jsp">Jeux concours</a></li>
-					<li><a href="jeuxConcours.jsp">Contacts</a></li>
-					<li><a href="forum.jsp">Forum</a></li>
-					
-				</ul>
-			</div><!-- fin navigation-->
+
+<div id="navigation">
+<ul id="navmenu">
+	<li><a href="#">Jouer</a>
+	<ul>
+		<li><a href="#">Mots croises</a>
+		<ul>
+			<li><a href="#">Facile</a></li>
+			<li><a href="#">Moyen</a></li>
+			<li><a href="#">Expert</a></li>
+		</ul>
+		</li>
+		<li><a href="#">Mots fleches</a>
+		<ul>
+			<li><a href="#">Facile</a></li>
+			<li><a href="#">Moyen</a></li>
+			<li><a href="#">Expert</a></li>
+		</ul>
+		</li>
+	</ul>
+	</li>
+	<li><a href="#">CrÃ©er une grille</a>
+	<ul>
+		<li><a href="#">Mots croises</a></li>
+		<li><a href="#">Mots fleches</a></li>
+	</ul>
+	</li>
+	<li><a href="#">Espace Jeune</a></li>
+	<li><a href="#">Jeu concours</a></li>
+	<li><a href="#">Forum</a></li>
+</ul>
+</div>
+<!-- fin navigation-->
