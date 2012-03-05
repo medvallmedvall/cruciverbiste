@@ -1,13 +1,21 @@
-//perte de focus sur input, tout deselectionner.
-
-//function clickGrille() {
+/*Ajouter les cases noires à la grille*/
 
 function addCaseNoire(coordonnees) {
 	var mSelector = "#" + coordonnees;
 	$(mSelector).addClass("caseNoire");
 }
 
+/*Lorsque la grille perd le focus, on deselectionne tout*/
 
+$("#grille1").focusout(
+		function() {
+			deselectionnnerCase();
+			$(".ligne_definition").removeClass("definitionSelectionnee2");
+			$("#grille1 td").removeClass("caseMotSelectionne");
+		});
+
+
+/*Lors d'un clique sur une case de la grille*/
 
 $("#grille1 td").click(
 		function() {
@@ -36,6 +44,8 @@ $("#grille1 td").click(
 			selectDefinition($(this));
 		}
 );
+
+/*Fon qui verifie si la case suivante peut être selectionné (pour le changement de sens)*/
 
 function canSwitchOrientation(mCase) {
 	var mIdString = mCase.attr("id");
@@ -68,6 +78,8 @@ function canSwitchOrientation(mCase) {
 	return false;
 }
 
+/*Selectionner la definition associée à la case, ainsi que les cases du mot*/
+
 function selectDefinition(mCase) {
 	//on doit changer la definition
 	$(".ligne_definition").removeClass("definitionSelectionnee2");
@@ -98,7 +110,6 @@ function selectDefinition(mCase) {
 			return;
 		}
 	}
-	//definition non trouvée : on change le sens
 }
 
 function selectCaseDebutH(mCase) {
@@ -122,6 +133,8 @@ function selectCaseDebutV(mCase) {
 	return c;
 }
 
+/*Selectionne les cases du mot associé a la definition*/
+
 $(".ligne_definition").click(
 		function() {
 			$(".ligne_definition").removeClass("definitionSelectionnee2");
@@ -140,6 +153,8 @@ $(".ligne_definition").click(
 			var mCase = $("#grille1 tr").eq(rowIdx + 1).children().eq(colIdx + 1);
 			selectionnerCase(mCase);
 		});
+
+/*Lors de l'appuie sur les touches speciales (direction, backspace, ctr...)*/
 
 $("#grille1").keyup(
 		function(event) {
@@ -183,7 +198,7 @@ $("#grille1").keyup(
 		}
 );
 
-
+/*Lors de l'appui sur les touches alpha-numerique, ponctuation...*/
 
 $("#grille1").keypress(
 		function(event) {
@@ -208,6 +223,7 @@ $("#grille1").keypress(
 		}
 );
 
+/*Deselectionne la case courante, qui est en train d'etre editee*/
 
 function deselectionnnerCase() {
 	//on deselectionne la case et enleve le champ input
@@ -216,6 +232,9 @@ function deselectionnnerCase() {
 	$("#caseTexte").parent().text(letter);
 	$("#caseTexte").remove();
 }
+
+
+/*selectionner une case pour l'editer, les cases suivantes et precedentes, ainsi que la definition*/
 
 function selectionnerCase(mCase) {
 	deselectionnnerCase();
@@ -313,6 +332,7 @@ function selectPreviousCaseV() {
 	}
 }
 
+/*fontion qui retourne le code de la touche*/
 
 function codeTouche(event) {
 	for (prop in event) {
@@ -322,5 +342,3 @@ function codeTouche(event) {
 	}
 	return event.keyCode;
 }
-
-//clickGrille();
