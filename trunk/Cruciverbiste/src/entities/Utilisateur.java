@@ -1,100 +1,92 @@
-package dao;
+package entities;
 
-import java.sql.SQLException;
-import java.sql.Statement;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.Locale;
 
-import entities.Utilisateur;
+public class Utilisateur {
 
-public class UtilisateurDao extends Dao<Utilisateur> {
+	private Integer idUtilisateur;
+	private String nom;
+	private String prenom;
+	private String pseudo;
+	private String password;
+	private String mail;
+	private Date dateInscription;
+	private Date dateNaissance;
 
-	static Locale locale = Locale.getDefault();
-	static Date actuelle = new Date();
+	public Utilisateur(String nom, String prenom, String pseudo,
+			String password, String mail, Date dateNaissance) {
+		super();
 
-	// * Definition du format utilise pour les dates
-	static DateFormat dateFormat = new SimpleDateFormat("dd/mm/yyyy");
-
-	// * Donne la date au format "aaaa-mm-jj"
-	public static String date() {
-		String dat = dateFormat.format(actuelle);
-		return dat;
+		this.nom = nom;
+		this.prenom = prenom;
+		this.pseudo = pseudo;
+		this.password = password;
+		this.mail = mail;
+		this.dateNaissance = dateNaissance;
 	}
 
-	public UtilisateurDao() {
-		// TODO Auto-generated constructor stub
+	public Integer getIdUtilisateur() {
+		return idUtilisateur;
 	}
 
-	@Override
-	public Utilisateur findById(int id) {
-		// TODO Auto-generated method stub
-		return null;
+	public void setIdUtilisateur(Integer idUtilisateur) {
+		this.idUtilisateur = idUtilisateur;
 	}
 
-	@Override
-	public Utilisateur create(Utilisateur obj) {
-		// TODO Auto-generated method stub
-
-		try {
-			Statement sql = this.connection.createStatement();
-			String prenom = obj.getPrenom();
-			String nom = obj.getNom();
-			Date dateNaissance = obj.getDateNaissance();
-			Date dateInscription = new Date();
-			String pseudo = obj.getPseudo();
-			String password = obj.getPassword();
-			String mail = obj.getMail();
-			try {
-
-				String req = "INSERT INTO Utilisateurs (idUtilisateur, nom,"
-						+ " prenom, pseudo, password, mail, date_inscription,"
-						+ " date_naissance)" + " VALUES (5, '"
-						+ nom
-						+ "','"
-						+ prenom
-						+ "','"
-						+ pseudo
-						+ "','"
-						+ password
-						+ "','"
-						+ mail
-						+ "','"
-						+ dateInscription.getYear()
-						+ "-"
-						+ dateInscription.getMonth()
-						+ "-"
-						+ dateInscription.getDay()
-						+ "','"
-						+ dateNaissance.getYear()
-						+ "-"
-						+ dateNaissance.getMonth()
-						+ "-"
-						+ dateNaissance.getDay() + "')";
-				sql.executeUpdate(req);
-			} catch (Exception e) {
-				e.printStackTrace();
-				// TODO: handle exception
-			}
-
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return obj;
+	public String getNom() {
+		return nom;
 	}
 
-	@Override
-	public Utilisateur update(Utilisateur obj) {
-		// TODO Auto-generated method stub
-		return null;
+	public void setNom(String nom) {
+		this.nom = nom;
 	}
 
-	@Override
-	public void delete(Utilisateur obj) {
-		// TODO Auto-generated method stub
+	public String getPrenom() {
+		return prenom;
+	}
 
+	public void setPrenom(String prenom) {
+		this.prenom = prenom;
+	}
+
+	public String getPseudo() {
+		return pseudo;
+	}
+
+	public void setPseudo(String pseudo) {
+		this.pseudo = pseudo;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+	public String getMail() {
+		return mail;
+	}
+
+	public void setMail(String mail) {
+		this.mail = mail;
+	}
+
+	public Date getDateInscription() {
+		return dateInscription;
+	}
+
+	public void setDateInscription(Date dateInscription) {
+		this.dateInscription = dateInscription;
+	}
+
+	public Date getDateNaissance() {
+		return dateNaissance;
+	}
+
+	public void setDateNaissance(Date dateNaissance) {
+		this.dateNaissance = dateNaissance;
 	}
 
 }
