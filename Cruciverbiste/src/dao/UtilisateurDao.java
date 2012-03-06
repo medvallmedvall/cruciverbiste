@@ -48,9 +48,9 @@ public class UtilisateurDao extends Dao<Utilisateur> {
 			String mail = obj.getMail();
 			try {
 
-				String req = "INSERT INTO Utilisateurs (idUtilisateur, nom,"
+				String req = "INSERT INTO Utilisateurs (nom,"
 						+ " prenom, pseudo, password, mail, date_inscription,"
-						+ " date_naissance)" + " VALUES (5, '"
+						+ " date_naissance)" + " VALUES ('"
 						+ nom
 						+ "','"
 						+ prenom
