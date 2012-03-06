@@ -16,6 +16,12 @@
 			<result name="success">choixGrilles.jsp</result>
 			<result name="error">erreur.jsp</result>
 		</action>
+      
+      
+     <action name="Inscription" class="actions.Inscription">
+			<result name="success">bienvenue.jsp</result>
+			<result name="error">erreur.jsp</result>
+		</action>
 	</package>
 
 </struts>
