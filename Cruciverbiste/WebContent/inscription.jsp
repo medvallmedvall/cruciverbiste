@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 <%@ taglib prefix="s" uri="/struts-tags" %>
+
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -9,6 +11,7 @@
 
 <link rel="stylesheet" type="text/css" href="styles/style.css"
 	media="screen" />
+	<script type="text/javascript" src="javascripts/inscription.js"></script>
 </head>
 <body>
 <%@ include file="entete.jspf"%>
@@ -41,7 +44,7 @@
 		<td><s:textfield name="mail" label="Adresse email*" /></td>
 	</tr>
 	<tr>
-		<td><s:submit value="Inscription" style="width: 100px;" label="Inscription"></s:submit></td>
+		<td><s:submit  onclick="verif_formulaire()" value="Inscription" style="width: 100px;" label="Inscription"></s:submit></td>
 	</tr>
 </table>
 </s:form>
