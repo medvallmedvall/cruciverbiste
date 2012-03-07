@@ -1,27 +1,16 @@
 package dao;
 
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
-import java.util.Locale;
+import java.util.List;
+
 
 import entities.Utilisateur;
 
 public class UtilisateurDao extends Dao<Utilisateur> {
-
-	static Locale locale = Locale.getDefault();
-	static Date actuelle = new Date();
-
-	// * Definition du format utilise pour les dates
-	static DateFormat dateFormat = new SimpleDateFormat("dd/mm/yyyy");
-
-	// * Donne la date au format "aaaa-mm-jj"
-	public static String date() {
-		String dat = dateFormat.format(actuelle);
-		return dat;
-	}
 
 	public UtilisateurDao() {
 		// TODO Auto-generated constructor stub
@@ -29,7 +18,6 @@ public class UtilisateurDao extends Dao<Utilisateur> {
 
 	@Override
 	public Utilisateur findById(int id) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
@@ -41,42 +29,41 @@ public class UtilisateurDao extends Dao<Utilisateur> {
 			Statement sql = this.connection.createStatement();
 			String prenom = obj.getPrenom();
 			String nom = obj.getNom();
-			Date dateNaissance = obj.getDateNaissance();
-			Date dateInscription = new Date();
+			String dateNaissance = obj.getDateNaissance();
+			Date d = new Date();
+			String jour = d.getDate() + "";
+			int m = d.getMonth() + 1;
+			String mois = m +"";
+			int y = d.getYear() + 1900;
+			String year = y + "";
+			if ((m >= 1) || (m <= 9)) {
+				mois = "0" + mois;
+			}
+			if ((d.getDate() >= 1) || (d.getDate()) <= 9) {
+				jour = "0" + jour;
+			}
+		
+			String	dateInscription = "" + jour + "/"+ mois + "/" + year+"";
 			String pseudo = obj.getPseudo();
 			String password = obj.getPassword();
 			String mail = obj.getMail();
-			try {
-
-				String req = "INSERT INTO Utilisateurs (nom,"
-						+ " prenom, pseudo, password, mail, date_inscription,"
-						+ " date_naissance)" + " VALUES ('"
-						+ nom
-						+ "','"
-						+ prenom
-						+ "','"
-						+ pseudo
-						+ "','"
-						+ password
-						+ "','"
-						+ mail
-						+ "','"
-						+ dateInscription.getYear()
-						+ "-"
-						+ dateInscription.getMonth()
-						+ "-"
-						+ dateInscription.getDay()
-						+ "','"
-						+ dateNaissance.getYear()
-						+ "-"
-						+ dateNaissance.getMonth()
-						+ "-"
-						+ dateNaissance.getDay() + "')";
-				sql.executeUpdate(req);
-			} catch (Exception e) {
-				e.printStackTrace();
-				// TODO: handle exception
-			}
+			String req = "INSERT INTO Utilisateur (nom,"
+					+ " prenom, pseudo, password, mail, dateInscription,"
+					+ " dateNaissance)" + " VALUES ('"
+					+ nom
+					+ "','"
+					+ prenom
+					+ "','"
+					+ pseudo
+					+ "','"
+					+ password
+					+ "','"
+					+ mail
+					+ "','"
+					+ dateInscription
+					+ "','"
+					+ dateNaissance + "')";
+			sql.executeUpdate(req);
 
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -95,6 +82,45 @@ public class UtilisateurDao extends Dao<Utilisateur> {
 	public void delete(Utilisateur obj) {
 		// TODO Auto-generated method stub
 
+	}
+	
+	public boolean verifyUtilisateurExists(Utilisateur obj) {
+		String query = "select * from Utilisateur";
+		Boolean b = false; 
+		List <Utilisateur> listUsers = new ArrayList<Utilisateur>();
+		try {
+			ResultSet rs = this.connection.createStatement().executeQuery(query);
+			if (rs == null) {
+				b = false;
+			}
+			while (rs.next()) {
+				String nom_utilisateur = rs.getString("nom");
+				String prenom_utilisateur = rs.getString("prenom");
+				String pseudo_utilisateur = rs.getString("pseudo");
+				String pass = rs.getString("password");
+				String mail = rs.getString("mail");
+				String naissance = rs.getString("datenaissance");
+				Utilisateur user = new Utilisateur(nom_utilisateur, 
+						prenom_utilisateur, pseudo_utilisateur, mail, pass, naissance);
+				listUsers.add(user);
+				
+			}
+			for (Utilisateur u : listUsers) {
+				if ((obj.getPseudo().equals(u.getPseudo())) || (obj.getMail().equals(u.getMail()))) {
+					b = true;
+				} else {
+					b = false;
+				}
+			}
+			
+			
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return b;
+		
 	}
 
 }
