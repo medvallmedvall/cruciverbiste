@@ -1,15 +1,5 @@
 package actions;
 
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-
-import java.util.Date;
-
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-
-import org.apache.struts2.ServletActionContext;
 
 import com.opensymphony.xwork2.ActionSupport;
 
@@ -24,7 +14,7 @@ public class Inscription extends ActionSupport {
 	String pseudo;
 	String password;
 	String mail;
-	Date dateNaissance;
+	String dateNaissance;
 
 	public String getNom() {
 		return nom;
@@ -66,11 +56,11 @@ public class Inscription extends ActionSupport {
 		this.mail = mail;
 	}
 
-	public Date getDateNaissance() {
+	public String getDateNaissance() {
 		return dateNaissance;
 	}
 
-	public void setDateNaissance(Date dateNaissance) {
+	public void setDateNaissance(String dateNaissance) {
 		this.dateNaissance = dateNaissance;
 	}
 
@@ -78,8 +68,13 @@ public class Inscription extends ActionSupport {
 		Utilisateur utilisateur = new Utilisateur(getNom(), getPrenom(), getPseudo(),
 				getPassword(), getMail(), getDateNaissance());
 		UtilisateurDao utilisateurDao = new UtilisateurDao();
-		utilisateurDao.create(utilisateur);
+		if (!utilisateurDao.verifyUtilisateurExists(utilisateur)) {
+			utilisateurDao.create(utilisateur);
+			return SUCCESS;
+		} else {
+			return ERROR;
+		}
+		
 
-		return SUCCESS;
 	}
 }
