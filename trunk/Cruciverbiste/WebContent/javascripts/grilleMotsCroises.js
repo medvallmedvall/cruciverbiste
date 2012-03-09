@@ -1,4 +1,5 @@
 horizontal = false;
+
 /*Ajouter les cases noires à la grille*/
 
 function addCaseNoire(coordonnees) {
@@ -36,28 +37,128 @@ function addWord(x, y, word, orientation) {
 			$("#grille1 td").removeClass("caseMotSelectionne");
 		});*/
 
+/*Menu contextuel
+ * http://jcrozier.developpez.com/tutoriels/web/jquery/plugin-menu-contextuel/*/
 
-/*Lors d'un clique sur une case de la grille*/
+$(document).ready( function() {
 
-$("#grille1 td").click(
-		function() {
-			if ($(this).hasClass("caseNoire")) {
-				$("#caseTexte").focus();
-				return;
-			}
-			//alert($(this).children().length);
-			var contenuCase = $(this).children(":first");
-			//si ce n'est pas une case qui est en train d'etre editée
-			if (contenuCase.length == 0) {
-				horizontal = false;
-			}
-			if (canSwitchOrientation($(this))) {
-				horizontal = !horizontal;
-			}
-			selectionnerCase($(this));
-			selectDefinition($(this));
+	$("#grille1 td").contextMenu({
+		menu: 'mContextMenu'
+	},
+	function(action, el, pos) {
+		//var mCase = $(el);
+		//selectionnerCase(mCase);
+		if (action == "getLetter") {
+			var mCase = $("#caseTexte").parent("td");
+			alert(mCase.className);
+			getLetter(mCase);
 		}
-);
+		else if (action == "getWord") {
+			getWord();
+		}
+		else if (action == "getSynonym") {
+
+		}
+		else if (action == "getSolution") {
+
+		}
+	});
+	
+	/*Lors d'un clique sur une case de la grille*/
+
+	$("#grille1 td").click(
+			function(e) {
+				if ($(this).hasClass("caseNoire")) {
+					$("#caseTexte").focus();
+					return;
+				}
+				var contenuCase = $(this).children(":first");
+				//si ce n'est pas une case qui est en train d'etre editée
+				if (button == 0) {
+					if (contenuCase.length == 0) {
+						horizontal = false;
+					}
+					if (canSwitchOrientation($(this))) {
+						horizontal = !horizontal;
+					}
+				}
+				else if (button == 2) {
+					horizontal = false;
+					horizontal = canSwitchOrientation($(this));
+				}
+				selectionnerCase($(this));
+				selectDefinition($(this));
+			}
+	);
+	
+	$("#grille1 td").mousedown(
+			function(e) {
+				//click gauche : 0, click droit : 2
+				button = e.button;
+			}
+	);
+	
+	$("#grille1 td").mouseup(
+			function(e) {
+				//click gauche : 0, click droit : 2
+				button = e.button;
+			}
+	);
+
+});
+
+String.prototype.startsWith = 
+	function(str) {
+	return (this.match("^" + str) == str);
+};
+
+function getLetter(mCase) {
+	//alert(mCase.className);
+	var classList = mCase.className.split(/\s+/);
+	for (var i = 0; i < classList.length; i++) {
+		var mClass = classList[i];
+		if (mClass.startsWith("result")) {
+			var splits = mClass.split("-");
+			//alert(splits[1]);
+			//if (mCase.childNodes.length == 0) {
+			var classname = mCase.className;
+			if (classname.indexOf("caseSelectionnee") == -1) {
+				//mCase.text(splits[1]);
+				mCase.innerHTML = splits[1];
+			}
+			else {
+				$("#caseTexte").val(splits[1]);
+				$("#caseTexte").focus();
+				//alert(mCase.childNodes[0].tagName);
+				/*var classname = mCase.className;
+				if (classname.indexOf("caseSelectionnee") == -1) {
+					
+				}*/
+				/*if (mCase.childNodes[0].innerHTML.length == 1) {
+					mCase.innerHTML = splits[1];
+				}
+				else {
+					$("#caseTexte").val(splits[1]);
+					
+				}*/
+			}
+			return;
+		}
+	}
+}
+
+function getWord() {
+	$("td.caseMotSelectionne").each(
+			function(index, mCase) {
+				//alert(mCase.innerHTML);
+				getLetter(mCase);
+			});
+}
+
+
+
+
+
 
 /*Fon qui verifie si la case suivante peut être selectionné (pour le changement de sens)*/
 

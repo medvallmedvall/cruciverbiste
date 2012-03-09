@@ -110,6 +110,7 @@ div {
 	margin: auto;
 	width:100%;
 }
+
 /*
 #navigation {
 	float:left;
@@ -141,6 +142,7 @@ div {
 	font-size: .9em;
 }
 
+
 */
 #principal {
 	margin:auto;
@@ -170,6 +172,7 @@ div {
 #grille1, #grilleMotFleche{
 	border-collapse: collapse;
 	background-color: white;
+	margin: auto;
 }
 
 
@@ -184,6 +187,7 @@ div {
 	font-size: 200%;
 	text-align: center;
 	padding: 0px;
+	z-index: 0;
 }
 
 .caseSelectionnee {
@@ -204,9 +208,10 @@ div {
 	text-align: center;
 	border: 1px solid yellow;
 	margin: 0px;
+	z-index: 10;
 }
 
-.caseDefinition1 {
+/*.caseDefinition1 {
 	font-size: 10px;
 	text-transform: none;
 	height: 100%;
@@ -220,7 +225,7 @@ div {
 	font-size: 10px;
 	margin: 0px;
 	background-color: orange;
-}
+}*/
 
 .definitionSelectionnee {
 	background-color: red;
@@ -287,17 +292,17 @@ div {
 	background-color: blue;
 	font-size: 9px;
 	width: 100%;
-	height: 100%;
+	/*height: 100%;*/
 	font-weight: bold;
-	line-height: 40px;
+	line-height: 150%;
+	margin: 0px;
+	border: 1px solid black;
+	z-index: 10;
 }
 
 #grilleMotFleche .definition span {
 	display: none;
 }
-
-
-
 
 /* **********************************Menu********************************************** */
 
@@ -418,5 +423,58 @@ ul#navmenu ul li.iehover ul,
 ul#navmenu ul ul li.iehover ul {
   display: block;
 }
+
+
+/*Menu contextuel grille*/
+
+.contextMenu {
+	position: absolute;
+	width: 120px;
+	z-index: 99999;
+	border: solid 1px #CCC;
+	background: #EEE;
+	padding: 0px;
+	margin: 0px;
+	display: none;
+}
+
+.contextMenu LI {
+	list-style: none;
+	padding: 0px;
+	margin: 0px;
+}
+
+.contextMenu A {
+	color: #333;
+	text-decoration: none;
+	display: block;
+	line-height: 20px;
+	height: 20px;
+	background-position: 6px center;
+	background-repeat: no-repeat;
+	outline: none;
+	padding: 1px 5px;
+	padding-left: 28px;
+}
+
+.contextMenu LI.hover A {
+	color: #FFF;
+	background-color: #3399FF;
+}
+
+.contextMenu LI.disabled A {
+	color: #AAA;
+	cursor: default;
+}
+
+.contextMenu LI.hover.disabled A {
+	background-color: transparent;
+}
+
+.contextMenu LI.separator {
+	border-top: solid 1px #CCC;
+}
+
+
 
 

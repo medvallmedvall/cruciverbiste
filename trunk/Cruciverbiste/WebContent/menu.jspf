@@ -3,14 +3,14 @@
 <ul id="navmenu">
 	<li><a href="#">Jouer</a>
 	<ul>
-		<li><a href="#">Mots croises</a>
+		<li><a href="choixGrilles?idTypeGrid=2">Mots croises</a>
 		<ul>
 			<li><a href="#">Facile</a></li>
 			<li><a href="#">Moyen</a></li>
 			<li><a href="#">Expert</a></li>
 		</ul>
 		</li>
-		<li><a href="#">Mots fleches</a>
+		<li><a href="choixGrilles?idTypeGrid=1">Mots fleches</a>
 		<ul>
 			<li><a href="#">Facile</a></li>
 			<li><a href="#">Moyen</a></li>

@@ -58,9 +58,19 @@
 		</tr>
 	</c:forEach>
 </table>	
+
+<!-- Creation du menu contextuel -->
+
+<ul id="mContextMenu" class="contextMenu">
+	<li><a href="#getLetter">Lettre</a></li>
+	<li><a href="#getWord">Mot</a></li>
+	<li><a href="#getSynonym">Synonyme</a></li>
+	<li><a href="#getSolution">Solution</a></li>
+</ul>
 	
 <script type="text/javascript" src="javascripts/jquery-1.7.1.js"></script>
 <script type="text/javascript" src="javascripts/grilleMotsCroises.js"></script>
+<script type="text/javascript" src="javascripts/jquery.contextMenu.js"></script>
 
 <!-- ajout des cases noires -->
 
