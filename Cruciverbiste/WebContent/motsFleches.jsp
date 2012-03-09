@@ -6,11 +6,11 @@
 <!-- Creation de la grille de mots fléchés -->
 
 
-<table id="grille1">
+<table id="grilleMotFleche">
 	<c:forEach var="i" begin="0" end="${grille.hauteur - 1}">
 		<tr>
 			<c:forEach var="j" begin="0" end="${grille.largeur - 1}">
-				<td id="${i}-${j}"></td>
+				<td id="${j}-${i}"></td>
 			</c:forEach>
 		</tr>
 	</c:forEach>
@@ -26,8 +26,8 @@
 	<script>
 		var idCase = ${mDef.coordX} + "-" + ${mDef.coordY};
 		var direction = ${mDef.orientation};
-		//var textDef = "${mDef.definition}";
-		addDefinition(idCase, direction, "textDef");
+		var textDef = "${mDef.definition}";
+		addDefinition(idCase, direction, textDef);
 	</script>
 </c:forEach>
 

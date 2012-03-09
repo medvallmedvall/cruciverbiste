@@ -71,3 +71,15 @@
 		addCaseNoire(id);
 	</script>
 </c:forEach>
+
+<!-- ajout des lettres (cachees) -->
+
+<c:forEach var="mDef" items="${grille.motsGrille}">
+	<script type="text/javascript">
+		var x = ${mDef.coordX};
+		var y = ${mDef.coordY};
+		var word = "${mDef.mot}";
+		var orientation = ${mDef.orientation};
+		addWord(x, y, word, orientation);
+	</script>
+</c:forEach>
