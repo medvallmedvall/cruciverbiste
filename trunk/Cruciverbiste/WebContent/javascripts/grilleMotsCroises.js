@@ -1,3 +1,4 @@
+horizontal = false;
 /*Ajouter les cases noires à la grille*/
 
 function addCaseNoire(coordonnees) {
@@ -5,14 +6,35 @@ function addCaseNoire(coordonnees) {
 	$(mSelector).addClass("caseNoire");
 }
 
+
+/*ajoute les mots à trouver dans un  tableau (evite d'envoyer une requete pour l'aide)*/
+function addWord(x, y, word, orientation) {
+	//alert(word + " -> " + x + "-" + y);
+	for (var i = 0; i < word.length; i++) {
+		var mId = x + "-" + y;
+		var mSelector = "#" + mId;
+		var mCase = $(mSelector);
+		mCase.addClass("result-" + word[i]);
+		if (orientation == 5) {
+			//si c'est horizontal
+			x++;
+		}
+		else if (orientation == 6) {
+			//si c'est verical
+			y++;
+		}
+	}
+}
+
+
 /*Lorsque la grille perd le focus, on deselectionne tout*/
 
-$("#grille1").focusout(
+/*$("#grille1").focusout(
 		function() {
-			deselectionnnerCase();
+			//deselectionnnerCase();
 			$(".ligne_definition").removeClass("definitionSelectionnee2");
 			$("#grille1 td").removeClass("caseMotSelectionne");
-		});
+		});*/
 
 
 /*Lors d'un clique sur une case de la grille*/
@@ -23,24 +45,16 @@ $("#grille1 td").click(
 				$("#caseTexte").focus();
 				return;
 			}
+			//alert($(this).children().length);
 			var contenuCase = $(this).children(":first");
-			//si ce n'est pas une definition, ni une case qui est en train d'etre editée
+			//si ce n'est pas une case qui est en train d'etre editée
 			if (contenuCase.length == 0) {
 				horizontal = false;
-				if (canSwitchOrientation($(this))) {
-					horizontal = !horizontal;
-				}
-				selectionnerCase($(this));
 			}
-			else {
-				//si c'est une case entrain d'etre éditée
-				if (contenuCase.attr("id") == "caseTexte") {
-					if (canSwitchOrientation($(this))) {
-						horizontal = !horizontal;
-						selectionnerCase($(this));
-					}
-				}
+			if (canSwitchOrientation($(this))) {
+				horizontal = !horizontal;
 			}
+			selectionnerCase($(this));
 			selectDefinition($(this));
 		}
 );
@@ -159,39 +173,49 @@ $(".ligne_definition").click(
 $("#grille1").keyup(
 		function(event) {
 			var c = codeTouche(event);
-			//si on a appuyé sur des fleches directionnelles
-			if ((c >= 37) && (c <= 40)) {
-				//horizontal = true;
+			//si on a appuyé sur des fleches directionnelles ou la touche pour effacer
+			if ((c == 8) || ((c >= 37) && (c <= 40))) {
+				var mIdString = $("#caseTexte").parent("td").attr("id");
+				var mTab = mIdString.split("-");
+				var x = mTab[0];
+				var y = mTab[1];
+				var sens = true;
 				switch(c) {
+				case 8:
+					//backspace
+					sens = horizontal;
+					if (horizontal) {
+						x--;
+					}
+					else {
+						y--;
+					}
+					break;
 				case 37:
 					//left
-					horizontal = true;
-					selectPreviousCaseH();
+					x--;
+					sens = true;
 					break;
 				case 38:
 					//up
-					horizontal = false;
-					selectPreviousCaseV();
+					y--;
+					sens = false;
 					break;
 				case 39:
 					//right
-					horizontal = true;
-					selectNextCaseH();
+					x++;
+					sens = true;
 					break;
 				case 40:
 					//bottom
-					horizontal = false;
-					selectNextCaseV();
+					y++;
+					sens = false;
 					break;
 				}
-			}
-			else if (c == 8) {
-				//backspace
-				if (horizontal) {
-					selectPreviousCaseH();
-				}
-				else {
-					selectPreviousCaseV();
+				mCase = $("#" + x + "-" + y);
+				if ((mCase.length != 0) && (!mCase.hasClass("caseNoire")))  {
+					horizontal = sens;
+					selectionnerCase(mCase);
 				}
 			}
 			return false;
@@ -208,14 +232,22 @@ $("#grille1").keypress(
 			var char = String.fromCharCode(c);
 			//si c'est une lettre
 			if (regex.test(char)) {
-				//on efface
+				//on le char dans la case
 				$("#caseTexte").val(char);
 				//on passe a la case suivante
+				var mIdString = $("#caseTexte").parent("td").attr("id");
+				var mTab = mIdString.split("-");
+				var x = mTab[0];
+				var y = mTab[1];
 				if (horizontal) {
-					selectNextCaseH();
+					x++;
 				}
 				else {
-					selectNextCaseV();
+					y++;
+				}
+				var mCase = $("#" + x + "-" + y);
+				if ((mCase.length != 0) && (!mCase.hasClass("caseNoire")))  {
+					selectionnerCase(mCase);
 				}
 				return true;
 			}
@@ -295,41 +327,6 @@ function selectionnerCase(mCase) {
 	mCase.append(input);
 	$("#caseTexte").val(letter);
 	$("#caseTexte").focus();
-}
-
-function selectNextCaseH() {
-	var nextElem = $("#caseTexte").parents("td").next("td");
-	//si la case suivante existe et qu'elle n'est une definition
-	if ((nextElem.length != 0) && (!nextElem.hasClass("caseNoire")))  {
-		selectionnerCase(nextElem);
-	}
-}
-
-function selectPreviousCaseH() {
-	var prevElem = $("#caseTexte").parent("td").prev("td");
-	if ((prevElem.length != 0) && (!prevElem.hasClass("caseNoire"))) {
-		selectionnerCase(prevElem);
-	}
-}
-
-function selectNextCaseV() {
-	var idColonne =  $("#caseTexte").parent().index();
-	var trTag =  $("#caseTexte").parents("tr");
-	var nextElem = trTag.next("tr").children("td").eq(idColonne - 1);
-	//si la case suivante existe et qu'elle n'est pas une definition
-	if ((nextElem.length != 0) && (!nextElem.hasClass("caseNoire")))  {
-		selectionnerCase(nextElem);
-	}
-}
-
-function selectPreviousCaseV() {
-	var idColonne =  $("#caseTexte").parent().index();
-	var trTag =  $("#caseTexte").parents("tr");
-	var prevElem = trTag.prev("tr").children("td").eq(idColonne - 1);
-	//si la case precedente existe et qu'elle n'est pas une definition
-	if ((prevElem.length != 0) && (!prevElem.hasClass("caseNoire"))) {
-		selectionnerCase(prevElem);
-	}
 }
 
 /*fontion qui retourne le code de la touche*/

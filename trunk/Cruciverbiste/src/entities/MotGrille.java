@@ -4,16 +4,28 @@ package entities;
 public class MotGrille {
 	private int idGrille;
 	private int orientation;
-	private String mot;
-	private String definition;
+	/*private String mot;
+	private String definition;*/
+	private Mot mot;
+	private Definition definition;
 	private int coordX;
 	private int coordY;
 
 	public MotGrille() {
 	}
 	
-	public MotGrille(int idGrille, int orientation, String mot,
+	/*public MotGrille(int idGrille, int orientation, String mot,
 			String definition, int x, int y) {
+		this.idGrille = idGrille;
+		this.orientation = orientation;
+		this.mot = mot;
+		this.definition = definition;
+		this.coordX = x;
+		this.coordY = y;
+	}*/
+	
+	public MotGrille(int idGrille, int orientation, Mot mot,
+			Definition definition, int x, int y) {
 		this.idGrille = idGrille;
 		this.orientation = orientation;
 		this.mot = mot;
@@ -56,11 +68,28 @@ public class MotGrille {
 		this.coordY = coordY;
 	}
 	
+	public void setIdGrille(int idGrille) {
+		this.idGrille = idGrille;
+	}
+
+	public void setOrientation(int orientation) {
+		this.orientation = orientation;
+	}
+
+	public void setMot(Mot mot) {
+		this.mot = mot;
+	}
+
+	public void setDefinition(Definition definition) {
+		this.definition = definition;
+	}
+	
 	public String getMot() {
-		return mot;
+		return mot.getMot();
 	}
 	
 	public String getDefinition() {
-		return definition;
+		return definition.getDefinition();
 	}
+
 }
