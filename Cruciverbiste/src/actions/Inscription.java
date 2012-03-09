@@ -65,7 +65,7 @@ public class Inscription extends ActionSupport {
 	}
 
 	public String execute() {
-		Utilisateur utilisateur = new Utilisateur(getNom(), getPrenom(), getPseudo(),
+		/*Utilisateur utilisateur = new Utilisateur(getNom(), getPrenom(), getPseudo(),
 				getPassword(), getMail(), getDateNaissance());
 		UtilisateurDao utilisateurDao = new UtilisateurDao();
 		if (!utilisateurDao.verifyUtilisateurExists(utilisateur)) {
@@ -73,8 +73,8 @@ public class Inscription extends ActionSupport {
 			return SUCCESS;
 		} else {
 			return ERROR;
-		}
+		}*/
 		
-
+		return SUCCESS;
 	}
 }

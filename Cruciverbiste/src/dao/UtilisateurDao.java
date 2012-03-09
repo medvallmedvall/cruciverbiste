@@ -29,7 +29,7 @@ public class UtilisateurDao extends Dao<Utilisateur> {
 			Statement sql = this.connection.createStatement();
 			String prenom = obj.getPrenom();
 			String nom = obj.getNom();
-			String dateNaissance = obj.getDateNaissance();
+			//String dateNaissance = obj.getDateNaissance();
 			Date d = new Date();
 			String jour = d.getDate() + "";
 			int m = d.getMonth() + 1;
@@ -47,7 +47,7 @@ public class UtilisateurDao extends Dao<Utilisateur> {
 			String pseudo = obj.getPseudo();
 			String password = obj.getPassword();
 			String mail = obj.getMail();
-			String req = "INSERT INTO Utilisateur (nom,"
+			/*String req = "INSERT INTO Utilisateur (nom,"
 					+ " prenom, pseudo, password, mail, dateInscription,"
 					+ " dateNaissance)" + " VALUES ('"
 					+ nom
@@ -63,7 +63,7 @@ public class UtilisateurDao extends Dao<Utilisateur> {
 					+ dateInscription
 					+ "','"
 					+ dateNaissance + "')";
-			sql.executeUpdate(req);
+			sql.executeUpdate(req);*/
 
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -100,9 +100,9 @@ public class UtilisateurDao extends Dao<Utilisateur> {
 				String pass = rs.getString("password");
 				String mail = rs.getString("mail");
 				String naissance = rs.getString("datenaissance");
-				Utilisateur user = new Utilisateur(nom_utilisateur, 
+				/*Utilisateur user = new Utilisateur(nom_utilisateur, 
 						prenom_utilisateur, pseudo_utilisateur, mail, pass, naissance);
-				listUsers.add(user);
+				listUsers.add(user);*/
 				
 			}
 			for (Utilisateur u : listUsers) {

@@ -16,7 +16,9 @@ $(document).ready(
 			$("#principal").css("width", newPrincWidth);
 			$("#principal").css("min-width", newPrincWidth);
 			$("#principal").css("float", "left");
-			$("#principal").css("margin-left", "10px");
+			//$("#principal").css("margin-left", "10px");
+			menuWidth+= 10;
+			$("#principal").css("margin-left", menuWidth + "px");
 			$("#principal").css("margin-right", "10px");
 		});
 //-->
