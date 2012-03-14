@@ -29,7 +29,8 @@
 		<td><s:textfield name="prenom" label="Prenom"/></td>
 	</tr>
 	<tr>
-		<td><s:textfield name="dateNaissance" label="Date De Naissance"/></td>
+		<td><s:textfield name="dateNaissance" label="Date De Naissance" value = "jj/mm/aaaa"/></td>
+		
 	</tr>
 	<tr>
 		<td><s:textfield name="pseudo" label="Pseudo*"/></td>
