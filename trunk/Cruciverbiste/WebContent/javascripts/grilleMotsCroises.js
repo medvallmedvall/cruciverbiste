@@ -1,4 +1,5 @@
 horizontal = false;
+endGame = false;
 
 /*Ajouter les cases noires à la grille*/
 
@@ -10,7 +11,6 @@ function addCaseNoire(coordonnees) {
 
 /*ajoute les mots à trouver dans un  tableau (evite d'envoyer une requete pour l'aide)*/
 function addWord(x, y, word, orientation) {
-	//alert(word + " -> " + x + "-" + y);
 	for (var i = 0; i < word.length; i++) {
 		var mId = x + "-" + y;
 		var mSelector = "#" + mId;
@@ -42,28 +42,23 @@ function addWord(x, y, word, orientation) {
 
 $(document).ready( function() {
 
-	$("#grille1 td").contextMenu({
-		menu: 'mContextMenu'
-	},
-	function(action, el, pos) {
-		//var mCase = $(el);
-		//selectionnerCase(mCase);
-		if (action == "getLetter") {
-			var mCase = $("#caseTexte").parent("td");
-			alert(mCase.className);
-			getLetter(mCase);
-		}
-		else if (action == "getWord") {
-			getWord();
-		}
-		else if (action == "getSynonym") {
 
-		}
-		else if (action == "getSolution") {
+	/*Lors du click droit, on rend la case editable, selectionne le mot et la definition*/
 
+	$("#grille1 td").bind("contextmenu",function(e){  
+		if ($(this).hasClass("caseNoire")) {
+			$("#caseTexte").focus();
+			return;
 		}
+		horizontal = !horizontal;
+		if (canSwitchOrientation($(this))) {
+			horizontal = !horizontal;
+		}
+		selectionnerCase($(this));
+		selectDefinition($(this));
+		return false;  
 	});
-	
+
 	/*Lors d'un clique sur une case de la grille*/
 
 	$("#grille1 td").click(
@@ -74,92 +69,152 @@ $(document).ready( function() {
 				}
 				var contenuCase = $(this).children(":first");
 				//si ce n'est pas une case qui est en train d'etre editée
-				if (button == 0) {
-					if (contenuCase.length == 0) {
-						horizontal = false;
-					}
-					if (canSwitchOrientation($(this))) {
-						horizontal = !horizontal;
-					}
-				}
-				else if (button == 2) {
+				if (contenuCase.length == 0) {
 					horizontal = false;
-					horizontal = canSwitchOrientation($(this));
+				}
+				if (canSwitchOrientation($(this))) {
+					horizontal = !horizontal;
 				}
 				selectionnerCase($(this));
 				selectDefinition($(this));
 			}
 	);
-	
-	$("#grille1 td").mousedown(
+
+	/*Lorsque le curseur est sur une case, on connecte le menu contextuel*/
+
+	$("#grille1 td").mouseover(
 			function(e) {
-				//click gauche : 0, click droit : 2
-				button = e.button;
-			}
-	);
-	
-	$("#grille1 td").mouseup(
-			function(e) {
-				//click gauche : 0, click droit : 2
-				button = e.button;
-			}
-	);
+				if ($(this).hasClass("caseNoire")) {
+					return;
+				}
+				$("#grille1 td").contextMenu({
+					menu: 'mContextMenu'
+				},
+				function(action, el, pos) {
+					if (action == "getLetter") {
+						var mCase = document.getElementById("caseTexte").parentNode;
+						getLetter(mCase);
+						checkEndGame();
+					}
+					else if (action == "getWord") {
+						getWord();
+						checkEndGame();
+					}
+					else if (action == "getSynonym") {
+
+					}
+					else if (action == "getSolution") {
+						getSolution();
+						checkEndGame();
+					}
+				});
+			});
+
+	/*Lorsque le curseursort de la case, on deconnecte le menu contextuel*/
+
+	$("#grille1 td").mouseout(function(e) {
+		if ($(this).hasClass("caseNoire")) {
+			return;
+		}
+		$("#grille1 td").destroyContextMenu();
+	});
 
 });
+
 
 String.prototype.startsWith = 
 	function(str) {
 	return (this.match("^" + str) == str);
 };
 
+/*Obtenir la lettre d'une case*/
+
 function getLetter(mCase) {
-	//alert(mCase.className);
+	var letter = getResult(mCase);
+	var classname = mCase.className;
+	if (classname.indexOf("caseSelectionnee") == -1) {
+		mCase.innerHTML = letter;
+	}
+	else {
+		$("#caseTexte").val(letter);
+	}
+}
+
+function getResult(mCase) {
 	var classList = mCase.className.split(/\s+/);
 	for (var i = 0; i < classList.length; i++) {
 		var mClass = classList[i];
 		if (mClass.startsWith("result")) {
 			var splits = mClass.split("-");
-			//alert(splits[1]);
-			//if (mCase.childNodes.length == 0) {
-			var classname = mCase.className;
-			if (classname.indexOf("caseSelectionnee") == -1) {
-				//mCase.text(splits[1]);
-				mCase.innerHTML = splits[1];
-			}
-			else {
-				$("#caseTexte").val(splits[1]);
-				$("#caseTexte").focus();
-				//alert(mCase.childNodes[0].tagName);
-				/*var classname = mCase.className;
-				if (classname.indexOf("caseSelectionnee") == -1) {
-					
-				}*/
-				/*if (mCase.childNodes[0].innerHTML.length == 1) {
-					mCase.innerHTML = splits[1];
-				}
-				else {
-					$("#caseTexte").val(splits[1]);
-					
-				}*/
-			}
-			return;
+			return splits[1];
 		}
 	}
+	return null;
 }
+
+/*Obtenir le mot dont les cases sont selectionnees*/
 
 function getWord() {
 	$("td.caseMotSelectionne").each(
 			function(index, mCase) {
-				//alert(mCase.innerHTML);
 				getLetter(mCase);
 			});
 }
 
+/*Obtenir la solution de la grille*/
+
+function getSolution() {
+	$("#grille1 td").each(
+			function(index, mCase) {
+				var classname = mCase.className;
+				if (classname.indexOf("caseNoire") == -1) {
+					getLetter(mCase);
+				}
+			});
+}
 
 
+/*verifier si c'est la fin de partie*/
 
-
-
+function checkEndGame() {
+	//var rows = document.getElementById("grille1").childNodes[0].childNodes;
+	var tmp = document.getElementById("grille1").childNodes;
+	var idx = -1;
+	for (var i = 0; i < tmp.length; i++) {
+		if (tmp[i].tagName == "TBODY") {
+			idx = i;
+		}
+	}
+	//alert(document.getElementById("grille1").tagName);
+	var rows = tmp[idx].childNodes;
+	for (var i = 0; i < rows.length; i++) {
+		var mCells = rows[i].childNodes;
+		for (var j = 0; j < mCells.length; j++) {
+			var mCase = mCells[j];
+			if (mCase.tagName != "TD"){
+				continue;
+			}
+			var classname = mCase.className;
+			if (classname.indexOf("caseNoire") == -1) {
+				var letterRes = getLetter(mCase);
+				var letter = "";
+				if (classname.indexOf("caseSelectionnee") == -1) {
+					letter = mCase.innerHTML;
+				}
+				else {
+					letter = $("#caseTexte").val();
+				}
+				if (letter != letterRes) {
+					alert(letter + "-" + letterRes);
+					return;
+				}
+			}
+		}
+	}
+	alert("Fin de la grille");
+	endGame = true;
+	$("#caseTexte").attr("disabled",true);
+}
 /*Fon qui verifie si la case suivante peut être selectionné (pour le changement de sens)*/
 
 function canSwitchOrientation(mCase) {
@@ -219,7 +274,6 @@ function selectDefinition(mCase) {
 		var mDef = $(selector).eq(i);
 		var rowIdx =  parseInt(mDef.children(".rowIndex").eq(0).text());
 		var colIdx = parseInt(mDef.children(".colIndex").eq(0).text());
-		//alert(rowIdx + " - " + colIdx + "////" + x + " - " + y);
 		if ((rowIdx == y) && (colIdx == x)) {
 			mDef.addClass("definitionSelectionnee2");
 			return;
@@ -328,6 +382,9 @@ $("#grille1").keyup(
 $("#grille1").keypress(
 		function(event) {
 			event.preventDefault();
+			if (endGame) {
+				return false;
+			}
 			var c = codeTouche(event);
 			var regex = /[a-zA-Z]/;
 			var char = String.fromCharCode(c);
@@ -380,7 +437,6 @@ function selectionnerCase(mCase) {
 		//selection des cases apres 
 		for (var i = index; i < children.length; i++) {
 			var mCaseTmp = children.eq(i);
-			//if (mCaseTmp.children(":first").length != 0) {
 			if (mCaseTmp.hasClass("caseNoire")) {
 				break;
 			}
@@ -410,7 +466,6 @@ function selectionnerCase(mCase) {
 		}
 		//selection des cases apres
 		var c = mCase;
-		//var tmpElem = trTag.prev("tr").children("td").eq(idColonne);
 		while ((c.length != 0) && (!c.hasClass("caseNoire"))) {
 			c.addClass("caseMotSelectionne");
 			trTag =  c.parents("tr");
@@ -428,6 +483,9 @@ function selectionnerCase(mCase) {
 	mCase.append(input);
 	$("#caseTexte").val(letter);
 	$("#caseTexte").focus();
+	if (endGame) {
+		$("#caseTexte").attr("disabled",true);
+	}
 }
 
 /*fontion qui retourne le code de la touche*/
