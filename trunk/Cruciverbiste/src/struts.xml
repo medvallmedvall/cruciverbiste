@@ -22,6 +22,11 @@
 			<result name="success">confirmInscription.jsp</result>
 			<result name="error">erreurInscription.jsp</result>
 		</action>
+		
+		<action name ="Connexion" class ="actions.Connexion">
+			<result name ="success">bienvenue.jsp</result>
+			<result name="error"> erreur.jsp</result>
+		</action>
 	</package>
 
 </struts>
