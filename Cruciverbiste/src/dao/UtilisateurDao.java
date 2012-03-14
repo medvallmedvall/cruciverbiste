@@ -5,6 +5,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.LinkedList;
 import java.util.List;
 
 
@@ -29,7 +30,7 @@ public class UtilisateurDao extends Dao<Utilisateur> {
 			Statement sql = this.connection.createStatement();
 			String prenom = obj.getPrenom();
 			String nom = obj.getNom();
-			//String dateNaissance = obj.getDateNaissance();
+			String dateNaissance = obj.getDateNaissance();
 			Date d = new Date();
 			String jour = d.getDate() + "";
 			int m = d.getMonth() + 1;
@@ -47,7 +48,7 @@ public class UtilisateurDao extends Dao<Utilisateur> {
 			String pseudo = obj.getPseudo();
 			String password = obj.getPassword();
 			String mail = obj.getMail();
-			/*String req = "INSERT INTO Utilisateur (nom,"
+			String req = "INSERT INTO Utilisateur (nom,"
 					+ " prenom, pseudo, password, mail, dateInscription,"
 					+ " dateNaissance)" + " VALUES ('"
 					+ nom
@@ -63,7 +64,7 @@ public class UtilisateurDao extends Dao<Utilisateur> {
 					+ dateInscription
 					+ "','"
 					+ dateNaissance + "')";
-			sql.executeUpdate(req);*/
+			sql.executeUpdate(req);
 
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -84,15 +85,28 @@ public class UtilisateurDao extends Dao<Utilisateur> {
 
 	}
 	
+	//Verification de l'existence de l'utilisateur lors de l'inscription
+	
 	public boolean verifyUtilisateurExists(Utilisateur obj) {
+		boolean b = false;	
+		for (Utilisateur u : getUtilisateurs()) {
+				if ((obj.getPseudo().equalsIgnoreCase(u.getPseudo())) || (obj.getMail().equalsIgnoreCase(u.getMail()))) {
+					b = true;
+				} else {
+					b = false;
+				}
+			}
+		return b;
+		
+	}
+	
+	//Tous les utilisateurs du site
+	public List<Utilisateur> getUtilisateurs() {
 		String query = "select * from Utilisateur";
-		Boolean b = false; 
-		List <Utilisateur> listUsers = new ArrayList<Utilisateur>();
+		List <Utilisateur> listUsers = new LinkedList<Utilisateur>();
 		try {
 			ResultSet rs = this.connection.createStatement().executeQuery(query);
-			if (rs == null) {
-				b = false;
-			}
+			
 			while (rs.next()) {
 				String nom_utilisateur = rs.getString("nom");
 				String prenom_utilisateur = rs.getString("prenom");
@@ -100,28 +114,44 @@ public class UtilisateurDao extends Dao<Utilisateur> {
 				String pass = rs.getString("password");
 				String mail = rs.getString("mail");
 				String naissance = rs.getString("datenaissance");
-				/*Utilisateur user = new Utilisateur(nom_utilisateur, 
-						prenom_utilisateur, pseudo_utilisateur, mail, pass, naissance);
-				listUsers.add(user);*/
+				Utilisateur user = new Utilisateur(nom_utilisateur, 
+						prenom_utilisateur, pseudo_utilisateur, pass, mail, naissance);
+				listUsers.add(user);
+			}
 				
-			}
-			for (Utilisateur u : listUsers) {
-				if ((obj.getPseudo().equals(u.getPseudo())) || (obj.getMail().equals(u.getMail()))) {
-					b = true;
-				} else {
-					b = false;
-				}
-			}
-			
-			
-			
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
+				// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		return b;
-		
+		return listUsers;
 	}
+	
+	
+	//Verification des param�tres de connexion de l'utilisateur
+	public boolean verifyUtilisateurConnects(Utilisateur obj) {
+		//Utilisateur obj = new Utilisateur(ps, pa);
+		for (int i = 0; i < getUtilisateurs().size(); i++) {
+			if ((obj.getPseudo().equalsIgnoreCase(getUtilisateurs().get(i).getPseudo())) 
+					&& (obj.getPassword().equalsIgnoreCase(getUtilisateurs().get(i).getPassword()))) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	/*
+	
+	public boolean verifyUtilisateurConnects(String ps, String pa) {
+		Utilisateur obj = new Utilisateur(ps, pa);
+		for (int i = 0; i < getUtilisateurs().size(); i++) {
+			if ((.equalsIgnoreCase(getUtilisateurs().get(i).getPseudo())) && (pa.equalsIgnoreCase(getUtilisateurs().get(i).getPassword()))) {
+				return true;
+			}
+		}
+		return false;
+	}
+	*/
+
+
 
 }
-
