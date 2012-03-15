@@ -8,6 +8,11 @@
 <link rel="stylesheet" type="text/css" href="styles/style.css" media="screen" />
 </head>
 <body>
-<%@ include file="entete.jspf" %>
-<IFRAME SRC="http://localhost/phpBB3/index.php" width="80%" height="780" scrolling="no" ></IFRAME>
+
+
+<%@ include file="entete.jspf"%>
+<%@ include file="menu.jspf"%>
+
+<div id="principal">
+<IFRAME SRC="http://www.tessier-aurelien.fr/phpBB3/" width="95%" height="780" scrolling="no" align="middle"></IFRAME>
 <%@ include file="pied.jspf" %>	

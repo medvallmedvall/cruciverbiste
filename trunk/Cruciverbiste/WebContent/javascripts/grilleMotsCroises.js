@@ -42,6 +42,13 @@ function addWord(x, y, word, orientation) {
 
 $(document).ready( function() {
 
+	/*Pour le menu horizontal*/
+	$('#menu li').hover(function(){
+        //$(this).find('ul:first').css({visibility: "visible",display: "none"}).fadeIn(400); // effect 1
+        $(this).find('ul:first').css({visibility: "visible",display: "none"}).slideDown(400); // effect 2
+    },function(){
+        $(this).find('ul:first').css({visibility: "hidden"});
+    });
 
 	/*Lors du click droit, on rend la case editable, selectionne le mot et la definition*/
 
@@ -178,7 +185,7 @@ function getSolution() {
 
 function checkEndGame() {
 	//var rows = document.getElementById("grille1").childNodes[0].childNodes;
-	var tmp = document.getElementById("grille1").childNodes;
+	/*var tmp = document.getElementById("grille1").childNodes;
 	var idx = -1;
 	for (var i = 0; i < tmp.length; i++) {
 		if (tmp[i].tagName == "TBODY") {
@@ -213,7 +220,7 @@ function checkEndGame() {
 	}
 	alert("Fin de la grille");
 	endGame = true;
-	$("#caseTexte").attr("disabled",true);
+	$("#caseTexte").attr("disabled",true);*/
 }
 /*Fon qui verifie si la case suivante peut être selectionné (pour le changement de sens)*/
 
