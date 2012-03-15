@@ -27,7 +27,7 @@
 	</li>
 	<li><a href="#">Espace Jeune</a></li>
 	<li><a href="#">Jeu concours</a></li>
-	<li><a href="#">Forum</a></li>
+	<li><a href="forum.jsp">Forum</a></li>
 </ul>
 </div>
 <!-- fin navigation-->

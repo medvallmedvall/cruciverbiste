@@ -1,6 +1,31 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <h2>${grille.nomGrille}</h2>
 
+<!-- Creation du menu -->
+
+<div id="menu">
+	<ul class="level1">
+		<li class="level1-li">
+			<a href="#">Fichier</a>
+			<ul class="level2">
+				<li><a href="#">Sauvegarder</a></li>
+			</ul>
+		<li class="level1-li">
+			<a href="#">Aide</a>
+			<ul class="level2">
+				<li><a href="#getLetter">Lettre</a></li>
+				<li><a href="#getWord">Mot</a></li>
+				<li><a href="#getSynonym">Synonyme</a></li>
+				<li><a href="#getSolution">Solution</a></li>
+			</ul>
+		</li>
+		<li class="level1-li">
+			<a href="#">Rechercher mot</a>
+		</li>
+	</ul>
+
+</div>
+
 <!-- Création de la colonne des definitions -->
 
 <div id="definitions">
