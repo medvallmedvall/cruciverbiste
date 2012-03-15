@@ -1,6 +1,8 @@
 package actions;
 
 
+
+
 import com.opensymphony.xwork2.ActionSupport;
 
 import dao.UtilisateurDao;
@@ -63,18 +65,23 @@ public class Inscription extends ActionSupport {
 	public void setDateNaissance(String dateNaissance) {
 		this.dateNaissance = dateNaissance;
 	}
+	
 
 	public String execute() {
-		/*Utilisateur utilisateur = new Utilisateur(getNom(), getPrenom(), getPseudo(),
+		Utilisateur utilisateur = new Utilisateur(getNom(), getPrenom(), getPseudo(),
 				getPassword(), getMail(), getDateNaissance());
 		UtilisateurDao utilisateurDao = new UtilisateurDao();
+		
 		if (!utilisateurDao.verifyUtilisateurExists(utilisateur)) {
 			utilisateurDao.create(utilisateur);
 			return SUCCESS;
 		} else {
 			return ERROR;
-		}*/
+		}
 		
-		return SUCCESS;
+
 	}
+	
+	
 }
+
