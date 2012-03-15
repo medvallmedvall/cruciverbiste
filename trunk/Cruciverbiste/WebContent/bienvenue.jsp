@@ -1,3 +1,4 @@
+<%@page import="java.util.Date"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -10,10 +11,18 @@
 </head>
 <body>
 <%@ include file="entete.jspf" %>
- <%@ include file="menu.jspf" %>
+ <%@ include file="menuUtilisateur.jspf" %>
  <%@ include file="secondaire.jspf" %>
 <div id="principal">
-			Et promittentes industria hos et Emissa hos nec et Epigonus Montius et quaestor philosophus sint magna sint quaerebatur nequ
+
+			  <b>Session Time: </b><%= new Date(session.getLastAccessedTime())%>
+			  <%= session.getAttribute("pseudo") %>
+			  **********************************
+
+
+
+			Et promitten
+			tes industria hos et Emissa hos nec et Epigonus Montius et quaestor philosophus sint magna sint quaerebatur nequ
 			id nec quaerebatur efflaturus ducitur et promittentes increpabat et hos aliquotiens manus nec Emissa philosophus quia orator 
 			Lycia et nec dilancinantium aliquotiens manus nec inter dignitatem hos nec fabricarum ostendens nec orator Eusebium cognomento
 			armorum insimulasset aliquotiens qui quaestor nec promittentes ducitur dignitatem si Eusebium nec magna Lycia promitte
