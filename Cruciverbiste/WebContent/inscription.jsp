@@ -20,7 +20,7 @@
 <div id="principal">
 
 <h3>Inscription du client :</h3>
-<s:form action="Inscription" method="post">
+<s:form action="Inscription" method="post" onsubmit="return verif_formulaire();">
 <table>
 	<tr>
 		<td><s:textfield name="nom" label="Nom"/></td>
@@ -45,7 +45,7 @@
 		<td><s:textfield name="mail" label="Adresse email*" /></td>
 	</tr>
 	<tr>
-		<td><s:submit  onclick="verif_formulaire()" value="Inscription" style="width: 100px;" label="Inscription"></s:submit></td>
+		<td><s:submit value="Inscription" style="width: 100px;" label="Inscription"></s:submit></td>
 	</tr>
 </table>
 </s:form>

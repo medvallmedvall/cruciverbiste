@@ -2,17 +2,17 @@ function verif_formulaire(){
 	
 	if(document.Inscription.nom.value == "")  {  
 		alert("Veuillez entrer votre nom!");   
-		document.formulaire.nom.focus();   
+		document.Inscription.nom.focus();  
 		document.Inscription.nom.style.backgroundColor = 'rgb(255, 0, 0)';
 		return false;  
 	} 
 	if(document.Inscription.mail.value == "") {   
-		alert("Veuillez entrer votre adresse électronique!");   
+		alert("Veuillez entrer votre adresse ï¿½lectronique!");   
 		document.formulaire.courriel.focus();   
 		return false;  
 	} 
 	if(document.Inscription.mail.value.indexOf('@') == -1) {   
-		alert("Ce n'est pas une adresse électronique!");   
+		alert("Ce n'est pas une adresse ï¿½lectronique!");   
 		document.formulaire.courriel.focus();  
 		document.Inscription.mail.style.backgroundColor = 'rgb(255, 0, 0)';
 		return false; 
@@ -36,9 +36,10 @@ function verif_formulaire(){
 	}
 	
 	if (document.Inscription.password.value != document.Inscription.motdepasse2.value) {
-		alert("Rentrez le même mot de passe du premier champ dans le deuxième champ!");
+		alert("Rentrez le mï¿½me mot de passe du premier champ dans le deuxiï¿½me champ!");
 		document.Inscription.password.style.backgroundColor = 'rgb(255, 0, 0)';
 		document.Inscription.motdepasse2.style.backgroundColor = 'rgb(255, 0, 0)';
 		return false;
 	}
+	return true;
 }

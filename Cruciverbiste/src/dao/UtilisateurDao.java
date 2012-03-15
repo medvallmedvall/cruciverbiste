@@ -3,6 +3,8 @@ package dao;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.LinkedList;
@@ -25,6 +27,25 @@ public class UtilisateurDao extends Dao<Utilisateur> {
 	@Override
 	public Utilisateur create(Utilisateur obj) {
 		// TODO Auto-generated method stub
+		
+		/*
+		 * Date mDate = new Date();
+		System.out.println(mDate);
+		SimpleDateFormat format = new SimpleDateFormat("dd-MM-yyyy");
+		try {
+			String s = format.format(mDate);
+			System.out.println(s);
+			Date d = format.parse("03-02-1989");
+			System.out.println(d);
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		 * 
+		 * 
+		 * 
+		 * */
+		
 
 		try {
 			Statement sql = this.connection.createStatement();
@@ -113,7 +134,7 @@ public class UtilisateurDao extends Dao<Utilisateur> {
 				String pseudo_utilisateur = rs.getString("pseudo");
 				String pass = rs.getString("password");
 				String mail = rs.getString("mail");
-				String naissance = rs.getString("datenaissance");
+				String naissance = rs.getString("dateNaissance");
 				Utilisateur user = new Utilisateur(nom_utilisateur, 
 						prenom_utilisateur, pseudo_utilisateur, pass, mail, naissance);
 				listUsers.add(user);
