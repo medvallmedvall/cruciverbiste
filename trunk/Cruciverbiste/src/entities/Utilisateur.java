@@ -1,5 +1,7 @@
 package entities;
 
+import java.util.Date;
+
 
 public class Utilisateur {
 
@@ -9,11 +11,11 @@ public class Utilisateur {
 	private String pseudo;
 	private String password;
 	private String mail;
-	private String dateInscription;
-	private String dateNaissance;
+	private Date dateInscription;
+	private Date dateNaissance;
 
 	public Utilisateur(String nom, String prenom, String pseudo,
-			String password, String mail, String dateNaissance) {
+			String password, String mail, Date dateNaissance) {
 		super();
 
 		this.nom = nom;
@@ -78,19 +80,19 @@ public class Utilisateur {
 		this.mail = mail;
 	}
 
-	public String getDateInscription() {
+	public Date getDateInscription() {
 		return dateInscription;
 	}
 
-	public void setDateInscription(String dateInscription) {
+	public void setDateInscription(Date dateInscription) {
 		this.dateInscription = dateInscription;
 	}
 
-	public String getDateNaissance() {
+	public Date getDateNaissance() {
 		return dateNaissance;
 	}
 
-	public void setDateNaissance(String dateNaissance) {
+	public void setDateNaissance(Date dateNaissance) {
 		this.dateNaissance = dateNaissance;
 	}
 
