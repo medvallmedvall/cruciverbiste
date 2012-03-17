@@ -7,23 +7,13 @@
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Choix grille</title>
 
-<link rel="stylesheet" type="text/css" href="styles/style.css" media="screen" />
-
-<!-- Begin Stylesheets -->
-		<link rel="stylesheet" href="styles/coda-slider-2.0.css" type="text/css" media="screen" />
-	<!-- End Stylesheets -->
-	
-	<!-- Begin JavaScript -->
-		<script type="text/javascript" src="javascripts/jquery-1.3.2.min.js"></script>
-		<script type="text/javascript" src="javascripts/jquery.easing.1.3.js"></script>
-		<script type="text/javascript" src="javascripts/jquery.coda-slider-2.0.js"></script>
-		 <script type="text/javascript">
-			$().ready(function() {
-				$('#coda-slider-1').codaSlider();
-			});
-		 </script>
-	<!-- End JavaScript -->
-
+		<link rel="stylesheet" type="text/css" href="styles/style.css" media="screen" />
+		<link type="text/css" href="styles/ui-lightness/jquery-ui-1.7.2.custom.css" rel="stylesheet" />
+		<script type="text/javascript" src="javascripts/jquery-1.7.1.js"></script>
+		<script type="text/javascript" src="javascripts/jquery-ui-1.7.2.custom.min.js"></script>
+		<script type="text/javascript" src="javascripts/jquery.scrollabletab.js"></script>
+		<script type="text/javascript" src="javascripts/themeswitchertool.js"></script>
+		<script type="text/javascript" src="javascripts/jquery.init.js"></script>
 </head>
 <body>
 	
@@ -32,35 +22,46 @@
  	<%@ include file="secondaire.jspf" %>
 		
 		<div id="principal">
+
 			
-				<div class="coda-slider-wrapper">
-		<div class="coda-slider preload" id="coda-slider-1">
-		<div class="panel">
-			<div class="panel-wrapper">
-				<h2 class="title">Panel 1</h2>
-				<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas metus nulla, commodo a sodales sed, dignissim pretium nunc. Nam et lacus neque. Sed volutpat ante id mauris laoreet vestibulum. Nam blandit felis non neque cursus aliquet. Morbi vel enim dignissim massa dignissim commodo vitae quis tellus. Nunc non mollis nulla. Sed consectetur elit id mi consectetur bibendum. Ut enim massa, sodales tempor convallis et, iaculis ac massa. Etiam suscipit nisl eget lorem pellentesque quis iaculis mi mattis. Aliquam sit amet purus lectus. Maecenas tempor ornare sollicitudin.</p>
-			</div>
-		</div>
-		<div class="panel">
-			<div class="panel-wrapper">
-				<h2 class="title">Panel 2</h2>
-				<p>Proin nec turpis eget dolor dictum lacinia. Nullam nunc magna, tincidunt eu porta in, faucibus sed magna. Suspendisse laoreet ornare ullamcorper. Nulla in tortor nibh. Pellentesque sed est vitae odio vestibulum aliquet in nec leo.</p>
-			</div>
-		</div>
-		<div class="panel">
-			<div class="panel-wrapper">
-				<h2 class="title">Panel 3</h2>
-				<p>Cras luctus fringilla odio vel hendrerit. Cras pulvinar auctor sollicitudin. Sed lacus quam, sodales sit amet feugiat sit amet, viverra nec augue. Sed enim ipsum, malesuada quis blandit vel, posuere eget erat. Sed a arcu justo. Integer ultricies, nunc at lobortis facilisis, ligula lacus vestibulum quam, id tincidunt sapien arcu in velit. Vestibulum consequat augue et turpis condimentum mollis sed vitae metus. Morbi leo libero, tincidunt lobortis fermentum eget, rhoncus vel sem. Morbi varius viverra velit vel tempus. Morbi enim turpis, facilisis vel volutpat at, condimentum quis erat. Morbi auctor rutrum libero sed placerat. Etiam ipsum velit, eleifend in vehicula eu, tristique a ipsum. Donec vitae quam vel diam iaculis bibendum eget ut diam. Fusce quis interdum diam. Ut urna justo, dapibus a tempus sit amet, bibendum at lectus. Sed venenatis molestie commodo.</p>
-			</div>
-		</div>
-		
-	
-		
-		
-	</div><!-- .coda-slider -->
-</div><!-- .coda-slider-wrapper -->
+	<div id="theme" class="tabs">
+		<ul>
 			
-			
+			<li><a href="#1">Theme 1</a></li>
+			<li><a href="#2">Theme 2</a></li>
+			<li><a href="#3">Theme 3</a></li>
+			<li><a href="#4">Theme 4</a></li>
+			<li><a href="#5">Theme 5</a></li>
+			<li><a href="#6">Theme 6</a></li>
+			<li><a href="#7">Theme 7</a></li>
+			<li><a href="#8">Theme 8</a></li>
+			<li><a href="#9">Theme 9</a></li>
+			<li><a href="#10">Theme 10</a></li>	
+			<li><a href="#11">Theme 11</a></li>
+			<li><a href="#12">Theme 12</a></li>
+			<li><a href="#13">Theme 13</a></li>
+			<li><a href="#14">Theme 14</a></li>
+			<li><a href="#15">Theme 15</a></li>
+		</ul>
+		<div id="1">111111111111111111111111111111111</div>
+		<div id="2">222222222222222222222222222222222</div>
+		<div id="3">333333333333333333333333333333333</div>
+		<div id="4">444444444444444444444444444444444</div>
+		<div id="5">555555555555555555555555555555555</div>
+		<div id="6">6666666666666666666666666666666666</div>
+		<div id="7">77777777777777777777777777777777</div>
+		<div id="8">8888888888888888888888888888888888</div>
+		<div id="9">999999999999999999999999999999999</div>
+		<div id="10">101010101010101010101010101010101</div>
+		<div id="11">1111111111111111111111111111111</div>
+		<div id="12">1212121212121212121212121112121212</div>
+		<div id="13">1313131313131313131313131313</div>
+		<div id="14">1414141414141414141414141414</div>
+		<div id="15">15151515151515151515151</div>
+		
+		
+	</div>
+	<br>
 		</div><!-- fin principale-->
 	
 
