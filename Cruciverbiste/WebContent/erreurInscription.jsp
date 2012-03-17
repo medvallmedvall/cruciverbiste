@@ -14,8 +14,7 @@
 	<%@ include file="entete.jspf"%>
 	<%@ include file="menu.jspf"%>
 	<div id="principal">
-		<h1>Une erreur est survenue lors de l'inscription.<br> 
-		Veuillez changer votre pseudo ou votre e-mail</h1>
+		<h1>Une erreur est survenue lors de l'inscription.<br> </h1>
 		<s:actionerror/>
 	</div>
 	<%@ include file="pied.jspf"%>

@@ -1,7 +1,8 @@
-
+<% String nom = (String) session.getAttribute("nom");%>
 <div id="navigation">
 <ul id="navmenu">
-	<li><a href="#">Jouer</a>
+	<% if (nom != null) { %>
+			<li><a href="#">Jouer</a>
 	<ul>
 		<li><a href="choixGrilles?idTypeGrid=2">Mots croises</a>
 		<ul>
@@ -25,9 +26,47 @@
 		<li><a href="#">Mots fleches</a></li>
 	</ul>
 	</li>
+
+	
 	<li><a href="#">Espace Jeune</a></li>
 	<li><a href="#">Jeu concours</a></li>
 	<li><a href="forum.jsp">Forum</a></li>
+	<li><a href = "#">Mes Grilles</a></li>
+	<li><a href = "#">Grilles En Cours</a></li>
+	<% } else {  %>
+		<li><a href="#">Jouer</a>
+	<ul>
+		<li><a href="choixGrilles?idTypeGrid=2">Mots croises</a>
+		<ul>
+			<li><a href="#">Facile</a></li>
+			<li><a href="#">Moyen</a></li>
+			<li><a href="#">Expert</a></li>
+		</ul>
+		</li>
+		<li><a href="choixGrilles?idTypeGrid=1">Mots fleches</a>
+		<ul>
+			<li><a href="#">Facile</a></li>
+			<li><a href="#">Moyen</a></li>
+			<li><a href="#">Expert</a></li>
+		</ul>
+		</li>
+	</ul>
+	</li>
+	<li><a href="#">Créer une grille</a>
+	<ul>
+		<li><a href="#">Mots croises</a></li>
+		<li><a href="#">Mots fleches</a></li>
+	</ul>
+	</li>
+
+	<li><a href="#">Inscription</a></li>
+	<li><a href="#">Espace Jeune</a></li>
+	<li><a href="#">Jeu concours</a></li>
+	<li><a href="forum.jsp">Forum</a></li>
+	
+	<% } %>
+
+
 </ul>
 </div>
 <!-- fin navigation-->

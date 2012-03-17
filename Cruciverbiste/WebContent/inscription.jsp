@@ -9,6 +9,8 @@
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Bienvenue pour l'inscription</title>
 
+<s:head theme = "ajax"/> 
+
 <link rel="stylesheet" type="text/css" href="styles/style.css"
 	media="screen" />
 	<script type="text/javascript" src="javascripts/inscription.js"></script>
@@ -29,7 +31,7 @@
 		<td><s:textfield name="prenom" label="Prenom"/></td>
 	</tr>
 	<tr>
-		<td><s:textfield name="dateNaissance" label="Date De Naissance" value = "jj/mm/aaaa"/></td>
+		<td><s:datetimepicker name="todayDate" label="Format (yyyy-MM-dd)" displayFormat="yyyy-MM-dd"/></td>
 		
 	</tr>
 	<tr>
