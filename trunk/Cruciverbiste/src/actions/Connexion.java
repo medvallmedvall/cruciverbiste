@@ -1,9 +1,6 @@
  package actions;
 
-import java.util.Enumeration;
 import java.util.Map;
-
-import javassist.expr.NewArray;
 
 /*import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
@@ -47,19 +44,27 @@ public class Connexion extends ActionSupport {
 			System.out.println(user.getPseudo());
 			System.out.println(user.getPassword());
 			
-			if (utilisateurDao.verifyUtilisateurConnects(user)) {
+			if (utilisateurDao.verifyUtilisateurConnects(user.getPseudo(),  user.getPassword())) {
 				Map<String, Object> session = ActionContext.getContext().getSession();
 				System.out.println("Vous �tes loggu� avec succ�s enjoy :)");
 				// on renseigne la session
 				session.put("authentification","true");
 				session.put("nom",user.getNom());
 				session.put("pseudo", user.getPseudo());
-				//session.put("erreur", "noErreur");
 				return SUCCESS;
 			} else {
-				System.out.println("Vous avez fait une erreur");
+				addActionError("Ses identifinats sont pas bons");
 				return ERROR;
 			}
 		}
+		
+		public String logout() throws Exception{
+			Map session = ActionContext.getContext().getSession();
+			  session.remove("authentification");
+			  session.remove("nom");
+			  session.remove("pseudo");
+			  return SUCCESS;
+		}
+		
 
 }

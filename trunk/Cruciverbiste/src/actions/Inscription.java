@@ -3,6 +3,8 @@ package actions;
 
 
 
+import java.util.Date;
+
 import com.opensymphony.xwork2.ActionSupport;
 
 import dao.UtilisateurDao;
@@ -16,7 +18,7 @@ public class Inscription extends ActionSupport {
 	String pseudo;
 	String password;
 	String mail;
-	String dateNaissance;
+	Date dateNaissance;
 
 	public String getNom() {
 		return nom;
@@ -58,11 +60,11 @@ public class Inscription extends ActionSupport {
 		this.mail = mail;
 	}
 
-	public String getDateNaissance() {
+	public Date getDateNaissance() {
 		return dateNaissance;
 	}
 
-	public void setDateNaissance(String dateNaissance) {
+	public void setDateNaissance(Date dateNaissance) {
 		this.dateNaissance = dateNaissance;
 	}
 	
@@ -72,10 +74,18 @@ public class Inscription extends ActionSupport {
 				getPassword(), getMail(), getDateNaissance());
 		UtilisateurDao utilisateurDao = new UtilisateurDao();
 		
-		if (!utilisateurDao.verifyUtilisateurExists(utilisateur)) {
+		if (utilisateurDao.verifyUserEmail(utilisateur.getMail())  && 
+				utilisateurDao.verifyUserPseudo(utilisateur.getPseudo())) {
 			utilisateurDao.create(utilisateur);
 			return SUCCESS;
 		} else {
+			if (!utilisateurDao.verifyUserEmail(utilisateur.getMail())) {
+				addActionError("Le mail que vous avez entré est déjà utilisée par une autre personne");
+			}
+			if (!utilisateurDao.verifyUserEmail(utilisateur.getPseudo())) {
+				addActionError("Le pseudo que vous avez entré est déjà utilisée par une autre personne");
+			}
+			
 			return ERROR;
 		}
 		
