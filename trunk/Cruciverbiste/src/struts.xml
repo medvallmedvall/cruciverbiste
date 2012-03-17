@@ -27,6 +27,10 @@
 			<result name ="success">bienvenue.jsp</result>
 			<result name="error"> erreur.jsp</result>
 		</action>
+		
+		<action name = "Deconnexion" class ="actions.Deconnexion">
+			<result name ="success" type = "redirect">index.jsp</result>
+		</action>
 	</package>
 
 </struts>
