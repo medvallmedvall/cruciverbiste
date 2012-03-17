@@ -58,9 +58,7 @@ a img {
 	border: none; 
 }
 
-img, input {
-	border-radius : 20px; 
-}
+
 
 div {
 	border-radius : 20px;
@@ -109,6 +107,7 @@ div {
 #centre {
 	margin: auto;
 	width:100%;
+	min-width:1200px;
 }
 
 /*
@@ -526,4 +525,6 @@ ul#navmenu ul ul li.iehover ul {
 
 
 
-
+img, input {
+	border-radius : 20px; 
+}
