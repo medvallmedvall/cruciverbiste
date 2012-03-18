@@ -1,7 +1,8 @@
-<% String nom = (String) session.getAttribute("nom");%>
+<% String authentification = (String) session.getAttribute("authentification");%>
 <div id="navigation">
 <ul id="navmenu">
-	<% if (nom != null) { %>
+	<% if (authentification == "true") { %>
+	
 			<li><a href="#">Jouer</a>
 	<ul>
 		<li><a href="choixGrilles?idTypeGrid=2">Mots croises</a>
@@ -30,9 +31,9 @@
 	
 	<li><a href="#">Espace Jeune</a></li>
 	<li><a href="#">Jeu concours</a></li>
-	<li><a href="forum.jsp">Forum</a></li>
 	<li><a href = "#">Mes Grilles</a></li>
 	<li><a href = "#">Grilles En Cours</a></li>
+	<li><a href="forum.jsp">Forum</a></li>
 	<% } else {  %>
 		<li><a href="#">Jouer</a>
 	<ul>
@@ -59,7 +60,7 @@
 	</ul>
 	</li>
 
-	<li><a href="#">Inscription</a></li>
+	<li><a href="inscription.jsp">Inscription</a></li>
 	<li><a href="#">Espace Jeune</a></li>
 	<li><a href="#">Jeu concours</a></li>
 	<li><a href="forum.jsp">Forum</a></li>
