@@ -44,16 +44,16 @@ public class Connexion extends ActionSupport {
 			System.out.println(user.getPseudo());
 			System.out.println(user.getPassword());
 			
-			if (utilisateurDao.verifyUtilisateurConnects(user.getPseudo(),  user.getPassword())) {
+			if (utilisateurDao.verifyUtilisateurConnects(user.getPseudo(),  user.getPassword()) == true) {
 				Map<String, Object> session = ActionContext.getContext().getSession();
-				System.out.println("Vous ï¿½tes logguï¿½ avec succï¿½s enjoy :)");
+				System.out.println("Vous êtes loggués avec succès");
 				// on renseigne la session
 				session.put("authentification","true");
 				session.put("nom",user.getNom());
 				session.put("pseudo", user.getPseudo());
 				return SUCCESS;
 			} else {
-				addActionError("Ses identifinats sont pas bons");
+				addActionError("Vos identifiants ne sont pas corrects");
 				return ERROR;
 			}
 		}
