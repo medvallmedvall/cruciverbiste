@@ -28,23 +28,6 @@ public class UtilisateurDao extends Dao<Utilisateur> {
 	public Utilisateur create(Utilisateur obj) {
 		// TODO Auto-generated method stub
 		
-		/*
-		 * Date mDate = new Date();
-		System.out.println(mDate);
-		SimpleDateFormat format = new SimpleDateFormat("dd-MM-yyyy");
-		try {
-			String s = format.format(mDate);
-			System.out.println(s);
-			Date d = format.parse("03-02-1989");
-			System.out.println(d);
-		} catch (ParseException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		 * 
-		 * 
-		 * 
-		 * */
 		
 
 		try {
@@ -57,24 +40,6 @@ public class UtilisateurDao extends Dao<Utilisateur> {
 			String s = format.format(dateInscription);
 			System.out.println(s);
 			String t = format.format(dateNaissance);
-			//Date newNaissance = DateConverter.StringToDate(t);
-			
-			//System.out.println(newNaissance.toString() + " " + newInscription.toString());
-			
-			
-//			String jour = dateInscription.getDate() + "";
-//			int m = dateInscription.getMonth() + 1;
-//			String mois = m +"";
-//			int y = dateInscription.getYear() + 1900;
-//			String year = y + "";
-//			if ((m >= 1) || (m <= 9)) {
-//				mois = "0" + mois;
-//			}
-//			if ((dateInscription.getDate() >= 1) || (dateInscription.getDate()) <= 9) {
-//				jour = "0" + jour;
-//			}
-		
-			//String	dateInscription = "" + jour + "/"+ mois + "/" + year+"";
 			String pseudo = obj.getPseudo();
 			String password = obj.getPassword();
 			String mail = obj.getMail();
@@ -161,21 +126,6 @@ public class UtilisateurDao extends Dao<Utilisateur> {
 		
 	}
 	
-	//Verification de l'existence de l'utilisateur lors de l'inscription
-	
-//	public boolean verifyUtilisateurExists(Utilisateur obj) {
-//		boolean b = false;	
-//		for (Utilisateur u : getUtilisateurs()) {
-//				if ((obj.getPseudo().equalsIgnoreCase(u.getPseudo())) || (obj.getMail().equalsIgnoreCase(u.getMail()))) {
-//					b = true;
-//				} else {
-//					b = false;
-//				}
-//			}
-//		return b;
-//		
-//	}
-	
 	//Tous les utilisateurs du site
 	public List<Utilisateur> getUtilisateurs() {
 		String query = "select * from Utilisateur";
@@ -203,7 +153,7 @@ public class UtilisateurDao extends Dao<Utilisateur> {
 	}
 	
 	
-	//Verification des paramï¿½tres de connexion de l'utilisateur
+	//Verification des paramètres de connexion de l'utilisateur
 	public boolean verifyUtilisateurConnects(String pseudo, String password) {
 		String query = "select * from Utilisateur where pseudo = '" + pseudo + "' and password = '" + password + "'";
 		Boolean b = false;
