@@ -48,7 +48,7 @@ $(document).ready(
 		</div><!-- fin logo -->
 
 		<% if (pseudo != null) { %>
-			<div id = "login">Bienvenue <%=session.getAttribute("pseudo")%> , <a href = "<%= request.getContextPath() %>/Deconnexion.action">Logout</a></div>	
+			<div id = "login">Bienvenue <%=pseudo%> , <a href = "<%= request.getContextPath() %>/Deconnexion.action" style="color = blue;">Deconnexion</a></div>	
 		<%} else { %>
 		<div id="login"><!-- debut login -->
 			<s:form action="Connexion" method="post">

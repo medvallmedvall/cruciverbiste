@@ -2,10 +2,10 @@
 <div id="navigation">
 
 	<% if (authentification == "true") { %>
-	<ul id="navmenu">
+		<ul id="navmenu">
 	
-			<li><a href="#">Jouer</a>
-	<ul>
+		<li><a href="#">Jouer</a>
+		<ul>
 		<li><a href="choixGrilles?idTypeGrid=2">Mots croises</a>
 		<ul>
 			<li><a href="#">Facile</a></li>
@@ -20,24 +20,27 @@
 			<li><a href="#">Expert</a></li>
 		</ul>
 		</li>
-	</ul>
-	</li>
-	<li><a href="#">Créer une grille</a>
-	<ul>
+		</ul>
+		</li>
+		<li><a href="#">Creer une grille</a>
+		<ul>
 		<li><a href="#">Mots croises</a></li>
 		<li><a href="#">Mots fleches</a></li>
-	</ul>
-	</li>
+		</ul>
+		</li>
 
 	
-	<li><a href="#">Espace Jeune</a></li>
-	<li><a href="#">Jeu concours</a></li>
-	<li><a href = "#">Mes Grilles</a></li>
-	<li><a href = "#">Grilles En Cours</a></li>
-	<li><a href="forum.jsp">Forum</a></li>
+		<li><a href="#">Espace Jeune</a></li>
+		<li><a href="#">Jeu concours</a></li>
+		<li><a href = "#">Mes Grilles</a></li>
+		<li><a href = "#">Grilles En Cours</a></li>
+		<li><a href="forum.jsp">Forum</a></li>
+		</ul>
 	<% } else {  %>
-	<li><a href="#">Jouer</a>
-	<ul>
+	
+		<ul id="navmenu">
+		<li><a href="#">Jouer</a>
+		<ul>
 		<li><a href="choixGrilles?idTypeGrid=2">Mots croises</a>
 		<ul>
 			<li><a href="#">Facile</a></li>
@@ -52,21 +55,21 @@
 			<li><a href="#">Expert</a></li>
 		</ul>
 		</li>
-	</ul>
-	</li>
+		</ul>
+		</li>
 	
-	<li><a href="#">Créer une grille</a>
-	<ul>
-		<li><a href="#">Mots croises</a></li>
-		<li><a href="#">Mots fleches</a></li>
-	</ul>
-	</li>
+		<li><a href="#">Creer une grille</a>
+		<ul>
+			<li><a href="#">Mots croises</a></li>
+			<li><a href="#">Mots fleches</a></li>
+		</ul>
+		</li>
 
-	<li><a href="inscription.jsp">Inscription</a></li>
-	<li><a href="#">Espace Jeune</a></li>
-	<li><a href="#">Jeu concours</a></li>
-	<li><a href="forum.jsp">Forum</a></li>
-	</ul>
+		<li><a href="inscription.jsp">Inscription</a></li>
+		<li><a href="#">Espace Jeune</a></li>
+		<li><a href="#">Jeu concours</a></li>
+		<li><a href="forum.jsp">Forum</a></li>
+		</ul>
 	
 	<% } %>
 

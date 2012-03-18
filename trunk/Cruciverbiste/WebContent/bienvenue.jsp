@@ -15,10 +15,6 @@
  <%@ include file="secondaire.jspf" %>
 <div id="principal">
 
-			  <b>Session Time: </b><%= new Date(session.getLastAccessedTime())%>
-			  <%= session.getAttribute("pseudo") %>
-			  **********************************
-
 
 
 			Et promitten
