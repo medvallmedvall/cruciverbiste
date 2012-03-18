@@ -12,9 +12,13 @@ import java.util.LinkedList;
 import java.util.List;
 
 
+import entities.DateConverter;
 import entities.Utilisateur;
 
 public class UtilisateurDao extends Dao<Utilisateur> {
+	
+	public DateConverter converter;
+	
 
 	public UtilisateurDao() {
 		// TODO Auto-generated constructor stub
@@ -24,7 +28,7 @@ public class UtilisateurDao extends Dao<Utilisateur> {
 	public Utilisateur findById(int id) {
 		return null;
 	}
-
+	
 	@Override
 	public Utilisateur create(Utilisateur obj) {
 		// TODO Auto-generated method stub
@@ -52,14 +56,15 @@ public class UtilisateurDao extends Dao<Utilisateur> {
 			Statement sql = this.connection.createStatement();
 			String prenom = obj.getPrenom();
 			String nom = obj.getNom();
+			SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
 			Date dateNaissance = obj.getDateNaissance();
 			Date dateInscription = new Date();
-			SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-jj");
 			String s = format.format(dateInscription);
+			System.out.println(s);
 			String t = format.format(dateNaissance);
-			Date newNaissance = new Date(t);
-			Date newInscription = new Date(s);
-			System.out.println(newNaissance.toString() + " " + newInscription.toString());
+			//Date newNaissance = DateConverter.StringToDate(t);
+			
+			//System.out.println(newNaissance.toString() + " " + newInscription.toString());
 			
 			
 //			String jour = dateInscription.getDate() + "";
@@ -91,9 +96,9 @@ public class UtilisateurDao extends Dao<Utilisateur> {
 					+ "','"
 					+ mail
 					+ "','"
-					+ newInscription
+					+ s
 					+ "','"
-					+ newNaissance + "')";
+					+ t + "')";
 			sql.executeUpdate(req);
 
 		} catch (SQLException e) {
@@ -115,15 +120,19 @@ public class UtilisateurDao extends Dao<Utilisateur> {
 
 	}
 	
+	//Verifier que l'e-mail n'existe pas
 	public boolean verifyUserEmail(String mail) {
-		String query = "select * from Utilisateur where mail = " + mail + " ";
+		String query = "select * from Utilisateur where mail = '" + mail + "' ";
 		Boolean b = false;
 		try {
 			ResultSet rs = this.connection.createStatement().executeQuery(query);
-			if (rs == null) {
-				b = true;
-			} else {
+			System.out.println("rentremail");
+			if (rs.first()) {
 				b = false;
+				System.out.println(b);
+			} else {
+				b = true;
+				System.out.println(b);
 			}
 			
 		} catch (SQLException e) {
@@ -134,15 +143,19 @@ public class UtilisateurDao extends Dao<Utilisateur> {
 		
 	}
 	
+	//Verifier que le pseudo n'existe pas
 	public boolean verifyUserPseudo(String pseudo) {
-		String query = "select * from Utilisateur where pseudo = " + pseudo + " ";
+		String query = "select * from Utilisateur where pseudo = '" + pseudo + "' ";
 		Boolean b = false;
 		try {
 			ResultSet rs = this.connection.createStatement().executeQuery(query);
-			if (rs == null) {
-				b = true;
-			} else {
+			System.out.println("rentrePseudo");
+			if (rs.first()) {
 				b = false;
+				System.out.println(b);
+			} else {
+				b = true;
+				System.out.println(b);
 			}
 			
 		} catch (SQLException e) {
@@ -197,14 +210,14 @@ public class UtilisateurDao extends Dao<Utilisateur> {
 	
 	//Verification des param�tres de connexion de l'utilisateur
 	public boolean verifyUtilisateurConnects(String pseudo, String password) {
-		String query = "select * from Utilisateur where pseudo = '" + pseudo + "' and password = '" + password + "' ";
+		String query = "select * from Utilisateur where pseudo = '" + pseudo + "' and password = '" + password + "'";
 		Boolean b = false;
 		try {
 			ResultSet rs = this.connection.createStatement().executeQuery(query);
-			if (rs == null) {
-				b = false;
-			} else {
+			if (rs.first()) {
 				b = true;
+			} else {
+				b = false;
 			}
 			
 		} catch (SQLException e) {
