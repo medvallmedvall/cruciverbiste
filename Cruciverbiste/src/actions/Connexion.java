@@ -34,10 +34,6 @@ public class Connexion extends ActionSupport {
 			this.password = password;
 		}
 		
-		/*public void setServletRequest(HttpServletRequest req) {
-			
-		}*/
-		
 		public String execute() {
 			UtilisateurDao utilisateurDao = new UtilisateurDao();
 			Utilisateur user = new Utilisateur(getPseudo(), getPassword());

@@ -73,8 +73,6 @@ public class Inscription extends ActionSupport {
 		Utilisateur utilisateur = new Utilisateur(getNom(), getPrenom(), getPseudo(),
 				getPassword(), getMail(), getDateNaissance());
 		UtilisateurDao utilisateurDao = new UtilisateurDao();
-		System.out.println("Email used " + utilisateurDao.verifyUserEmail(utilisateur.getMail()) + " " + "pseudo used "  + utilisateurDao.verifyUserPseudo(
-				utilisateur.getPseudo()));
 		Boolean verEmail = utilisateurDao.verifyUserEmail(utilisateur.getMail());
 		Boolean verPseudo = utilisateurDao.verifyUserPseudo(utilisateur.getPseudo());
 		if ((verEmail == true) && (verPseudo == true)) {
