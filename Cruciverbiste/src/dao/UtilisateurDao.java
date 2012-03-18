@@ -10,14 +10,9 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
-
-
-import entities.DateConverter;
 import entities.Utilisateur;
 
 public class UtilisateurDao extends Dao<Utilisateur> {
-	
-	public DateConverter converter;
 	
 
 	public UtilisateurDao() {
