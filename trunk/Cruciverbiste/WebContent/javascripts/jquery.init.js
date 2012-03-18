@@ -4,9 +4,7 @@ $(function(){
 			.tabs()
 			.scrollabletab({
 					'animationSpeed':50, //Default 100
-					'loadLastTab':true, //Default false
-					
-					'resizeHandles':'e,s,se', //Default 'e,s,se'
+					'loadLastTab':false, //Default false
 					'easing':'easeInOutExpo'
 			});
 });
