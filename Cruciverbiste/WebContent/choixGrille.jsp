@@ -7,8 +7,9 @@
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Choix grille</title>
 
-		<link rel="stylesheet" type="text/css" href="styles/style.css" media="screen" />
+		
 		<link type="text/css" href="styles/ui-lightness/jquery-ui-1.7.2.custom.css" rel="stylesheet" />
+		<link rel="stylesheet" type="text/css" href="styles/style.css" media="screen" />
 		<script type="text/javascript" src="javascripts/jquery-1.7.1.js"></script>
 		<script type="text/javascript" src="javascripts/jquery-ui-1.7.2.custom.min.js"></script>
 		<script type="text/javascript" src="javascripts/jquery.scrollabletab.js"></script>
@@ -57,11 +58,8 @@
 		<div id="12">1212121212121212121212121112121212</div>
 		<div id="13">1313131313131313131313131313</div>
 		<div id="14">1414141414141414141414141414</div>
-		<div id="15">15151515151515151515151</div>
-		
-		
+		<div id="15">15151515151515151515151</div>	
 	</div>
-	<br>
 		</div><!-- fin principale-->
 	
 
