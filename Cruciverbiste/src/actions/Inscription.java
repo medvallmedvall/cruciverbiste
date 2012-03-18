@@ -73,25 +73,24 @@ public class Inscription extends ActionSupport {
 		Utilisateur utilisateur = new Utilisateur(getNom(), getPrenom(), getPseudo(),
 				getPassword(), getMail(), getDateNaissance());
 		UtilisateurDao utilisateurDao = new UtilisateurDao();
-		
-		if (utilisateurDao.verifyUserEmail(utilisateur.getMail())  && 
-				utilisateurDao.verifyUserPseudo(utilisateur.getPseudo())) {
-			utilisateurDao.create(utilisateur);
-			return SUCCESS;
+		System.out.println("Email used " + utilisateurDao.verifyUserEmail(utilisateur.getMail()) + " " + "pseudo used "  + utilisateurDao.verifyUserPseudo(
+				utilisateur.getPseudo()));
+		Boolean verEmail = utilisateurDao.verifyUserEmail(utilisateur.getMail());
+		Boolean verPseudo = utilisateurDao.verifyUserPseudo(utilisateur.getPseudo());
+		if ((verEmail == true) && (verPseudo == true)) {
+				utilisateurDao.create(utilisateur);
+				return SUCCESS;
 		} else {
-			if (!utilisateurDao.verifyUserEmail(utilisateur.getMail())) {
-				addActionError("Le mail que vous avez entré est déjà utilisée par une autre personne");
+			if (verEmail == false) {
+				addActionError("Le mail que vous avez rentré est déjà utilisé");
 			}
-			if (!utilisateurDao.verifyUserEmail(utilisateur.getPseudo())) {
-				addActionError("Le pseudo que vous avez entré est déjà utilisée par une autre personne");
+			if (verPseudo == false) {
+					addActionError("Le pseudo que vous avez rentré est déjà utilisé");
 			}
 			
 			return ERROR;
 		}
-		
-
 	}
-	
 	
 }
 
