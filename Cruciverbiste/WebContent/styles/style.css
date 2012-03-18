@@ -144,8 +144,8 @@ div {
 
 */
 #principal {
-	margin:auto;
 	width:60%;
+	margin:auto;
 	color: #181A12;
 	background: #F7FFD9;
 	box-shadow: 10px 10px 5px #888;
@@ -186,7 +186,8 @@ div {
 	font-size: 200%;
 	text-align: center;
 	padding: 0px;
-	z-index: 0;
+	position:absolute;
+	z-index: 999999;
 }
 
 .caseSelectionnee {
@@ -207,7 +208,8 @@ div {
 	text-align: center;
 	border: 1px solid yellow;
 	margin: 0px;
-	z-index: 10;
+	position:absolute;
+	z-index: 999999;
 }
 
 /*.caseDefinition1 {
@@ -297,7 +299,8 @@ div {
 	padding: 3px 0px;
 	margin: 0px;
 	border: 1px solid black;
-	z-index: 10;
+	position:absolute;
+	z-index: 999999;
 }
 
 #grilleMotFleche .definition span {
@@ -362,7 +365,8 @@ div {
 }
 
 ul#navmenu{
-	z-index: 0;
+	position:absolute;
+	z-index: 999999;
 	border-radius : 20px;
 	background: #F7FFD9;
 	box-shadow: 10px 10px 5px #888;
@@ -451,7 +455,7 @@ ul#navmenu ul ul ul{
   position: absolute;
   top: 0px;
   left: 180px;
-  z-index: 1;
+  z-index: 999999;
   box-shadow: 10px 10px 5px #888;
 }
 
@@ -478,7 +482,7 @@ ul#navmenu ul ul li.iehover ul {
 .contextMenu {
 	position: absolute;
 	width: 120px;
-	z-index: 99999;
+	z-index: 999999;
 	border: solid 1px #CCC;
 	background: #EEE;
 	padding: 0px;
