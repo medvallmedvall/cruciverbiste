@@ -4,8 +4,6 @@ package entities;
 public class MotGrille {
         private int idGrille;
         private int orientation;
-        /*private String mot;
-        private String definition;*/
         private Mot mot;
         private Definition definition;
         private int coordX;
@@ -13,16 +11,6 @@ public class MotGrille {
 
         public MotGrille() {
         }
-        
-        /*public MotGrille(int idGrille, int orientation, String mot,
-                        String definition, int x, int y) {
-                this.idGrille = idGrille;
-                this.orientation = orientation;
-                this.mot = mot;
-                this.definition = definition;
-                this.coordX = x;
-                this.coordY = y;
-        }*/
         
         public MotGrille(int idGrille, int orientation, Mot mot,
                         Definition definition, int x, int y) {
@@ -33,8 +21,6 @@ public class MotGrille {
                 this.coordX = x;
                 this.coordY = y;
         }
-
-
 
         public int getIdGrille() {
                 return this.idGrille;
@@ -91,6 +77,16 @@ public class MotGrille {
         public String getDefinition() {
                 return definition.getDefinition();
         }
-
+        
+        public int getIdDefinition() {
+            return definition.getIdDefinition();
+        }
+          
+        public String getSynonyme() {
+        	if (mot.getSynonymes().isEmpty()) {
+        		return "";
+        	}
+        	return mot.getSynonymes().get(0);
+        }
 }
 
