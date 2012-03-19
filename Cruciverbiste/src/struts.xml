@@ -31,6 +31,12 @@
 		<action name = "Deconnexion" class ="actions.Deconnexion">
 			<result name ="success" type = "redirect">index.jsp</result>
 		</action>
+		
+		<action name = "Emailer" class ="actions.Emailer">
+			<result name ="success">successOubli.jsp</result>
+			<result name="error"> errorOubli.jsp</result>
+		</action>
+		
 	</package>
 
 </struts>
