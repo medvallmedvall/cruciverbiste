@@ -1,0 +1,131 @@
+package actions;
+
+import java.util.Properties;
+
+import javax.mail.BodyPart;
+import javax.mail.Message;
+import javax.mail.PasswordAuthentication;
+import javax.mail.Session;
+import javax.mail.Transport;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeBodyPart;
+import javax.mail.internet.MimeMessage;
+import javax.mail.internet.MimeMultipart;
+
+import com.opensymphony.xwork2.ActionSupport;
+
+import dao.UtilisateurDao;
+
+import entities.Utilisateur;
+
+public class Emailer extends ActionSupport {
+
+   private String from;
+   private String password;
+   private String mail;
+   private String pseudo;
+   private Utilisateur user;
+   
+
+   static Properties properties = new Properties();
+   static
+   {
+      properties.put("mail.smtp.host", "smtp.gmail.com");
+      properties.put("mail.smtp.socketFactory.port", "465");
+      properties.put("mail.smtp.socketFactory.class",
+                     "javax.net.ssl.SSLSocketFactory");
+      properties.put("mail.smtp.auth", "true");
+      properties.put("mail.smtp.port", "465");
+   }
+
+   public String execute() 
+   {
+	  UtilisateurDao utilisateurDao = new UtilisateurDao();
+	  user = utilisateurDao.getBy(getMail());
+      String ret = SUCCESS;
+      try
+      {
+         Session session = Session.getDefaultInstance(properties,  
+            new javax.mail.Authenticator() {
+            protected PasswordAuthentication 
+            getPasswordAuthentication() {
+            return new 
+            PasswordAuthentication("cruciverbiste76@gmail.com", "mrpatrou");
+            }});
+         String nameUser = user.getNom() + " " + user.getPrenom();
+         //Le message à envoyer à l'utilisateur
+         String body = "Votre mot de passe est " + "<h3> <b>" + user.getPassword() + " </b></h3><br>" +
+        		 		"Vous pouvez revenir sur notre site en cliquant <a href = \"http://localhost:8080/Cruciverbiste/index.jsp\"> ici </a> " + "<br>" +
+        		 		" Le site du cruciverbiste ";
+         
+         Message message = new MimeMessage(session);
+         message.setFrom(new InternetAddress("cruciverbiste76@gmail.com", "Le site du Cruciverbiste"));
+         message.addRecipient(Message.RecipientType.TO, new InternetAddress(getMail(), nameUser));
+         message.setSubject("Votre mot de passe");
+         MimeMultipart multipart = new MimeMultipart("related");
+         
+         //Le contenu du messgae
+         BodyPart messageBodyPart = new MimeBodyPart();
+         messageBodyPart.setContent(body, "text/html");
+         multipart.addBodyPart(messageBodyPart);
+         
+         message.setContent(multipart);
+         Transport.send(message);
+      }
+      catch(Exception e)
+      {
+         ret = ERROR;
+         e.printStackTrace();
+      }
+      return ret;
+   }
+
+   public  String getPseudo() {
+	// TODO Auto-generated method stub
+	return pseudo;
+   }
+   
+   public void setpseudo(String pseudo) {
+	   this.pseudo = pseudo;
+   }
+
+   public String getFrom() {
+      return from;
+   }
+
+   public void setFrom(String from) {
+      this.from = from;
+   }
+
+   public String getPassword() {
+      return password;
+   }
+
+   public void setPassword(String password) {
+      this.password = password;
+   }
+
+   public String getMail() {
+      return mail;
+   }
+
+   public void setMail(String mail) {
+      this.mail = mail;
+   }
+   
+   public Utilisateur getUser() {
+	   return user;
+   }
+   
+   public void setUser(Utilisateur user) {
+	   this.user = user;
+   }
+
+   public static Properties getProperties() {
+      return properties;
+   }
+
+   public static void setProperties(Properties properties) {
+      Emailer.properties = properties;
+   }
+}
