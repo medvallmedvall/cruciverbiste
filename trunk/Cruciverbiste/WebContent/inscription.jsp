@@ -23,30 +23,33 @@
 <div id="principal">
 
 <h3>Inscription du client :</h3>
+
+<s:actionerror/>
+
 <s:form action="Inscription" method="post" onsubmit="return verif_formulaire();">
 	<table>
 		<tr>
-			<td><s:textfield name="nom" label="Nom" onmousedown="changeColor()"/></td>
+			<td><s:textfield name="nom" label="Nom" onchange="changeColor(this)"/></td>
 		</tr>
 		<tr>
 			<td><s:textfield name="prenom" label="Prenom" /></td>
 		</tr>
 		<tr>
 			<td><sx:datetimepicker name="dateNaissance"
-				label="Date De Naissance" displayFormat="yyyy-MM-dd" onmousedown="changeColor()"/></td>
+				label="Date De Naissance" displayFormat="yyyy-MM-dd" onchange="changeColor(this)"/></td>
 		</tr>
 		<tr>
-			<td><s:textfield name="pseudo" label="Pseudo*" onmousedown="changeColor()"/></td>
+			<td><s:textfield name="pseudo" label="Pseudo*" onchange="changeColor(this)"/></td>
 		</tr>
 		<tr>
-			<td><s:password name="password" label="Mot De Passe*" onmousedown="changeColor()"/></td>
+			<td><s:password name="password" label="Mot De Passe*" onchange="changeColor(this)"/></td>
 		</tr>
 		<tr>
 			<td><s:password name="motdepasse2"
-				label="Retapez le mot de passe*" onmousedown="changeColor()"/></td>
+				label="Retapez le mot de passe*" onchange="changeColor(this)"/></td>
 		</tr>
 		<tr>
-			<td><s:textfield name="mail" label="Adresse email*" onmousedown="changeColor()" /></td>
+			<td><s:textfield name="mail" label="Adresse email*" onchange="changeColor(this)" /></td>
 		</tr>
 		<tr>
 			<td><s:submit value="Inscription" style="width: 100px;"

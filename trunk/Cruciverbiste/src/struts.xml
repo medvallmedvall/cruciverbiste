@@ -25,6 +25,7 @@
 		
 		<action name ="Connexion" class ="actions.Connexion">
 			<result name ="success">bienvenue.jsp</result>
+			<result name="input">inscription.jsp</result>
 			<result name="error"> erreur.jsp</result>
 		</action>
 		
@@ -35,6 +36,11 @@
 		<action name = "Emailer" class ="actions.Emailer">
 			<result name ="success">successOubli.jsp</result>
 			<result name="error"> errorOubli.jsp</result>
+		</action>
+		
+		<action name ="posterCommentaire" class ="actions.CommentAction">
+			<result name ="success">${urlGrille}</result>
+			<result name="error">erreur.jsp</result>
 		</action>
 		
 	</package>

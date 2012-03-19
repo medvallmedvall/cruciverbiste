@@ -7,18 +7,18 @@
 		<li><a href="#">Jouer</a>
 		<ul>
 		<li><a href="choixGrilles?idTypeGrid=2">Mots croises</a>
-		<ul>
+		<!-- ul>
 			<li><a href="#">Facile</a></li>
 			<li><a href="#">Moyen</a></li>
 			<li><a href="#">Expert</a></li>
-		</ul>
+		</ul-->
 		</li>
 		<li><a href="choixGrilles?idTypeGrid=1">Mots fleches</a>
-		<ul>
+		<!--ul>
 			<li><a href="#">Facile</a></li>
 			<li><a href="#">Moyen</a></li>
 			<li><a href="#">Expert</a></li>
-		</ul>
+		</ul-->
 		</li>
 		</ul>
 		</li>
@@ -42,18 +42,18 @@
 		<li><a href="#">Jouer</a>
 		<ul>
 		<li><a href="choixGrilles?idTypeGrid=2">Mots croises</a>
-		<ul>
+		<!--ul>
 			<li><a href="#">Facile</a></li>
 			<li><a href="#">Moyen</a></li>
 			<li><a href="#">Expert</a></li>
-		</ul>
+		</ul-->
 		</li>
 		<li><a href="choixGrilles?idTypeGrid=1">Mots fleches</a>
-		<ul>
+		<!-- ul>
 			<li><a href="#">Facile</a></li>
 			<li><a href="#">Moyen</a></li>
 			<li><a href="#">Expert</a></li>
-		</ul>
+		</ul-->
 		</li>
 		</ul>
 		</li>

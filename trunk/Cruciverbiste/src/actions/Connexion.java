@@ -43,6 +43,7 @@ public class Connexion extends ActionSupport {
 			
 				// on renseigne la session
 				session.put("authentification","true");
+				session.put("idUser", user.getIdUtilisateur());
 				session.put("nom",user.getNom());
 				session.put("pseudo", user.getPseudo());
 				return SUCCESS;
