@@ -37,12 +37,10 @@ public class Connexion extends ActionSupport {
 		public String execute() {
 			UtilisateurDao utilisateurDao = new UtilisateurDao();
 			Utilisateur user = new Utilisateur(getPseudo(), getPassword());
-			System.out.println(user.getPseudo());
-			System.out.println(user.getPassword());
 			
 			if (utilisateurDao.verifyUtilisateurConnects(user.getPseudo(),  user.getPassword()) == true) {
 				Map<String, Object> session = ActionContext.getContext().getSession();
-				System.out.println("Vous êtes loggués avec succès");
+			
 				// on renseigne la session
 				session.put("authentification","true");
 				session.put("nom",user.getNom());
