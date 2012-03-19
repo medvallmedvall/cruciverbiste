@@ -32,6 +32,10 @@ public class Utilisateur {
 		this.password = password;
 	}
 
+	public Utilisateur() {
+
+	}
+
 	public Integer getIdUtilisateur() {
 		return idUtilisateur;
 	}

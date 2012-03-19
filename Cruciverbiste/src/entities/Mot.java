@@ -5,7 +5,7 @@ import java.util.List;
 public class Mot {
 	private int idMot;
 	private String mot;
-	private List<Mot> synonymes;
+	private List<String> synonymes;
 	
 	public Mot() {
 		idMot = -1;
@@ -13,7 +13,7 @@ public class Mot {
 		synonymes = null;
 	}
 	
-	public Mot(int idMot, String mot, List<Mot> synonymes) {
+	public Mot(int idMot, String mot, List<String> synonymes) {
 		this.idMot = idMot;
 		this.mot = mot;
 		this.synonymes = synonymes;
@@ -35,11 +35,11 @@ public class Mot {
 		this.mot = mot;
 	}
 
-	public List<Mot> getSynonymes() {
+	public List<String> getSynonymes() {
 		return synonymes;
 	}
 
-	public void setSynonymes(List<Mot> synonymes) {
+	public void setSynonymes(List<String> synonymes) {
 		this.synonymes = synonymes;
 	}
 	

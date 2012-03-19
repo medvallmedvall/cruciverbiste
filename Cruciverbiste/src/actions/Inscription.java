@@ -12,13 +12,12 @@ import dao.UtilisateurDao;
 import entities.Utilisateur;
 
 public class Inscription extends ActionSupport {
-
-	String nom;
-	String prenom;
-	String pseudo;
-	String password;
-	String mail;
-	Date dateNaissance;
+	private String nom;
+	private String prenom;
+	private String pseudo;
+	private String password;
+	private String mail;
+	private Date dateNaissance;
 
 	public String getNom() {
 		return nom;
@@ -80,13 +79,13 @@ public class Inscription extends ActionSupport {
 				return SUCCESS;
 		} else {
 			if (verEmail == false) {
-				addActionError("Le mail que vous avez rentré est déjà utilisé");
+				addActionError("Le mail que vous avez rentrï¿½ est dï¿½jï¿½ utilisï¿½");
 			}
 			if (verPseudo == false) {
-					addActionError("Le pseudo que vous avez rentré est déjà utilisé");
+					addActionError("Le pseudo que vous avez rentrï¿½ est dï¿½jï¿½ utilisï¿½");
 			}
 			
-			return ERROR;
+			return INPUT;
 		}
 	}
 	

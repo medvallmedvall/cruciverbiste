@@ -1,6 +1,8 @@
-<!--<script type="text/javascript" src="javascripts/jquery-1.7.1.js"></script>
+<%@ taglib prefix="s" uri="/struts-tags"%>
+
+<% String pseudo = (String) session.getAttribute("pseudo");%>
+
 <script type="text/javascript">
-<!--
 $(document).ready(
 		function() {
 			var navWidth = $("body").width();
@@ -16,17 +18,18 @@ $(document).ready(
 			$("#principal").css("width", newPrincWidth);
 			$("#principal").css("min-width", newPrincWidth);
 			$("#principal").css("float", "left");
-			//$("#principal").css("margin-left", "10px");
+			$("#pied_page").css("min-width", newPrincWidth);
 			menuWidth+= 20;
 			$("#principal").css("margin-left", menuWidth + "px");
 			$("#principal").css("margin-right", "10px");
+			$("#pied_page").css("margin-left", menuWidth + "px");
+			$("#pied_page").css("margin-right", "10px");
+			var navHeight = $(window).height();
+			var entHeight = $("#entete").height();
+			var princHeight = navHeight - entHeight - 170;
+			$("#principal").css("min-height", princHeight + "px");
 		});
-//
-</script>-->
-
-<%@ taglib prefix="s" uri="/struts-tags"%>
-
-<% String pseudo = (String) session.getAttribute("pseudo");%>
+</script>
 <div id="entete"><!-- debut entete -->
 
 	<div id="langue"><!-- debut langue -->
