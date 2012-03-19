@@ -126,6 +126,32 @@ public class UtilisateurDao extends Dao<Utilisateur> {
 		
 	}
 	
+	public Utilisateur getBy(String mail) {
+		String query = "select * from Utilisateur where mail = '"  + mail + "'" ;
+		String pass = new String();
+		String pseudo = new String();
+		String nom = new String();
+		String prenom = new String();
+		Date dateNaissance = null;
+		Utilisateur user = null;
+		try {
+			ResultSet rs = this.connection.createStatement().executeQuery(query);
+			while (rs.next()) {
+				pass = rs.getString("password");
+				pseudo = rs.getString("pseudo");
+				nom = rs.getString("nom");
+				prenom = rs.getString("prenom");
+				dateNaissance = rs.getDate("dateNaissance");
+				user = new Utilisateur(nom, prenom, pseudo, pass, mail, dateNaissance);
+				
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+		e.printStackTrace();
+		}
+		return user;
+	}
+	
 	//Tous les utilisateurs du site
 	public List<Utilisateur> getUtilisateurs() {
 		String query = "select * from Utilisateur";
