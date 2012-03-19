@@ -1,0 +1,267 @@
+/*Code de grille*/
+
+#grille1, #grilleMotFleche {
+	border-collapse: collapse;
+	background-color: white;
+	margin: auto;
+	position: relative;
+}
+
+#grille1 td, #grilleMotFleche td {
+	border: 1px solid black;
+	width: 50px;
+	height: 50px;
+	color: black;
+	text-transform: uppercase;
+	font-weight: bold;
+	font-size: 200%;
+	text-align: center;
+	padding: 0px;
+	z-index: 0;
+}
+
+.caseSelectionnee {
+	background-color: #99FFFF;
+}
+
+#caseTexte {
+	height: 92%;
+	width: 93%;
+	border-radius: 0px;
+	background-color: #FFFFCC;
+	color: black;
+	text-transform: uppercase;
+	font-weight: bold;
+	font-size: 100%;
+	text-align: center;
+	border: 1px solid orange;
+	margin: 0px;
+	z-index: 10;
+	color: black
+}
+
+.definitionSelectionneeMF {
+	background-color: #FFFF99 !important;
+}
+
+.casesMotSelectionne {
+	background-color: #FFFF99;
+}
+
+.caseNoire {
+	background-color: black;
+}
+
+#grille1 th {
+	padding-left: 5px;
+	padding-right: 5px;
+	background: #F7FFD9;
+}
+
+#definitions {
+	border: 1px solid black;
+	margin-left: 20px;
+	margin-right: 20px;
+	float: right;
+	width: 300px;
+}
+
+.titreDefinitions {
+	text-align: center;
+	color: black;
+	font-weight: bold;
+}
+
+.ligne_definition {
+	margin: 0px;
+	padding: 5px 10px;
+}
+
+#defHorizontales, #defVerticales {
+	border: 1px solid black;
+	margin: 10px;
+	padding-bottom: 15px;
+	background-color: white;
+}
+
+.definitionSelectionnee2 {
+	background-color: #FFFF99;
+	border: 1px solid yellow;
+}
+
+.colIndex,.rowIndex {
+	display: none;
+}
+
+#grilleMotFleche .definitionMF {
+	background-color: #f3f0ee;
+	color: black;
+	font-size: 9px;
+	width: 100%;
+	/*height: 100%;*/
+	font-weight: bold;
+	line-height: 90%;
+	padding: 3px 0px;
+	margin: 0px;
+	border: 1px solid black;
+	z-index: 10;
+}
+
+.correctCase {
+	background-color: #99FF66 !important;;
+}
+
+.errorCase {
+	background-color: #FF9999 !important;;
+}
+
+
+/*********************** COMMENTAIRES **************************/
+
+#commentaires {
+	background-color: white;
+	width: 500px;
+	margin: 50px auto;
+	padding: 5px 10px;
+	border: 1px solid black;
+	font-size: 14px;
+}
+
+#commentaires .commentaire{
+	background-color: #FFFF99;
+	border: 1px solid yellow;
+	margin: 5px;
+	padding: 5px;
+	border-radius : 5px;
+}
+
+#logMessage {
+	text-align: center;
+	padding: 10px;
+}
+
+#commentaire form {
+	margin: auto;
+}
+
+#commentaire textarea {
+	width: 500px;
+}
+
+/****************************MENU HORIZONTAL GRILLE*************************/
+
+#menuMotsCroises {
+	margin: 50px 50px 110px 50px;
+}
+
+#nav li {
+	width: 13em;
+	text-align: center;
+}
+
+#nav, #nav ul {
+	margin: 0;
+	padding: 0;
+	list-style-type: none;
+	list-style-position: outside;
+	position: relative;
+	line-height: 1.5em;
+}
+
+#nav a:link,#nav a:active,#nav a:visited {
+	display: block;
+	padding: 5px 5px;
+	border: 1px solid #333;
+	color: #fff;
+	text-decoration: none;
+	background-color: #333;
+	//line-height: 30px;
+	/*font-size: 16px;*/
+}
+
+#nav a:hover {
+	background-color: #fff;
+	color: #333;
+}
+
+#nav li {
+	float: left;
+	position: relative;
+}
+
+#nav ul {
+	position: absolute;
+	display: none;
+	width:12em;
+    top:30px;
+}
+
+#nav li ul a {
+	width:12em;
+    float:left;
+}
+
+#nav ul ul {
+	top: auto;
+}
+
+#nav li ul ul {
+	left:12em;
+    margin:0px 0 0 10px;
+}
+
+#nav li:hover ul ul, #nav li:hover ul ul ul, #nav li:hover ul ul ul ul {
+	display: none;
+}
+
+#nav li:hover ul, #nav li li:hover ul, #nav li li li:hover ul, #nav li li li li:hover ul
+	{
+	display: block;
+}
+
+
+
+/* Menu contextuel */
+
+#menuContext{
+	display: none;
+	position: absolute;
+}
+#menuContext, #menuContext ul {
+	margin: 0;
+	padding: 0;
+	list-style-type: none;
+	list-style-position: outside;
+	text-align: center;
+}
+
+#menuContext ul {
+	position: absolute;
+	left: 105px;
+	top: 0px;;
+	display: none;
+}
+
+#menuContext a {
+	display: block;
+	width: 100px;
+	height: 20px;
+	border-top: 1px solid white;
+	padding: 5px;
+	color: white;
+	background-color: black;
+}
+
+#menuContext a:hover {
+	color: black;
+	background-color: white;
+	border-top: 1px solid black;
+}
+
+#menuContext li {
+	height: 25px;
+	position: relative;
+}
+#menuContext li:hover > ul {
+	display: block;
+}
