@@ -39,8 +39,11 @@
 		</action>
 		
 		<action name ="posterCommentaire" class ="actions.CommentAction">
-			<result name ="success">${urlGrille}</result>
-			<result name="error">erreur.jsp</result>
+			<!--result name ="success">index.jsp</result-->
+			<result type="redirectAction">
+            	<param name="actionName">jouer</param>
+            	<param name="idGrille">${idGrille}</param>
+        	</result>
 		</action>
 		
 	</package>

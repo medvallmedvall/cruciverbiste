@@ -12,6 +12,7 @@ public class Deconnexion extends ActionSupport {
 		  session.remove("authentification");
 		  session.remove("nom");
 		  session.remove("pseudo");
+		  session.remove("idUser");
 		  return SUCCESS;
 		  }
 

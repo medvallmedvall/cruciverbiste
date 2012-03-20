@@ -362,7 +362,7 @@ function selectSquare(mCase) {
 	//on prend la lettre deja dans la case
 	letter = mCase.text();
 	mCase.text("");
-	var input = "<input type='text' id='caseTexte' name='caseTexte' />";
+	var input = "<input type='text' id='caseTexte' name='caseTexte' maxlength='1'/>";
 	mCase.append(input);
 	$("#caseTexte").val(letter);
 	$("#caseTexte").focus();

@@ -179,13 +179,36 @@ public class UtilisateurDao extends Dao<Utilisateur> {
 	}
 	
 	
-	//Verification des paramètres de connexion de l'utilisateur
+	//Verification des paramï¿½tres de connexion de l'utilisateur
 	public boolean verifyUtilisateurConnects(String pseudo, String password) {
 		String query = "select * from Utilisateur where pseudo = '" + pseudo + "' and password = '" + password + "'";
 		Boolean b = false;
 		try {
 			ResultSet rs = this.connection.createStatement().executeQuery(query);
 			if (rs.first()) {
+				
+				b = true;
+			} else {
+				b = false;
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+		e.printStackTrace();
+		}
+		return b;
+	}
+	
+	public boolean verifyUtilisateurConnects(Utilisateur u) {
+		String query = "select * from Utilisateur " +
+				"where pseudo = '" + u.getPseudo() + "' " +
+						"and password = '" + u.getPassword() + "'";
+		Boolean b = false;
+		try {
+			ResultSet rs = this.connection.createStatement().executeQuery(query);
+			if (rs.first()) {
+				u.setIdUtilisateur(rs.getInt("idUtilisateur"));
+				u.setNom(rs.getString("nom"));
 				b = true;
 			} else {
 				b = false;

@@ -56,9 +56,9 @@
 	mGrid = new GrilleMotsCroises(width, height);
 	//pour les commentaires
 	function checkCommentArea() {
-		if ($("#commentArea").val() == "") {
+		if ($("#commentaireArea").val() == "") {
 			alert("Veuillez remplir le champ pour poster");
-			$("#commentArea").focus();
+			$("#commentaireArea").focus();
 			return false;
 		}
 		return true;
@@ -145,6 +145,7 @@
 
 <div id="commentaires">
 	<h3>Commentaires : </h3>
+	<s:actionerror/>
 	<c:if test="${empty grille.commentaires}">Il n'y a aucun commentaire</c:if>
 	<c:forEach var="mComm" items="${grille.commentaires}">
 		<p class="commentaire">
@@ -157,8 +158,9 @@
 			<div id="logMessage">
 				Poster un commentaire : <br/>
 				<s:form action="posterCommentaire" method="post" onsubmit="return checkCommentArea();">
-					<s:textarea id ="commentArea" name="commentArea" label="Votre commentaire: " required="true" cols="40" rows="10"></s:textarea>
-					<s:submit name="submit" value="poster" disabled="true"></s:submit>
+					<s:textarea id="commentaireArea" name="commentaire" label="Votre commentaire: " required="true" cols="44" rows="10"></s:textarea>
+					<s:hidden name="idGrille" value="%{grille.idGrille}"></s:hidden>
+					<s:submit name="submit" value="poster"></s:submit>
 				</s:form>
 			</div>
 		</c:when>
@@ -203,6 +205,4 @@
 	</li>
 </ul> 
 
-
-<% System.out.println(request.getRequestURL());%>
 
