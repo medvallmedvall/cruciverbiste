@@ -1,39 +1,59 @@
 package actions;
 
 import java.util.Date;
+import java.util.Map;
 
+import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 
 import dao.CommentaireDao;
 import entities.Commentaire;
 import entities.Utilisateur;
 
+@SuppressWarnings("serial")
 public class CommentAction extends ActionSupport {
-	private int idUser;
+	private int idUserC;
 	private int idGrille;
-	private String contenu;
+	private String commentaire;
 	private String urlGrille;
 	
 	public String execute() {
+		if ((commentaire == null) || (commentaire.equals(""))) {
+			addActionError("Le champ commentaire est null ou vide.");
+			return ERROR;
+		}
+		Map<String, Object> session = ActionContext.getContext().getSession();
+		if ((!session.containsKey("authentification")) || 
+				(!session.containsKey("idUser")) ||
+				(!session.get("authentification").equals("true"))) {
+			addActionError("Vous n'êtes pas connecte");
+			return ERROR;
+		}
+		
+		idUserC = (Integer) session.get("idUser");
 		Date date = new Date();
 		Utilisateur ut = new Utilisateur();
-		ut.setIdUtilisateur(idUser);
-		Commentaire com = new Commentaire(-1, contenu, date, idGrille, ut);
+		ut.setIdUtilisateur(idUserC);
+		System.out.println("idgrille : " + idGrille);
+		Commentaire com = new Commentaire(-1, commentaire, date,
+				idGrille, ut);
 		CommentaireDao dao = new CommentaireDao();
 		try {
 			dao.create(com);
 		} catch (Exception e) {
+			System.out.println(e.getMessage());
 			addActionError(e.getMessage());
 			return ERROR;
 		}
+		urlGrille = "jouer?idGrille=" + idGrille;
 		return SUCCESS;
 	}
 	
-	public int getIdUser() {
-		return idUser;
+	public int getIdUserC() {
+		return idUserC;
 	}
-	public void setIdUser(int idUser) {
-		this.idUser = idUser;
+	public void setIdUserC(int idUser) {
+		this.idUserC = idUser;
 	}
 	public int getIdGrille() {
 		return idGrille;
@@ -41,11 +61,11 @@ public class CommentAction extends ActionSupport {
 	public void setIdGrille(int idGrille) {
 		this.idGrille = idGrille;
 	}
-	public String getContenu() {
-		return contenu;
+	public String getCommentaire() {
+		return commentaire;
 	}
-	public void setContenu(String contenu) {
-		this.contenu = contenu;
+	public void setCommentaire(String contenu) {
+		this.commentaire = contenu;
 	}
 	
 	public String getUrlGrille() {

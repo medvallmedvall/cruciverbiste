@@ -38,9 +38,9 @@ public class Connexion extends ActionSupport {
 			UtilisateurDao utilisateurDao = new UtilisateurDao();
 			Utilisateur user = new Utilisateur(getPseudo(), getPassword());
 			
-			if (utilisateurDao.verifyUtilisateurConnects(user.getPseudo(),  user.getPassword()) == true) {
+			//if (utilisateurDao.verifyUtilisateurConnects(user.getPseudo(),  user.getPassword()) == true) {
+			if (utilisateurDao.verifyUtilisateurConnects(user)) {
 				Map<String, Object> session = ActionContext.getContext().getSession();
-			
 				// on renseigne la session
 				session.put("authentification","true");
 				session.put("idUser", user.getIdUtilisateur());
@@ -54,9 +54,10 @@ public class Connexion extends ActionSupport {
 		}
 		
 		public String logout() throws Exception{
-			Map session = ActionContext.getContext().getSession();
+			Map<String, Object> session = ActionContext.getContext().getSession();
 			  session.remove("authentification");
 			  session.remove("nom");
+			  session.remove("pseudo");
 			  session.remove("pseudo");
 			  return SUCCESS;
 		}

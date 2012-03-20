@@ -1,6 +1,5 @@
 package dao;
 
-import java.security.Timestamp;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
@@ -62,8 +61,8 @@ public class CommentaireDao extends Dao<Commentaire> {
 		String query = "INSERT INTO Commentaire VALUES(" +
 				"NULL, '" + contenu + "', '" + idUser + "', '" + sDate + "', '" + idGrille + "')";
 		try {
-			this.connection.createStatement()
-					.executeQuery(query);
+			int rowNb = this.connection.createStatement()
+					.executeUpdate(query);
 		} catch (SQLException e) {
 			throw new IllegalStateException(e.getMessage());
 		}
