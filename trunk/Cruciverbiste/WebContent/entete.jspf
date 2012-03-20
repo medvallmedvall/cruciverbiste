@@ -59,9 +59,10 @@ $(document).ready(
 				<s:password name="password" label="Mot de passe" />
 
 				<s:submit label="Connexion" value="Connexion"
-					cssStyle="text-align: center;"></s:submit>
+					cssStyle="text-align: center;">
+				</s:submit>
 			</s:form>
-		
+			
 		</div><!--fin login-->
 		<% } %>
 
