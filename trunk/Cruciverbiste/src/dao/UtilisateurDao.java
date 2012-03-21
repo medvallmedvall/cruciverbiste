@@ -31,7 +31,8 @@ public class UtilisateurDao extends Dao<Utilisateur> {
 		
 
 		try {
-			Statement sql = this.connection.createStatement();
+			
+			
 			String prenom = obj.getPrenom();
 			String nom = obj.getNom();
 			SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
@@ -43,23 +44,19 @@ public class UtilisateurDao extends Dao<Utilisateur> {
 			String pseudo = obj.getPseudo();
 			String password = obj.getPassword();
 			String mail = obj.getMail();
-			String req = "INSERT INTO Utilisateur (nom,"
-					+ " prenom, pseudo, password, mail, dateInscription,"
-					+ " dateNaissance)" + " VALUES ('"
-					+ nom
-					+ "','"
-					+ prenom
-					+ "','"
-					+ pseudo
-					+ "','"
-					+ password
-					+ "','"
-					+ mail
-					+ "','"
-					+ s
-					+ "','"
-					+ t + "')";
-			sql.executeUpdate(req);
+			
+			String req = "INSERT INTO Utilisateur (nom, prenom, pseudo, password, mail, dateInscription, dateNaissance) VALUES (?,?,?,?,?,?,?)";
+			PreparedStatement ps = this.connection.prepareStatement(req);
+			
+			ps.setObject(1, nom);
+			ps.setObject(2, prenom);
+			ps.setObject(3, pseudo);
+			ps.setObject(4, mail);
+			ps.setObject(5, s);
+			ps.setObject(6, t);
+			
+			ps.executeUpdate();
+			
 
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -81,51 +78,54 @@ public class UtilisateurDao extends Dao<Utilisateur> {
 	}
 	
 	//Verifier que l'e-mail n'existe pas
-	public boolean verifyUserEmail(String mail) {
-		String query = "select * from Utilisateur where mail = '" + mail + "' ";
-		Boolean b = false;
-		try {
-			ResultSet rs = this.connection.createStatement().executeQuery(query);
-			System.out.println("rentremail");
-			if (rs.first()) {
-				b = false;
-				System.out.println(b);
-			} else {
-				b = true;
-				System.out.println(b);
+		public boolean verifyUserEmail(String mail) {
+			String query = "select * from Utilisateur where mail =?";
+			Boolean b = false;
+			try {
+				PreparedStatement ps = this.connection.prepareStatement(query);
+				ps.setObject(1, mail);
+				ResultSet rs = ps.executeQuery();
+				System.out.println("rentremail");
+				if (rs.first()) {
+					b = false;
+					System.out.println(b);
+				} else {
+					b = true;
+					System.out.println(b);
+				}
+				
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+			e.printStackTrace();
 			}
+			return b;
 			
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-		e.printStackTrace();
 		}
-		return b;
-		
-	}
 	
-	//Verifier que le pseudo n'existe pas
-	public boolean verifyUserPseudo(String pseudo) {
-		String query = "select * from Utilisateur where pseudo = '" + pseudo + "' ";
-		Boolean b = false;
-		try {
-			ResultSet rs = this.connection.createStatement().executeQuery(query);
-			System.out.println("rentrePseudo");
-			if (rs.first()) {
-				b = false;
-				System.out.println(b);
-			} else {
-				b = true;
-				System.out.println(b);
+		//Verifier que le pseudo n'existe pas
+		public boolean verifyUserPseudo(String pseudo) {
+			String query = "select * from Utilisateur where pseudo =?";
+			Boolean b = false;
+			try {
+				PreparedStatement ps = this.connection.prepareStatement(query);
+				ps.setObject(1, pseudo);
+				ResultSet rs = ps.executeQuery();
+				System.out.println("rentrPseudo");
+				if (rs.first()) {
+					b = false;
+					System.out.println(b);
+				} else {
+					b = true;
+					System.out.println(b);
+				}
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+			e.printStackTrace();
 			}
+			return b;
 			
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-		e.printStackTrace();
 		}
-		return b;
 		
-	}
-	
 	public Utilisateur getBy(String mail) {
 		String query = "select * from Utilisateur where mail = '"  + mail + "'" ;
 		String pass = new String();
@@ -178,48 +178,58 @@ public class UtilisateurDao extends Dao<Utilisateur> {
 		return listUsers;
 	}
 	
-	
-	//Verification des paramï¿½tres de connexion de l'utilisateur
-	public boolean verifyUtilisateurConnects(String pseudo, String password) {
-		String query = "select * from Utilisateur where pseudo = '" + pseudo + "' and password = '" + password + "'";
-		Boolean b = false;
-		try {
-			ResultSet rs = this.connection.createStatement().executeQuery(query);
-			if (rs.first()) {
+	//Verification des paramètres de connexion de l'utilisateur
+		public boolean verifyUtilisateurConnects(String pseudo, String password){
+			Boolean b = false;
+			String q = "select * from Utilisateur where pseudo = ? and password = ?";
+			
+			try {
+				PreparedStatement ps = this.connection.prepareStatement(q);
+				ps.setObject(1, pseudo);
+				ps.setObject(2, password);
+				ResultSet rs = ps.executeQuery();
+				//ResultSet rs = this.connection.createStatement().executeQuery(query);
+				if (rs.first()) {
+					b = true;
+				} else {
+					b = false;
+				}
 				
-				b = true;
-			} else {
-				b = false;
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+			e.printStackTrace();
 			}
-			
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-		e.printStackTrace();
+			return b;
 		}
-		return b;
-	}
+		
 	
-	public boolean verifyUtilisateurConnects(Utilisateur u) {
-		String query = "select * from Utilisateur " +
-				"where pseudo = '" + u.getPseudo() + "' " +
-						"and password = '" + u.getPassword() + "'";
-		Boolean b = false;
-		try {
-			ResultSet rs = this.connection.createStatement().executeQuery(query);
-			if (rs.first()) {
-				u.setIdUtilisateur(rs.getInt("idUtilisateur"));
-				u.setNom(rs.getString("nom"));
-				b = true;
-			} else {
-				b = false;
+
+	//Verification des paramètres de connexion de l'utilisateur
+			public boolean verifyUtilisateurConnects(Utilisateur u){
+				Boolean b = false;
+				String q = "select * from Utilisateur where pseudo = ? and password = ?";
+				
+				try {
+					PreparedStatement ps = this.connection.prepareStatement(q);
+					ps.setObject(1, u.getPseudo());
+					ps.setObject(2, u.getPassword());
+					ResultSet rs = ps.executeQuery();
+					//ResultSet rs = this.connection.createStatement().executeQuery(query);
+					if (rs.first()) {
+						u.setIdUtilisateur(rs.getInt("idUtilisateur"));
+						u.setNom(rs.getString("nom"));
+						b = true;
+					} else {
+						b = false;
+					}
+					
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+				e.printStackTrace();
+				}
+				return b;
 			}
 			
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-		e.printStackTrace();
-		}
-		return b;
-	}
 	
 
 
