@@ -54,10 +54,23 @@ function GrilleMotsFleches(width, height) {
 			var mCase = $(mSelector);
 			mCase.addClass("caseDefinitions");
 			var mElement = "<p class='definitionMF' id='" + mDef.idDefinition + "'>" + mDef.textDef + "</p>";
-			mCase.append(mElement);
-			var defNb = mCase.children("p").length;
+			if (mCase.children(".conteneurDef").length == 0) {
+				var mConteneur = "<div class='conteneurDef'></div>";
+				mCase.append(mConteneur);
+				//alert(mCase.children(".conteneurDef").length);
+			}
+			var mDefCont = mCase.children(".conteneurDef").first();
+			mDefCont.append(mElement);
+			//var defNb = mDefCont.children("p").length;
+			//var heigthCase = 50 / defNb;
+			//mDefCont.children("p").css("height", heigthCase + "px");
+			
+			
+			//mCase.append(mElement);
+			
+			/*var defNb = mCase.children("p").length;
 			var heigthCase = 100 / defNb;
-			mCase.children("p").css("height", heigthCase + "%");
+			mCase.children("p").css("height", heigthCase + "%");*/
 			
 			//rajout des fleches liees a la definition dans la case d'a cote
 			
@@ -115,6 +128,11 @@ function GrilleMotsFleches(width, height) {
 				}
 			}
 		}
+		/*reajustement des hauteurs de definitions dans les cases*/
+		$(".conteneurDef").each(
+				function(index, element) {
+					$(this).children("p").last().css("height", "100%");
+				});
 	};
 
 	GrilleMotsFleches.prototype.switchOrientation = function(pCase, pHorizontal) {
@@ -190,6 +208,63 @@ $(document).ready(function(){
 				selectSquare(mCase);
 			}
 	);
+	
+	/*Zoom lorsque la souris est sur une definition */
+	
+	$(".definitionMF").mouseenter(
+			function(e) {
+				var mCase = $(this).parent();
+				var topG = $("#grilleMotFleche").position().top;
+				var leftG = $("#grilleMotFleche").position().left;
+				var top = mCase.position().top + topG - 5;
+				var left = mCase.position().left + leftG - 5;
+				$("#zoomDiv").css("top", top);
+				$("#zoomDiv").css("left", left);
+				var mText = $(this).text();
+				$("#zoomDiv").text(mText);
+				$("#zoomDiv").show("fast");
+			});
+	$("#zoomDiv").mouseleave(
+			function(e) {
+				$("#zoomDiv").hide("fast");
+			});
+	$("#grilleMotFleche").mouseenter(
+			function(e) {
+				$("#zoomDiv").hide("fast");
+			});
+	
+	/*configuration de l'alerte lors d'une victoire*/
+	
+	var docWidth = $("html").width();
+	var docHeight = $("html").height();
+	var winHeight = $(window).height();
+	//alert(docHeight);
+	//alert(docHeight + " - " + winHeight);
+	var left = (docWidth - $("#alertPers").width()) / 2;
+	var top = (winHeight - $("#alertPers").height()) / 2;
+	$("#alertConteneur").height(docHeight);
+	$("#alertPers").css("left", left);
+	$("#alertPers").css("top", top);
+	
+	/*Cacher l'alert lors du click*/
+	$("#alertPers").click(
+			function(e) {
+				$(this).parent().hide("slow");
+			});
+	
+	var currentScroll = 0;
+	
+	
+	/*Pour centrer l'alert verticalement lors d'un scroll*/
+	$(document).scroll(
+			function(e) {
+				var scrollTmp = $(document).scrollTop();
+				var cTop = $("#alertPers").position().top;
+				var newTop = cTop + (scrollTmp - currentScroll);
+				$("#alertPers").css("top", newTop);
+				currentScroll = scrollTmp;
+			});
+	
 
 	/*Lors de l'appuie sur les touches speciales (direction, backspace, ctr...)*/
 
@@ -365,8 +440,8 @@ function checkEndGame() {
 		}
 	}
 	alert("Fin de la partie !");
-	mGrid.endGame = true;
-	$("#caseTexte").attr("disabled", true);
+	/*mGrid.endGame = true;
+	$("#caseTexte").attr("disabled", true);*/
 }
 
 
@@ -429,9 +504,9 @@ function selectSquare(mCase) {
 	mCase.append(input);
 	$("#caseTexte").val(letter);
 	$("#caseTexte").focus();
-	if (mGrid.endGame) {
+	/*if (mGrid.endGame) {
 		$("#caseTexte").attr("disabled", true);
-	}
+	}*/
 }
 
 /*Gestion de l'aide de jeu*/
