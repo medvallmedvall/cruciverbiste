@@ -128,12 +128,15 @@ function GrilleMotsFleches(width, height) {
 				}
 			}
 		}
-		/*reajustement des hauteurs de definitions dans les cases*/
+		/*reajustement des hauteurs de definitions dans les cases 
+		 * (derniere definition qui prend le reste de la place)*/
 		$(".conteneurDef").each(
 				function(index, element) {
 					$(this).children("p").last().css("height", "100%");
 				});
 	};
+	
+	/*Change l'orientation du mot selectionnee si possible*/
 
 	GrilleMotsFleches.prototype.switchOrientation = function(pCase, pHorizontal) {
 		var mIdCase = pCase.attr("id");
@@ -149,6 +152,8 @@ function GrilleMotsFleches(width, height) {
 
 $(document).ready(function(){
 	mGrid.initialize();
+	var timer = null;
+	
 	$(".caseLettre").click(
 			function(e) {
 				var mCase = $(this);
@@ -166,6 +171,11 @@ $(document).ready(function(){
 
 	$(".definitionMF").click(
 			function(e) {
+				//desactivation du zoom
+				if (timer != null) {
+					clearTimeout(timer);
+					timer = null;
+				}
 				var mIdDef = $(this).attr("id");
 				var mDef = mGrid.definitionList[mIdDef];
 				var x = mDef.coordDef.x;
@@ -174,22 +184,18 @@ $(document).ready(function(){
 				case 1:
 					//droite
 					x++;
-					urlImage = "url('images/grilles/droite.png')";
 					break;
 				case 2:
 					//bas
 					y++;
-					urlImage = "url('images/grilles/bas.png')";
 					break;
 				case 3:
 					//droite-bas
 					x++;
-					urlImage = "url('images/grilles/droite-bas.png')";
 					break;
 				case 4:
 					//bas-droite
 					y++;
-					urlImage = "url('images/grilles/bas-droite.png')";
 					break;
 
 				default:
@@ -214,22 +220,53 @@ $(document).ready(function(){
 	$(".definitionMF").mouseenter(
 			function(e) {
 				var mCase = $(this).parent();
-				var topG = $("#grilleMotFleche").position().top;
-				var leftG = $("#grilleMotFleche").position().left;
-				var top = mCase.position().top + topG - 5;
-				var left = mCase.position().left + leftG - 5;
-				$("#zoomDiv").css("top", top);
-				$("#zoomDiv").css("left", left);
-				var mText = $(this).text();
-				$("#zoomDiv").text(mText);
-				$("#zoomDiv").show("fast");
+				var mDef = $(this);
+				if (timer != null) {
+					clearTimeout(timer);
+					timer = null;
+				}
+				timer = setTimeout(
+						function() {
+							var topG = $("#grilleMotFleche").position().top;
+							var leftG = $("#grilleMotFleche").position().left;
+							var top = mCase.position().top + topG - 5;
+							var left = mCase.position().left + leftG - 5;
+							$("#zoomDiv").css("top", top);
+							$("#zoomDiv").css("left", left);
+							var mText = mDef.text();
+							$("#zoomDiv").text(mText);
+							$("#zoomDiv").show("fast");
+						}, 2000);
+			});
+	$(".definitionMF").mouseleave(
+			function(e) {
+				if (timer != null) {
+					clearTimeout(timer);
+					timer = null;
+				}
 			});
 	$("#zoomDiv").mouseleave(
 			function(e) {
+				if (timer != null) {
+					clearTimeout(timer);
+					timer = null;
+				}
+				$("#zoomDiv").hide("fast");
+			});
+	$("#zoomDiv").click(
+			function(e) {
+				if (timer != null) {
+					clearTimeout(timer);
+					timer = null;
+				}
 				$("#zoomDiv").hide("fast");
 			});
 	$("#grilleMotFleche").mouseenter(
 			function(e) {
+				if (timer != null) {
+					clearTimeout(timer);
+					timer = null;
+				}
 				$("#zoomDiv").hide("fast");
 			});
 	
@@ -238,8 +275,6 @@ $(document).ready(function(){
 	var docWidth = $("html").width();
 	var docHeight = $("html").height();
 	var winHeight = $(window).height();
-	//alert(docHeight);
-	//alert(docHeight + " - " + winHeight);
 	var left = (docWidth - $("#alertPers").width()) / 2;
 	var top = (winHeight - $("#alertPers").height()) / 2;
 	$("#alertConteneur").height(docHeight);
@@ -270,7 +305,6 @@ $(document).ready(function(){
 
 	$("#grilleMotFleche").keyup(
 			function(event) {
-				//if (event.keyCode=='86' && event.ctrlKey) {alert('interdit'); return;};
 				var c = codeTouche(event);
 				//si on a appuyé sur des fleches directionnelles ou la touche pour effacer
 				if ((c == 8) || ((c >= 37) && (c <= 40))) {
@@ -287,6 +321,7 @@ $(document).ready(function(){
 					case 8:
 						//backspace
 						sens = mGrid.horizontal;
+						$("#caseTexte").val("");
 						if (mGrid.horizontal) {
 							x--;
 						}
@@ -439,7 +474,11 @@ function checkEndGame() {
 			return;
 		}
 	}
-	alert("Fin de la partie !");
+	var scrollTmp = $(document).scrollTop();
+	var cTop = $("#alertPers").position().top;
+	var newTop = cTop + scrollTmp;
+	$("#alertPers").css("top", newTop);
+	$("#alertConteneur").show("slow");
 	/*mGrid.endGame = true;
 	$("#caseTexte").attr("disabled", true);*/
 }
