@@ -154,6 +154,7 @@ $(document).ready(function(){
 					case 8:
 						//backspace
 						sens = mGrid.horizontal;
+						$("#caseTexte").val(" ");
 						if (mGrid.horizontal) {
 							x--;
 						}
@@ -198,9 +199,9 @@ $(document).ready(function(){
 	$("#grille1").keypress(
 			function(event) {
 				event.preventDefault();
-				if (mGrid.endGame) {
+				/*if (mGrid.endGame) {
 					return false;
-				}
+				}*/
 				$(".caseLettre").removeClass("correctCase");
 				$(".caseLettre").removeClass("errorCase");
 				$("#caseTexte").removeClass("correctCase");
@@ -259,6 +260,54 @@ $(document).ready(function(){
 				$("#menuContext").css("display", "none");
 			}
 	);
+	
+/*configuration de l'alerte lors d'une victoire*/
+	
+	var docWidth = $("html").width();
+	var docHeight = $("html").height();
+	var winHeight = $(window).height();
+	var left = (docWidth - $("#alertPers").width()) / 2;
+	var top = (winHeight - $("#alertPers").height()) / 2;
+	$("#alertConteneur").height(docHeight);
+	$("#alertPers").css("left", left);
+	$("#alertPers").css("top", top);
+	
+	/*Cacher l'alert lors du click*/
+	$("#alertPers").click(
+			function(e) {
+				$(this).parent().hide("slow");
+			});
+	
+	/*configuration de l'alerte lors d'une victoire*/
+	
+	var docWidth = $("html").width();
+	var docHeight = $("html").height();
+	var winHeight = $(window).height();
+	var left = (docWidth - $("#alertPers").width()) / 2;
+	var top = (winHeight - $("#alertPers").height()) / 2;
+	$("#alertConteneur").height(docHeight);
+	$("#alertPers").css("left", left);
+	$("#alertPers").css("top", top);
+	
+	/*Cacher l'alert lors du click*/
+	$("#alertPers").click(
+			function(e) {
+				$(this).parent().hide("slow");
+			});
+	
+	var currentScroll = 0;
+	
+	/*Pour centrer l'alert verticalement lors d'un scroll*/
+	$(document).scroll(
+			function(e) {
+				var scrollTmp = $(document).scrollTop();
+				var cTop = $("#alertPers").position().top;
+				var newTop = cTop + (scrollTmp - currentScroll);
+				$("#alertPers").css("top", newTop);
+				currentScroll = scrollTmp;
+			});
+	
+	
 
 	/*selection de la 1ere case de la grille*/
 
@@ -305,9 +354,15 @@ function checkEndGame() {
 			return;
 		}
 	}
-	alert("Fin de la partie !");
+	/*alert("Fin de la partie !");
 	mGrid.endGame = true;
-	$("#caseTexte").attr("disabled", true);
+	$("#caseTexte").attr("disabled", true);*/
+	
+	var scrollTmp = $(document).scrollTop();
+	var cTop = $("#alertPers").position().top;
+	var newTop = cTop + scrollTmp;
+	$("#alertPers").css("top", newTop);
+	$("#alertConteneur").show("slow");
 }
 
 

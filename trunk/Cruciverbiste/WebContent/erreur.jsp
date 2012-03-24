@@ -11,10 +11,13 @@
 	media="screen" />
 </head>
 <body>
+	<script type="text/javascript" src="javascripts/jquery-1.7.1.js"></script>
 	<%@ include file="entete.jspf"%>
 	<%@ include file="menu.jspf"%>
 	<div id="principal">
 		<h1>Une erreur est survenue</h1>
 		<s:actionerror/>
+		<p><a href="oubli.jsp">Mot de passe oublié?</a></p>
 	</div>
+	
 	<%@ include file="pied.jspf"%>

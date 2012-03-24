@@ -205,4 +205,12 @@
 	</li>
 </ul> 
 
+<!-- Alert personnalise -->
+
+<div id="alertConteneur">
+	<div id="alertPers">
+		<p>Fin de la partie !</p>
+	</div>
+</div>
+
 
