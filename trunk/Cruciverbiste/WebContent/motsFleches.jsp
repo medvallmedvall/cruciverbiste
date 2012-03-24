@@ -93,6 +93,9 @@
 		var textDef = "${mDef.definition}";
 		var word = "${mDef.mot}";
 		var synonym = "${mDef.synonyme}";
+		if (synonym.toLowerCase() == textDef.toLowerCase()) {
+			synonym = "";
+		}
 		var orientation = ${mDef.orientation};
 		var x = ${mDef.coordX};
 		var y = ${mDef.coordY};
@@ -165,6 +168,20 @@
 		<a href="#"  onclick="getSolution(); return false;">Solution</a>
 	</li>
 </ul> 
+
+<!-- Div pour le zoom -->
+
+<div id="zoomDiv">
+
+</div>
+
+<!-- Alert personnalise -->
+
+<div id="alertConteneur">
+	<div id="alertPers">
+		<p>Fin de la partie !</p>
+	</div>
+</div>
 
 
 
