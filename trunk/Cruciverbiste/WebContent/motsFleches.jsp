@@ -175,13 +175,25 @@
 
 </div>
 
-<!-- Alert personnalise -->
+<!-- Alert et confirm dialogue personnalise -->
 
 <div id="alertConteneur">
 	<div id="alertPers">
 		<p>Fin de la partie !</p>
 	</div>
 </div>
+
+<div id="confirmConteneur">
+	<div id="confirmPers">
+		<p>Voulez vous vraiment obtenir la solution?</p>
+		<div id="buttonsConfirm">
+			<button class="bYes">Oui</button>
+			<button class="bNo">Non</button>
+		</div>
+	</div>
+</div>
+
+<script type="text/javascript" src="javascripts/grilles/messageBox.js"></script>
 
 
 

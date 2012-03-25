@@ -61,16 +61,6 @@ function GrilleMotsFleches(width, height) {
 			}
 			var mDefCont = mCase.children(".conteneurDef").first();
 			mDefCont.append(mElement);
-			//var defNb = mDefCont.children("p").length;
-			//var heigthCase = 50 / defNb;
-			//mDefCont.children("p").css("height", heigthCase + "px");
-			
-			
-			//mCase.append(mElement);
-			
-			/*var defNb = mCase.children("p").length;
-			var heigthCase = 100 / defNb;
-			mCase.children("p").css("height", heigthCase + "%");*/
 			
 			//rajout des fleches liees a la definition dans la case d'a cote
 			
@@ -270,36 +260,7 @@ $(document).ready(function(){
 				$("#zoomDiv").hide("fast");
 			});
 	
-	/*configuration de l'alerte lors d'une victoire*/
-	
-	var docWidth = $("html").width();
-	var docHeight = $("html").height();
-	var winHeight = $(window).height();
-	var left = (docWidth - $("#alertPers").width()) / 2;
-	var top = (winHeight - $("#alertPers").height()) / 2;
-	$("#alertConteneur").height(docHeight);
-	$("#alertPers").css("left", left);
-	$("#alertPers").css("top", top);
-	
-	/*Cacher l'alert lors du click*/
-	$("#alertPers").click(
-			function(e) {
-				$(this).parent().hide("slow");
-			});
-	
-	var currentScroll = 0;
-	
-	
-	/*Pour centrer l'alert verticalement lors d'un scroll*/
-	$(document).scroll(
-			function(e) {
-				var scrollTmp = $(document).scrollTop();
-				var cTop = $("#alertPers").position().top;
-				var newTop = cTop + (scrollTmp - currentScroll);
-				$("#alertPers").css("top", newTop);
-				currentScroll = scrollTmp;
-			});
-	
+	/*ici*/
 
 	/*Lors de l'appuie sur les touches speciales (direction, backspace, ctr...)*/
 
@@ -437,7 +398,6 @@ $(document).ready(function(){
 	/*Dynamise le menu horizontal*/
 	mainmenu();
 
-
 });
 
 
@@ -474,11 +434,7 @@ function checkEndGame() {
 			return;
 		}
 	}
-	var scrollTmp = $(document).scrollTop();
-	var cTop = $("#alertPers").position().top;
-	var newTop = cTop + scrollTmp;
-	$("#alertPers").css("top", newTop);
-	$("#alertConteneur").show("slow");
+	callMessageBox();
 	/*mGrid.endGame = true;
 	$("#caseTexte").attr("disabled", true);*/
 }
@@ -586,30 +542,35 @@ function getWord() {
 }
 
 function getSolution() {
-	var res = confirm("Voulez vous vraiment obtenir la solution?");
-	if (!res) {
-		$("#caseTexte").focus();
-		return;
-	}
-	$(".caseLettre").removeClass("correctCase");
-	$(".caseLettre").removeClass("errorCase");
-	$("#caseTexte").removeClass("correctCase");
-	$("#caseTexte").removeClass("errorCase");
-	$(".caseLettre").each(
-			function(index, element) {
-				var mCase = $(this);
-				var mId = mCase.attr('id');
-				var mSquaredata = mGrid.squareDataList[mId];
-				if (mCase.hasClass("caseEdition")) {
-					$("#caseTexte").val(mSquaredata.letter);
-					$("#caseTexte").focus();
-				}
-				else {
-					mCase.text(mSquaredata.letter);
-				}
+	var message = "Voulez vous vraiment obtenir la solution???";
+	callConfirmDialog(message,
+			//lors de l'appuie sur le bouton non
+			function() {
+				$("#caseTexte").focus();
+			},
+			//lors de l'appuie sur le bouton oui
+			function() {
+				$(".caseLettre").removeClass("correctCase");
+				$(".caseLettre").removeClass("errorCase");
+				$("#caseTexte").removeClass("correctCase");
+				$("#caseTexte").removeClass("errorCase");
+				$(".caseLettre").each(
+						function(index, element) {
+							var mCase = $(this);
+							var mId = mCase.attr('id');
+							var mSquaredata = mGrid.squareDataList[mId];
+							if (mCase.hasClass("caseEdition")) {
+								$("#caseTexte").val(mSquaredata.letter);
+								$("#caseTexte").focus();
+							}
+							else {
+								mCase.text(mSquaredata.letter);
+							}
+						}
+				);
+				checkEndGame();
 			}
 	);
-	checkEndGame();
 }
 
 function getSynonym() {

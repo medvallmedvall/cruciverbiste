@@ -2,6 +2,7 @@ package entities;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Locale;
 
 public class Commentaire {
 	private int idCommentaire;
@@ -44,7 +45,7 @@ public class Commentaire {
 	}
 
 	public String getDateFormatee() {
-		SimpleDateFormat format = new SimpleDateFormat("EEEE dd MMMM 'à' HH'h'mm");
+		SimpleDateFormat format = new SimpleDateFormat("EEEE dd MMMM 'à' HH'h'mm", Locale.FRENCH);
 		return format.format(getDate());
 	}
 	
