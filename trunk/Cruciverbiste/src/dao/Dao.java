@@ -1,6 +1,7 @@
 package dao;
 
 import java.sql.Connection;
+import java.sql.SQLException;
 
 public abstract class Dao<T> {
 	protected Connection connection;
@@ -11,9 +12,9 @@ public abstract class Dao<T> {
 		}
 	}
 	
-	public abstract T findById(int id);
-	public abstract T create(T obj);
-	public abstract T update(T obj);
-	public abstract void delete(T obj);
+	public abstract T findById(int id) throws SQLException;
+	public abstract T create(T obj) throws SQLException;
+	public abstract T update(T obj) throws SQLException;
+	public abstract void delete(T obj) throws SQLException;
 
 }

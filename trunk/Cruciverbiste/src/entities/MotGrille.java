@@ -8,6 +8,7 @@ public class MotGrille {
         private Definition definition;
         private int coordX;
         private int coordY;
+        private int orderId;
 
         public MotGrille() {
         }
@@ -70,6 +71,9 @@ public class MotGrille {
                 this.definition = definition;
         }
         
+        public Mot getMotObj() {
+        	return mot;
+        }
         public String getMot() {
                 return mot.getMot();
         }
@@ -88,5 +92,13 @@ public class MotGrille {
         	}
         	return mot.getSynonymes().get(0);
         }
+
+		public int getOrderId() {
+			return orderId;
+		}
+		
+		public void setOrderId(int orderId) {
+			this.orderId = orderId;
+		}
 }
 
