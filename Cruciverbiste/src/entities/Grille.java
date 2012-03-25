@@ -21,7 +21,7 @@ public class Grille {
 	private Date dateValidation;
 	private int niveau;
 	private int idTheme;
-	private Set<MotGrille> motsGrille;
+	private List<MotGrille> motsGrille;
 	private List<Commentaire> commentaires;
 
 	public Grille() {
@@ -51,7 +51,7 @@ public class Grille {
 			String nomGrille, int largeur,
 			int hauteur, Date dateCreation, boolean estFinie,
 			boolean estValidee, Date dateValidation, int niveau, int idTheme,
-			Set<MotGrille> motsGrille, Utilisateur utilisateur) {
+			List<MotGrille> motsGrille, Utilisateur utilisateur) {
 		this.idGrille = idGrille;
 		this.idLangue = idLangue;
 		this.idTypeGrille = typeGrille;
@@ -164,11 +164,11 @@ public class Grille {
 		this.idTheme = idTheme;
 	}
 
-	public Set<MotGrille> getMotsGrille() {
+	public List<MotGrille> getMotsGrille() {
 		return this.motsGrille;
 	}
 
-	public void setMotsGrille(Set<MotGrille> mots) {
+	public void setMotsGrille(List<MotGrille> mots) {
 		this.motsGrille = mots;
 	}
 
