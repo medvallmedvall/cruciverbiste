@@ -136,6 +136,13 @@ div {
 	margin: auto;
 }
 
+/*Grille du jour*/
+
+#grilleJour {
+	margin: auto;
+	width: 80%;	
+}
+
 /*Choixgrille*/
 
 .tableGrilles {
