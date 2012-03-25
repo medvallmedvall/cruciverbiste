@@ -49,6 +49,7 @@
 
 <script type="text/javascript" src="javascripts/jquery-1.7.1.js"></script>
 <script type="text/javascript" src="javascripts/grilles/mc.js"></script>
+<script type="text/javascript" src="javascripts/grilles/messageBox.js"></script>
 <script type="text/javascript">
 <!--
 	var width = ${grille.largeur};
@@ -212,5 +213,17 @@
 		<p>Fin de la partie !</p>
 	</div>
 </div>
+
+<div id="confirmConteneur">
+	<div id="confirmPers">
+		<p>Voulez vous vraiment obtenir la solution?</p>
+		<div id="buttonsConfirm">
+			<button class="bYes">Oui</button>
+			<button class="bNo">Non</button>
+		</div>
+	</div>
+</div>
+
+<script type="text/javascript" src="javascripts/grilles/messageBox.js"></script>
 
 

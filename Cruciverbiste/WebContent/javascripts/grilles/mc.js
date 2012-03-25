@@ -261,52 +261,6 @@ $(document).ready(function(){
 			}
 	);
 	
-/*configuration de l'alerte lors d'une victoire*/
-	
-	var docWidth = $("html").width();
-	var docHeight = $("html").height();
-	var winHeight = $(window).height();
-	var left = (docWidth - $("#alertPers").width()) / 2;
-	var top = (winHeight - $("#alertPers").height()) / 2;
-	$("#alertConteneur").height(docHeight);
-	$("#alertPers").css("left", left);
-	$("#alertPers").css("top", top);
-	
-	/*Cacher l'alert lors du click*/
-	$("#alertPers").click(
-			function(e) {
-				$(this).parent().hide("slow");
-			});
-	
-	/*configuration de l'alerte lors d'une victoire*/
-	
-	var docWidth = $("html").width();
-	var docHeight = $("html").height();
-	var winHeight = $(window).height();
-	var left = (docWidth - $("#alertPers").width()) / 2;
-	var top = (winHeight - $("#alertPers").height()) / 2;
-	$("#alertConteneur").height(docHeight);
-	$("#alertPers").css("left", left);
-	$("#alertPers").css("top", top);
-	
-	/*Cacher l'alert lors du click*/
-	$("#alertPers").click(
-			function(e) {
-				$(this).parent().hide("slow");
-			});
-	
-	var currentScroll = 0;
-	
-	/*Pour centrer l'alert verticalement lors d'un scroll*/
-	$(document).scroll(
-			function(e) {
-				var scrollTmp = $(document).scrollTop();
-				var cTop = $("#alertPers").position().top;
-				var newTop = cTop + (scrollTmp - currentScroll);
-				$("#alertPers").css("top", newTop);
-				currentScroll = scrollTmp;
-			});
-	
 	
 
 	/*selection de la 1ere case de la grille*/
@@ -317,8 +271,7 @@ $(document).ready(function(){
 
 	/*Dynamise le menu horizontal*/
 	mainmenu();
-
-
+	
 });
 
 
@@ -358,11 +311,7 @@ function checkEndGame() {
 	mGrid.endGame = true;
 	$("#caseTexte").attr("disabled", true);*/
 	
-	var scrollTmp = $(document).scrollTop();
-	var cTop = $("#alertPers").position().top;
-	var newTop = cTop + scrollTmp;
-	$("#alertPers").css("top", newTop);
-	$("#alertConteneur").show("slow");
+	callMessageBox();
 }
 
 
@@ -464,30 +413,36 @@ function getWord() {
 }
 
 function getSolution() {
-	var res = confirm("Voulez vous vraiment obtenir la solution?");
-	if (!res) {
-		$("#caseTexte").focus();
-		return;
-	}
-	$(".caseLettre").removeClass("correctCase");
-	$(".caseLettre").removeClass("errorCase");
-	$("#caseTexte").removeClass("correctCase");
-	$("#caseTexte").removeClass("errorCase");
-	$(".caseLettre").each(
-			function(index, element) {
-				var mCase = $(this);
-				var mId = mCase.attr('id');
-				var mSquaredata = mGrid.squareDataList[mId];
-				if (mCase.hasClass("caseEdition")) {
-					$("#caseTexte").val(mSquaredata.letter);
-					$("#caseTexte").focus();
-				}
-				else {
-					mCase.text(mSquaredata.letter);
-				}
+	var message = "Voulez vous vraiment obtenir la solution???";
+	callConfirmDialog(message,
+			//lors de l'appuie sur le bouton non
+			function() {
+				$("#caseTexte").focus();
+			},
+			//lors de l'appuie sur le bouton oui
+			function() {
+				$(".caseLettre").removeClass("correctCase");
+				$(".caseLettre").removeClass("errorCase");
+				$("#caseTexte").removeClass("correctCase");
+				$("#caseTexte").removeClass("errorCase");
+				$(".caseLettre").each(
+						function(index, element) {
+							var mCase = $(this);
+							var mId = mCase.attr('id');
+							var mSquaredata = mGrid.squareDataList[mId];
+							if (mCase.hasClass("caseEdition")) {
+								$("#caseTexte").val(mSquaredata.letter);
+								$("#caseTexte").focus();
+							}
+							else {
+								mCase.text(mSquaredata.letter);
+							}
+						}
+				);
+				checkEndGame();
 			}
 	);
-	checkEndGame();
+	
 }
 
 function getSynonym() {
