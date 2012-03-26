@@ -3,8 +3,10 @@ package dao;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.LinkedList;
 import java.util.List;
+
 
 import entities.Theme;
 
@@ -13,9 +15,10 @@ public class ThemeDao extends Dao<Theme> {
 	@Override
 	public Theme findById(int id) throws SQLException {
 		Theme mTheme = null;
-		String query3 = "SELECT * FROM Theme WHERE idTheme = " + id;
-		ResultSet results = null;
-		results = this.connection.createStatement().executeQuery(query3);
+		String query = "SELECT * FROM Theme WHERE idTheme = ?";
+		PreparedStatement stmt = connection.prepareStatement(query);
+		stmt.setInt(1, id);
+		ResultSet results = stmt.executeQuery();
 		if (!results.first()) {
 			return null;
 		}
@@ -26,14 +29,17 @@ public class ThemeDao extends Dao<Theme> {
 
 	@Override
 	public Theme create(Theme obj) throws SQLException {
+		if (obj == null) {
+			throw new IllegalArgumentException("Le theme est null");
+		}
 		Theme theme = null;
 		String query = "INSERT INTO Theme VALUES (NULL, ?)";
-		PreparedStatement stmt = connection.prepareStatement(query);
+		PreparedStatement stmt = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
 		stmt.setString(1, obj.getNomTheme());
 		stmt.executeUpdate();
 		ResultSet rs = stmt.getGeneratedKeys();
 		if (rs.first()) {
-			int id = rs.getInt("idTheme");
+			int id = rs.getInt(1);
 			theme = findById(id);
 		}
 		return theme;
@@ -41,21 +47,24 @@ public class ThemeDao extends Dao<Theme> {
 
 	@Override
 	public Theme update(Theme obj) throws SQLException {
+		if (obj == null) {
+			throw new IllegalArgumentException("Le theme est null");
+		}
 		Theme theme = null;
-		String query = "UPDATE Theme SET nomTheme = ?";
+		String query = "UPDATE Theme SET nomTheme = ? WHERE idTheme = ?";
 		PreparedStatement stmt = connection.prepareStatement(query);
 		stmt.setString(1, obj.getNomTheme());
+		stmt.setInt(2, obj.getIdTheme());
 		stmt.executeUpdate();
-		ResultSet rs = stmt.getGeneratedKeys();
-		if (rs.first()) {
-			int id = rs.getInt("idTheme");
-			theme = findById(id);
-		}
+		theme = findById(obj.getIdTheme());
 		return theme;
 	}
 
 	@Override
 	public void delete(Theme obj) throws SQLException {
+		if (obj == null) {
+			throw new IllegalArgumentException("Le theme est null");
+		}
 		String query = "DELETE FROM Theme WHERE idTheme = ?";
 		PreparedStatement stmt = connection.prepareStatement(query);
 		stmt.setInt(1, obj.getIdTheme());

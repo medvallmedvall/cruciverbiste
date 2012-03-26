@@ -17,7 +17,6 @@
 	<div id="principal">
 		<h1>Une erreur est survenue</h1>
 		<s:actionerror/>
-		<p><a href="oubli.jsp">Mot de passe oublié?</a></p>
 	</div>
 	
 	<%@ include file="pied.jspf"%>

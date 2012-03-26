@@ -136,6 +136,12 @@ div {
 	margin: auto;
 }
 
+/*Page d'erreur*/
+
+.errorMessage {
+	font-size: 16px;
+}
+
 /*Grille du jour*/
 
 #grilleJour {
