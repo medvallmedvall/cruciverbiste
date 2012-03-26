@@ -1,7 +1,10 @@
 package actions;
 
 
+import java.sql.SQLException;
+
 import com.opensymphony.xwork2.ActionSupport;
+import com.opensymphony.xwork2.DefaultTextProvider;
 
 import dao.GrilleDao;
 
@@ -18,13 +21,19 @@ public class PlayAction extends ActionSupport {
 		idGrille = -1;
 	}
 	
-	public String execute() throws Exception {
+	@Override
+	public String execute() {
 		//selectionner la grille avec l'id idGrid
 		GrilleDao dao = new GrilleDao();
-		grille = dao.findById(idGrille);
+		try {
+			grille = dao.findById(idGrille);
+		} catch (SQLException e) {
+			addActionError(e.getMessage());
+			return ERROR;
+		}
 		//si la grille n'existe pas on retourne une erreur
 		if (grille == null) {
-			addActionError("La grille (" + idGrille + ") est nulle");
+			addActionError("La grille n° " + idGrille + " n'existe pas");
 			return ERROR;
 		}
 		return SUCCESS;

@@ -24,6 +24,25 @@ public class Theme {
 	public void setNomTheme(String nomTheme) {
 		this.nomTheme = nomTheme;
 	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Theme other = (Theme) obj;
+		if (idTheme != other.idTheme)
+			return false;
+		if (nomTheme == null) {
+			if (other.nomTheme != null)
+				return false;
+		} else if (!nomTheme.equals(other.nomTheme))
+			return false;
+		return true;
+	}
 	
 	
 }
