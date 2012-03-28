@@ -15,8 +15,8 @@ import entities.Utilisateur;
 
 public class Connexion extends ActionSupport {
 
-		public String pseudo;
-		public String password;
+		private String pseudo;
+		private String password;
 		
 		public String getPseudo() {
 			return pseudo;
@@ -37,6 +37,13 @@ public class Connexion extends ActionSupport {
 		public String execute() {
 			UtilisateurDao utilisateurDao = new UtilisateurDao();
 			Utilisateur user = new Utilisateur(getPseudo(), getPassword());
+			
+			if (user.getPseudo().equalsIgnoreCase("")) {
+				addActionError("Votre pseudo est invalide");
+			}
+			if (user.getPassword().equalsIgnoreCase("")) {
+				addActionError("Votre mot de passe est invalide");
+			}
 			
 			//if (utilisateurDao.verifyUtilisateurConnects(user.getPseudo(),  user.getPassword()) == true) {
 			if (utilisateurDao.verifyUtilisateurConnects(user)) {
