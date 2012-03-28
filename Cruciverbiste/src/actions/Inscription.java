@@ -1,10 +1,9 @@
 package actions;
 
-
-
-
 import java.util.Date;
+import java.util.Map;
 
+import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 
 import dao.UtilisateurDao;
@@ -75,7 +74,12 @@ public class Inscription extends ActionSupport {
 		Boolean verEmail = utilisateurDao.verifyUserEmail(utilisateur.getMail());
 		Boolean verPseudo = utilisateurDao.verifyUserPseudo(utilisateur.getPseudo());
 		if ((verEmail == true) && (verPseudo == true)) {
+				Map<String, Object> session = ActionContext.getContext().getSession();
 				utilisateurDao.create(utilisateur);
+				session.put("authentification","true");
+				session.put("idUser", utilisateur.getIdUtilisateur());
+				session.put("nom",utilisateur.getNom());
+				session.put("pseudo", utilisateur.getPseudo());
 				return SUCCESS;
 		} else {
 			if (verEmail == false) {
