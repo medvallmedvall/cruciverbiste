@@ -16,7 +16,7 @@
  <%@ include file="secondaire.jspf" %>
  <%@ taglib prefix="s" uri="/struts-tags"%>
 <div id="principal">
-	Vous avez oublié votre mot de passe. Rentrez votre e-mail avec lequel vous vouys êtes inscrits et il vous y sera renvoyé
+	Vous avez oublié votre mot de passe. Rentrez votre e-mail avec lequel vous vous êtes inscrits et votre mot de passe vous y sera renvoyé
 	<s:form action = "Emailer" method = "post" onsubmit="return verif_email();"> 
 		<s:textfield name = "mail" label="E-mail" onmousedown="changeColor();"> 
 		</s:textfield> 
