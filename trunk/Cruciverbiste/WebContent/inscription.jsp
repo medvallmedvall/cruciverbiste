@@ -29,14 +29,14 @@
 <s:form action="Inscription" method="post" onsubmit="return verif_formulaire();">
 	<table>
 		<tr>
-			<td><s:textfield name="nom" label="Nom" onchange="changeColor(this)"/></td>
+			<td><s:textfield name="nom" label="Nom"/></td>
 		</tr>
 		<tr>
 			<td><s:textfield name="prenom" label="Prenom" /></td>
 		</tr>
 		<tr>
 			<td><sx:datetimepicker name="dateNaissance"
-				label="Date De Naissance" displayFormat="yyyy-MM-dd" onchange="changeColor(this)"/></td>
+				label="Date De Naissance(dd-MM-yyyy)" displayFormat="dd-MM-yyyy"/></td>
 		</tr>
 		<tr>
 			<td><s:textfield name="pseudo" label="Pseudo*" onchange="changeColor(this)"/></td>
