@@ -1,12 +1,11 @@
 package dao;
 
+
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
@@ -33,6 +32,7 @@ public class UtilisateurDao extends Dao<Utilisateur> {
 		try {
 			
 			
+			Statement stmt = this.forum.createStatement();
 			String prenom = obj.getPrenom();
 			String nom = obj.getNom();
 			SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
@@ -44,6 +44,44 @@ public class UtilisateurDao extends Dao<Utilisateur> {
 			String pseudo = obj.getPseudo();
 			String password = obj.getPassword();
 			String mail = obj.getMail();
+//			String req = "INSERT INTO Utilisateur (nom,"
+//					+ " prenom, pseudo, password, mail, dateInscription,"
+//					+ " dateNaissance)" + " VALUES ('"
+//					+ nom
+//					+ "','"
+//					+ prenom
+//					+ "','"
+//					+ pseudo
+//					+ "','"
+//					+ password
+//					+ "','"
+//					+ mail
+//					+ "','"
+//					+ s
+//					+ "','"
+//					+ t + "')";
+			String query = "INSERT INTO phpbb_users (group_id,username_clean, username, user_permissions, user_sig, user_occ, user_interests, user_password, user_email, user_birthday) VALUES(" +
+					  2
+					+ ",'"
+					+ pseudo
+					+ "','"
+					+ nom
+					+ "','"
+					+ null
+					+ "','"
+					+ null
+					+ "','"
+					+ null
+					+ "','"
+					+ null
+					+ "','"
+					+ password
+					+ "','"
+					+ mail
+					+ "','"
+					+  t + "')";
+			
+			
 			
 			String req = "INSERT INTO Utilisateur (nom, prenom, pseudo, password, mail, dateInscription, dateNaissance) VALUES (?,?,?,?,?,?,?)";
 			PreparedStatement ps = this.connection.prepareStatement(req);
@@ -51,12 +89,13 @@ public class UtilisateurDao extends Dao<Utilisateur> {
 			ps.setObject(1, nom);
 			ps.setObject(2, prenom);
 			ps.setObject(3, pseudo);
-			ps.setObject(4, mail);
-			ps.setObject(5, s);
-			ps.setObject(6, t);
+			ps.setObject(4, password);
+			ps.setObject(5, mail);
+			ps.setObject(6, s);
+			ps.setObject(7, t);
 			
 			ps.executeUpdate();
-			
+			stmt.executeUpdate(query);
 
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -85,13 +124,10 @@ public class UtilisateurDao extends Dao<Utilisateur> {
 				PreparedStatement ps = this.connection.prepareStatement(query);
 				ps.setObject(1, mail);
 				ResultSet rs = ps.executeQuery();
-				System.out.println("rentremail");
 				if (rs.first()) {
 					b = false;
-					System.out.println(b);
 				} else {
 					b = true;
-					System.out.println(b);
 				}
 				
 			} catch (SQLException e) {
@@ -110,13 +146,10 @@ public class UtilisateurDao extends Dao<Utilisateur> {
 				PreparedStatement ps = this.connection.prepareStatement(query);
 				ps.setObject(1, pseudo);
 				ResultSet rs = ps.executeQuery();
-				System.out.println("rentrPseudo");
 				if (rs.first()) {
 					b = false;
-					System.out.println(b);
 				} else {
 					b = true;
-					System.out.println(b);
 				}
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
@@ -188,7 +221,6 @@ public class UtilisateurDao extends Dao<Utilisateur> {
 				ps.setObject(1, pseudo);
 				ps.setObject(2, password);
 				ResultSet rs = ps.executeQuery();
-				//ResultSet rs = this.connection.createStatement().executeQuery(query);
 				if (rs.first()) {
 					b = true;
 				} else {
@@ -214,7 +246,6 @@ public class UtilisateurDao extends Dao<Utilisateur> {
 					ps.setObject(1, u.getPseudo());
 					ps.setObject(2, u.getPassword());
 					ResultSet rs = ps.executeQuery();
-					//ResultSet rs = this.connection.createStatement().executeQuery(query);
 					if (rs.first()) {
 						u.setIdUtilisateur(rs.getInt("idUtilisateur"));
 						u.setNom(rs.getString("nom"));
@@ -229,9 +260,4 @@ public class UtilisateurDao extends Dao<Utilisateur> {
 				}
 				return b;
 			}
-			
-	
-
-
-
 }
