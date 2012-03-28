@@ -6,10 +6,14 @@ import java.sql.SQLException;
 
 public abstract class Dao<T> {
 	protected Connection connection;
+	protected Connection forum;
 	
 	public Dao() {
 		if (connection == null) {
 			connection = ConnectionMySql.getInstance();
+		}
+		if (forum == null) {
+			forum = ConnexionForum.getInstance();
 		}
 	}
 	
