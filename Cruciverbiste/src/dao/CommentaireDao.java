@@ -4,6 +4,7 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.sql.Timestamp;
 import java.util.LinkedList;
 import java.util.List;
@@ -80,7 +81,7 @@ public class CommentaireDao extends Dao<Commentaire> {
 		contenu = contenu.replaceAll(">", "&gt;");
 		String query = "INSERT INTO Commentaire " +
 				"VALUES(NULL, ? , ? , ? , ? )";
-		PreparedStatement pstmt = connection.prepareStatement(query);
+		PreparedStatement pstmt = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
 		pstmt.setString(1, contenu);
 		pstmt.setInt(2, idUser);
 		pstmt.setTimestamp(3, sqlTmsp);
