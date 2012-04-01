@@ -10,7 +10,7 @@ import java.util.List;
 import entities.Mot;
 
 public class MotDao extends Dao<Mot> {
-	
+
 	public MotDao() {
 		super();
 	}
@@ -19,8 +19,8 @@ public class MotDao extends Dao<Mot> {
 	public Mot findById(int id) throws SQLException {
 		Mot mot = null;
 		String query = 	"SELECT * FROM DictionnaireFR m " +
-						"LEFT JOIN SynonymeFR s ON m.idMot = s.idMot1 " +
-						"WHERE idMot = ?";
+				"LEFT JOIN SynonymeFR s ON m.idMot = s.idMot1 " +
+				"WHERE idMot = ?";
 		PreparedStatement pstmt = connection.prepareStatement(query);
 		pstmt.setInt(1, id);
 		ResultSet rs = pstmt.executeQuery();
@@ -52,11 +52,11 @@ public class MotDao extends Dao<Mot> {
 		stmt.executeUpdate();
 		ResultSet rs = stmt.getGeneratedKeys();
 		if (rs.first()) {
-			int id = rs.getInt("idMot");
+			int id = rs.getInt(1);
 			mot = findById(id);
 			if (mot != null) {
 				//ajout des synonymes
-			
+
 			}
 		}
 		return mot;
@@ -69,11 +69,7 @@ public class MotDao extends Dao<Mot> {
 		PreparedStatement stmt = connection.prepareStatement(query);
 		stmt.setString(1, obj.getMot());
 		stmt.executeUpdate();
-		ResultSet rs = stmt.getGeneratedKeys();
-		if (rs.first()) {
-			int id = rs.getInt("idMot");
-			mot = findById(id);
-		}
+		mot = findById(obj.getIdMot());
 		return mot;
 	}
 
