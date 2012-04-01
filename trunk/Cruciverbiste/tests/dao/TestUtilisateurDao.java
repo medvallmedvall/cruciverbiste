@@ -97,62 +97,62 @@ public class TestUtilisateurDao {
 		Assert.assertNotNull(u2);
 	}
 
-	@Test(expected=SQLException.class)
+	@Test(expected=InvalidCreateException.class)
 	public void createUtilisateurNomNull() throws SQLException {
 		Utilisateur u = new Utilisateur(null, "Micheline", "mPseudo", "aaaaa", "truc@hot.fr", new Date());
 		Assert.assertNotNull(u);
 	}
 
-	@Test(expected=SQLException.class)
+	@Test(expected=InvalidCreateException.class)
 	public void createUtilisateurNomEmpty() throws SQLException {
 		Utilisateur u = new Utilisateur("", "Micheline", "mPseudo", "aaaaa", "truc@hot.fr", new Date());
 		Assert.assertNotNull(u);
 	}
 
-	@Test(expected=SQLException.class)
+	@Test(expected=InvalidCreateException.class)
 	public void createUtilisateurPrenomNull() throws SQLException {
 		Utilisateur u = new Utilisateur("Machin", null, "mPseudo", "aaaaa", "truc@hot.fr", new Date());
 		Assert.assertNotNull(u);
 	}
 
-	@Test(expected=SQLException.class)
+	@Test(expected=InvalidCreateException.class)
 	public void createUtilisateurPrenomEmpty() throws SQLException {
 		Utilisateur u = new Utilisateur("Machin", "", "mPseudo", "aaaaa", "truc@hot.fr", new Date());
 		Assert.assertNotNull(u);
 	}
 
-	@Test(expected=SQLException.class)
+	@Test(expected=InvalidCreateException.class)
 	public void createUtilisateurPseudoNull() throws SQLException {
 		Utilisateur u = new Utilisateur("Machin", "Micheline", null, "aaaaa", "truc@hot.fr", new Date());
 		Assert.assertNotNull(u);
 	}
 
-	@Test(expected=SQLException.class)
+	@Test(expected=InvalidCreateException.class)
 	public void createUtilisateurPseudoEmpty() throws SQLException {
 		Utilisateur u = new Utilisateur("Machin", "Micheline", "", "aaaaa", "truc@hot.fr", new Date());
 		Assert.assertNotNull(u);
 	}
 
-	@Test(expected=IllegalArgumentException.class)
+	@Test(expected=InvalidCreateException.class)
 	public void createUtilisateurPseudoShort() throws SQLException {
 		/*Minimum 4 caracteres*/
 		Utilisateur u = new Utilisateur("Machin", "Micheline", "pse", "aaaaa", "truc@hot.fr", new Date());
 		Assert.assertNotNull(u);
 	}
 
-	@Test(expected=SQLException.class)
+	@Test(expected=InvalidCreateException.class)
 	public void createUtilisateurPasswordNull() throws SQLException {
 		Utilisateur u = new Utilisateur("Machin", "Micheline", "mPseudo", null, "truc@hot.fr", new Date());
 		Assert.assertNotNull(u);
 	}
 
-	@Test(expected=SQLException.class)
+	@Test(expected=InvalidCreateException.class)
 	public void createUtilisateurPasswordEmpty() throws SQLException {
 		Utilisateur u = new Utilisateur("Machin", "Micheline", "mPseudo", "", "truc@hot.fr", new Date());
 		Assert.assertNotNull(u);
 	}
 
-	@Test(expected=IllegalArgumentException.class)
+	@Test(expected=InvalidCreateException.class)
 	public void createUtilisateurPasswordShort() throws SQLException {
 		//Minimum 5 caracteres
 		Utilisateur u = new Utilisateur("Machin", "Micheline", "mPseudo", "pass", "truc@hot.fr", new Date());
@@ -160,32 +160,32 @@ public class TestUtilisateurDao {
 	}
 
 
-	@Test(expected=SQLException.class)
+	@Test(expected=InvalidCreateException.class)
 	public void createUtilisateurEmailNull() throws SQLException {
 		Utilisateur u = new Utilisateur("Machin", "Micheline", "mPseudo", "aaa", null, new Date());
 		Assert.assertNotNull(u);
 	}
 
-	@Test(expected=SQLException.class)
+	@Test(expected=InvalidCreateException.class)
 	public void createUtilisateurEmailEmpty() throws SQLException {
 		Utilisateur u = new Utilisateur("Machin", "Micheline", "mPseudo", "aaaaa", "", new Date());
 		Assert.assertNotNull(u);
 	}
 
-	@Test(expected=IllegalArgumentException.class)
+	@Test(expected=InvalidCreateException.class)
 	public void createUtilisateurEmailInvalid() throws SQLException {
 		Utilisateur u = new Utilisateur("Machin", "Micheline", "mPseudo", "aaaaa", "unMailInvalide", new Date());
 		Assert.assertNotNull(u);
 	}
 
-	@Test(expected=SQLException.class)
+	@Test(expected=InvalidCreateException.class)
 	public void createUtilisateurDateNaissanceNull() throws SQLException {
 		Utilisateur u = new Utilisateur("Machin", "Micheline", "mPseudo", "aaaaa", "truc@hot.fr", null);
 		Assert.assertNotNull(u);
 	}
 
 	@Test
-	public void deleteutilisateurOK() throws SQLException{
+	public void deleteUtilisateurOK() throws SQLException{
 		//ajout
 		Utilisateur u = new Utilisateur("Machin", "Micheline", "mPseudo", "aaaaa", "truc@hot.fr", new Date());
 		Assert.assertNotNull(u);
