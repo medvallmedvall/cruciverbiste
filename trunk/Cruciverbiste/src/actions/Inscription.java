@@ -1,5 +1,6 @@
 package actions;
 
+import java.sql.SQLException;
 import java.util.Date;
 import java.util.Map;
 
@@ -65,33 +66,51 @@ public class Inscription extends ActionSupport {
 	public void setDateNaissance(Date dateNaissance) {
 		this.dateNaissance = dateNaissance;
 	}
-	
+
 
 	public String execute() {
+		//verifier que nom, prenom... non vide, non null
+		//email correct avec la regex que vous avez utilise avc javascript
+		//pseudo et password taille correct
 		Utilisateur utilisateur = new Utilisateur(getNom(), getPrenom(), getPseudo(),
 				getPassword(), getMail(), getDateNaissance());
 		UtilisateurDao utilisateurDao = new UtilisateurDao();
-		Boolean verEmail = utilisateurDao.verifyUserEmail(utilisateur.getMail());
-		Boolean verPseudo = utilisateurDao.verifyUserPseudo(utilisateur.getPseudo());
-		if ((verEmail == true) && (verPseudo == true)) {
-				Map<String, Object> session = ActionContext.getContext().getSession();
-				utilisateurDao.create(utilisateur);
-				session.put("authentification","true");
-				session.put("idUser", utilisateur.getIdUtilisateur());
-				session.put("nom",utilisateur.getNom());
-				session.put("pseudo", utilisateur.getPseudo());
-				return SUCCESS;
-		} else {
-			if (verEmail == false) {
-				addActionError("Le mail que vous avez rentr� est d�j� utilis�");
-			}
-			if (verPseudo == false) {
-					addActionError("Le pseudo que vous avez rentr� est d�j� utilis�");
-			}
-			
-			return INPUT;
+		Boolean verEmail;
+		try {
+			verEmail = utilisateurDao.verifyUserEmail(utilisateur.getMail());
+		} catch (SQLException e) {
+			addActionError(e.getMessage());
+			return ERROR;
 		}
+		Boolean verPseudo;
+		try {
+			verPseudo = utilisateurDao.verifyUserPseudo(utilisateur.getPseudo());
+		} catch (SQLException e) {
+			addActionError(e.getMessage());
+			return ERROR;
+		}
+		if ((verEmail) && (verPseudo)) {
+			Map<String, Object> session = ActionContext.getContext().getSession();
+			try {
+				utilisateurDao.create(utilisateur);
+			} catch (SQLException e) {
+				addActionError(e.getMessage());
+				return ERROR;
+			}
+			session.put("authentification","true");
+			session.put("idUser", utilisateur.getIdUtilisateur());
+			session.put("nom",utilisateur.getNom());
+			session.put("pseudo", utilisateur.getPseudo());
+			return SUCCESS;
+		}
+		if (!verEmail) {
+			addActionError("Le mail que vous avez rentr� est d�j� utilis�");
+		}
+		if (!verPseudo) {
+			addActionError("Le pseudo que vous avez rentr� est d�j� utilis�");
+		}
+		return INPUT;
 	}
-	
+
 }
 

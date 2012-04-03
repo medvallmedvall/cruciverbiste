@@ -423,19 +423,19 @@ public class TestUtilisateurDao {
 	}
 
 	@Test
-	public void verifyUserEmailNotInDB() {
+	public void verifyUserEmailNotInDB() throws SQLException {
 		String aMail = "truc@hot.fr";
 		boolean b = dao.verifyUserEmail(aMail);
 		Assert.assertFalse(b);
 	}
 
 	@Test(expected=IllegalArgumentException.class)
-	public void verifyUserEmailNull() {
+	public void verifyUserEmailNull() throws SQLException {
 		dao.verifyUserEmail(null);
 	}
 
 	@Test(expected=IllegalArgumentException.class)
-	public void verifyUserEmailEmpty() {
+	public void verifyUserEmailEmpty() throws SQLException {
 		dao.verifyUserEmail("");
 	}
 
@@ -450,18 +450,18 @@ public class TestUtilisateurDao {
 	}
 
 	@Test
-	public void verifyUserPseudoNotInDB() {
+	public void verifyUserPseudoNotInDB() throws SQLException {
 		boolean b = dao.verifyUserPseudo("mPseudo");
 		Assert.assertFalse(b);
 	}
 
 	@Test(expected=IllegalArgumentException.class)
-	public void verifyUserPseudoNull() {
+	public void verifyUserPseudoNull() throws SQLException {
 		dao.verifyUserPseudo(null);
 	}
 
 	@Test(expected=IllegalArgumentException.class)
-	public void verifyUserPseudoEmpty() {
+	public void verifyUserPseudoEmpty() throws SQLException {
 		dao.verifyUserPseudo("");
 	}
 
@@ -471,35 +471,35 @@ public class TestUtilisateurDao {
 		Assert.assertNotNull(u);
 		Utilisateur res = dao.create(u);
 		Assert.assertNotNull(res);
-		boolean b = dao.verifyUtilisateurConnects("mPseudo", "aaaaa");
-		Assert.assertTrue(b);
+		Utilisateur uRes1 = dao.verifyUtilisateurConnects("mPseudo", "aaaaa");
+		Assert.assertNotNull(uRes1);
 	}
 
 	@Test
-	public void verifyUtilisateurConnectsNotOk() {
+	public void verifyUtilisateurConnectsNotOk() throws SQLException {
 		String aPseudo = "mPseudo";
 		String aPassword = "mPassword";
-		boolean b = dao.verifyUtilisateurConnects(aPseudo, aPassword);
-		Assert.assertFalse(b);
+		Utilisateur uRes1 = dao.verifyUtilisateurConnects(aPseudo, aPassword);
+		Assert.assertNull(uRes1);
 	}
 
 	@Test(expected=IllegalArgumentException.class)
-	public void verifyUtilisateurConnectsPseudoNull() {
+	public void verifyUtilisateurConnectsPseudoNull() throws SQLException {
 		dao.verifyUtilisateurConnects(null, "aaaaa");
 	}
 
 	@Test(expected=IllegalArgumentException.class)
-	public void verifyUtilisateurConnectsPseudoEmpty() {
+	public void verifyUtilisateurConnectsPseudoEmpty() throws SQLException {
 		dao.verifyUtilisateurConnects("", "aaaaa");
 	}
 
 	@Test(expected=IllegalArgumentException.class)
-	public void verifyUtilisateurConnectsPasswordNull() {
+	public void verifyUtilisateurConnectsPasswordNull() throws SQLException {
 		dao.verifyUtilisateurConnects("mPseudo", null);
 	}
 
 	@Test(expected=IllegalArgumentException.class)
-	public void verifyUtilisateurConnectsPasswordEmpty() {
+	public void verifyUtilisateurConnectsPasswordEmpty() throws SQLException {
 		dao.verifyUtilisateurConnects("mPseudo", "");
 	}
 
