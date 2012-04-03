@@ -71,8 +71,7 @@ public class TestUtilisateurDao {
 	@Test(expected=IllegalArgumentException.class)
 	public void createUtilisateurNull() throws SQLException {
 		Utilisateur u = null;
-		Utilisateur uRes = dao.create(u);
-		Assert.assertNull(uRes);
+		dao.create(u);
 	}
 
 	@Test(expected=SQLException.class)
@@ -84,6 +83,7 @@ public class TestUtilisateurDao {
 		Assert.assertNotSame(u, uRes);
 		Utilisateur u2 = new Utilisateur("Lolaaa", "Justine", "mPseudo", "bbbbb", "kk@gmail.fr", new Date());
 		Assert.assertNotNull(u2);
+		dao.create(u2);
 	}
 
 	@Test(expected=SQLException.class)
@@ -95,61 +95,71 @@ public class TestUtilisateurDao {
 		Assert.assertNotSame(u, uRes);
 		Utilisateur u2 = new Utilisateur("Lolaaa", "Justine", "justine", "bbbbb", "truc@hot.fr", new Date());
 		Assert.assertNotNull(u2);
+		dao.create(u2);
 	}
 
 	@Test(expected=InvalidCreateException.class)
 	public void createUtilisateurNomNull() throws SQLException {
 		Utilisateur u = new Utilisateur(null, "Micheline", "mPseudo", "aaaaa", "truc@hot.fr", new Date());
 		Assert.assertNotNull(u);
+		dao.create(u);
 	}
 
 	@Test(expected=InvalidCreateException.class)
 	public void createUtilisateurNomEmpty() throws SQLException {
 		Utilisateur u = new Utilisateur("", "Micheline", "mPseudo", "aaaaa", "truc@hot.fr", new Date());
 		Assert.assertNotNull(u);
+		dao.create(u);
 	}
 
 	@Test(expected=InvalidCreateException.class)
 	public void createUtilisateurPrenomNull() throws SQLException {
 		Utilisateur u = new Utilisateur("Machin", null, "mPseudo", "aaaaa", "truc@hot.fr", new Date());
 		Assert.assertNotNull(u);
+		dao.create(u);
 	}
 
 	@Test(expected=InvalidCreateException.class)
 	public void createUtilisateurPrenomEmpty() throws SQLException {
 		Utilisateur u = new Utilisateur("Machin", "", "mPseudo", "aaaaa", "truc@hot.fr", new Date());
 		Assert.assertNotNull(u);
+		dao.create(u);
 	}
 
 	@Test(expected=InvalidCreateException.class)
 	public void createUtilisateurPseudoNull() throws SQLException {
 		Utilisateur u = new Utilisateur("Machin", "Micheline", null, "aaaaa", "truc@hot.fr", new Date());
 		Assert.assertNotNull(u);
+		dao.create(u);
 	}
 
 	@Test(expected=InvalidCreateException.class)
 	public void createUtilisateurPseudoEmpty() throws SQLException {
 		Utilisateur u = new Utilisateur("Machin", "Micheline", "", "aaaaa", "truc@hot.fr", new Date());
 		Assert.assertNotNull(u);
+		dao.create(u);
 	}
 
 	@Test(expected=InvalidCreateException.class)
 	public void createUtilisateurPseudoShort() throws SQLException {
-		/*Minimum 4 caracteres*/
+		/*Minimum 4 caracteres enfin vous choisissez*/
 		Utilisateur u = new Utilisateur("Machin", "Micheline", "pse", "aaaaa", "truc@hot.fr", new Date());
 		Assert.assertNotNull(u);
+		dao.create(u);
 	}
 
 	@Test(expected=InvalidCreateException.class)
 	public void createUtilisateurPasswordNull() throws SQLException {
 		Utilisateur u = new Utilisateur("Machin", "Micheline", "mPseudo", null, "truc@hot.fr", new Date());
 		Assert.assertNotNull(u);
+		dao.create(u);
 	}
 
 	@Test(expected=InvalidCreateException.class)
 	public void createUtilisateurPasswordEmpty() throws SQLException {
 		Utilisateur u = new Utilisateur("Machin", "Micheline", "mPseudo", "", "truc@hot.fr", new Date());
 		Assert.assertNotNull(u);
+		dao.create(u);
 	}
 
 	@Test(expected=InvalidCreateException.class)
@@ -157,6 +167,7 @@ public class TestUtilisateurDao {
 		//Minimum 5 caracteres
 		Utilisateur u = new Utilisateur("Machin", "Micheline", "mPseudo", "pass", "truc@hot.fr", new Date());
 		Assert.assertNotNull(u);
+		dao.create(u);
 	}
 
 
@@ -164,24 +175,28 @@ public class TestUtilisateurDao {
 	public void createUtilisateurEmailNull() throws SQLException {
 		Utilisateur u = new Utilisateur("Machin", "Micheline", "mPseudo", "aaa", null, new Date());
 		Assert.assertNotNull(u);
+		dao.create(u);
 	}
 
 	@Test(expected=InvalidCreateException.class)
 	public void createUtilisateurEmailEmpty() throws SQLException {
 		Utilisateur u = new Utilisateur("Machin", "Micheline", "mPseudo", "aaaaa", "", new Date());
 		Assert.assertNotNull(u);
+		dao.create(u);
 	}
 
 	@Test(expected=InvalidCreateException.class)
 	public void createUtilisateurEmailInvalid() throws SQLException {
 		Utilisateur u = new Utilisateur("Machin", "Micheline", "mPseudo", "aaaaa", "unMailInvalide", new Date());
 		Assert.assertNotNull(u);
+		dao.create(u);
 	}
 
 	@Test(expected=InvalidCreateException.class)
 	public void createUtilisateurDateNaissanceNull() throws SQLException {
 		Utilisateur u = new Utilisateur("Machin", "Micheline", "mPseudo", "aaaaa", "truc@hot.fr", null);
 		Assert.assertNotNull(u);
+		dao.create(u);
 	}
 
 	@Test
