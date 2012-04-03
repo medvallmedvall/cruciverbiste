@@ -1,6 +1,8 @@
 package entities;
 
 import java.util.Date;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 
 public class Utilisateur {
@@ -13,11 +15,26 @@ public class Utilisateur {
 	private String mail;
 	private Date dateInscription;
 	private Date dateNaissance;
+	
+	public Utilisateur(String pseudo, String password) {
+		if (pseudo == null || password == null) {
+			throw new IllegalArgumentException("Le pseudo et le mot de passe sont nuls");
+		}
+		if (pseudo.length() <= 6 || password.length() <= 6) {
+			throw new IllegalArgumentException("Le pseudo et le mot de passe sont courts");
+		}
+		this.pseudo = pseudo;
+		this.password = password;
+	}
 
 	public Utilisateur(String nom, String prenom, String pseudo,
 			String password, String mail, Date dateNaissance) {
-		super();
-
+		this(pseudo, password);
+		Pattern p = Pattern.compile("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,4}$");
+		Matcher m = p.matcher(mail.toUpperCase());
+		if (!m.matches()) {
+			throw new IllegalArgumentException("Le mail est invalide");
+		}
 		this.nom = nom;
 		this.prenom = prenom;
 		this.pseudo = pseudo;
@@ -26,27 +43,24 @@ public class Utilisateur {
 		this.dateNaissance = dateNaissance;
 	}
 	
-	public Utilisateur(String pseudo, String password) {
-		super();
-		this.pseudo = pseudo;
-		this.password = password;
-	}
+	
+	 public Utilisateur(int id, String nom, String prenom, String pseudo,
+             String password, String mail, Date dateNaissance, 
+             Date dateInscription) {
+	 this(pseudo, password);
+     this.idUtilisateur = id;
+     this.nom = nom;
+     this.prenom = prenom;
+     this.pseudo = pseudo;
+     this.password = password;
+     this.mail = mail;
+     this.dateNaissance = dateNaissance;
+     this.dateInscription = dateInscription;
+	 }
 
+	
 	public Utilisateur() {
 
-	}
-
-	public Utilisateur(int id, String nom, String prenom, String pseudo,
-			String password, String mail, Date dateNaissance, 
-			Date dateInscription) {
-		this.idUtilisateur = id;
-		this.nom = nom;
-		this.prenom = prenom;
-		this.pseudo = pseudo;
-		this.password = password;
-		this.mail = mail;
-		this.dateNaissance = dateNaissance;
-		this.dateInscription = dateInscription;
 	}
 
 	public Integer getIdUtilisateur() {
