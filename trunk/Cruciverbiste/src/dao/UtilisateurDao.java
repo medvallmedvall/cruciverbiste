@@ -5,10 +5,13 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
+
+import entities.Commentaire;
 import entities.Utilisateur;
 
 public class UtilisateurDao extends Dao<Utilisateur> {
@@ -19,101 +22,127 @@ public class UtilisateurDao extends Dao<Utilisateur> {
 	}
 
 	@Override
+
 	public Utilisateur findById(int id) throws SQLException {
-		Utilisateur utilisateur = null;
-		String query = "SELECT * FROM Utilisateur WHERE idUtilisateur = ?";
-		PreparedStatement stmt = connection.prepareStatement(query);
-		stmt.setInt(1, id);
-		ResultSet rs = stmt.executeQuery();
+		Utilisateur user = null;
+		String req = " select * from Utilisateur where idUtilisateur = " + id;
+		ResultSet rs = this.connection.createStatement().executeQuery(req);
 		if (!rs.first()) {
 			return null;
 		}
 		String nom = rs.getString("nom");
 		String prenom = rs.getString("prenom");
 		String pseudo = rs.getString("pseudo");
-		String pass = rs.getString("password");
-		String email = rs.getString("mail");
-		Date dateNaissance = rs.getDate("dateNaissance");
+		String password = rs.getString("password");
+		String mail = rs.getString("mail");
+		Date dateN = rs.getDate("dateNaissance");
 		Date dateInscription = rs.getDate("dateInscription");
-		utilisateur = new Utilisateur(id, nom, prenom, pseudo, pass, 
-				email, dateNaissance, dateInscription);
-		return utilisateur;
+		user = new Utilisateur(id, nom, prenom, pseudo, password, 
+				mail, dateN, dateInscription);
+			
+		return user;
 	}
 
 	@Override
 	public Utilisateur create(Utilisateur obj) throws SQLException {
-		Statement stmt = this.forum.createStatement();
-		String prenom = obj.getPrenom();
-		String nom = obj.getNom();
-		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-		Date dateNaissance = obj.getDateNaissance();
-		Date dateInscription = new Date();
-		String s = format.format(dateInscription);
-		System.out.println(s);
-		String t = format.format(dateNaissance);
-		String pseudo = obj.getPseudo();
-		String password = obj.getPassword();
-		String mail = obj.getMail();
-		//			String req = "INSERT INTO Utilisateur (nom,"
-		//					+ " prenom, pseudo, password, mail, dateInscription,"
-		//					+ " dateNaissance)" + " VALUES ('"
-		//					+ nom
-		//					+ "','"
-		//					+ prenom
-		//					+ "','"
-		//					+ pseudo
-		//					+ "','"
-		//					+ password
-		//					+ "','"
-		//					+ mail
-		//					+ "','"
-		//					+ s
-		//					+ "','"
-		//					+ t + "')";
-		String query = "INSERT INTO phpbb_users (group_id,username_clean, username, user_permissions, user_sig, user_occ, user_interests, user_password, user_email, user_birthday) VALUES(" +
-				2
-				+ ",'"
-				+ pseudo
-				+ "','"
-				+ nom
-				+ "','"
-				+ null
-				+ "','"
-				+ null
-				+ "','"
-				+ null
-				+ "','"
-				+ null
-				+ "','"
-				+ password
-				+ "','"
-				+ mail
-				+ "','"
-				+  t + "')";
 
+			Utilisateur user = null;
+			Statement stmt = this.forum.createStatement();
+			String prenom = obj.getPrenom();
+			String nom = obj.getNom();
+			SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+			Date dateNaissance = obj.getDateNaissance();
+			Date dateInscription = new Date();
+			String s = format.format(dateInscription);
+			String t = format.format(dateNaissance);
+			String pseudo = obj.getPseudo();
+			String password = obj.getPassword();
+			String mail = obj.getMail();
+			String query = "INSERT INTO phpbb_users (group_id,username_clean, username, user_permissions, user_sig, user_occ, user_interests, user_password, user_email, user_birthday) VALUES(" +
+					  2
+					+ ",'"
+					+ pseudo
+					+ "','"
+					+ nom
+					+ "','"
+					+ null
+					+ "','"
+					+ null
+					+ "','"
+					+ null
+					+ "','"
+					+ null
+					+ "','"
+					+ password
+					+ "','"
+					+ mail
+					+ "','"
+					+  t + "')";
+			
+			if ((!this.verifyUserPseudo(pseudo)) || (!this.verifyUserEmail(mail))) {
+				return null;
+			}
+			
+			String req = "INSERT INTO Utilisateur (nom, prenom, pseudo, password, mail, dateInscription, dateNaissance) VALUES (?,?,?,?,?,?,?)";
+			PreparedStatement ps = this.connection.prepareStatement(req);
+			
+			ps.setObject(1, nom);
+			ps.setObject(2, prenom);
+			ps.setObject(3, pseudo);
+			ps.setObject(4, password);
+			ps.setObject(5, mail);
+			ps.setObject(6, s);
+			ps.setObject(7, t);
+			
+			ps.executeUpdate();
+			
+			String requete = "select idUtilisateur from Utilisateur where nom = '" + nom + "'";
+			
+			ResultSet rs = this.connection.createStatement().executeQuery(requete);
+			
+			if (rs.first()) {
+				int id = rs.getInt("idUtilisateur");
+				user = findById(id);
+			}
+			stmt.executeUpdate(query);
+			return user;
 
-
-		String req = "INSERT INTO Utilisateur (nom, prenom, pseudo, password, mail, dateInscription, dateNaissance) VALUES (?,?,?,?,?,?,?)";
-		PreparedStatement ps = this.connection.prepareStatement(req);
-
-		ps.setObject(1, nom);
-		ps.setObject(2, prenom);
-		ps.setObject(3, pseudo);
-		ps.setObject(4, password);
-		ps.setObject(5, mail);
-		ps.setObject(6, s);
-		ps.setObject(7, t);
-
-		ps.executeUpdate();
-		stmt.executeUpdate(query);
-
-		return obj;
 	}
 
 	@Override
-	public Utilisateur update(Utilisateur obj) {
+	public Utilisateur update(Utilisateur obj) throws SQLException{
 		// TODO Auto-generated method stub
-		return null;
+		Utilisateur user = null;
+		int idUtilisateur = obj.getIdUtilisateur();
+		String prenom = obj.getPrenom();
+		String nom = obj.getNom();
+		String pseudo = obj.getPseudo();
+		String password = obj.getPassword();
+		String mail = obj.getMail();
+		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+		Date dateNaissance = obj.getDateNaissance();
+		String t = format.format(dateNaissance);
+		
+		String query = 	"UPDATE Utilisateur " +
+				"SET nom = ?, prenom = ?, " +
+				"pseudo = ?, passWord = ?, " +
+				" mail = ?, dateNaissance = ?" +
+				"WHERE idUtilisateur = " + obj.getIdUtilisateur() + "";
+		PreparedStatement pstmt = connection.prepareStatement(query);
+		pstmt.setString(1, nom);
+		pstmt.setString(2, prenom);
+		pstmt.setString(3, pseudo);
+		pstmt.setString(4, password);
+		pstmt.setString(5, mail);
+		pstmt.setString(6, t);
+		//pstmt.setInt(7, idUtilisateur);
+		pstmt.executeUpdate();
+		ResultSet rs = pstmt.getGeneratedKeys();
+		if (rs.first()) {
+			int id = rs.getInt("idUtilisateur");
+			user = findById(id);
+		}
+		return user;
 	}
 
 	@Override
@@ -123,38 +152,48 @@ public class UtilisateurDao extends Dao<Utilisateur> {
 	}
 
 	//Verifier que l'e-mail n'existe pas
-	public boolean verifyUserEmail(String mail) throws SQLException {
-		String query = "select * from Utilisateur where mail =?";
-		Boolean b = false;
 
-		PreparedStatement ps = this.connection.prepareStatement(query);
-		ps.setObject(1, mail);
-		ResultSet rs = ps.executeQuery();
-		if (rs.first()) {
-			b = false;
-		} else {
-			b = true;
+		public boolean verifyUserEmail(String mail) throws SQLException{
+			String query = "select * from Utilisateur where mail =?";
+			Boolean b = false;
+			try {
+				PreparedStatement ps = this.connection.prepareStatement(query);
+				ps.setObject(1, mail);
+				ResultSet rs = ps.executeQuery();
+				if (rs.first()) {
+					b = false;
+				} else {
+					b = true;
+				}
+				
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+			e.printStackTrace();
+			}
+			return b;
 		}
-
-		return b;
-
-	}
-
-	//Verifier que le pseudo n'existe pas
-	public boolean verifyUserPseudo(String pseudo) throws SQLException {
+	
+		//Verifier que le pseudo n'existe pas
+	public boolean verifyUserPseudo(String pseudo)  throws SQLException{
 		String query = "select * from Utilisateur where pseudo =?";
 		Boolean b = false;
-		PreparedStatement ps = this.connection.prepareStatement(query);
-		ps.setObject(1, pseudo);
-		ResultSet rs = ps.executeQuery();
-		if (rs.first()) {
-			b = false;
-		} else {
-			b = true;
+		try {
+			PreparedStatement ps = this.connection.prepareStatement(query);
+			ps.setObject(1, pseudo);
+			ResultSet rs = ps.executeQuery();
+			if (rs.first()) {
+				b = false;
+			} else {
+				b = true;
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 		return b;
 
 	}
+
 
 	public Utilisateur getBy(String mail) throws SQLException {
 		String query = "select * from Utilisateur where mail = '"  + mail + "'" ;
@@ -195,11 +234,10 @@ public class UtilisateurDao extends Dao<Utilisateur> {
 		}
 		return listUsers;
 	}
-
-	//Verification des paramï¿½tres de connexion de l'utilisateur
-	public Utilisateur verifyUtilisateurConnects(String pseudo, 
-			String password) throws SQLException{
-		String query = 	"SELECT * FROM Utilisateur " +
+	
+	//Verification des paramètres de connexion de l'utilisateur
+	public Utilisateur verifyUtilisateurConnects(String pseudo, String password) throws SQLException {
+		String query =  "SELECT * FROM Utilisateur " +
 				"WHERE pseudo = ? AND password = ?";
 		PreparedStatement ps = this.connection.prepareStatement(query);
 		ps.setObject(1, pseudo);
@@ -219,56 +257,4 @@ public class UtilisateurDao extends Dao<Utilisateur> {
 		return utilisateur;
 	}
 
-
-
-
-
-	/*public boolean verifyUtilisateurConnects(String pseudo, String password){
-			Boolean b = false;
-			String q = "select * from Utilisateur where pseudo = ? and password = ?";
-
-			try {
-				PreparedStatement ps = this.connection.prepareStatement(q);
-				ps.setObject(1, pseudo);
-				ps.setObject(2, password);
-				ResultSet rs = ps.executeQuery();
-				if (rs.first()) {
-					b = true;
-				} else {
-					b = false;
-				}
-
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-			e.printStackTrace();
-			}
-			return b;
-		}
-
-
-
-	//Verification des paramï¿½tres de connexion de l'utilisateur
-			public boolean verifyUtilisateurConnects(Utilisateur u){
-				Boolean b = false;
-				String q = "select * from Utilisateur where pseudo = ? and password = ?";
-
-				try {
-					PreparedStatement ps = this.connection.prepareStatement(q);
-					ps.setObject(1, u.getPseudo());
-					ps.setObject(2, u.getPassword());
-					ResultSet rs = ps.executeQuery();
-					if (rs.first()) {
-						u.setIdUtilisateur(rs.getInt("idUtilisateur"));
-						u.setNom(rs.getString("nom"));
-						b = true;
-					} else {
-						b = false;
-					}
-
-				} catch (SQLException e) {
-					// TODO Auto-generated catch block
-				e.printStackTrace();
-				}
-				return b;
-			}*/
 }
