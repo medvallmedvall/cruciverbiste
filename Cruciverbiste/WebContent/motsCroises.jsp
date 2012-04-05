@@ -55,15 +55,6 @@
 	var width = ${grille.largeur};
 	var height = ${grille.hauteur};
 	mGrid = new GrilleMotsCroises(width, height);
-	//pour les commentaires
-	function checkCommentArea() {
-		if ($("#commentaireArea").val() == "") {
-			alert("Veuillez remplir le champ pour poster");
-			$("#commentaireArea").focus();
-			return false;
-		}
-		return true;
-	}
 //-->
 </script>
 
@@ -139,91 +130,3 @@
 		</tr>
 	</c:forEach>
 </table>
-
-<!-- Creation des commentaires -->
-
-
-
-<div id="commentaires">
-	<h3>Commentaires : </h3>
-	<s:actionerror/>
-	<c:if test="${empty grille.commentaires}">Il n'y a aucun commentaire</c:if>
-	<c:forEach var="mComm" items="${grille.commentaires}">
-		<p class="commentaire">
-			<b>${mComm.pseudo}</b> a ecrit le ${mComm.dateFormatee} : <br/>
-			<em>${mComm.contenu}</em>
-		</p>
-	</c:forEach>
-	<c:choose>
-		<c:when test="${authentification == true}">
-			<div id="logMessage">
-				Poster un commentaire : <br/>
-				<s:form action="posterCommentaire" method="post" onsubmit="return checkCommentArea();">
-					<s:textarea id="commentaireArea" name="commentaire" label="Votre commentaire: " required="true" cols="44" rows="10"></s:textarea>
-					<s:hidden name="idGrille" value="%{grille.idGrille}"></s:hidden>
-					<s:submit name="submit" value="poster"></s:submit>
-				</s:form>
-			</div>
-		</c:when>
-		<c:otherwise>
-			<p id="logMessage">Vous devez vous connecter pour pouvoir poster un commentaire!</p>
-		</c:otherwise>
-	</c:choose>
-</div>
-
-
-
-<!-- Creation du menu contextuel -->
-
-<ul id="menuContext">
-	<li>
-		<a href="#">Verifier</a>
-		<ul>
-			<li><a href="#" onclick="checkLetter(); return false;">La lettre</a></li>
-			<li><a href="#" onclick="checkWord(); return false;">Le mot</a></li>
-		</ul>
-	</li>
-	<li>
-		<a href="#">Obtenir</a>
-		<ul>
-			<li><a href="#" onclick="getLetter(); return false;">La lettre</a></li>
-			<li><a href="#" onclick="getWord(); return false;">Le mot</a></li>
-		</ul>
-	</li>
-	<li>
-		<a href="#" onclick="getSynonym(); return false;">Synonyme</a>
-	</li>
-	<li>
-		<a href="#" onclick="return false;">Effacer</a>
-		<ul>
-			<li><a href="#" onclick="deleteLetter(); return false;">La lettre</a></li>
-			<li><a href="#" onclick="deleteWord(); return false;">Le mot</a></li>
-			<li><a href="#" onclick="deleteAll(); return false;">La grille</a></li>
-		</ul>
-	</li>
-	<li>
-		<a href="#"  onclick="getSolution(); return false;">Solution</a>
-	</li>
-</ul> 
-
-<!-- Alert personnalise -->
-
-<div id="alertConteneur">
-	<div id="alertPers">
-		<p>Fin de la partie !</p>
-	</div>
-</div>
-
-<div id="confirmConteneur">
-	<div id="confirmPers">
-		<p>Voulez vous vraiment obtenir la solution?</p>
-		<div id="buttonsConfirm">
-			<button class="bYes">Oui</button>
-			<button class="bNo">Non</button>
-		</div>
-	</div>
-</div>
-
-<script type="text/javascript" src="javascripts/grilles/messageBox.js"></script>
-
-

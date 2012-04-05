@@ -13,7 +13,7 @@
 <body>
 	<script type="text/javascript" src="javascripts/jquery-1.7.1.js"></script>
 	<%@ include file="entete.jspf"%>
-	<%@ include file="menu.jspf"%>
+	<!--%@ include file="menu.jspf" %-->
 	<div id="principal">
 		<h1>Une erreur est survenue lors de l'inscription.<br> </h1>
 		<s:actionerror/>

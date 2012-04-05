@@ -12,7 +12,7 @@
 <script type="text/javascript" src="javascripts/jquery-1.7.1.js"></script>
 
 <%@ include file="entete.jspf"%>
-<%@ include file="menu.jspf"%>
+<!--%@ include file="menu.jspf" %-->
 
 <div id="principal">
 <IFRAME SRC="http://www.tessier-aurelien.fr/phpBB3/" width="95%" height="780" scrolling="no" align="middle"></IFRAME>

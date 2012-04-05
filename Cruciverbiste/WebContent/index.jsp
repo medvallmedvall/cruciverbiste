@@ -11,7 +11,7 @@
 </head>
 <body>
 	<%@ include file="entete.jspf"%>
-	<%@ include file="menu.jspf"%>
+	<!--%@ include file="menu.jspf" %-->
 	<%@ include file="secondaire.jspf"%>
 	<div id="principal"><!-- debut principal -->
 		<h2>Grille du jour</h2>
