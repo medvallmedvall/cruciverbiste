@@ -20,22 +20,6 @@ public class Connexion extends ActionSupport {
 	private String pseudo;
 	private String password;
 
-	public String getPseudo() {
-		return pseudo;
-	}
-
-	public void setPseudo(String pseudo) {
-		this.pseudo = pseudo;
-	}
-
-	public String getPassword() {
-		return password;
-	}
-
-	public void setPassword(String password) {
-		this.password = password;
-	}
-
 	public String execute() {
 		if ((pseudo == null) || (pseudo.equals(""))) {
 			addActionError("Le pseudo est null ou vide");
@@ -60,7 +44,7 @@ public class Connexion extends ActionSupport {
 		}
 		Map<String, Object> session = ActionContext.getContext().getSession();
 		// on renseigne la session
-		session.put("authentification","true");
+		session.put("authentification", "true");
 		session.put("idUser", user.getIdUtilisateur());
 		session.put("nom",user.getNom());
 		session.put("pseudo", user.getPseudo());
@@ -73,6 +57,21 @@ public class Connexion extends ActionSupport {
 		session.clear();
 		return SUCCESS;
 	}
+	
+	public String getPseudo() {
+		return pseudo;
+	}
 
+	public void setPseudo(String pseudo) {
+		this.pseudo = pseudo;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
 
 }

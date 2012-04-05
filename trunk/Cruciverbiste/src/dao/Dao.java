@@ -12,9 +12,9 @@ public abstract class Dao<T> {
 		if (connection == null) {
 			connection = ConnectionMySql.getInstance();
 		}
-		if (forum == null) {
+		/*if (forum == null) {
 			forum = ConnexionForum.getInstance();
-		}
+		}*/
 	}
 	
 	public abstract T findById(int id) throws SQLException;

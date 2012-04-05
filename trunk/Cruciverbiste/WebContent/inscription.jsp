@@ -18,7 +18,7 @@
 </head>
 <body>
 <%@ include file="entete.jspf"%>
-<%@ include file="menu.jspf"%>
+<!--%@ include file="menu.jspf" %-->
 <%@ include file="secondaire.jspf"%>
 <div id="principal">
 

@@ -22,9 +22,8 @@ public class CommentaireDao extends Dao<Commentaire> {
 				"INNER JOIN Utilisateur u ON u.idUtilisateur = c.idUtilisateur " +
 				"WHERE idGrille = " + idGrille + " " +
 				"ORDER BY dateCommentaire DESC";
-		ResultSet results;
 		PreparedStatement pstmt = connection.prepareStatement(query);
-		results = pstmt.executeQuery();
+		ResultSet results = pstmt.executeQuery();
 		while(results.next()) {
 			int idUtilisateur  = results.getInt("idCommentaire");
 			String pseudo = results.getString("pseudo");
@@ -46,11 +45,12 @@ public class CommentaireDao extends Dao<Commentaire> {
 	@Override
 	public Commentaire findById(int id) throws SQLException {
 		Commentaire comm = null;
-		String query =  "SELECT * FROM Commentaire " +
-				"WHERE idCommentaire = " + id;
-		ResultSet results;
-		results = this.connection.createStatement()
-				.executeQuery(query);
+		String query =  "SELECT * FROM Commentaire c " +
+						"INNER JOIN Utilisateur u ON u.idUtilisateur = c.idUtilisateur " +
+						"WHERE c.idCommentaire = ?" ;
+		PreparedStatement pstmt = connection.prepareStatement(query);
+		pstmt.setInt(1, id);
+		ResultSet results = pstmt.executeQuery();
 		if (!results.first()) {
 			return null;
 		}
@@ -89,7 +89,7 @@ public class CommentaireDao extends Dao<Commentaire> {
 		pstmt.executeUpdate();
 		ResultSet rs = pstmt.getGeneratedKeys();
 		if (rs.first()) {
-			int id = rs.getInt("idCommentaire");
+			int id = rs.getInt(1);
 			commentaire = findById(id);
 		}
 		return commentaire;

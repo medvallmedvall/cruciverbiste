@@ -12,7 +12,7 @@
 </head>
 <body>
 <%@ include file="entete.jspf" %>
- <%@ include file="menu.jspf" %>
+<!--%@ include file="menu.jspf" %-->
  <%@ include file="secondaire.jspf" %>
  <%@ taglib prefix="s" uri="/struts-tags"%>
 <div id="principal">

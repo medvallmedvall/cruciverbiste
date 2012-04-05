@@ -11,7 +11,7 @@
 </head>
 <body>
 <%@ include file="entete.jspf" %>
- <%@ include file="menu.jspf" %>
+ <!--%@ include file="menu.jspf" %-->
  <%@ include file="secondaire.jspf" %>
  <%
  response.setHeader("Cache-Control","no-cache"); //Forces caches to obtain a new copy of the page from the origin server
@@ -19,9 +19,9 @@
  response.setDateHeader("Expires", 0); //Causes the proxy cache to see the page as "stale"
  response.setHeader("Pragma","no-cache"); //HTTP 1.0 backward compatibility
  
- if (null == pseudo) {
+ /*if (null == pseudo) {
    request.getRequestDispatcher("index.jsp").forward(request, response);
- }%>
+ }*/%>
 <div id="principal">
 
 

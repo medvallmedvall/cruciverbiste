@@ -1,44 +1,118 @@
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="s" uri="/struts-tags"%>
-<% String pseudo = (String) session.getAttribute("pseudo");
-if(pseudo != null)
-{
- response.setHeader("Cache-Control","no-cache"); //Forces caches to obtain a new copy of the page from the origin server
- response.setHeader("Cache-Control","no-store"); //Directs caches not to store the page under any circumstance
- response.setDateHeader("Expires", 0); //Causes the proxy cache to see the page as "stale"
- response.setHeader("Pragma","no-cache"); //HTTP 1.0 backward compatibility
- }%>
+<%
+	//String pseudo = (String) session.getAttribute("pseudo");
+	if (session.getAttribute("authentification") != null) {
+		response.setHeader("Cache-Control", "no-cache"); //Forces caches to obtain a new copy of the page from the origin server
+		response.setHeader("Cache-Control", "no-store"); //Directs caches not to store the page under any circumstance
+		response.setDateHeader("Expires", 0); //Causes the proxy cache to see the page as "stale"
+		response.setHeader("Pragma", "no-cache"); //HTTP 1.0 backward compatibility
+	}
+%>
 
+<script type="text/javascript" src="javascripts/jquery-1.7.1.js"></script>
 <script type="text/javascript">
-$(document).ready(
-		function() {
-			var navWidth = $("body").width();
-			var menuWidth = $("#navigation").width();
-			var secWidth = $("#secondaire").width();
-			if (menuWidth == null) {
-				menuWidth = 0;
-			}
-			if (secWidth == null) {
-				secWidth = 0;
-			}
-			var newPrincWidth = navWidth - menuWidth - secWidth - 140;
-			$("#principal").css("width", newPrincWidth);
-			$("#principal").css("min-width", newPrincWidth);
-			$("#principal").css("float", "left");
-			$("#pied_page").css("min-width", newPrincWidth);
-			menuWidth+= 20;
-			$("#principal").css("margin-left", menuWidth + "px");
-			$("#principal").css("margin-right", "10px");
-			$("#pied_page").css("margin-left", menuWidth + "px");
-			$("#pied_page").css("margin-right", "10px");
-			var navHeight = $(window).height();
-			var entHeight = $("#entete").height();
-			var princHeight = navHeight - entHeight - 170;
-			$("#principal").css("min-height", princHeight + "px");
+	function resizePrincipal() {
+		var navWidth = $("body").width();
+		var menuWidth = $("#navigation").width();
+		var secWidth = $("#secondaire").width();
+		if (menuWidth == null) {
+			menuWidth = 0;
+		}
+		if (secWidth == null) {
+			secWidth = 0;
+		}
+		var newPrincWidth = navWidth - menuWidth - secWidth - 140;
+		$("#principal").css("width", newPrincWidth);
+		$("#principal").css("min-width", newPrincWidth);
+		$("#principal").css("float", "left");
+		$("#pied_page").css("min-width", newPrincWidth);
+		menuWidth+= 20;
+		$("#principal").css("margin-left", menuWidth + "px");
+		$("#principal").css("margin-right", "10px");
+		$("#pied_page").css("margin-left", menuWidth + "px");
+		$("#pied_page").css("margin-right", "10px");
+		var navHeight = $(window).height();
+		var entHeight = $("#entete").height();
+		var princHeight = navHeight - entHeight - 170;
+		$("#principal").css("min-height", princHeight + "px");
+	}
+
+	function updateMenus() {
+		//envoi d'un 2eme requete
+		//chargement du contenu du fichier pour l'entete
+		$.ajax({
+				url : "login/loginForm.jsp",
+				cache : false,
+				success : function(contenu2) {
+					$("#login").html(contenu2);
+				}
+			}).done(function() {
+				//alert("fin");
+			});
+		//chargement du contenu du fichier pour le menu
+		$.ajax({
+			url : "login/menu.jsp",
+			cache : false,
+			success : function(contenu3) {
+				$("#navigation").html(contenu3);
+			},
+			error : function() {alert("erreur...")}
+		}).done(function() {
+			//alert("fin");
 		});
+		//si il existe le div commentaires, il faut aussi le mettre a jour
+		if ($("#commentaires").length > 0){
+			$.ajax({
+				url : "grilles/commentaires.jsp",
+				cache : false,
+				success : function(contenu3) {
+					$("#commentaires").html(contenu3);
+				},
+				error : function() {alert("erreur...")}
+			}).done(function() {
+				//alert("fin");
+			});
+		}
+	}
+
+
+	function connect() {
+		var pseudo = $("#pseudo").val();
+		var password = $("#password").val();
+		var params = "pseudo=" + pseudo + "&password=" + password;
+		$.ajax({
+			url: "Connexion",
+			type: 'POST',
+			cache: false,
+			data: params,
+			success: function(contenu) {
+				updateMenus();
+			},
+			error: function() {
+				alert("Une erreur : ");
+			}
+		});
+	}
+
+	function disconnect() {
+		$.ajax({
+			url: "Deconnexion",
+			type: 'POST',
+			cache: false,
+			success: function(contenu) {
+				updateMenus();
+			},
+			error: function() {
+				alert("Une erreur : ");
+			}
+		});
+	}
 </script>
 <div id="entete"><!-- debut entete -->
 
-	<div id="langue"><!-- debut langue -->
+	<div id="langue">
+		<!-- debut langue -->
 		<a href="#" title="Anglais"><img alt="English"
 			src="images/Angleterre.png" /></a> <a href="#" title="Allemand"><img
 			alt="Allemand" src="images/Allemagne.png" /></a> <a href="#"
@@ -47,7 +121,8 @@ $(document).ready(
 
 	<div id="sous-entete"><!-- debut sous entete-->
 
-		<div id="logo"><!-- debut logo -->
+		<div id="logo">
+			<!-- debut logo -->
 			<h1 id="titre">
 				<a href="index.jsp"> <img alt="Cruciverbiste"
 					src="images/cruciverbiste.jpg" /> Cruciverbiste
@@ -56,27 +131,19 @@ $(document).ready(
 
 		</div><!-- fin logo -->
 
-		<% if (pseudo != null) { %>
-			<div id = "login">Bienvenue <%=pseudo%> , <a href = "<%= request.getContextPath() %>/Deconnexion.action" style="color = blue;">Deconnexion</a></div>	
-		<%} else { %>
-		<div id="login"><!-- debut login -->
-			<s:form action="Connexion" method="post">
-				<s:textfield name="pseudo" label="Identifiant" />
-				<s:password name="password" label="Mot de passe" />
+		<div id="login">
+			<%@ include file="login/loginForm.jsp" %>
+		</div>
 
-				<s:submit label="Connexion" value="Connexion"
-					cssStyle="text-align: center;">
-				</s:submit>
-			</s:form>
-			
-		</div><!--fin login-->
-		<% } %>
-
-		<div id="pub"><!-- debut pub -->
+		<div id="pub">
+			<!-- debut pub -->
 			<a href="#" title="Pub"><img alt="Publicité" src="images/pub.png" /></a>
 		</div><!-- fin pub-->
-
 
 	</div><!-- fin sous entete-->
 </div><!-- fin entete-->
 <div id="centre"><!-- debut centre -->
+
+<div id="navigation">
+	<%@ include file="login/menu.jsp" %>
+</div>

@@ -15,7 +15,7 @@
 </head>
 <body>
 	<%@ include file="entete.jspf"%>
-	<%@ include file="menu.jspf"%>
+	<!--%@ include file="menu.jspf" %-->
 
 	<div id="principal">
 		<c:choose>
@@ -30,6 +30,103 @@
 				</jsp:include>
 			</c:when>
 		</c:choose>
-	</div>
+		
+		
+		<!-- Zone de commentaires -->
+		
+		
+		<script type="text/javascript">
+			//pour les commentaires
+			function sendComment() {
+				if ($("#commentaireArea").val() == "") {
+					alert("Veuillez remplir le champ pour poster");
+					$("#commentaireArea").focus();
+					return false;
+				}
+				var idGrille = ${grille.idGrille};
+				var content = $("#commentaireArea").val();
+				var params = "idGrille=" + idGrille + "&commentaire=" + content;
+				$.ajax({
+					url: "posterCommentaire",
+					type: 'POST',
+					cache: false,
+					data: params,
+					success: function(contenu) {
+						//chargement du contenu du fichier pour le menu
+						$.ajax({
+							url : "grilles/commentaires.jsp",
+							cache : false,
+							success : function(contenu1) {
+								$("#commentaires").html(contenu1);
+							},
+							error : function() {alert("erreur...")}
+						}).done(function() {
+							//alert("fin");
+						});
+					},
+					error: function() {
+						alert("Une erreur : ");
+					}
+				});
+			}
+		</script>
+		<div id="commentaires">
+			<%@ include file="grilles/commentaires.jsp" %>
+		</div>
+		<!-- Creation du menu contextuel -->
 
-	<%@ include file="pied.jspf"%>
+		<ul id="menuContext">
+			<li>
+				<a href="#">Verifier</a>
+				<ul>
+					<li><a href="#" onclick="checkLetter(); return false;">La lettre</a></li>
+					<li><a href="#" onclick="checkWord(); return false;">Le mot</a></li>
+				</ul>
+			</li>
+			<li>
+				<a href="#">Obtenir</a>
+				<ul>
+					<li><a href="#" onclick="getLetter(); return false;">La lettre</a></li>
+					<li><a href="#" onclick="getWord(); return false;">Le mot</a></li>
+				</ul>
+			</li>
+			<li>
+				<a href="#" onclick="getSynonym(); return false;">Synonyme</a>
+			</li>
+			<li>
+				<a href="#" onclick="return false;">Effacer</a>
+				<ul>
+					<li><a href="#" onclick="deleteLetter(); return false;">La lettre</a></li>
+					<li><a href="#" onclick="deleteWord(); return false;">Le mot</a></li>
+					<li><a href="#" onclick="deleteAll(); return false;">La grille</a></li>
+				</ul>
+			</li>
+			<li>
+				<a href="#"  onclick="getSolution(); return false;">Solution</a>
+			</li>
+		</ul> 
+	
+		<!-- Alert et confirm dialogue personnalise -->
+		
+		<div id="alertConteneur">
+			<div id="alertPers">
+				<p>Fin de la partie !</p>
+			</div>
+		</div>
+		
+		<div id="confirmConteneur">
+			<div id="confirmPers">
+				<p>Voulez vous vraiment obtenir la solution?</p>
+				<div id="buttonsConfirm">
+					<button class="bYes">Oui</button>
+					<button class="bNo">Non</button>
+				</div>
+			</div>
+		</div>
+		
+		<script type="text/javascript" src="javascripts/grilles/messageBox.js"></script>
+	</div>
+	
+
+
+<%@ include file="pied.jspf"%>
