@@ -1,20 +1,15 @@
-<div id="secondaire"><!-- debut secondaire -->
-				<table>
-			   		<caption><strong>Sujets récents</strong></caption>
-					<tr>
-						<td><a href="Forum">C'est quoi les mots croisés?</a></td>
-					</tr>
-				   	<tr>
-						<td><a href="Forum">C'est quoi les mots fléchés?</a></td>
-				   	</tr>
-				   	<tr>
-						<td><a href="Forum">Une grille défi pour tous!</a></td>
-				   	</tr>
-				   	<tr>
-						<td><a href="Forum">Le sens du mot cruciverbiste?</a></td>
-				   	</tr>
-				   	<tr>
-						<td><a href="Forum">C'est quoi un mot palindrome?</a></td>
-				   	</tr>
-				</table>
-</div> <!-- fin secondaire-->
+<div id="secondaire">
+	<!-- debut secondaire -->
+	<table>
+		<caption>
+			<strong>Sujets récents</strong>
+		</caption>
+		<c:forEach var="sujet" items="${Sujet}">
+			<p class="sujet">
+				<b>${sujet.topic_title}</b>
+				<b>${topic_first_poster_name}</b>
+			</p>
+		</c:forEach>
+	</table>
+</div>
+<!-- fin secondaire-->
