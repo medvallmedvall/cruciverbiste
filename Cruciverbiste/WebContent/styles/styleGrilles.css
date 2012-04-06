@@ -198,7 +198,7 @@
 }
 
 #nav li {
-	width: 13em;
+	width: 10em;
 	text-align: center;
 }
 
@@ -218,8 +218,6 @@
 	color: #fff;
 	text-decoration: none;
 	background-color: #333;
-	//line-height: 30px;
-	/*font-size: 16px;*/
 }
 
 #nav a:hover {
@@ -235,12 +233,12 @@
 #nav ul {
 	position: absolute;
 	display: none;
-	width:12em;
+	width: 9em;
     top:30px;
 }
 
 #nav li ul a {
-	width:12em;
+	width: 9em;
     float:left;
 }
 
@@ -249,7 +247,7 @@
 }
 
 #nav li ul ul {
-	left:12em;
+	left: 9em;
     margin:0px 0 0 10px;
 }
 

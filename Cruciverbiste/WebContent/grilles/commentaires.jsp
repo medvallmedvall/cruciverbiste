@@ -11,7 +11,11 @@
 </c:if>
 
 <c:if test="${empty commentaires}">Il n'y a aucun commentaire</c:if>
-<c:forEach var="mComm" items="${commentaires}">
+<c:forEach var="mComm" items="${commentaires}" varStatus="status">
+	<c:set var="numTab" value="${status.index / 10}"/>
+	<script>
+		alert("${numTab}");
+	</script>
 	<p class="commentaire">
 		<b>${mComm.pseudo}</b> a ecrit le ${mComm.dateFormatee} : <br/>
 		<em>${mComm.contenu}</em>
