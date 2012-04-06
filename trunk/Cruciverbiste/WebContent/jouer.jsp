@@ -15,6 +15,9 @@
 </head>
 <body>
 	<%@ include file="entete.jspf"%>
+	<div id="secondaire">
+		<!-- ici le code pour la recherche de mots par motif -->
+	</div>
 	<!--%@ include file="menu.jspf" %-->
 
 	<div id="principal">
