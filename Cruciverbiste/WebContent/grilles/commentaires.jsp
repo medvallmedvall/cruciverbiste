@@ -6,7 +6,6 @@
 <s:actionerror/>
 
 <c:if test="${grille.commentaires != null}">
-	<%System.out.println("C'est pas null"); %>
 	<c:set var="commentaires" value="${grille.commentaires}"/>
 </c:if>
 
@@ -14,7 +13,7 @@
 <c:forEach var="mComm" items="${commentaires}" varStatus="status">
 	<c:set var="numTab" value="${status.index / 10}"/>
 	<script>
-		alert("${numTab}");
+		//alert("${numTab}");
 	</script>
 	<p class="commentaire">
 		<b>${mComm.pseudo}</b> a ecrit le ${mComm.dateFormatee} : <br/>
