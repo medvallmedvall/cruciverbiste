@@ -72,22 +72,28 @@ public class Inscription extends ActionSupport {
 		//verifier que nom, prenom... non vide, non null
 		//email correct avec la regex que vous avez utilise avc javascript
 		//pseudo et password taille correct
-		Utilisateur utilisateur = new Utilisateur(getNom(), getPrenom(), getPseudo(),
+		Utilisateur utilisateur;
+		try {
+		utilisateur = new Utilisateur(getNom(), getPrenom(), getPseudo(),
 				getPassword(), getMail(), getDateNaissance());
+		} catch (Exception e) {
+			addActionError(e.getMessage());
+			return INPUT;
+		}
 		UtilisateurDao utilisateurDao = new UtilisateurDao();
 		Boolean verEmail;
 		try {
 			verEmail = utilisateurDao.verifyUserEmail(utilisateur.getMail());
 		} catch (SQLException e) {
 			addActionError(e.getMessage());
-			return ERROR;
+			return INPUT;
 		}
 		Boolean verPseudo;
 		try {
 			verPseudo = utilisateurDao.verifyUserPseudo(utilisateur.getPseudo());
 		} catch (SQLException e) {
 			addActionError(e.getMessage());
-			return ERROR;
+			return INPUT;
 		}
 		if ((verEmail) && (verPseudo)) {
 			Map<String, Object> session = ActionContext.getContext().getSession();
@@ -95,7 +101,7 @@ public class Inscription extends ActionSupport {
 				utilisateurDao.create(utilisateur);
 			} catch (SQLException e) {
 				addActionError(e.getMessage());
-				return ERROR;
+				return INPUT;
 			}
 			session.put("authentification","true");
 			session.put("idUser", utilisateur.getIdUtilisateur());
