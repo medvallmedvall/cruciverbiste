@@ -1,6 +1,9 @@
 package dao;
 
 
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -44,10 +47,10 @@ public class UtilisateurDao extends Dao<Utilisateur> {
 	}
 
 	@Override
-	public Utilisateur create(Utilisateur obj) throws SQLException {
-
+	public Utilisateur create(Utilisateur obj) throws SQLException{
 			Utilisateur user = null;
-			Statement stmt = this.forum.createStatement();
+			Connection forum = ConnexionForum.getInstance();
+			Statement stmt = forum.createStatement();
 			String prenom = obj.getPrenom();
 			String nom = obj.getNom();
 			SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
@@ -58,12 +61,25 @@ public class UtilisateurDao extends Dao<Utilisateur> {
 			String pseudo = obj.getPseudo();
 			String password = obj.getPassword();
 			String mail = obj.getMail();
+			
+			//le mot de passe doit Ãªtre crypte dans phpBB_users
+			
+			MessageDigest md;
+			try {
+				md = MessageDigest.getInstance("MD5");
+			} catch (NoSuchAlgorithmException e) {
+				throw new IllegalStateException(e.getMessage());
+			}
+			md.update(password.getBytes());
+			byte[] thedigest = md.digest();
+			String passwordCrypted = new String(thedigest);
+			
 			String query = "INSERT INTO phpbb_users (group_id,username_clean, username, user_permissions, user_sig, user_occ, user_interests, user_password, user_email, user_birthday) VALUES(" +
 					  2
 					+ ",'"
 					+ pseudo
 					+ "','"
-					+ nom
+					+ pseudo.toLowerCase()
 					+ "','"
 					+ null
 					+ "','"
@@ -73,7 +89,7 @@ public class UtilisateurDao extends Dao<Utilisateur> {
 					+ "','"
 					+ null
 					+ "','"
-					+ password
+					+ passwordCrypted
 					+ "','"
 					+ mail
 					+ "','"
@@ -235,8 +251,14 @@ public class UtilisateurDao extends Dao<Utilisateur> {
 		return listUsers;
 	}
 	
-	//Verification des paramètres de connexion de l'utilisateur
+	//Verification des paramï¿½tres de connexion de l'utilisateur
 	public Utilisateur verifyUtilisateurConnects(String pseudo, String password) throws SQLException {
+		if (pseudo == null) {
+			throw new IllegalArgumentException("Le pseudo est null");
+		}
+		if (password == null) {
+			throw new IllegalArgumentException("Le mot de passe est null");
+		}
 		String query =  "SELECT * FROM Utilisateur " +
 				"WHERE pseudo = ? AND password = ?";
 		PreparedStatement ps = this.connection.prepareStatement(query);

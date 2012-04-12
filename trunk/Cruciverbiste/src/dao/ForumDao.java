@@ -9,7 +9,7 @@ import java.util.List;
 import entities.Sujet;
 
 public class ForumDao {
-	protected Connection forum;
+	protected static Connection forum;
 	
 	public ForumDao() {
 		if (forum == null) {
@@ -19,9 +19,9 @@ public class ForumDao {
 	
 	public List<Sujet> getSujetsRecents() throws SQLException {
 		List<Sujet> sujets = new LinkedList<Sujet>();
-		String query =  "SELECT topic_id, forum_id, topic_title, topic_fist_poster_name" +
-				"FROM phpbb_topics" +
-				"ORDER BY topic_time" +
+		String query =  "SELECT topic_id, forum_id, topic_title, topic_fist_poster_name " +
+				"FROM phpbb_topics " +
+				"ORDER BY topic_time " +
 				"LIMIT 0, 5:";
 		PreparedStatement pstmt = forum.prepareStatement(query);
 		ResultSet results = pstmt.executeQuery();

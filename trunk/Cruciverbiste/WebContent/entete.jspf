@@ -61,6 +61,9 @@
 		}).done(function() {
 			//alert("fin");
 		});
+
+		
+		
 		//si il existe le div commentaires, il faut aussi le mettre a jour
 		if ($("#commentaires").length > 0){
 			$.ajax({
@@ -81,6 +84,7 @@
 		var pseudo = $("#pseudo").val();
 		var password = $("#password").val();
 		var params = "pseudo=" + pseudo + "&password=" + password;
+		//connection au site
 		$.ajax({
 			url: "Connexion",
 			type: 'POST',
@@ -88,6 +92,23 @@
 			data: params,
 			success: function(contenu) {
 				updateMenus();
+			},
+			error: function() {
+				alert("Une erreur : ");
+			}
+		});
+		//connection au forum
+		//var passwordCrypt = 
+		params = "pseudo=" + pseudo + "&password=" + password + "&login=true";
+		$.ajax({
+			url: "http://localhost/Cruciverbiste/connexionForum.php",
+			type: 'POST',
+			cache: false,
+			data: params,
+			success: function(contenu) {
+				if (contenu != "ok") {
+					alert("Connexion automatique au forum: " + contenu);
+				}
 			},
 			error: function() {
 				alert("Une erreur : ");

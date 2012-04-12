@@ -20,9 +20,9 @@ public class Utilisateur {
 		if (pseudo == null || password == null) {
 			throw new IllegalArgumentException("Le pseudo et le mot de passe sont nuls");
 		}
-		if (pseudo.length() <= 6 || password.length() <= 6) {
+		/*if (pseudo.length() <= 4 || password.length() <= 2) {
 			throw new IllegalArgumentException("Le pseudo et le mot de passe sont courts");
-		}
+		}*/
 		this.pseudo = pseudo;
 		this.password = password;
 	}

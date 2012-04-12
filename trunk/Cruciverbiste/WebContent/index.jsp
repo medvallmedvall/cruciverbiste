@@ -8,6 +8,7 @@
 <title>Bienvenue Cruciverbistes!</title>
 <link rel="stylesheet" type="text/css" href="styles/style.css"
 	media="screen" />
+<script type="text/javascript" src="javascripts/jquery-1.7.1.js"></script>
 </head>
 <body>
 	<%@ include file="entete.jspf"%>

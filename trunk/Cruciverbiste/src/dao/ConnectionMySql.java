@@ -8,10 +8,10 @@ public class ConnectionMySql {
 	//private static final String url = "jdbc:mysql://pma.olympe-network.com/174463_cruci";
 	private static final String url = "jdbc:mysql://localhost/174463_cruci";
 	//private static final String url = "jdbc:mysql://localhost/cruciTest";
-	private static final String login = "root";
-	private static final String password = "";
-	//private static final String login = "174463_cruci";
-	//private static final String password = "cruci";
+	//private static final String login = "root";
+	//private static final String password = "";
+	private static final String login = "174463_cruci";
+	private static final String password = "cruci";
 	/*private static final String url = "jdbc:mysql://db405741496.db.1and1.com/db405741496";
 	private static final String login = "dbo405741496";
 	private static final String password = "cruciverbisme";*/
