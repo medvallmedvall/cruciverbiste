@@ -15,5 +15,7 @@
 <!--%@ include file="menu.jspf" %-->
 
 <div id="principal">
-<IFRAME SRC="http://localhost/phpBB3/index.php" width="95%" height="780" scrolling="no" align="middle"></IFRAME>
+<IFRAME SRC="http://localhost/phpBB3/index.php" id="forumFrame" width="95%" height="780" scrolling="no" align="middle">
+
+</IFRAME>
 <%@ include file="pied.jspf" %>	
