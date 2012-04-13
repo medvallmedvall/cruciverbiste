@@ -106,9 +106,12 @@
 			cache: false,
 			data: params,
 			success: function(contenu) {
-				if (contenu != "ok") {
-					alert("Connexion automatique au forum: " + contenu);
+				if ($("#forumFrame").length > 0) {
+					$("#forumFrame").attr("src", contenu);
 				}
+				//if (contenu != "ok") {
+					//alert("Connexion automatique au forum: " + contenu);
+				//}
 			},
 			error: function() {
 				alert("Une erreur : ");
@@ -123,6 +126,22 @@
 			cache: false,
 			success: function(contenu) {
 				updateMenus();
+			},
+			error: function() {
+				alert("Une erreur : ");
+			}
+		});
+
+		params = "logout=true";
+		$.ajax({
+			url: "http://localhost/Cruciverbiste/connexionForum.php",
+			type: 'POST',
+			cache: false,
+			data: params,
+			success: function(contenu) {
+				//if (contenu != "ok") {
+					alert("Deconnexion: " + contenu);
+				//}
 			},
 			error: function() {
 				alert("Une erreur : ");
