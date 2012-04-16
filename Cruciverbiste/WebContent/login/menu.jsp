@@ -23,8 +23,8 @@ if (session.getAttribute("authentification") != null) {
 		</ul></li>
 	<li><a href="#">Creer une grille</a>
 		<ul>
-			<li><a href="#">Mots croises</a></li>
-			<li><a href="#">Mots fleches</a></li>
+			<li><a href="creerGrilleMC.jsp">Mots croises</a></li>
+			<li><a href="creerGrilleMF.jsp">Mots fleches</a></li>
 		</ul></li>
 
 
