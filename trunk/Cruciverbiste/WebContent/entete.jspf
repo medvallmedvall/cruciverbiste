@@ -106,9 +106,9 @@
 			cache: false,
 			data: params,
 			success: function(contenu) {
-				if ($("#forumFrame").length > 0) {
+				/*if ($("#forumFrame").length > 0) {
 					$("#forumFrame").attr("src", contenu);
-				}
+				}*/
 				//if (contenu != "ok") {
 					//alert("Connexion automatique au forum: " + contenu);
 				//}
