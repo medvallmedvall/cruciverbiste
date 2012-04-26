@@ -1,12 +1,14 @@
 package entities;
 
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 import java.util.Set;
 
 public class Grille {
-	private Integer idGrille;
+	private int idGrille;
 	/*private Langues langues;
 	private Typegrille typegrille;*/
 	private Utilisateur utilisateur;
@@ -119,6 +121,11 @@ public class Grille {
 	public Date getDateCreation() {
 		return this.dateCreation;
 	}
+	
+	public String getDateCreationF() {
+		SimpleDateFormat format = new SimpleDateFormat("EEEE dd MMMM", Locale.FRENCH);
+		return format.format(getDateCreation());
+	}
 
 	public void setDateCreation(Date dateCreation) {
 		this.dateCreation = dateCreation;
@@ -143,10 +150,20 @@ public class Grille {
 	public Date getDateValidation() {
 		return this.dateValidation;
 	}
+	
+	public String getDateValidationF() {
+		if (dateValidation == null) {
+			return "";
+		}
+		SimpleDateFormat format = new SimpleDateFormat("EEEE dd MMMM", Locale.FRENCH);
+		return format.format(getDateValidation());
+	}
 
 	public void setDateValidation(Date dateValidation) {
 		this.dateValidation = dateValidation;
 	}
+	
+	
 
 	public int getNiveau() {
 		return this.niveau;
@@ -190,6 +207,14 @@ public class Grille {
 	
 	public void setCommentaires(List<Commentaire> listComm) {
 		this.commentaires = listComm;
+	}
+	
+	public int getIdLangue() {
+		return idLangue;
+	}
+	
+	public void setIdLangue(int idLangue) {
+		this.idLangue = idLangue;
 	}
 
 }

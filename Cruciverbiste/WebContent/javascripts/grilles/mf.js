@@ -219,14 +219,15 @@ $(document).ready(function(){
 						function() {
 							var topG = $("#grilleMotFleche").position().top;
 							var leftG = $("#grilleMotFleche").position().left;
+							var leftG2 = $("#principal").position().left;
 							var top = mCase.position().top + topG - 5;
-							var left = mCase.position().left + leftG - 5;
+							var left = mCase.position().left + leftG + leftG2 + 60;
 							$("#zoomDiv").css("top", top);
 							$("#zoomDiv").css("left", left);
 							var mText = mDef.text();
 							$("#zoomDiv").text(mText);
 							$("#zoomDiv").show("fast");
-						}, 2000);
+						}, 1200);
 			});
 	$(".definitionMF").mouseleave(
 			function(e) {

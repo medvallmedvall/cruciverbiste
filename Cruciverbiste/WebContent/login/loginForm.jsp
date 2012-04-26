@@ -13,7 +13,7 @@ if ((auth != null) && (auth.equalsIgnoreCase("true"))) {
 }
 else {
 %>
-	<s:form action="Connexion" method="post" onsubmit="return false;">
+	<s:form action="Connexion" method="post" onsubmit="return false;" id="loginForm">
 			<s:textfield name="pseudo" label="Identifiant" id="pseudo" />
 			<s:password name="password" label="Mot de passe" id="password" />
 
@@ -21,8 +21,7 @@ else {
 				cssStyle="text-align: center;" onclick="connect();">
 			</s:submit>
 		</s:form>
-		<p>
-			<s:actionerror />
+		<p id="loginP">
 			<a href="oubli.jsp">Mot de passe oublié?</a>
 		</p>
 <%
