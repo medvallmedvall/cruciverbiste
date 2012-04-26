@@ -46,6 +46,16 @@
         	</result>
 		</action>
 		
+		<action name="creerGrille" class="actions.CreateGridAction">
+			<result name="success">creerGrille.jsp</result>
+			<result name="error">erreur.jsp</result>
+			<result name="input">creerGrille.jsp</result>
+		</action>
+		
+		<action name="mesGrilles" class="actions.MyGridsAction">
+			<result name="success">mesGrilles.jsp</result>
+			<result name="error"> erreur.jsp</result>
+		</action>
 	</package>
 
 </struts>

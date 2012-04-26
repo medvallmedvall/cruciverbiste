@@ -15,6 +15,7 @@ public class Utilisateur {
 	private String mail;
 	private Date dateInscription;
 	private Date dateNaissance;
+	private int idDroit;
 	
 	public Utilisateur(String pseudo, String password) {
 		if (pseudo == null || password == null) {
@@ -125,6 +126,14 @@ public class Utilisateur {
 
 	public void setDateNaissance(Date dateNaissance) {
 		this.dateNaissance = dateNaissance;
+	}
+	
+	public int getIdDroit() {
+		return idDroit;
+	}
+	
+	public void setIdDroit(int idDroit) {
+		this.idDroit = idDroit;
 	}
 
 	@Override

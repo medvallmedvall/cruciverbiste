@@ -23,8 +23,8 @@ if (session.getAttribute("authentification") != null) {
 		</ul></li>
 	<li><a href="#">Creer une grille</a>
 		<ul>
-			<li><a href="creerGrilleMC.jsp">Mots croises</a></li>
-			<li><a href="creerGrilleMF.jsp">Mots fleches</a></li>
+			<li><a href="creerGrille?idTypeGrille=2">Mots croises</a></li>
+			<li><a href="creerGrille?idTypeGrille=1">Mots fleches</a></li>
 		</ul></li>
 
 
@@ -33,7 +33,7 @@ if (session.getAttribute("authentification") != null) {
 	<% 
 	if ((auth1 != null) && (auth1.equalsIgnoreCase("true"))) {
 %>
-	<li><a href="#">Mes Grilles</a></li>
+	<li><a href="mesGrilles">Mes Grilles</a></li>
 	<li><a href="#">Grilles En Cours</a></li>
 	<% 
 	}

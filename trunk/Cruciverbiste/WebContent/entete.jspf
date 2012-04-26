@@ -99,7 +99,7 @@
 		});
 		//connection au forum
 		//var passwordCrypt = 
-		params = "pseudo=" + pseudo + "&password=" + password + "&login=true";
+		/*params = "pseudo=" + pseudo + "&password=" + password + "&login=true";
 		$.ajax({
 			url: "http://localhost/Cruciverbiste/connexionForum.php",
 			type: 'POST',
@@ -109,6 +109,7 @@
 				/*if ($("#forumFrame").length > 0) {
 					$("#forumFrame").attr("src", contenu);
 				}*/
+				/*
 				//if (contenu != "ok") {
 					//alert("Connexion automatique au forum: " + contenu);
 				//}
@@ -116,7 +117,7 @@
 			error: function() {
 				alert("Une erreur : ");
 			}
-		});
+		});*/
 	}
 
 	function disconnect() {
@@ -132,7 +133,7 @@
 			}
 		});
 
-		params = "logout=true";
+		/*params = "logout=true";
 		$.ajax({
 			url: "http://localhost/Cruciverbiste/connexionForum.php",
 			type: 'POST',
@@ -146,7 +147,7 @@
 			error: function() {
 				alert("Une erreur : ");
 			}
-		});
+		});*/
 	}
 </script>
 <div id="entete"><!-- debut entete -->
