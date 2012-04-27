@@ -46,10 +46,11 @@ function GrilleMotsCroises(width, height) {
 				var mId = i + "-" + j;
 				var square = new SquareData(mId, "");
 				this.squareDataList[mId] = square;
+				$("#" + mId).addClass("caseLettre");
 			}
 		}
 		/*Creation des cases de la grille selon les definitions*/
-		var mDefList = mGrid.definitionList;
+		/*var mDefList = mGrid.definitionList;
 		for (var idDef in mDefList) {
 			var mDef = mDefList[idDef];
 			var x = mDef.coordWord.x;
@@ -83,80 +84,52 @@ function GrilleMotsCroises(width, height) {
 				mCase.addClass("caseLettre");
 				//mCase.text(this.squareDataList[mId].letter);
 			}
-		}
+		}*/
 		/*ajout des cases noires*/
-		$("#grille1 td:not(.caseLettre)").each(
+		/*$("#grille1 td:not(.caseLettre)").each(
 				function(index, mCase) {
 					$(this).addClass("caseLettre");
 					//$(this).addClass("caseNoire");
 				}
-		);
+		);*/
 	};
 
-	GrilleMotsCroises.prototype.switchOrientation = function(pCase, pHorizontal) {
-		var mIdCase = pCase.attr("id");
-		var mSquareData = mGrid.squareDataList[mIdCase];
-		if ((mSquareData.idDefinitionH == -1) && (mSquareData.idDefinitionH == -1)) {
-			this.horizontal = pHorizontal;
-			return;
-		}
-		if (pHorizontal) {
-			this.horizontal = (mSquareData.idDefinitionH != -1);
-		}
-		else {
-			this.horizontal = !(mSquareData.idDefinitionV != -1);
-		}
-	};
 }
+
+function selectSquare(mCase) {
+	//$("#menuContext").css("display", "none");
+
+	//selection de la case
+	mCase.addClass("caseEdition");
+	var input = "<input type='text' id='caseTexte' name='caseTexte' maxlength='1'/>";
+	mCase.append(input);
+	$("#caseTexte").focus();
+}
+
 
 $(document).ready(function(){
 	mGrid.initialize();
-	$(".caseLettre").click(
-			function(e) {
-				var mCase = $(this);
-				if (mCase.hasClass("caseEdition")) {
-					var pHorizontal = !mGrid.horizontal;
-					mGrid.switchOrientation(mCase, pHorizontal);
-					selectSquare(mCase);
-				}
-				else {
-					mGrid.switchOrientation(mCase, true);
-					selectSquare(mCase);
-				}
-			}
-	);
 
-	$("td").dblclick(
-			function(e) {
-				$(this).toggleClass("caseNoire");
-			}
-	);
+	$(".caseLettre").dblclick(function(event) {
+		$(this).removeClass("caseLettre");
+		$(this).addClass("caseNoire");
 
-	$(".ligne_definition").click(
-			function(e) {
-				var mIdDef = $(this).attr("id");
-				var mDef = mGrid.definitionList[mIdDef];
-				//si c'est horizontal
-				if (mDef.orientation == 0) {
-					mGrid.horizontal = true;
-				}
-				//si c'est vertical
-				else if (mDef.orientation == 1){
-					mGrid.horizontal = false;
-				}
-				var x = mDef.coordWord.x;
-				var y = mDef.coordWord.y;
-				var mSelector = "#" + x + "-" + y;
-				var mCase = $(mSelector);
-				selectSquare(mCase);
-			}
-	);
+		$(this).dblclick(function(event) {
+			$(this).removeClass("caseNoire");
+			$(this).addClass("caseLettre");
+		});
+	});
+
+
+	$(".caseLettre").click(function(event) {
+		var mCase = $(this);
+		selectSquare(mCase);
+	});
 
 	/*Lors de l'appuie sur les touches speciales (direction, backspace, ctr...)*/
 
 	$("#grille1").keyup(
 			function(event) {
-				//if (event.keyCode=='86' && event.ctrlKey) {alert('interdit'); return;};
 				var c = codeTouche(event);
 				//si on a appuyé sur des fleches directionnelles ou la touche pour effacer
 				if ((c == 8) || ((c >= 37) && (c <= 40))) {
@@ -205,7 +178,7 @@ $(document).ready(function(){
 					var idOthCase = x + "-" + y;
 					if (mGrid.squareDataList[idOthCase] != undefined) {
 						var mOthCase = $("#" + idOthCase);
-						mGrid.switchOrientation(mOthCase, sens);
+						//mGrid.switchOrientation(mOthCase, sens);
 						selectSquare(mOthCase);
 					}
 				}
@@ -218,44 +191,18 @@ $(document).ready(function(){
 	$("#grille1").keypress(
 			function(event) {
 				event.preventDefault();
-				$(".caseLettre").removeClass("correctCase");
-				$(".caseLettre").removeClass("errorCase");
-				$("#caseTexte").removeClass("correctCase");
-				$("#caseTexte").removeClass("errorCase");
 				var c = codeTouche(event);
 				var regex = /[a-zA-Z]/;
 				var char = String.fromCharCode(c);
-				//si c'est une lettre
-				if (regex.test(char)) {
-					//on le char dans la case
-					$("#caseTexte").val(char);
-					//on passe a la case suivante
-					var mCase = $(".caseEdition:first");
-					var mIdString = mCase.attr("id");
-					var mTab = mIdString.split("-");
-					var x = mTab[0];
-					var y = mTab[1];
-					if (mGrid.horizontal) {
-						x++;
-					}
-					else {
-						y++;
-					}
-					var idOthCase = x + "-" + y;
-					if (mGrid.squareDataList[idOthCase] != undefined) {
-						var mOthCase = $("#" + idOthCase);
-						mGrid.switchOrientation(mOthCase, mGrid.horizontal);
-						selectSquare(mOthCase);
-					}
-					return true;
-				}
+			
+				$(".caseEdition").text(c);
 				return false;
 			}
 	);
 
 	/* Menu contextuel */
 
-	$(".caseLettre").bind("contextmenu", function(e){  
+	/*$(".caseLettre").bind("contextmenu", function(e){  
 		//on selectionne la case
 		var mCase = $(this);
 		mGrid.switchOrientation(mCase, mGrid.horizontal);
@@ -274,25 +221,25 @@ $(document).ready(function(){
 			function(e) {
 				$("#menuContext").css("display", "none");
 			}
-	);
+	);*/
 
 
 
 	/*selection de la 1ere case de la grille*/
 
 	var mCase = $(".caseLettre:first");
-	mGrid.switchOrientation(mCase, true);
-	selectSquare(mCase);
+	//mGrid.switchOrientation(mCase, true);
+	//selectSquare(mCase);
 
 	/*Dynamise le menu horizontal*/
-	mainmenu();
+	//mainmenu();
 
 });
 
 
 /* Menu horizontal dynamique */
 
-function mainmenu(){
+/*function mainmenu(){
 	$(" #nav ul ").css({display: "none"}); // Opera Fix
 	$(" #nav li").hover(function(){
 		$("#menuContext").css("display", "none");
@@ -301,141 +248,7 @@ function mainmenu(){
 		$("#menuContext").css("display", "none");
 		$(this).find('ul:first').css({visibility: "hidden"});
 	});
-};
-
-
-/*Fonction qui selectionne une case ainsi que sa definition*/
-
-function selectSquare(mCase) {
-	$("#menuContext").css("display", "none");
-	//deselection
-
-	var letter = $("#caseTexte").val();
-	$(".caseEdition").text(letter);
-	$(".caseLettre").removeClass("caseEdition");
-	$("#caseTexte").remove();
-	$(".caseLettre").removeClass("casesMotSelectionne");
-	$(".caseLettre").removeClass("correctCase");
-	$(".caseLettre").removeClass("errorCase");
-	$(".ligne_definition").removeClass("definitionSelectionnee2");
-
-	//selection de la definition associe au mot
-	var mIdCase = mCase.attr("id");
-	var mSquareData = mGrid.squareDataList[mIdCase];
-	var mIdDef = undefined;
-	if (mGrid.horizontal) {
-		mIdDef = mSquareData.idDefinitionH;
-	}
-	else {
-		mIdDef = mSquareData.idDefinitionV;
-	}
-	if (mIdDef != -1) {
-		var mSelector = "#" + mIdDef;
-		$(mSelector).addClass("definitionSelectionnee2");
-	}
-
-	//selection des cases faisant parties de la definition
-	$(".caseLettre").each(
-			function(index, element) {
-				var mIdCaseC = $(this).attr("id");
-				
-				mSquareData = mGrid.squareDataList[mIdCaseC];
-				var mTab = mIdCase.split("-");
-				var xC = mTab[0];
-				var yC = mTab[1];
-				if (mGrid.horizontal) {
-					if (mIdDef == -1) {
-						var mTab = mIdCase.split("-");
-						var x = mTab[0];
-						if (xC == x) {
-							alert(xC + " - " + x);
-							$(this).addClass("casesMotSelectionne");
-						}
-					}
-					else if (mSquareData.idDefinitionH == mIdDef) {
-						$(this).addClass("casesMotSelectionne");
-					}
-				}
-				else {
-					if (mIdDef == -1) {
-						var mTab = mIdCase.split("-");
-						var y = mTab[1];
-						if (yC == y) {
-							$(this).addClass("casesMotSelectionne");
-						}
-					}
-					else if (mSquareData.idDefinitionV == mIdDef) {
-						$(this).addClass("casesMotSelectionne");
-					}
-				}
-
-			}
-	);
-
-//	selection de la case
-	mCase.addClass("caseEdition");
-//	on prend la lettre deja dans la case
-	letter = mCase.text();
-	mCase.text("");
-	var input = "<input type='text' id='caseTexte' name='caseTexte' maxlength='1'/>";
-	mCase.append(input);
-	$("#caseTexte").val(letter);
-	$("#caseTexte").focus();
-}
-
-function deleteLetter(){
-	$(".caseLettre").removeClass("correctCase");
-	$(".caseLettre").removeClass("errorCase");
-	$("#caseTexte").removeClass("correctCase");
-	$("#caseTexte").removeClass("errorCase");
-	$("#caseTexte").val("");
-	$("#caseTexte").focus();
-}
-
-function deleteWord() {
-	if (mGrid.endGame) {
-		return;
-	}
-	$(".caseLettre").removeClass("correctCase");
-	$(".caseLettre").removeClass("errorCase");
-	$("#caseTexte").removeClass("correctCase");
-	$("#caseTexte").removeClass("errorCase");
-	$(".casesMotSelectionne").each(
-			function(index, element) {
-				var mCase = $(this);
-				if (mCase.hasClass("caseEdition")) {
-					$("#caseTexte").val("");
-					$("#caseTexte").focus();
-				}
-				else {
-					mCase.text("");
-				}
-			}
-	);
-}
-
-function deleteAll() {
-	if (mGrid.endGame) {
-		return;
-	}
-	$(".caseLettre").removeClass("correctCase");
-	$(".caseLettre").removeClass("errorCase");
-	$("#caseTexte").removeClass("correctCase");
-	$("#caseTexte").removeClass("errorCase");
-	$(".caseLettre").each(
-			function(index, element) {
-				var mCase = $(this);
-				if (mCase.hasClass("caseEdition")) {
-					$("#caseTexte").val("");
-					$("#caseTexte").focus();
-				}
-				else {
-					mCase.text("");
-				}
-			}
-	);
-}
-
+};*/
 
 
 

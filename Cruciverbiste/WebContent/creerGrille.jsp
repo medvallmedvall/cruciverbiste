@@ -75,7 +75,7 @@
 		</div>
 		<c:choose>
 			<c:when test="${grille.idTypeGrille == 1}">
-				<jsp:include page="motsFleches.jsp">
+				<jsp:include page="creationGrille/creerMF.jsp">
 					<jsp:param name="grille" value="${grille}"/>
 				</jsp:include>
 			</c:when>
