@@ -3,6 +3,7 @@ package dao;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -80,5 +81,24 @@ public class MotDao extends Dao<Mot> {
 		stmt.setInt(1, obj.getIdMot());
 		stmt.executeUpdate();
 	}
+	
+	public LinkedList<String> findByMotif(String motif) throws SQLException {
+		LinkedList<String> listMots = new LinkedList<String>();
+		motif = motif.replace('?', '_');
+		String query = "select mot from dictionnairefr where mot like ? " ;
+		//Statement stmt = this.connection.createStatement();
+		PreparedStatement stmt = connection.prepareStatement(query);
+		stmt.setString(1, motif);
+		ResultSet rs = stmt.executeQuery();
+		while (rs.next()) {
+			String mot = rs.getString("mot");
+			listMots.add(mot);
+			System.out.println(mot);
+		}
+		return listMots;
+		
+		
+	}
 
 }
+
