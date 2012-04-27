@@ -3,7 +3,6 @@ package dao;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -82,6 +81,26 @@ public class MotDao extends Dao<Mot> {
 		stmt.executeUpdate();
 	}
 	
+	public List<Mot> getSynonyms(String mot) throws SQLException {
+		List<Mot> synonyms = new LinkedList<Mot>();
+		String query1 = "SELECT s.idMot2 as idSynonym, d2.mot as synonym " +
+						"FROM SynonymeFR s " +
+						"LEFT JOIN DictionnaireFR d1 ON d1.idMot = s.idMot1 " +
+						"LEFT JOIN DictionnaireFR d2 ON d2.idMot = s.idMot2 " +
+						"WHERE d1.mot LIKE ? ";
+		PreparedStatement pstmt = connection.prepareStatement(query1);
+		pstmt.setString(1, mot);
+		ResultSet rs = pstmt.executeQuery();
+		while (rs.next()) {
+			int id = rs.getInt("idSynonym");
+			String syn = rs.getString("synonym");
+			Mot motSyn = new Mot(id, syn, new LinkedList<String>());
+			synonyms.add(motSyn);
+		}
+		return synonyms;
+	}
+
+
 	public LinkedList<String> findByMotif(String motif) throws SQLException {
 		LinkedList<String> listMots = new LinkedList<String>();
 		motif = motif.replace('?', '_');
@@ -96,8 +115,6 @@ public class MotDao extends Dao<Mot> {
 			System.out.println(mot);
 		}
 		return listMots;
-		
-		
 	}
 
 }
