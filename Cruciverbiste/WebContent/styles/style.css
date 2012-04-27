@@ -141,6 +141,43 @@ div {
 	margin: auto;
 }
 
+/*dictionnaire*/
+
+#textDico {
+	height : 100px;
+	width: 450px;
+	float: left;
+	font-family: Verdana, "Bitstream Vera Sans", "Lucida Grande", sans-serif;
+	font-size: 15px;
+}
+#imageDico {
+	height: 50px;
+	width: 50px;
+	float:right;
+	padding-right : 160px;
+	background: #F7FFD9;
+}
+
+/*Jeu Concours */
+
+#resultatJeu {
+	border-style : ridge;
+	border-width : 2px;
+	border-color: black;
+	border-radius: 0px;
+	height: 100px;
+	width:300px;
+	padding-top: 10px;
+	padding-left: 10px;
+}
+
+#grilleJeu {
+/* 	pading-right : 50 px; */
+	text-align:center;
+	padding-top : 10px;
+	font-size: 20px;
+}
+
 /*Page d'erreur*/
 
 .errorMessage {
@@ -298,3 +335,4 @@ ul#navmenu ul ul li.iehover ul {
 img, input {
 	border-radius : 20px; 
 }
+
