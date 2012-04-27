@@ -59,6 +59,11 @@
 			<result name="input">creerGrille.jsp</result>
 		</action>
 		
+		<action name="mots" class="actions.WordAction">
+			<result name="success">creationGrille/mots.jsp</result>
+			<result name="error">erreur.jsp</result>
+		</action>
+		
 		<action name="mesGrilles" class="actions.MyGridsAction">
 			<result name="success">mesGrilles.jsp</result>
 			<result name="error"> erreur.jsp</result>
