@@ -15,10 +15,12 @@
 </head>
 <body>
 	<%@ include file="entete.jspf"%>
-	<div id="secondaire">
-		<!-- ici le code pour la recherche de mots par motif -->
-	</div>
 	<!--%@ include file="menu.jspf" %-->
+		
+		<div id="secondaire">
+		<%@ include file="grilles/rechercheMotif.jsp"%>
+		
+		</div>
 
 	<div id="principal">
 		<c:choose>
@@ -39,6 +41,49 @@
 		
 		
 		<script type="text/javascript">
+			//pour l'appli de recherche de mots
+			function copyArea() {
+				if ($("#motif").val() == "") {
+					alert("Vous devez rentrer un motif de plus de 2 caractères");
+					$("#motif").focus();
+					return false();
+				}
+				var motif = $("#motif").val();
+				
+				if (motif.indexOf("?") == -1) {
+					alert("Votre motif doit comporter au moins un caractère ?");
+					$("#motif").focus();
+					return false();
+				} 
+				var idGrille = ${grille.idGrille};
+				
+				//var content = $("#resultArea").val();
+				//var params = "idGrille=" + idGrille + "&area=" + content;
+				var params = "idGrille=" + idGrille + "&motif=" + motif;
+				$.ajax({
+					url:"rechercherMot",
+					type :'POST',
+					cache:false ,
+					data : params,
+					success: function(content) {
+						$.ajax({
+							url : "grilles/rechercheMotif.jsp",
+							cache : false,
+							success : function(contenu1) {
+								//alert(contenu1);
+								$("#secondaire").html(contenu1);
+							},
+							error : function() {alert("erreur...")}
+						}).done(function() {
+							//alert("fin");
+						});
+					},
+					error: function() {
+						alert("Une erreur : ");
+					}
+				});
+				
+			}
 			//pour les commentaires
 			function sendComment() {
 				if ($("#commentaireArea").val() == "") {
