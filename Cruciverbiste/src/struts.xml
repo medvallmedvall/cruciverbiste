@@ -46,6 +46,13 @@
         	</result>
 		</action>
 		
+		<action name ="rechercherMot" class="actions.RechercheMot">
+			<result type="redirectAction">
+            	<param name="actionName">jouer</param>
+            	<param name="idGrille">${idGrille}</param>
+        	</result>	
+		</action>
+		
 		<action name="creerGrille" class="actions.CreateGridAction">
 			<result name="success">creerGrille.jsp</result>
 			<result name="error">erreur.jsp</result>
