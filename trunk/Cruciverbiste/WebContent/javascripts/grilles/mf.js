@@ -268,7 +268,7 @@ $(document).ready(function(){
 	$("#grilleMotFleche").keyup(
 			function(event) {
 				var c = codeTouche(event);
-				//si on a appuyÃ© sur des fleches directionnelles ou la touche pour effacer
+				//si on a appuyé sur des fleches directionnelles ou la touche pour effacer
 				if ((c == 8) || ((c >= 37) && (c <= 40))) {
 					var mCase = $(".caseEdition:first");
 					if (mCase == undefined) {
@@ -699,5 +699,98 @@ function codeTouche(event) {
 	return event.keyCode;
 }
 
+/*recuperer tous les donnees taper par le user*/
+function sauvegarder(){
+	var mSquareList = mGrid.squareDataList;
+	var listeLettre="";
+	for (var mSquareId in mSquareList) {
+		var mSquare = mSquareList[mSquareId];
+		var mCase = $("#" + mSquareId);
+		var letterUser = "";
+		if (mCase.hasClass("caseEdition")) {
+			letterUser =  $("#caseTexte").val();
+		}
+		else {
+			letterUser = mCase.text();
+		}
+		if(letterUser != ""){
+			var tabCord = mSquareId.split("-");
+			listeLettre+= letterUser + ":" + tabCord[0] + ":" + tabCord[1] + "/" ;
+		}
+	}
+	return listeLettre;
+	alert(listeLettre);
+}
 
+/*sauvegarde la grille en cookie */
+function createCookie(name,value,days) {
+	if (days) {
+		var date = new Date();
+		date.setTime(date.getTime()+(days*24*60*60*1000));
+		var expires = "; expires="+date.toGMTString();
+	}
+	else var expires = "";
+	document.cookie = name+"="+value+expires+"; path=/";
+}
+
+function readCookie(name) {
+	var nameEQ = name + "=";
+	var ca = document.cookie.split(';');
+	for(var i=0;i < ca.length;i++) {
+		var c = ca[i];
+		while (c.charAt(0)==' ') c = c.substring(1,c.length);
+		if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length,c.length);
+	}
+	return null;
+}
+
+function eraseCookie(name) {
+	createCookie(name,"",-1);
+}
+
+/*cookie*/
+function stringToTabCookie(chaine) {
+	var listlettre=new Array();
+	listlettre=chaine.split("/");
+	var allList=new Array();
+	var indice=0;
+	for ( var int = 0; int < listlettre.length; int++) {
+		var tmp=new Array();
+		tmp =listlettre[int].split(":");
+		if(tmp[0]!=""){
+			allList[indice]=tmp[0];
+			indice++;
+			allList[indice]=tmp[1];
+			indice++;
+			allList[indice]=tmp[2];
+			indice++;
+		}
+	}
+	return allList;
+}
+
+/* retourne le tableau depuis un string */
+function stringToTab(chaine) {
+	var tab1=new Array();
+	tab1=chaine.split("&");
+	var list=new Array();
+	list=tab1[1].split("=");
+	var listlettre=new Array();
+	listlettre=list[1].split("/");
+	var allList=new Array();
+	var indice=0;
+	for ( var int = 0; int < listlettre.length; int++) {
+		var tmp=new Array();
+		tmp =listlettre[int].split(":");
+		if(tmp[0]!=""){
+			allList[indice]=tmp[0];
+			indice++;
+			allList[indice]=tmp[1];
+			indice++;
+			allList[indice]=tmp[2];
+			indice++;
+		}
+	}
+	return allList;
+}
 
