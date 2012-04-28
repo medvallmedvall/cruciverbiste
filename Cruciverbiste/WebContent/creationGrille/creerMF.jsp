@@ -36,6 +36,9 @@
 
 <!-- Creation de la grille de mots fléchés -->
 
+<div id="synonymes">
+
+</div>
 
 <table id="grilleMotFleche">
 	<c:forEach var="i" begin="0" end="${grille.hauteur - 1}">
@@ -80,12 +83,12 @@
 
 
 <ul id="menuContext">
-	<li><a href="#">Ajouter definition</a>
+	<li><a href="#">rajouter definition</a>
 		<ul>
-			<li><a href="#" onclick="addNewDefinition(1); return false;">droite</a></li>
-			<li><a href="#" onclick="addNewDefinition(3); return false;">droite-bas</a></li>
-			<li><a href="#" onclick="addNewDefinition(2); return false;">bas</a></li>
-			<li><a href="#" onclick="addNewDefinition(4); return false;">bas-droite</a></li>
+			<li><a href="#" onclick="addOtherDefinition(1); return false;">droite</a></li>
+			<li><a href="#" onclick="addOtherDefinition(3); return false;">droite-bas</a></li>
+			<li><a href="#" onclick="addOtherDefinition(2); return false;">bas</a></li>
+			<li><a href="#" onclick="addOtherDefinition(4); return false;">bas-droite</a></li>
 		</ul>
 	</li>
 </ul>
