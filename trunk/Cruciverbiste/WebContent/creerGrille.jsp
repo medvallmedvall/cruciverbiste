@@ -16,6 +16,7 @@
 
 	<script type="text/javascript" src="javascripts/jquery-1.7.1.js"></script>
 	<%@ include file="entete.jspf"%>
+	
 	<div id="principal">
 		<h1>Creation de grille</h1>
 		

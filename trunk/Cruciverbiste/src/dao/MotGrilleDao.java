@@ -59,10 +59,21 @@ public class MotGrilleDao extends Dao<MotGrille> {
 
 	@Override
 	public MotGrille create(MotGrille obj) throws SQLException {
+		//ajout du mot et de la definition si ils n'existent pas
+		int idMot = -1;
+		int idDef = -1;
+		//completer
+		
+		
 		String query = "INSERT INTO MotGrille VALUES(?, ?, ?, ?, ?, ?, ?)";
 		PreparedStatement pstmt = connection.prepareStatement(query);
 		pstmt.setInt(1, obj.getIdGrille());
-		pstmt.setInt(2, obj.getMotObj().getIdMot());
+		if (obj.getMotObj() == null) {
+			pstmt.setObject(2, null);
+		}
+		else {
+			pstmt.setInt(2, obj.getMotObj().getIdMot());
+		}
 		pstmt.setInt(3, obj.getIdDefinition());
 		pstmt.setInt(4, obj.getOrientation());
 		pstmt.setInt(5, obj.getCoordX());

@@ -116,6 +116,21 @@ public class MotDao extends Dao<Mot> {
 		}
 		return listMots;
 	}
+	
+	public Mot getByMot(String chaine) throws SQLException {
+		Mot mot = null;
+		String query = "SELECT * FROM DictionnaireFR WHERE mot LIKE ?";
+		PreparedStatement stmt = connection.prepareStatement(query);
+		stmt.setString(1, chaine);
+		ResultSet rs = stmt.executeQuery();
+		if (rs.first()) {
+			int idMot = rs.getInt("idMot");
+			String s = rs.getString("mot");
+			mot = new Mot(idMot, s, new LinkedList<String>());
+			return mot;
+		}
+		return mot;
+	}
 
 }
 
