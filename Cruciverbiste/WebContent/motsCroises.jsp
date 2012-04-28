@@ -1,5 +1,10 @@
+<%@page import="com.opensymphony.xwork2.ActionContext"%>
+<%@page import="java.util.Map"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="s" uri="/struts-tags"%>
+
+<% Map<String, Object> ses= ActionContext.getContext().getSession();%>
+
 <h2>${grille.nomGrille}</h2>
 
 <!-- Creation du menu -->
@@ -9,7 +14,7 @@
 		<li>
 			<a href="#" onclick="return false;">Fichier</a>
 			<ul>
-				<li><a href="#" onclick="return false;">Sauvegarder</a></li>
+				<li><a href="#" name="save" id="save" onclick="saveGrid(); return false;">Sauvegarder</a></li>
 			</ul>
 		<li>
 			<a href="#">Aide</a>
@@ -55,9 +60,81 @@
 	var width = ${grille.largeur};
 	var height = ${grille.hauteur};
 	mGrid = new GrilleMotsCroises(width, height);
+	var nameGrid="${grille.nomGrille}";
 //-->
 </script>
 
+<script type="text/javascript">
+<!--
+	/* loadGrille */
+	function loadGrille() {
+		var loadList="<%= ses.get("listLettre").toString() %>";
+		var session=<%=ses.containsKey("idUser")%>;
+		if(loadList!=""){
+			var tabLoadListe=new Array();
+			tabLoadListe=stringToTab(loadList);
+			var indice=0;
+			for ( var i = 0; i <tabLoadListe.length; i++) {
+				laLettre=tabLoadListe[i];
+				indice=i+1;
+				x=tabLoadListe[indice];
+				indice=i+2;
+				y=tabLoadListe[indice];
+				var mIdCase = x + "-" + y; 
+				$("#" + mIdCase).text(laLettre);
+			}
+		}if(!session){
+			if(readCookie(nameGrid) != null){
+				var tabLoadListe=new Array();
+				var loadList=readCookie(nameGrid);
+				tabLoadListe=stringToTabCookie(loadList);
+				var indice=0;
+				for ( var i = 0; i <tabLoadListe.length; i++) {
+					laLettre=tabLoadListe[i];
+					indice=i+1;
+					x=tabLoadListe[indice];
+					indice=i+2;
+					y=tabLoadListe[indice];
+					var mIdCase = x + "-" + y; 
+					$("#" + mIdCase).text(laLettre);
+				}
+			}
+		}
+	}
+//-->
+</script>
+
+<script type="text/javascript">
+<!--
+function saveGrid() {
+	var session=<%=ses.containsKey("idUser")%>
+	var listeLettre = new Array();
+	listeLettre = sauvegarder();
+	if(session==true){
+		if ($(listeLettre).val() == "") {
+			alert("rien à sauvegarder");
+			return false;
+		}
+		var idGrille = ${grille.idGrille};
+		var params = "idGrille=" + idGrille + "&listeLettre=" + listeLettre; /*+ "&commentaire=" + content*/
+		alert(params);
+		$.ajax({
+			url: "Sauvegarder",
+			type: 'POST',
+			cache: false,
+			data: params,
+			success : function(contenu) {
+			alert(contenu);
+		},
+			error : function() {alert("erreur...")}
+		});
+	}else{
+		createCookie(nameGrid,listeLettre,1);
+		alert("La Grille a èté sauvegardé avec succés");
+	}
+}
+//-->
+</script>
 
 <!-- Création de la colonne des definitions -->
 
