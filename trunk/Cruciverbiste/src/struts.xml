@@ -68,6 +68,13 @@
 			<result name="success">mesGrilles.jsp</result>
 			<result name="error"> erreur.jsp</result>
 		</action>
+		
+		<action name = "Sauvegarder" class ="actions.Sauvegarder">
+			<result name ="success">grilles/sauvegarde.jsp</result>
+			<result name="error">grilles/sauvegarde.jsp</result>
+		</action>
+		
+		
 	</package>
 
 </struts>
