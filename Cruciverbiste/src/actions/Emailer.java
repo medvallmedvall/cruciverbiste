@@ -49,6 +49,10 @@ public class Emailer extends ActionSupport {
 			addActionError(e.getMessage());
 			return ERROR;
 		}
+		if(user == null)
+		{
+			return ERROR;
+		}
 		Session session = Session.getDefaultInstance(properties,  
 				new javax.mail.Authenticator() {
 			protected PasswordAuthentication 
