@@ -111,7 +111,7 @@ div {
 	width:100%;
 }
 
-#principal, #pied_page {
+#principal {
 	width:60%;
 	margin:auto;
 	color: #181A12;
@@ -135,11 +135,17 @@ div {
 }
 
 #pied_page {
-	height: 50px;
-	clear: both;
+	width:98%;
+	margin:auto;
+	color: #181A12;
+	background: #F7FFD9;
+	box-shadow: 10px 10px 5px #888;
+	padding: 10px 20px;
+	margin-bottom: 10px;
+	height: 19px;
 	text-align: center;
-	margin: auto;
 }
+
 
 /*dictionnaire*/
 
