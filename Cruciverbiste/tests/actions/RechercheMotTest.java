@@ -81,19 +81,24 @@ public class RechercheMotTest extends StrutsTestCase{
 	
 	@Test
 	public void testGoodPattern() throws Exception {
+		
+	HashMap<String, Object> session = new HashMap<String, Object>(); 
 	
 	// parametres de la requette 
 	request.setParameter("motif", "t???e");
     
 	// proxy pour simuler l'action et la session
     ActionProxy proxy = getActionProxy("/rechercherMot.action");
+    ActionContext actionContext = proxy.getInvocation().getInvocationContext();
+    actionContext.setSession(session);
 
-    //action
+    // action
     String result = proxy.execute();
     
-    //verification action
+    // verification action
     assertEquals("success", result);
-    
+    assertEquals(session.get("recherche"),"true");
+    assertNotNull(session.get("listMots"));
 
 	}
 	
