@@ -27,8 +27,8 @@ public class DeconnexionTest extends StrutsTestCase{
 		HashMap<String, Object> session = new HashMap<String, Object>(); 
 		
 		//parametres de la requette 
-	    request.setParameter("pseudo", "bolo");
-	    request.setParameter("password", "aaa");
+	    request.setParameter("pseudo", "medvallmedvall");
+	    request.setParameter("password", "123456789");
 	    
 	    
 	    
