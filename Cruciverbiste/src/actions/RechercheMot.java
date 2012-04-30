@@ -46,7 +46,7 @@ public class RechercheMot extends ActionSupport{
 	public String execute() {
 		listMots = new LinkedList<String>();
 		Map<String, Object> session = ActionContext.getContext().getSession();
-		System.out.println("motif" + motif + ", grille: " + idGrille);
+		System.out.println("motif " + motif + ", grille: " + idGrille);
 		if (motif == null)
 		{
 			addActionError("le motif est null");
