@@ -47,9 +47,14 @@ public class RechercheMot extends ActionSupport{
 		listMots = new LinkedList<String>();
 		Map<String, Object> session = ActionContext.getContext().getSession();
 		System.out.println("motif" + motif + ", grille: " + idGrille);
+		if (motif == null)
+		{
+			addActionError("le motif est null");
+			return ERROR;
+		}
 		
-		if (motif.length() <= 1) {
-			addActionError("la longueur du motif doit etre supérieure ou égale à 2");
+		if (motif.trim().length() <= 1) {
+			addActionError("la longueur du motif doit etre supï¿½rieure ou ï¿½gale ï¿½ 2");
 			return ERROR;
 		}
 		
@@ -70,7 +75,7 @@ public class RechercheMot extends ActionSupport{
 					return SUCCESS;
 				} else {
 					listMots = new LinkedList<String>();
-					//addActionError("Aucun mot ne correspond à ce motif");
+					//addActionError("Aucun mot ne correspond ï¿½ ce motif");
 					return ERROR;
 				}
 			} else {
