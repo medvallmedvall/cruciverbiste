@@ -104,7 +104,7 @@ public class MotDao extends Dao<Mot> {
 	public LinkedList<String> findByMotif(String motif) throws SQLException {
 		LinkedList<String> listMots = new LinkedList<String>();
 		motif = motif.replace('?', '_');
-		String query = "select mot from dictionnairefr where mot like ? " ;
+		String query = "select mot from DictionnaireFR where mot like ? " ;
 		//Statement stmt = this.connection.createStatement();
 		PreparedStatement stmt = connection.prepareStatement(query);
 		stmt.setString(1, motif);
