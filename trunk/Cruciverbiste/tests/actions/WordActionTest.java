@@ -83,7 +83,7 @@ public class WordActionTest extends StrutsTestCase {
 				
 
 		// parametres de la requette 
-		request.setParameter("mot", "te%re");
+		request.setParameter("mot", "terre");
 		request.setParameter("action", "getNothing");
 	    
 		// proxy pour simuler l'action et la session
