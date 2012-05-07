@@ -45,7 +45,7 @@
 					<td>
 						<c:choose>
 							<c:when test="${grille.estFinie}">
-								<a href="jouer?idGrille=${grille.idGrille}">Jouer</a>
+								<a href="tester?action=test&idGrille=${grille.idGrille}">tester</a>
 							</c:when>
 							<c:when test="${!grille.estFinie}">
 								<a href="creerGrille?idGrille=${grille.idGrille}">Reprendre la creation</a>

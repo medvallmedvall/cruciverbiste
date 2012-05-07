@@ -10,7 +10,8 @@
 	<ul id="nav">
 		<li><a href="#" onclick="return false;">Fichier</a>
 			<ul>
-				<li><a href="#" onclick="return false;">Sauvegarder</a></li>
+				<li><a href="#" onclick="saveGrille(); return false;">Sauvegarder</a></li>
+				<li><a href="#" onclick="endGrille(); return false;">Soumettre la grille</a></li>
 			</ul>
 		<li><a href="#">Ajouter une definition</a>
 			<ul>
@@ -57,7 +58,8 @@
 <!--
 	var width = ${grille.largeur};
 	var height = ${grille.hauteur};
-	mGrid = new GrilleMotsFleches(width, height);
+	var idGrille = ${grille.idGrille};
+	mGrid = new GrilleMotsFleches(width, height, idGrille);
 //-->
 </script>
 
@@ -78,6 +80,19 @@
 		var y = ${mDef.coordY};
 		var coord = new Coord(x, y);
 		mGrid.addDefinition(idDef, textDef, word, synonym, orientation, coord);
+	</script>
+</c:forEach>
+
+
+
+<c:forEach var="lettre" items="${lettresGrille}">
+	<script type="text/javascript">
+		<!--
+		var lettre = "${lettre.lettre}";
+		var x = ${lettre.coordX};
+		var y = ${lettre.coordY};
+		mGrid.setLettre(lettre, x, y);
+		//-->
 	</script>
 </c:forEach>
 

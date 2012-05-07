@@ -10,10 +10,12 @@ import com.opensymphony.xwork2.ActionSupport;
 
 import dao.GrilleDao;
 import dao.LangueDao;
+import dao.LettreGrilleCreationDao;
 import dao.ThemeDao;
 
 import entities.Grille;
 import entities.Langue;
+import entities.LettreGrilleCreation;
 import entities.Theme;
 import entities.Utilisateur;
 
@@ -28,6 +30,7 @@ public class CreateGridAction extends ActionSupport {
 	private boolean creerGrille;
 	private List<Langue> langues;
 	private List<Theme> themes;
+	List<LettreGrilleCreation> lettresGrille;
 	
 	public CreateGridAction() {
 		idGrille = -1;
@@ -99,6 +102,13 @@ public class CreateGridAction extends ActionSupport {
 			GrilleDao dao = new GrilleDao();
 			try {
 				grille = dao.findById(idGrille);
+				if (grille == null) {
+					addActionError("La grille n'existe pas");
+					return ERROR;
+				}
+				LettreGrilleCreationDao lettreDao = 
+						new LettreGrilleCreationDao();
+				lettresGrille = lettreDao.getByIdGrille(idGrille);
 			} catch (SQLException e) {
 				e.printStackTrace();
 				addActionError(e.getMessage());
@@ -159,4 +169,14 @@ public class CreateGridAction extends ActionSupport {
 	public void setCreerGrille(boolean creerGrille) {
 		this.creerGrille = creerGrille;
 	}
+
+	public List<LettreGrilleCreation> getLettresGrille() {
+		return lettresGrille;
+	}
+
+	public void setLettresGrille(List<LettreGrilleCreation> lettresGrille) {
+		this.lettresGrille = lettresGrille;
+	}
+	
+	
 }
