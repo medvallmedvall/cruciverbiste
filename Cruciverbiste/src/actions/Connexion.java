@@ -48,6 +48,7 @@ public class Connexion extends ActionSupport {
 		session.put("idUser", user.getIdUtilisateur());
 		session.put("nom",user.getNom());
 		session.put("pseudo", user.getPseudo());
+		session.put("droit", user.getIdDroit());
 		return SUCCESS;
 
 	}

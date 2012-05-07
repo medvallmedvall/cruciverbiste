@@ -44,8 +44,22 @@ public class Utilisateur {
 		this.dateNaissance = dateNaissance;
 	}
 	
-	
-	 public Utilisateur(int id, String nom, String prenom, String pseudo,
+	 public Utilisateur(int idUtilisateur, String nom, String prenom,
+			String pseudo, String password, String mail, Date dateInscription,
+			Date dateNaissance, int idDroit) {
+		super();
+		this.idUtilisateur = idUtilisateur;
+		this.nom = nom;
+		this.prenom = prenom;
+		this.pseudo = pseudo;
+		this.password = password;
+		this.mail = mail;
+		this.dateInscription = dateInscription;
+		this.dateNaissance = dateNaissance;
+		this.idDroit = idDroit;
+	}
+
+	public Utilisateur(int id, String nom, String prenom, String pseudo,
              String password, String mail, Date dateNaissance, 
              Date dateInscription) {
 	 this(pseudo, password);

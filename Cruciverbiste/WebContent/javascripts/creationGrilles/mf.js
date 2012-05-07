@@ -99,7 +99,7 @@ function addDefinition(mCase, mDef) {
 		break;
 	}
 	//on verifie qu'on peut ajouter une definition
-	
+
 	var mIdNextCase = x + "-" + y;
 	var mNextCase = $("#" + mIdNextCase);
 	if (mNextCase.length <= 0) {
@@ -110,7 +110,7 @@ function addDefinition(mCase, mDef) {
 		alert("Vous ne pouvez pas rajouter plus de definition dans cette case");
 		return;
 	}
-	
+
 
 	mNextCase.css("background-image", urlImage).css("background-repeat", "no-repeat");
 	mGrid.switchOrientation(mCase, horizontal);
@@ -212,7 +212,7 @@ function addDefinition(mCase, mDef) {
 				selectSquare(mCase);
 			}
 	);
-	
+
 	//ajouter une autre definition lors du clique droit
 	$(".caseDefinitions").bind("contextmenu", function(e){  
 		var mCaseDef = $(this);
@@ -227,7 +227,7 @@ function addDefinition(mCase, mDef) {
 		$("#menuContext").css("left", left);
 		return false;  
 	});
-	
+
 	//editer la definition lors du double clique
 	mCase.children(".conteneurDef").children("p").dblclick(
 			function(e) {
@@ -254,25 +254,33 @@ function Coord(x, y) {
 	this.y = y;
 }
 
-function GrilleMotsFleches(width, height) {
+function GrilleMotsFleches(width, height, idGrille) {
 	this.width = width;
 	this.height = height;
 	this.squareDataList = new Array();
 	this.definitionList = new Array();
 	this.horizontal = true;
-	this.endGame = false;
+	this.idGrille = idGrille;
+	this.definitionListTmp = new Array();
+	
+	//$("#grilleMotFleche td").addClass("caseLettre");
 
 	GrilleMotsFleches.prototype.addDefinition = function(idDef, textDef, word, synonym, orientation, coord) {
 		var mDef = new Definition(idDef, textDef, word, synonym, coord, orientation);
-		this.definitionList[idDef] = mDef;
+		this.definitionListTmp[idDef] = mDef;
+	};
+	
+	GrilleMotsFleches.prototype.setLettre = function(lettre, x, y) {
+		var mId = x + "-" + y;
+		var mCase = $("#" + mId);
+		mCase.text(lettre);
 	};
 
 	GrilleMotsFleches.prototype.initialize = function() {
 		$("#grilleMotFleche td").addClass("caseLettre");
 
-
-		/*Creation des cases de la grille selon les definitions*/
-		/*var mDefList = mGrid.definitionList;
+		//Creation des cases de la grille selon les definitions
+		var mDefList = mGrid.definitionListTmp;
 		for (var idDef in mDefList) {
 			var mDef = mDefList[idDef];
 			//On rajoute la definition dans la case
@@ -280,75 +288,8 @@ function GrilleMotsFleches(width, height) {
 			var y = mDef.coordDef.y;
 			var mSelector = "#" + x + "-" + y;
 			var mCase = $(mSelector);
-			mCase.addClass("caseDefinitions");
-			var mElement = "<p class='definitionMF' id='" + mDef.idDefinition + "'>" + mDef.textDef + "</p>";
-			if (mCase.children(".conteneurDef").length == 0) {
-				var mConteneur = "<div class='conteneurDef'></div>";
-				mCase.append(mConteneur);
-				//alert(mCase.children(".conteneurDef").length);
-			}
-			var mDefCont = mCase.children(".conteneurDef").first();
-			mDefCont.append(mElement);
-
-			//rajout des fleches liees a la definition dans la case d'a cote
-
-			switch(mDef.orientation) {
-			case 1:
-				//droite
-				x++;
-				urlImage = "url('images/grilles/droite.png')";
-				break;
-			case 2:
-				//bas
-				y++;
-				urlImage = "url('images/grilles/bas.png')";
-				break;
-			case 3:
-				//droite-bas
-				x++;
-				urlImage = "url('images/grilles/droite-bas.png')";
-				break;
-			case 4:
-				//bas-droite
-				y++;
-				urlImage = "url('images/grilles/bas-droite.png')";
-				break;
-
-			default:
-				//erreur
-				break;
-			}
-			for (var j = 0; j < mDef.word.length; j++) {
-				var letter = mDef.word[j];
-				var mId = x + "-" + y;
-				var mSquare = new SquareData(mId, letter);
-				var oldSquare = this.squareDataList[mId];
-				if (oldSquare != undefined) {
-					mSquare.idDefinition = oldSquare.idDefinition;
-				}
-				mSquare.idDefinition[mDef.orientation] = mDef.idDefinition;
-				this.squareDataList[mId] = mSquare;
-				var mSelector = "#" + mId;
-				var mCase = $(mSelector);
-				mCase.addClass("caseLettre");
-	
-				//mCase.text(this.squareDataList[mId].letter);
-				//si le mot est de sens horizontal
-				if ((mDef.orientation == 1) || (mDef.orientation == 4)) {
-					x++;
-				}
-				//si le mot est de sens vertical
-				else if ((mDef.orientation == 2) || (mDef.orientation == 3)) {
-					y++;
-				}
-			}
-		}*/
-		/*reajustement des hauteurs de definitions dans les cases 
-		 * (derniere definition qui prend le reste de la place)*/
-		/*$(".conteneurDef").each(
-				function(index, element) {
-					$(this).children("p").last().css("height", "100%");
-				});*/
+			addDefinition(mCase, mDef);
+		}
 	};
 
 	/*Change l'orientation du mot selectionnee si possible*/
@@ -372,26 +313,6 @@ function GrilleMotsFleches(width, height) {
 
 $(document).ready(function(){
 	mGrid.initialize();
-	var timer = null;
-	
-	
-// Menu contextuel 
-	
-	/*$(".caseDefinitions").bind("contextmenu", function(e){  
-		alert("click doir");
-		//on selectionne la case
-		var mCase = $(this);
-		mGrid.switchOrientation(mCase, mGrid.horizontal);
-		selectSquare(mCase);
-		var topG = $("#grilleMotFleche").position().top;
-		var leftG = $("#grilleMotFleche").position().left;
-		var top = mCase.position().top + topG + 20;
-		var left = mCase.position().left + leftG + 25;
-		$("#menuContext").css("display", "inline");
-		$("#menuContext").css("top", top);
-		$("#menuContext").css("left", left);
-		return false;  
-	});*/
 
 	$(".caseLettre").click(
 			function(e) {
@@ -410,112 +331,7 @@ $(document).ready(function(){
 				}
 			}
 	);
-
-	/*$(".definitionMF").click(
-			function(e) {
-				alert("clic def");
-				//desactivation du zoom
-				if (timer != null) {
-					clearTimeout(timer);
-					timer = null;
-				}
-				var mIdDef = $(this).attr("id");
-				var mDef = mGrid.definitionList[mIdDef];
-				var x = mDef.coordDef.x;
-				var y = mDef.coordDef.y;
-				switch(mDef.orientation) {
-				case 1:
-					//droite
-					x++;
-					break;
-				case 2:
-					//bas
-					y++;
-					break;
-				case 3:
-					//droite-bas
-					x++;
-					break;
-				case 4:
-					//bas-droite
-					y++;
-					break;
-
-				default:
-					//erreur
-					break;
-				}
-				var mIdCase = x + "-" + y;
-				var mCase = $("#" + mIdCase);
-				if ((mDef.orientation == 1) || (mDef.orientation == 4)) {
-					mGrid.horizontal = true;
-				}
-				//si le mot est de sens vertical
-				else if ((mDef.orientation == 2) || (mDef.orientation == 3)) {
-					mGrid.horizontal = false;
-				}
-				selectSquare(mCase);
-			}
-	);*/
-
-	/*Zoom lorsque la souris est sur une definition */
-
-	/*$(".definitionMF").mouseenter(
-			function(e) {
-				var mCase = $(this).parent();
-				var mDef = $(this);
-				if (timer != null) {
-					clearTimeout(timer);
-					timer = null;
-				}
-				timer = setTimeout(
-						function() {
-							var topG = $("#grilleMotFleche").position().top;
-							var leftG = $("#grilleMotFleche").position().left;
-							var leftG2 = $("#principal").position().left;
-							var top = mCase.position().top + topG - 5;
-							var left = mCase.position().left + leftG + leftG2 + 60;
-							$("#zoomDiv").css("top", top);
-							$("#zoomDiv").css("left", left);
-							var mText = mDef.text();
-							$("#zoomDiv").text(mText);
-							$("#zoomDiv").show("fast");
-						}, 1200);
-			});
-	$(".definitionMF").mouseleave(
-			function(e) {
-				if (timer != null) {
-					clearTimeout(timer);
-					timer = null;
-				}
-			});
-	$("#zoomDiv").mouseleave(
-			function(e) {
-				if (timer != null) {
-					clearTimeout(timer);
-					timer = null;
-				}
-				$("#zoomDiv").hide("fast");
-			});
-	$("#zoomDiv").click(
-			function(e) {
-				if (timer != null) {
-					clearTimeout(timer);
-					timer = null;
-				}
-				$("#zoomDiv").hide("fast");
-			});
-	$("#grilleMotFleche").mouseenter(
-			function(e) {
-				if (timer != null) {
-					clearTimeout(timer);
-					timer = null;
-				}
-				$("#zoomDiv").hide("fast");
-			});*/
-
-	/*ici*/
-
+	
 	/*Lors de l'appuie sur les touches speciales (direction, backspace, ctr...)*/
 
 	$("#grilleMotFleche").keyup(
@@ -523,15 +339,7 @@ $(document).ready(function(){
 				var c = codeTouche(event);
 				if ($("#editDef").length > 0) {
 					if (c == 13) {
-						var content = $("#editDef").val().trim();
-						$("#editDef").remove();
-						if (content == "") {
-							content = "?";
-						}
-						$(".definitionSelectionneeMF").text(content);
-						var mIdDef = $(".definitionSelectionneeMF").attr("id");
-						var mDef = mGrid.definitionList[mIdDef];
-						mDef.textDef = content;
+						validateDefinition();
 					}
 					return true;
 				}
@@ -649,7 +457,7 @@ $(document).ready(function(){
 				return false;
 			}
 	);
-	
+
 	$(document).click(
 			function(e) {
 				$("#menuContext").css("display", "none");
@@ -681,11 +489,9 @@ function mainmenu(){
 	});
 };
 
-/*Fonction qui selectionne une case ainsi que sa definition*/
 
-function selectSquare(mCase) {
+function validateDefinition() {
 	//deselection
-
 	if ($("#editDef").length > 0) {
 		var content = $("#editDef").val().trim();
 		$("#editDef").remove();
@@ -697,7 +503,13 @@ function selectSquare(mCase) {
 		var mDef = mGrid.definitionList[mIdDef];
 		mDef.textDef = content;
 	}
+}
 
+
+/*Fonction qui selectionne une case ainsi que sa definition*/
+
+function selectSquare(mCase) {
+	validateDefinition();
 	var letter = $("#caseTexte").val();
 	$(".caseEdition").text(letter);
 	$(".caseLettre").removeClass("caseEdition");
@@ -830,7 +642,6 @@ function getSynonyms() {
 		return;
 	}
 	var params = "action=getSynonyms&mot=" + word;
-	//connection au site
 	$.ajax({
 		url: "mots",
 		type: 'POST',
@@ -853,6 +664,9 @@ function selectSynonym(idMot, synonym) {
 		return;
 	}
 	mDefSelect.text(synonym);
+	var mIdDef = $(".definitionSelectionneeMF").attr("id");
+	var mDef = mGrid.definitionList[mIdDef];
+	mDef.textDef = synonym;
 }
 
 function deleteDefinition() {
@@ -907,6 +721,112 @@ function deleteDefinition() {
 			}
 	);
 	selectSquare($(".caseEdition:first"));
+}
+
+
+function saveGrille() {
+	var definitions = "";
+	var mDefList = mGrid.definitionList;
+	for (var mKey in mDefList) {
+		var mDef = mDefList[mKey];
+		definitions+= mDef.textDef + ":" + mDef.orientation + ":" + mDef.coordDef.x + ":" + mDef.coordDef.y;
+		definitions+= "/";
+	}
+	var lettres = "";
+	$(".caseLettre").each(
+			function(index, elem) {
+				var mIdCase = $(this).attr("id");
+				var lettre = $(this).text();
+				if ($(this).hasClass("caseEdition")) {
+					lettre = $("#caseTexte").val();
+				}
+				if (lettre == "") {
+					return;
+				}
+				var tab = mIdCase.split("-");
+				var x = tab[0];
+				var y = tab[1];
+				lettres+= lettre + ":" + x + ":" + y + "/";
+
+			});
+	var params = "idGrille=" + mGrid.idGrille + "&motGrilleString=" + definitions + "&lettresString=" + lettres;
+	$.ajax({
+		url: "sauvegarderGrille",
+		type: 'POST',
+		cache: false,
+		data: params,
+		success: function(contenu) {
+			alert(contenu);
+		},
+		error: function() {
+			alert("Une erreur lors de la requete ajax pour la sauvegarde");
+		}
+	});
+
+}
+
+function endGrille() {
+	var allCaseOk = true;
+	$(".caseLettre").each(
+			function(index, element) {
+				//var mIdCase = $(this).attr("id");
+				var lettre = $(this).text();
+				if ($(this).hasClass("caseEdition")) {
+					lettre = $("#caseTexte").val();
+				}
+				if (lettre == "") {
+					alert("veuillez remplir toutes les cases");
+					allCaseOk = false;
+					return false;
+				}
+			});
+	if (!allCaseOk) {
+		return;
+	}
+	var cmpt = 0;
+	for (var o in mGrid.squareDataList) {
+		cmpt++;
+	}
+	if ($(".caseLettre").length != cmpt) {
+		alert("certaines lettres ne sont associés à aucune definition");
+		return;
+	}
+	var motsGrille = "";
+	var mDefList = mGrid.definitionList;
+	for (var mKey in mDefList) {
+		var mDef = mDefList[mKey];
+		var mot = "";
+		for (var cKey in mGrid.squareDataList) {
+			var mCase = mGrid.squareDataList[cKey];
+			if (mCase.idDefinition[mDef.orientation] == mKey) {
+				var lettre = $("#" + cKey).text();
+				if ($("#" + cKey).hasClass("caseEdition")) {
+					lettre = $("#caseTexte").val();
+				}
+				mot+= lettre;
+			}
+		}
+		//alert(mot);
+		motsGrille+= mDef.textDef + ":" + mot + ":" + mDef.orientation + ":"
+		+ mDef.coordDef.x + ":" + mDef.coordDef.y;
+		motsGrille+= "/";
+	}
+	var params = "idGrille=" + mGrid.idGrille + "&motGrilleString=" + motsGrille;
+	$.ajax({
+		url: "soumettreGrille",
+		type: 'POST',
+		cache: false,
+		data: params,
+		success: function(contenu) {
+			alert(contenu);
+		},
+		error: function() {
+			alert("Une erreur lors de la requete ajax pour la soumission de grille");
+		}
+	});
+
+	//alert(motsGrille);
+	//alert(mGrid.squareDataList.length);
 }
 
 

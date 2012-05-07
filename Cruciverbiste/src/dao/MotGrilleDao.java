@@ -12,11 +12,11 @@ import entities.Mot;
 import entities.MotGrille;
 
 public class MotGrilleDao extends Dao<MotGrille> {
-	
+
 	public MotGrilleDao() {
 		super();
 	}
-	
+
 	public List<MotGrille> getByIdGrille(int idGrille) throws SQLException {
 		List<MotGrille> motsGrille = new LinkedList<MotGrille>();
 		String query = "SELECT * " +
@@ -43,7 +43,8 @@ public class MotGrilleDao extends Dao<MotGrille> {
 			Mot mot = motDao.findById(idMot);
 			int idDefinition = results.getInt("idDefinition");
 			String definitionStr = results.getString("definition");
-			Definition definition = new Definition(idDefinition, definitionStr);
+			boolean validate = results.getBoolean("existe");
+			Definition definition = new Definition(idDefinition, definitionStr, validate);
 			int orientation = results.getInt("idOrientation");
 			int coordX = results.getInt("coordX");
 			int coordY = results.getInt("coordY");
@@ -60,21 +61,24 @@ public class MotGrilleDao extends Dao<MotGrille> {
 	@Override
 	public MotGrille create(MotGrille obj) throws SQLException {
 		//ajout du mot et de la definition si ils n'existent pas
-		int idMot = -1;
-		int idDef = -1;
-		//completer
-		
-		
+		int idMot = 0;
+		int idDef = 0;
+		MotDao motDao = new MotDao();
+		DefinitionDao defDao = new DefinitionDao();
+		if (obj.getMotObj() != null) {
+			Mot tmp = motDao.create(obj.getMotObj());
+			idMot = tmp.getIdMot();
+		}
+		if (obj.getDefinition() != null) {
+			Definition tmp = defDao.create(obj.getDefinitionObj());
+			idDef = tmp.getIdDefinition();
+		}
+
 		String query = "INSERT INTO MotGrille VALUES(?, ?, ?, ?, ?, ?, ?)";
 		PreparedStatement pstmt = connection.prepareStatement(query);
 		pstmt.setInt(1, obj.getIdGrille());
-		if (obj.getMotObj() == null) {
-			pstmt.setObject(2, null);
-		}
-		else {
-			pstmt.setInt(2, obj.getMotObj().getIdMot());
-		}
-		pstmt.setInt(3, obj.getIdDefinition());
+		pstmt.setObject(2, idMot);
+		pstmt.setInt(3, idDef);
 		pstmt.setInt(4, obj.getOrientation());
 		pstmt.setInt(5, obj.getCoordX());
 		pstmt.setInt(6, obj.getCoordY());
@@ -86,6 +90,14 @@ public class MotGrilleDao extends Dao<MotGrille> {
 		return null;
 	}
 
+	public void deleteByIdGrille(int idGrille) throws SQLException {
+		String query = 	"DELETE FROM MotGrille " +
+						"WHERE idGrille = ? ";
+		PreparedStatement pstmt = connection.prepareStatement(query);
+		pstmt.setInt(1, idGrille);
+		pstmt.executeUpdate();
+	}
+
 	@Override
 	public MotGrille update(MotGrille obj) throws SQLException {
 		// TODO Auto-generated method stub
@@ -95,7 +107,7 @@ public class MotGrilleDao extends Dao<MotGrille> {
 	@Override
 	public void delete(MotGrille obj) throws SQLException {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 }

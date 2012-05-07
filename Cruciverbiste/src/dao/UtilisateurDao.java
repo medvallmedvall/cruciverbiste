@@ -259,8 +259,10 @@ public class UtilisateurDao extends Dao<Utilisateur> {
 		if (password == null) {
 			throw new IllegalArgumentException("Le mot de passe est null");
 		}
-		String query =  "SELECT * FROM Utilisateur " +
-				"WHERE pseudo = ? AND password = ?";
+		String query =  "SELECT * FROM Utilisateur u " +
+						"LEFT JOIN DroitUtilisateur d " +
+						"ON u.idUtilisateur = d.idUtilisateur " +
+						"WHERE pseudo = ? AND password = ?";
 		PreparedStatement ps = this.connection.prepareStatement(query);
 		ps.setObject(1, pseudo);
 		ps.setObject(2, password);
@@ -273,8 +275,9 @@ public class UtilisateurDao extends Dao<Utilisateur> {
 			String email = rs.getString("mail");
 			Date dateNaissance = rs.getDate("dateNaissance");
 			Date dateInscription = rs.getDate("dateInscription");
+			int idDroit =  rs.getInt("idDroit");
 			utilisateur = new Utilisateur(id, nom, prenom, pseudo, password, 
-					email, dateNaissance, dateInscription);
+					email, dateNaissance, dateInscription, idDroit);
 		}
 		return utilisateur;
 	}

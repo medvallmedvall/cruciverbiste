@@ -10,6 +10,7 @@ import java.util.List;
 
 import entities.Commentaire;
 import entities.Grille;
+import entities.GrilleNonValideeMessage;
 import entities.MotGrille;
 import entities.Utilisateur;
 
@@ -220,6 +221,98 @@ public class GrilleDao extends Dao<Grille> {
 
 	public enum TypeGrille {
 		MOTS_FLECHES, MOTS_CROISES;
+	}
+
+	public void finishGrid(int idGrille) throws SQLException {
+		String query = "UPDATE Grille SET estFinie = true " +
+				"WHERE idGrille = ?";
+		PreparedStatement pstmt = connection.prepareStatement(query);
+		pstmt.setInt(1, idGrille);
+		pstmt.executeUpdate();
+	}
+	
+	public void validateGrid(int idGrille) throws SQLException {
+		Date date = new Date();
+		java.sql.Date sqlDate = new java.sql.Date(date.getTime());
+		String query = "UPDATE Grille SET estValidee = true, " +
+				"dateValidation = ? " +
+				"WHERE idGrille = ?";
+		PreparedStatement pstmt = connection.prepareStatement(query);
+		pstmt.setDate(1, sqlDate);
+		pstmt.setInt(2, idGrille);
+		pstmt.executeUpdate();
+	}
+	
+	public void unvalidateGrid(int idGrille, String message) 
+			throws SQLException {
+		if (message == null) {
+			throw new IllegalArgumentException("Le message est null");
+		}
+		if (message.equals("")) {
+			throw new IllegalArgumentException("Le message est vide");
+		}
+		Date date = new Date();
+		java.sql.Date sqlDate = new java.sql.Date(date.getTime());
+		String query = 	"INSERT INTO GrilleNonValideeMessage " +
+						"VALUES(NULL, ?, ?, ?)";
+		PreparedStatement pstmt = connection.prepareStatement(query);
+		pstmt.setInt(1, idGrille);
+		pstmt.setString(2, message);
+		pstmt.setDate(3, sqlDate);
+		pstmt.executeUpdate();
+	}
+	
+	public List<GrilleNonValideeMessage> getUnvalidateGridMessage(int idGrille)
+			throws SQLException {
+		String query = 	"SELECT * FROM GrilleNonValideeMessage " +
+						"WHERE idGrille = ?";
+		PreparedStatement pstmt = connection.prepareStatement(query);
+		pstmt.setInt(1, idGrille);
+		ResultSet rs = pstmt.executeQuery();
+		List<GrilleNonValideeMessage> list = 
+				new LinkedList<GrilleNonValideeMessage>();
+		while(rs.next()) {
+			int idMessage = rs.getInt("idMessage");
+			String message = rs.getString("message");
+			Date date = rs.getDate("date");
+			GrilleNonValideeMessage m = 
+					new GrilleNonValideeMessage(idMessage,
+							idGrille, message, date);
+			list.add(m);
+		}
+		return list;
+	}
+
+	public List<Grille> getGridToValidate() throws SQLException {
+		String query = 	"SELECT * FROM Grille " +
+						"WHERE estFinie = true AND estValidee = false";
+		PreparedStatement pstmt = connection.prepareStatement(query);
+		ResultSet results = pstmt.executeQuery();
+		List<Grille> mList = new LinkedList<Grille>();
+		while (results.next()) {
+			int idGrille = results.getInt("idGrille");
+			int idLangue  = results.getInt("idLangue");
+			int idTypeGrille  = results.getInt("idTypeGrille");
+			int idUtilisateur = results.getInt("idUtilisateurConcepteur");
+			String nomGrille = results.getString("nomGrille");
+			int largeur = results.getInt("largeur");
+			int longueur = results.getInt("hauteur");
+			Date dateCreation = results.getDate("dateCreation");
+			boolean estFinie = results.getBoolean("estFinie");
+			boolean estValidee = results.getBoolean("estValidee");
+			Date dateValidation = results.getDate("dateValidation");
+			int niveau = results.getInt("niveau");
+			int idTheme = results.getInt("idTheme");
+			//String pseudo = results.getString("pseudo");
+			Utilisateur utilisateur = new Utilisateur();
+			utilisateur.setIdUtilisateur(idUtilisateur);
+			//utilisateur.setPseudo(pseudo);
+			Grille grille = new Grille(idGrille, idLangue, idTypeGrille,
+					nomGrille, largeur, longueur, dateCreation, estFinie,
+					estValidee, dateValidation, niveau, idTheme, utilisateur);
+			mList.add(grille);
+		}
+		return mList;
 	}
 
 }

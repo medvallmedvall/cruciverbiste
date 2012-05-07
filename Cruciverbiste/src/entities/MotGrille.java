@@ -100,5 +100,9 @@ public class MotGrille {
 		public void setOrderId(int orderId) {
 			this.orderId = orderId;
 		}
+		
+		public Definition getDefinitionObj() {
+			return definition;
+		}
 }
 
