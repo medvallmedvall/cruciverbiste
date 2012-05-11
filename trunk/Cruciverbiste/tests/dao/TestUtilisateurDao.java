@@ -265,10 +265,10 @@ public class TestUtilisateurDao {
 	}
 
 	@Test(expected=IllegalArgumentException.class)
-	public void updateUtilisateurNull() {
+	public void updateUtilisateurNull() throws SQLException {
 		Utilisateur u = null;
 		dao.update(u);
-	}
+	} 
 
 	@Test(expected=InvalidUpdateException.class)
 	public void updateUtilisateurNomNull() throws SQLException, ParseException {
