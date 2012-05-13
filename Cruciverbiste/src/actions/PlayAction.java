@@ -20,7 +20,7 @@ import entities.GrilleEnCoursUtilisateur;
 import entities.LettreEnCour;
 
 @SuppressWarnings("serial")
-public class PlayAction extends ActionSupport{
+public class PlayAction extends ActionSupport {
 	private int idGrille;
 	//private Grilles grille;
 	private Grille grille;
@@ -79,6 +79,10 @@ public class PlayAction extends ActionSupport{
 			addActionError("La grille n° " + idGrille + " n'existe pas");
 			return ERROR;
 		}
+		if (!grille.isEstValidee()) {
+			addActionError("La grille n° " + idGrille + " n'existe pas");
+			return ERROR;
+		}
 		return SUCCESS;
 	}
 	
@@ -93,4 +97,5 @@ public class PlayAction extends ActionSupport{
 	public Grille getGrille() {
 		return grille;
 	}
+	
 }
