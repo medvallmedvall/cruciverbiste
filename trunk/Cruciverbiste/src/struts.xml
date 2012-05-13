@@ -5,67 +5,65 @@
 
 <struts>
 	<package name="actions" namespace="/" extends="struts-default">
-		<!--default-action-ref name="index" /-->
-		
+		<!--default-action-ref name="index" / -->
+
 		<action name="jouer" class="actions.PlayAction">
 			<result name="success">jouer.jsp</result>
-			<!--result name="success">motsCroises.jsp</result-->
+			<!--result name="success">motsCroises.jsp</result -->
 			<result name="error">erreur.jsp</result>
 		</action>
 		<action name="choixGrilles" class="actions.GetGridListAction">
 			<result name="success">choixGrilles.jsp</result>
 			<result name="error">erreur.jsp</result>
 		</action>
-      
-      
-     	<action name="Inscription" class="actions.Inscription">
+
+
+		<action name="Inscription" class="actions.Inscription">
 			<result name="success">confirmInscription.jsp</result>
 			<result name="error">erreurInscription.jsp</result>
 		</action>
-		
-		<action name ="Connexion" class ="actions.Connexion">
-			<result name ="success">bienvenue.jsp</result>
+
+		<action name="Connexion" class="actions.Connexion">
+			<result name="success">bienvenue.jsp</result>
 			<result name="input">inscription.jsp</result>
 			<result name="error"> erreur.jsp</result>
 		</action>
-		
-		<action name = "Deconnexion" class ="actions.Deconnexion">
-			<result name ="success" type = "redirect">index.jsp</result>
+
+		<action name="Deconnexion" class="actions.Deconnexion">
+			<result name="success" type="redirect">index.jsp</result>
 		</action>
-		
-		<action name = "Emailer" class ="actions.Emailer">
-			<result name ="success">successOubli.jsp</result>
+
+		<action name="Emailer" class="actions.Emailer">
+			<result name="success">successOubli.jsp</result>
 			<result name="error"> errorOubli.jsp</result>
 		</action>
-		
-		<action name ="posterCommentaire" class ="actions.CommentAction">
-			<!--result name ="success">index.jsp</result-->
+
+		<action name="posterCommentaire" class="actions.CommentAction">
+			<!--result name ="success">index.jsp</result -->
 			<result type="redirectAction">
-            	<param name="actionName">jouer</param>
-            	<param name="idGrille">${idGrille}</param>
-        	</result>
-        	<result name="error">erreur.jsp</result>
+				<param name="actionName">jouer</param>
+				<param name="idGrille">${idGrille}</param>
+			</result>
 		</action>
-		
-		<action name ="rechercherMot" class="actions.RechercheMot">
+
+		<action name="rechercherMot" class="actions.RechercheMot">
 			<result type="redirectAction">
-            	<param name="actionName">jouer</param>
-            	<param name="idGrille">${idGrille}</param>
-        	</result>	
-        	<result name="error">erreur.jsp</result>
+				<param name="actionName">jouer</param>
+				<param name="idGrille">${idGrille}</param>
+			</result>
 		</action>
-		
+
 		<action name="creerGrille" class="actions.CreateGridAction">
 			<result name="success">creerGrille.jsp</result>
 			<result name="error">erreur.jsp</result>
 			<result name="input">creerGrille.jsp</result>
 		</action>
-		
+
 		<action name="mots" class="actions.WordAction">
 			<result name="success">creationGrille/mots.jsp</result>
 			<result name="error">erreur.jsp</result>
 		</action>
-		
+
 		<action name="mesGrilles" class="actions.MyGridsAction">
 			<result name="success">mesGrilles.jsp</result>
 			<result name="error"> erreur.jsp</result>
@@ -75,8 +73,23 @@
 			<result name ="success">grilles/sauvegarde.jsp</result>
 			<result name="error">grilles/sauvegarde.jsp</result>
 		</action>
-		
-		
+
+		<action name="sauvegarderGrille" class="actions.SaveCreatedGridAction">
+			<result name="success">creationGrille/message.jsp</result>
+			<result name="error">creationGrille/message.jsp</result>
+		</action>
+		<action name="soumettreGrille" class="actions.SubmitGridAction">
+			<result name="success">creationGrille/message.jsp</result>
+			<result name="error">creationGrille/message.jsp</result>
+		</action>
+		<action name="validerGrille" class="actions.ValidateGridAction">
+			<result name="success">moderation/moderation.jsp</result>
+			<result name="error">erreur.jsp</result>
+		</action>
+		<action name="tester" class="actions.ValidateGridAction">
+			<result name="success">moderation/validerGrille.jsp</result>
+			<result name="error">erreur.jsp</result>
+		</action>
 	</package>
 
 </struts>

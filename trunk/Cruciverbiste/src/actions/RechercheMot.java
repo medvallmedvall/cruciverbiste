@@ -85,6 +85,7 @@ public class RechercheMot extends ActionSupport{
 			
 		} catch (SQLException e) {
 			addActionError(e.getMessage());
+			e.printStackTrace();
 			return ERROR;
 		}
 	}
