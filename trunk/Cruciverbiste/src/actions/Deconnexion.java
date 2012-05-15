@@ -9,10 +9,7 @@ public class Deconnexion extends ActionSupport {
 	
 	public String execute() throws Exception { 
 		  Map <String, Object> session = ActionContext.getContext().getSession();
-		  session.remove("authentification");
-		  session.remove("nom");
-		  session.remove("pseudo");
-		  session.remove("idUser");
+		  session.clear();
 		  return SUCCESS;
 		  }
 
