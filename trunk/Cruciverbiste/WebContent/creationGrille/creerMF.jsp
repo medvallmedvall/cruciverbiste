@@ -87,6 +87,7 @@
 
 <c:forEach var="lettre" items="${lettresGrille}">
 	<script type="text/javascript">
+	
 		<!--
 		var lettre = "${lettre.lettre}";
 		var x = ${lettre.coordX};
