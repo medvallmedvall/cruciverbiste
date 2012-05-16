@@ -23,7 +23,7 @@ public class SaveCreatedGridAction extends ActionSupport {
 	private String lettresString;
 	private final String SEPARATOR = "/";
 	private final String SEPARATOR2 = ":";
-	
+
 	public String execute() {
 		Map<String, Object> session = ActionContext.getContext().getSession();
 		String auth = null;
@@ -36,7 +36,7 @@ public class SaveCreatedGridAction extends ActionSupport {
 		}
 		//int idUser = (Integer) session.get("idUser");
 		//List<MotGrille> motsGrille = new LinkedList<MotGrille>();
-		String[] motsGrilleS = motGrilleString.split(SEPARATOR);
+
 		MotGrilleDao motGrilleDao = new MotGrilleDao();
 		try {
 			motGrilleDao.deleteByIdGrille(idGrille);
@@ -45,43 +45,48 @@ public class SaveCreatedGridAction extends ActionSupport {
 			e1.printStackTrace();
 			return ERROR;
 		}
-		for (int i = 0; i < motsGrilleS.length; i++) {
-			String[] tab = motsGrilleS[i].split(SEPARATOR2);
-			String definition = tab[0];
-			int orientation = Integer.parseInt(tab[1]);
-			int x = Integer.parseInt(tab[2]);
-			int y = Integer.parseInt(tab[3]);
-			Mot mot = null;
-			Definition def = new Definition(-1, definition, false);
-			MotGrille m = new MotGrille(idGrille, orientation, mot, def, x, y);
-			try {
-				motGrilleDao.create(m);
-			} catch (SQLException e) {
-				e.printStackTrace();
-				addActionError(e.getMessage());
-				return ERROR;
+		if (!motGrilleString.equals("")) {
+			String[] motsGrilleS = motGrilleString.split(SEPARATOR);
+			for (int i = 0; i < motsGrilleS.length; i++) {
+				String[] tab = motsGrilleS[i].split(SEPARATOR2);
+				String definition = tab[0];
+				int orientation = Integer.parseInt(tab[1]);
+				int x = Integer.parseInt(tab[2]);
+				int y = Integer.parseInt(tab[3]);
+				Mot mot = null;
+				Definition def = new Definition(-1, definition, false);
+				MotGrille m = new MotGrille(idGrille, orientation, mot, def, x, y);
+				try {
+					motGrilleDao.create(m);
+				} catch (SQLException e) {
+					e.printStackTrace();
+					addActionError(e.getMessage());
+					return ERROR;
+				}
 			}
 		}
-		String[] letters = lettresString.split(SEPARATOR);
+
 		LettreGrilleCreationDao lettreDao = new LettreGrilleCreationDao();
 		try {
 			lettreDao.deleteByIdGrille(idGrille);
-			for (int i = 0; i < letters.length; i++) {
-				String[] tab = letters[i].split(SEPARATOR2);
-				String let = tab[0];
-				int x = Integer.parseInt(tab[1]);
-				int y = Integer.parseInt(tab[2]);
-				LettreGrilleCreation lettre = 
-						new LettreGrilleCreation(idGrille, x, y, let);
-				lettreDao.create(lettre);
+			if (!lettresString.equals("")) {
+				String[] letters = lettresString.split(SEPARATOR);
+				for (int i = 0; i < letters.length; i++) {
+					String[] tab = letters[i].split(SEPARATOR2);
+					String let = tab[0];
+					int x = Integer.parseInt(tab[1]);
+					int y = Integer.parseInt(tab[2]);
+					LettreGrilleCreation lettre = 
+							new LettreGrilleCreation(idGrille, x, y, let);
+					lettreDao.create(lettre);
+				}
 			}
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 			addActionError(e.getMessage());
 			return ERROR;
 		}
-		
+
 		addActionMessage("Grille sauvegardé");
 		return SUCCESS;
 	}

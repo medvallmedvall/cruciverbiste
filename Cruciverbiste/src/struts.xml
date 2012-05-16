@@ -44,6 +44,15 @@
 				<param name="actionName">jouer</param>
 				<param name="idGrille">${idGrille}</param>
 			</result>
+			<result type="error">erreur.jsp</result>
+		</action>
+		
+		<action name="effacerCommentaire" class="actions.DeleteCommentAction">
+			<!--result name ="success">index.jsp</result -->
+			<result type="redirectAction">
+				<param name="actionName">jouer</param>
+				<param name="idGrille">${idGrille}</param>
+			</result>
 		</action>
 
 		<action name="rechercherMot" class="actions.RechercheMot">
@@ -69,23 +78,26 @@
 			<result name="error"> erreur.jsp</result>
 		</action>
 		
-		<action name = "Sauvegarder" class ="actions.Sauvegarder">
+		<!--action name = "Sauvegarder" class ="actions.Sauvegarder">
 			<result name ="success">grilles/sauvegarde.jsp</result>
 			<result name="error">grilles/sauvegarde.jsp</result>
-		</action>
+		</action-->
 
 		<action name="sauvegarderGrille" class="actions.SaveCreatedGridAction">
 			<result name="success">creationGrille/message.jsp</result>
 			<result name="error">creationGrille/message.jsp</result>
 		</action>
+		
 		<action name="soumettreGrille" class="actions.SubmitGridAction">
 			<result name="success">creationGrille/message.jsp</result>
 			<result name="error">creationGrille/message.jsp</result>
 		</action>
+		
 		<action name="validerGrille" class="actions.ValidateGridAction">
 			<result name="success">moderation/moderation.jsp</result>
 			<result name="error">erreur.jsp</result>
 		</action>
+		
 		<action name="tester" class="actions.ValidateGridAction">
 			<result name="success">moderation/validerGrille.jsp</result>
 			<result name="error">erreur.jsp</result>
