@@ -24,7 +24,7 @@
 				<h1>Moderation</h1>
 				<s:actionmessage/>
 				<h2>Grilles à valider</h2>
-				<table>
+				<table class="grilleAValider">
 					<caption>Mots fléchés</caption>
 					<tr>
 						<th>Nom</th>
@@ -39,7 +39,7 @@
 						</tr>
 					</c:forEach>
 				</table>
-				<table>
+				<table class="grilleAValider">
 					<caption>Mots croisés</caption>
 					<tr>
 						<th>Nom</th>
