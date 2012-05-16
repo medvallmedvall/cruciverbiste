@@ -11,7 +11,6 @@ function SquareData(idSquare, letter) {
 	this.idDefinition[3] = -1;
 	this.idDefinition[4] = -1;
 	//(1 - droite) (2 - bas) (3 - droite-bas) (4 - bas-droite)
-
 }
 
 function addNewDefinition(orientation) {
@@ -111,7 +110,6 @@ function addDefinition(mCase, mDef) {
 		return;
 	}
 
-
 	mNextCase.css("background-image", urlImage).css("background-repeat", "no-repeat");
 	mGrid.switchOrientation(mCase, horizontal);
 	//deselection
@@ -125,7 +123,7 @@ function addDefinition(mCase, mDef) {
 	$(".caseLettre").removeClass("casesMotSelectionne");
 
 	//ajout de la definition
-
+	
 	//var coord = new Coord(xC, yC);
 	//var mDef = new Definition(idDefCmpt, "?", "", "", coord, orientation);
 	mGrid.definitionList[mDef.idDefinition] = mDef;
@@ -133,6 +131,9 @@ function addDefinition(mCase, mDef) {
 	//On rajoute la definition dans la case
 
 	mCase.addClass("caseDefinitions");
+	if (mCase.children(".conteneurDef").length <= 0) {
+		mCase.text("");
+	}
 	mCase.removeClass("caseLettre");
 	var mElement = "<p class='definitionMF' id='" + mDef.idDefinition + "'>" + mDef.textDef + "</p>";
 	if (mCase.children(".conteneurDef").length == 0) {
@@ -220,8 +221,8 @@ function addDefinition(mCase, mDef) {
 		mCaseDef.children("p:first").click();
 		var topG = $("#grilleMotFleche").position().top;
 		var leftG = $("#grilleMotFleche").position().left;
-		var top = mCaseDef.position().top + topG + 20;
-		var left = mCaseDef.position().left + leftG + 25;
+		var top = mCaseDef.position().top + topG + 30;
+		var left = mCaseDef.position().left + leftG + 200;
 		$("#menuContext").css("display", "inline");
 		$("#menuContext").css("top", top);
 		$("#menuContext").css("left", left);
@@ -395,7 +396,6 @@ $(document).ready(function(){
 						}
 						else {
 							mGrid.switchOrientation(mOthCase, sens);
-
 						}
 						selectSquare(mOthCase);
 					}
@@ -520,8 +520,8 @@ function selectSquare(mCase) {
 	//selection de la definition associe au mot
 	var mIdCase = mCase.attr("id");
 	var mSquareData = mGrid.squareDataList[mIdCase];
+	var mIdDef = undefined;
 	if (mSquareData != undefined) {
-		var mIdDef = undefined;
 		if (mGrid.horizontal) {
 			if (mSquareData.idDefinition[1] != -1) {
 				mIdDef = mSquareData.idDefinition[1];
@@ -556,7 +556,7 @@ function selectSquare(mCase) {
 				}
 		);
 	}
-	else {
+	if (mIdDef == undefined) {
 		//selectionner les cases avants et apres
 		var tab = mIdCase.split("-");
 		$("#grilleMotFleche td").each(
@@ -678,7 +678,7 @@ function deleteDefinition() {
 	var mIdDef = $(".definitionSelectionneeMF").attr("id");
 	var mDef = mGrid.definitionList[mIdDef];
 	var orientation = mDef.orientation;
-	mGrid.definitionList[mIdDef] = undefined;
+	//mGrid.definitionList[mIdDef] = undefined;
 	var mCase = $(".definitionSelectionneeMF").parents("td");
 	$(".definitionSelectionneeMF").remove();
 	if (mCase.children(".conteneurDef").children().length <= 0) {
@@ -714,12 +714,14 @@ function deleteDefinition() {
 								(mSquareData.idDefinition[2] == -1) &&
 								(mSquareData.idDefinition[3] == -1) &&
 								(mSquareData.idDefinition[4] == -1)) {
-							mGrid.squareDataList[mIdCase] = undefined;
+							delete mGrid.squareDataList[mIdCase];
 						}
 					}
 				}
 			}
 	);
+	//mGrid.definitionList[mIdDef] = undefined;
+	delete mGrid.definitionList[mIdDef];
 	selectSquare($(".caseEdition:first"));
 }
 
@@ -747,7 +749,6 @@ function saveGrille() {
 				var x = tab[0];
 				var y = tab[1];
 				lettres+= lettre + ":" + x + ":" + y + "/";
-
 			});
 	var params = "idGrille=" + mGrid.idGrille + "&motGrilleString=" + definitions + "&lettresString=" + lettres;
 	$.ajax({
