@@ -52,11 +52,11 @@
 						</c:choose>
 					</c:forEach>
 				</select> <br />
-				Theme: 
+				Theme:
 				<select name="grille.idTheme" ${disabled}>
 					<c:forEach var="t" items="${themes}">
 						<c:choose>
-							<c:when test="${grille.idTheme == l.idTheme}">
+							<c:when test="${grille.idTheme == t.idTheme}">
 								<option value="${t.idTheme}" selected="selected">
 									${t.nomTheme}
 								</option>
