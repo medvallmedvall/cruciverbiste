@@ -83,6 +83,9 @@ public class PlayAction extends ActionSupport {
 			addActionError("La grille n° " + idGrille + " n'existe pas");
 			return ERROR;
 		}
+		Map<String, Object> session = ActionContext.getContext().getSession();
+		session.put("commentaires", grille.getCommentaires());
+		
 		return SUCCESS;
 	}
 	

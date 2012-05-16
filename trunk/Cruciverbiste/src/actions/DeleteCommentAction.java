@@ -1,8 +1,6 @@
 package actions;
 
 import java.sql.SQLException;
-import java.util.Date;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
@@ -11,21 +9,16 @@ import com.opensymphony.xwork2.ActionSupport;
 
 import dao.CommentaireDao;
 import entities.Commentaire;
-import entities.Utilisateur;
 
 @SuppressWarnings("serial")
-public class CommentAction extends ActionSupport {
-	private int idUserC;
+public class DeleteCommentAction extends ActionSupport {
+	private int idCommentaire;
 	private int idGrille;
-	private String commentaire;
 	private String urlGrille;
 	private List<Commentaire> commentaires;
 	
 	public String execute() {
-		if ((commentaire == null) || (commentaire.equals(""))) {
-			addActionError("Le champ commentaire est null ou vide.");
-			return ERROR;
-		}
+		System.out.println(idGrille + " " + idCommentaire);
 		Map<String, Object> session = ActionContext.getContext().getSession();
 		if ((!session.containsKey("authentification")) || 
 				(!session.containsKey("idUser")) ||
@@ -33,16 +26,19 @@ public class CommentAction extends ActionSupport {
 			addActionError("Vous n'êtes pas connecte");
 			return ERROR;
 		}
-		
-		idUserC = (Integer) session.get("idUser");
-		Date date = new Date();
-		Utilisateur ut = new Utilisateur();
-		ut.setIdUtilisateur(idUserC);
-		Commentaire com = new Commentaire(-1, commentaire, date,
-				idGrille, ut);
+		if (!(session.containsKey("droit")) ||
+				((Integer) session.get("droit") <= 0)) {
+			addActionError("Vous n'êtes pas autorisé à acceder à cette page");
+			return ERROR;
+		}
 		CommentaireDao dao = new CommentaireDao();
 		try {
-			dao.create(com);
+			Commentaire com = dao.findById(idCommentaire);
+			if (com == null) {
+				addActionError("Le commentaire n'existe pas");
+				return ERROR;
+			}
+			dao.delete(com);
 		} catch (SQLException e) {
 			System.out.println(e.getMessage());
 			addActionError(e.getMessage());
@@ -58,24 +54,12 @@ public class CommentAction extends ActionSupport {
 		session.put("commentaires", commentaires);
 		return SUCCESS;
 	}
-	
-	public int getIdUserC() {
-		return idUserC;
-	}
-	public void setIdUserC(int idUser) {
-		this.idUserC = idUser;
-	}
+
 	public int getIdGrille() {
 		return idGrille;
 	}
 	public void setIdGrille(int idGrille) {
 		this.idGrille = idGrille;
-	}
-	public String getCommentaire() {
-		return commentaire;
-	}
-	public void setCommentaire(String contenu) {
-		this.commentaire = contenu;
 	}
 	
 	public String getUrlGrille() {
