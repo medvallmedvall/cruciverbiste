@@ -15,25 +15,21 @@
 	<%@ include file="entete.jspf"%>
 	<div id="principal">
 		<h1>Mes grilles</h1>
-		<table>
-			
+		
+		<table class="mesGrilles">
+			<caption>Mot fléchés</caption>
 			<tr>
 				<th>Nom grille</th>
-				<th>Type</th>
 				<th>Date de creation</th>
 				<th>Est finie</th>
 				<th>Date validation</th>
 				<th>Visualiser</th>
 			</tr>
 			<c:forEach var="grille" items="${mesGrilles}">
+				<c:if test="${grille.idTypeGrille == 1}">
+			
 				<tr>
 					<td>${grille.nomGrille}</td>
-					<td>
-						<c:choose>
-							<c:when test="${grille.idTypeGrille == 1}"> Mot fléché</c:when>
-							<c:when test="${grille.idTypeGrille == 2}"> Mot croisé</c:when>
-						</c:choose>
-					</td>
 					<td>${grille.dateCreationF}</td>
 					<td>
 						<c:choose>
@@ -41,18 +37,62 @@
 							<c:when test="${!grille.estFinie}">Non</c:when>
 						</c:choose>
 					</td>
-					<td>${grille.dateValidationF}</td>
 					<td>
 						<c:choose>
-							<c:when test="${grille.estFinie}">
-								<a href="tester?action=test&idGrille=${grille.idGrille}">tester</a>
-							</c:when>
-							<c:when test="${!grille.estFinie}">
+							<c:when test="${empty grille.dateValidationF}">
 								<a href="creerGrille?idGrille=${grille.idGrille}">Reprendre la creation</a>
 							</c:when>
+							<c:otherwise>
+								${grille.dateValidationF}
+							</c:otherwise>
 						</c:choose>
 					</td>
+					<td>
+						<a href="tester?action=test&idGrille=${grille.idGrille}">tester</a>
+					</td>
 				</tr>
+				</c:if>
+			</c:forEach>
+		</table>
+		
+		<br/><br/>
+		
+		<table class="mesGrilles">
+			<caption>Mots croisés</caption>
+			
+			<tr>
+				<th>Nom grille</th>
+				<th>Date de creation</th>
+				<th>Est finie</th>
+				<th>Date validation</th>
+				<th>Visualiser</th>
+			</tr>
+			<c:forEach var="grille" items="${mesGrilles}">
+				<c:if test="${grille.idTypeGrille == 2}">
+				<tr>
+					<td>${grille.nomGrille}</td>
+					<td>${grille.dateCreationF}</td>
+					<td>
+						<c:choose>
+							<c:when test="${grille.estFinie}">Oui</c:when>
+							<c:when test="${!grille.estFinie}">Non</c:when>
+						</c:choose>
+					</td>
+					<td>
+					<c:choose>
+							<c:when test="${empty grille.dateValidationF}">
+								<a href="creerGrille?idGrille=${grille.idGrille}">Reprendre la creation</a>
+							</c:when>
+							<c:otherwise>
+								${grille.dateValidationF}
+							</c:otherwise>
+						</c:choose>
+					</td>
+					<td>
+						<a href="tester?action=test&idGrille=${grille.idGrille}">tester</a>
+					</td>
+				</tr>
+				</c:if>
 			</c:forEach>
 		</table>
 	</div>
