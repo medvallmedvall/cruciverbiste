@@ -73,7 +73,7 @@ public class ThemeDao extends Dao<Theme> {
 
 	public List<Theme> getThemes() throws SQLException {
 		List<Theme> mList = new LinkedList<Theme>();
-		String query = "SELECT * FROM Theme";
+		String query = "SELECT * FROM Theme ORDER BY orderId";
 		ResultSet results = null;
 		PreparedStatement stmt = connection.prepareStatement(query);
 		results = stmt.executeQuery();
