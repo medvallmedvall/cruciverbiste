@@ -17,7 +17,11 @@
 	</script>
 	<p class="commentaire">
 		<b>${mComm.pseudo}</b> a ecrit le ${mComm.dateFormatee} : <br/>
-		<em>${mComm.contenu}</em>
+		<em>${mComm.contenu}</em><br/>
+		<c:if test="${authentification && droit != 0}">
+			<a href="#" onclick="effacerCommentaire(${mComm.idCommentaire}); return false;">
+			Effacer ce commentaire</a>
+		</c:if>
 	</p>
 </c:forEach>
 <c:choose>
