@@ -36,9 +36,7 @@
 			</c:when>
 		</c:choose>
 		
-		
 		<!-- Zone de commentaires -->
-		
 		
 		<script type="text/javascript">
 			//pour l'appli de recherche de mots
@@ -116,6 +114,31 @@
 						alert("Une erreur : ");
 					}
 				});
+			}
+
+			function effacerCommentaire(idCommentaire) {
+				var idGrille = ${grille.idGrille};
+				var params = "idGrille=" + idGrille + "&idCommentaire=" + idCommentaire;
+				$.ajax({
+					url: "effacerCommentaire",
+					type: 'POST',
+					cache: false,
+					data: params,
+					success: function(contenu) {
+						//chargement du contenu du fichier pour le menu
+						$.ajax({
+							url : "grilles/commentaires.jsp",
+							cache : false,
+							success : function(contenu1) {
+								$("#commentaires").html(contenu1);
+							},
+							error : function() {alert("erreur...")}
+						});
+					},
+					error: function() {
+						alert("Une erreur lors de la suppression du commentaire: ");
+					}
+			});
 			}
 		</script>
 		<div id="commentaires">
