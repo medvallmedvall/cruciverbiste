@@ -18,7 +18,7 @@ if (session.getAttribute("authentification") != null) {
 			<li><a href="choixGrilles?idTypeGrid=1">Mots fleches</a> </li>
 		</ul></li>
 	<li><a href="#">Espace Jeune</a></li>
-	<li><a href="#">Jeu concours</a></li>
+	<li><a href="concours.jsp">Jeu concours</a></li>
 	<% 
 	if ((auth1 != null) && (auth1.equalsIgnoreCase("true"))) {
 %>
@@ -27,8 +27,8 @@ if (session.getAttribute("authentification") != null) {
 			<li><a href="creerGrille?idTypeGrille=2">Mots croises</a></li>
 			<li><a href="creerGrille?idTypeGrille=1">Mots fleches</a></li>
 		</ul></li>
-	<li><a href="mesGrilles">Mes Grilles</a></li>
-	<li><a href="#">Grilles En Cours</a></li>
+	<li><a href="mesGrilles">Mes Grilles créees</a></li>
+	<li><a href="#">Grilles en cours de jeu</a></li>
 	<% 
 	}
 	else {

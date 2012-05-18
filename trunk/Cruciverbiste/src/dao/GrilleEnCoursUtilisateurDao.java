@@ -17,7 +17,7 @@ public class GrilleEnCoursUtilisateurDao extends Dao<GrilleEnCoursUtilisateur> {
 	public GrilleEnCoursUtilisateur findById(int idGrilleEnCours)
 			throws SQLException {
 		GrilleEnCoursUtilisateur grilleEnCoursUtilisateur = null;
-		String requete = "SELECT * FROM grilleencoursutilisateur WHERE idGrilleEnCours=?";
+		String requete = "SELECT * FROM GrilleEnCoursUtilisateur WHERE idGrilleEnCours=?";
 		PreparedStatement pstmt = connection.prepareStatement(requete);
 		pstmt.setInt(1, idGrilleEnCours);
 		ResultSet res = pstmt.executeQuery();
@@ -34,7 +34,7 @@ public class GrilleEnCoursUtilisateurDao extends Dao<GrilleEnCoursUtilisateur> {
 	public GrilleEnCoursUtilisateur create(GrilleEnCoursUtilisateur obj)
 			throws SQLException {
 		GrilleEnCoursUtilisateur grilleEnCoursUtilisateur = null;
-		String requete = "INSERT INTO grilleencoursutilisateur VALUES (null,?,?,?)";
+		String requete = "INSERT INTO GrilleEnCoursUtilisateur VALUES (null,?,?,?)";
 		PreparedStatement pstmt = connection.prepareStatement(requete,
 				Statement.RETURN_GENERATED_KEYS);
 		pstmt.setInt(1, obj.getIdUtilisateur());
@@ -64,7 +64,7 @@ public class GrilleEnCoursUtilisateurDao extends Dao<GrilleEnCoursUtilisateur> {
 	public GrilleEnCoursUtilisateur findByGrilleUser(int idGrille,
 			int idUtilisateur) throws SQLException {
 		GrilleEnCoursUtilisateur grilleEnCoursUtilisateur = null;
-		String requete = "SELECT * FROM grilleencoursutilisateur WHERE idGrille=? and idUtilisateur=?";
+		String requete = "SELECT * FROM GrilleEnCoursUtilisateur WHERE idGrille=? and idUtilisateur=?";
 		PreparedStatement pstmt = connection.prepareStatement(requete);
 		pstmt.setInt(1, idGrille);
 		pstmt.setInt(2, idUtilisateur);

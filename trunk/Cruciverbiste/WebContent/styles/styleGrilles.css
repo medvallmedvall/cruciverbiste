@@ -3,7 +3,7 @@
 #grille1, #grilleMotFleche {
 	border-collapse: collapse;
 	background-color: white;
-	margin: auto;
+	margin-left: 150px;
 	position: relative;
 	table-layout:fixed;
 }
@@ -36,8 +36,6 @@
 #caseTexte {
 	height: 92%;
 	width: 93%;
-	/*height: 45px;
-	width: 43px;*/
 	border-radius: 0px;
 	background-color: #FFFFCC;
 	color: black;
@@ -235,10 +233,58 @@ div#synonymes a:hover {
 /****************************MENU HORIZONTAL GRILLE*************************/
 
 #menuMotsCroises {
-	margin: 50px 50px 110px 50px;
+	float : left;
+	z-index: 100;
+	margin-right: 70px;
+	margin-top: 30px;
+	position: fixed;
+}
+
+#nav{
+	position: absolute;
+	z-index: 100;
+}
+
+#nav, #nav ul {
+	margin: 0;
+	padding: 0;
+	list-style-type: none;
+	list-style-position: outside;
+	text-align: center;
+}
+
+#nav ul {
+	position: absolute;
+	left: 105px;
+	top: 0px;
+	display: none;
+}
+
+#nav a {
+	display: block;
+	width: 100px;
+	height: 20px;
+	border-top: 1px solid white;
+	padding: 5px;
+	color: white;
+	background-color: black;
+}
+
+#nav a:hover {
+	color: black;
+	background-color: white;
+	border-top: 1px solid black;
 }
 
 #nav li {
+	height: 25px;
+	position: relative;
+}
+#nav li:hover > ul {
+	display: block;
+}
+
+/*#nav li {
 	width: 10em;
 	text-align: center;
 }
@@ -267,24 +313,22 @@ div#synonymes a:hover {
 }
 
 #nav li {
-	float: left;
+	//float: left;
 	position: relative;
 }
 
 #nav ul {
-	position: absolute;
 	display: none;
 	width: 9em;
-    top:30px;
 }
 
 #nav li ul a {
 	width: 9em;
-    float:left;
 }
 
 #nav ul ul {
-	top: auto;
+	top: 0px;
+	position: absolute;
 }
 
 #nav li ul ul {
@@ -299,7 +343,7 @@ div#synonymes a:hover {
 #nav li:hover ul, #nav li li:hover ul, #nav li li li:hover ul, #nav li li li li:hover ul
 	{
 	display: block;
-}
+}*/
 
 
 
