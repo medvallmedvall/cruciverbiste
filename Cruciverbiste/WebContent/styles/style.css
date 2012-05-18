@@ -190,8 +190,14 @@ div {
 /*Grille du jour*/
 
 #grilleJour {
+	/margin: auto;
+	/width: 100%;
+}
+
+#grilleJour img {
+	width: 400px;
 	margin: auto;
-	width: 80%;	
+	border: 1px solid black;
 }
 
 /*Choixgrille*/

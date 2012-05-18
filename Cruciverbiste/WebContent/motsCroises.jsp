@@ -46,7 +46,7 @@
 			</ul>
 		</li>
 		<li>
-			<a href="#" onclick="getSolution(); return false;">Solution de la grille</a>
+			<a href="#" onclick="getSolution(); return false;">Solution</a>
 		</li>
 	</ul>
 	<p style="clear: both;"></p>

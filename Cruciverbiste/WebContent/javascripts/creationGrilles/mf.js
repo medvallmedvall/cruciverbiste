@@ -186,11 +186,6 @@ function addDefinition(mCase, mDef) {
 	//ajout des evenements
 	mCase.children(".conteneurDef").children("p").click(
 			function(e) {
-				//desactivation du zoom
-				/*if (timer != null) {
-					clearTimeout(timer);
-					timer = null;
-				}*/
 				var mIdDef = $(this).attr("id");
 				var mDef = mGrid.definitionList[mIdDef];
 				var x = mDef.coordDef.x;
@@ -214,7 +209,7 @@ function addDefinition(mCase, mDef) {
 			}
 	);
 
-	//ajouter une autre definition lors du clique droit
+	//ajouter une autre definition sur une definition lors du clique droit
 	$(".caseDefinitions").bind("contextmenu", function(e){  
 		var mCaseDef = $(this);
 		//on selectionne la 1ere case associee a la def
@@ -229,6 +224,18 @@ function addDefinition(mCase, mDef) {
 		return false;  
 	});
 
+	//ajouter une nouvelle definition dans une case lors du clique droit
+	$(".caseLettre").bind("contextmenu", function(e){  
+		var topG = $("#grilleMotFleche").position().top;
+		var leftG = $("#grilleMotFleche").position().left;
+		var top = mCaseDef.position().top + topG + 30;
+		var left = mCaseDef.position().left + leftG + 200;
+		$("#menuContext").css("display", "inline");
+		$("#menuContext").css("top", top);
+		$("#menuContext").css("left", left);
+		return false;  
+	});
+	
 	//editer la definition lors du double clique
 	mCase.children(".conteneurDef").children("p").dblclick(
 			function(e) {
@@ -339,7 +346,7 @@ $(document).ready(function(){
 			function(event) {
 				var c = codeTouche(event);
 				if ($("#editDef").length > 0) {
-					if (c == 13) {
+					if ((c == 13) || (c == 27)) {
 						validateDefinition();
 					}
 					return true;
