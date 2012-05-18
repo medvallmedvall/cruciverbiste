@@ -44,7 +44,7 @@
 				<param name="actionName">jouer</param>
 				<param name="idGrille">${idGrille}</param>
 			</result>
-			<result type="error">erreur.jsp</result>
+			<result name="error">erreur.jsp</result>
 		</action>
 		
 		<action name="effacerCommentaire" class="actions.DeleteCommentAction">
