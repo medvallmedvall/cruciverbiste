@@ -26,10 +26,10 @@
  <div id="principal">
 	<c:choose>
 		<c:when test="${idTypeGrid == 1}">
-		        <h1>Mots Fléchés </h1>
+		        <h2>Mots Fléchés </h2>
 		</c:when>
 		<c:when test="${idTypeGrid == 2}">
-		        <h1>Mots Croisés</h1>
+		        <h2>Mots Croisés</h2>
 		</c:when>
 	</c:choose>
                                 
