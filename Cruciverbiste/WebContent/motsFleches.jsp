@@ -48,6 +48,9 @@
 		<li>
 			<a href="#" onclick="getSolution(); return false;">Solution</a>
 		</li>
+		<li>
+			<a href="telechargerGrille?idGrille=${grille.idGrille}">Télécharger</a>
+		</li>
 	</ul>
 	<p style="clear: both;"></p>
 </div>
