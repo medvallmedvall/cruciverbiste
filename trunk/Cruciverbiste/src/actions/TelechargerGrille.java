@@ -46,9 +46,8 @@ public class TelechargerGrille {
 		
 
 		document.close();
-	 setInputStream(new ByteArrayInputStream(buffer.toByteArray()));
-				
-				return "success";
+		setInputStream(new ByteArrayInputStream(buffer.toByteArray()));
+		return "success";
 	}
 	
 	public InputStream getInputStream() {
