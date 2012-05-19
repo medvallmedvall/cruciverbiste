@@ -4,6 +4,9 @@
 "http://struts.apache.org/dtds/struts-2.0.dtd">
 
 <struts>
+    <constant name="struts.enable.DynamicMethodInvocation" value="false" />
+    <constant name="struts.devMode" value="true" />
+
 	<package name="actions" namespace="/" extends="struts-default">
 		<!--default-action-ref name="index" / -->
 
@@ -101,6 +104,15 @@
 		<action name="tester" class="actions.ValidateGridAction">
 			<result name="success">moderation/validerGrille.jsp</result>
 			<result name="error">erreur.jsp</result>
+		</action>
+		<action name="telechargerGrille" class="actions.TelechargerGrille">
+			<result name="success" type="stream">
+				<param name="inputName">inputStream</param>
+		    	<param name="contentType">application/pdf</param>
+		    	<param name="contentDisposition">filename="Grille.pdf"</param>
+		    	
+			</result>
+
 		</action>
 	</package>
 
