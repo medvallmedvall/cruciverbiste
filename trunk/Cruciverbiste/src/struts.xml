@@ -105,6 +105,17 @@
 			<result name="success">moderation/validerGrille.jsp</result>
 			<result name="error">erreur.jsp</result>
 		</action>
+		
+		<action name="SujetsRecents" class="actions.GetSujetsRecentsAction">
+			<result name="success">sujetsRecents.jsp</result>
+			<result name="error">erreur.jsp</result>
+		</action>
+		
+		<action name="RedirectionForum" class="actions.RedirectionForumAction">
+			<result name="success">forum.jsp</result>
+			<result name="error">erreur.jsp</result>
+		</action>
+		
 		<action name="telechargerGrille" class="actions.TelechargerGrille">
 			<result name="success" type="stream">
 				<param name="inputName">inputStream</param>
