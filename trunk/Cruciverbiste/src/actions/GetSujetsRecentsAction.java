@@ -14,6 +14,7 @@ public class GetSujetsRecentsAction extends ActionSupport {
 		ForumDao fofo = new ForumDao();
 		try {
 			sujets = fofo.getSujetsRecents();
+			sujets.size();
 		} catch(SQLException e) {
 			System.out.println(e.getMessage());
 			addActionError(e.getMessage());
