@@ -19,14 +19,14 @@ public class ForumDao {
 	
 	public List<Sujet> getSujetsRecents() throws SQLException {
 		List<Sujet> sujets = new LinkedList<Sujet>();
-		String query =  "SELECT topic_id, forum_id, topic_title, topic_fist_poster_name " +
+		String query =  "SELECT topic_id, forum_id, topic_title, topic_first_poster_name " +
 				"FROM phpbb_topics " +
 				"ORDER BY topic_time " +
-				"LIMIT 0, 5:";
+				"LIMIT 0, 5";
 		PreparedStatement pstmt = forum.prepareStatement(query);
 		ResultSet results = pstmt.executeQuery();
 		while(results.next()) {
-			Sujet s = new Sujet(results.getInt("topic_id"), results.getInt("forum_id"), results.getString("topic_title"), results.getString("topic_fist_poster_name"));
+			Sujet s = new Sujet(results.getInt("topic_id"), results.getInt("forum_id"), results.getString("topic_title"), results.getString("topic_first_poster_name"));
 			sujets.add(s);
 		}
 		return sujets;
