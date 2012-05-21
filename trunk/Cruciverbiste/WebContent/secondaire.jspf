@@ -1,15 +1,5 @@
 <div id="secondaire">
 	<!-- debut secondaire -->
-	<table>
-		<caption>
-			<strong>Sujets récents</strong>
-		</caption>
-		<c:forEach var="sujet" items="${Sujet}">
-			<p class="sujet">
-				<b>${sujet.topic_title}</b>
-				<b>${topic_first_poster_name}</b>
-			</p>
-		</c:forEach>
-	</table>
+			<b>Sujets récents</b>
 </div>
 <!-- fin secondaire-->
