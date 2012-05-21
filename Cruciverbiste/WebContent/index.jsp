@@ -23,5 +23,21 @@
 			<p><em>Source : http://www.femmeactuelle.fr/</em></p>
 		</div>
 	</div><!-- fin principale-->
+	
+	<script>
+	$(window).ready(function(){
+		$.ajax({
+			url : "SujetsRecents",
+			cache : false,
+			success : function(contenu) {
+				$("#secondaire").append(contenu);
+			},
+			error : function() {
+				alert("erreur...")
+				}
+		});
+	});
+	
+	</script>
 
 	<%@ include file="pied.jspf"%>
