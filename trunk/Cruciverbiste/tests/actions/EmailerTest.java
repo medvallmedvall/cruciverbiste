@@ -69,7 +69,7 @@ public class EmailerTest extends StrutsTestCase{
 		HashMap<String, Object> session = new HashMap<String, Object>(); 
 		
 		// parametres de la requette 
-	    request.setParameter("mail", "medvallmedvall@gmail.com");
+	    request.setParameter("mail", "psg_galsen45@hotmail.fr");
 	    
 
 		// proxy pour simuler l'action 
