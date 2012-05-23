@@ -154,14 +154,85 @@ $(document).ready(function(){
 	        	$(".caseLettre").removeClass("correctCase");
 	        	$(".caseLettre").removeClass("errorCase");
 	        	$(".ligne_definition").removeClass("definitionSelectionnee2");
-
+	        	//retire case noire
 	        	if($(this).hasClass('caseNoire')) {
 	        		$(this).removeClass("caseNoire");
 	        		$(this).addClass("caseLettre");
+	        		//vide tableau
+	        		
+	        		if($(this).before) {//tester case noir
+
+	        		}
+	        		
+	        		var idCase = $(this).attr("id");
+					var mTab = idCase.split("-");
+					var x = mTab[0];
+					var y = mTab[1];
+					var addy = y;
+					var addx = x;
+					addx++;
+					addy++;
+					var nbCaseNoirey = 0;
+					var nbCaseNoirex = 0;
+					$("#grilleMotFleche td").each(function(index, element) {
+	        			var mId = $(this).attr("id");
+	        			var mTab = mId.split("-");
+						var xTmp = mTab[0];
+						var yTmp = mTab[1];
+						if (yTmp == y) {
+							if ($(this).hasClass("caseNoire")) {
+								nbCaseNoirey++;
+							}
+						}
+						if (xTmp == x) {
+							if ($(this).hasClass("caseNoire")) {
+								nbCaseNoirex++;
+							}
+						}
+	        		});
+					var mElemry = "#defH" + addy + "-" + (nbCaseNoirey+2);
+					var mElemrx = "#defV" + addx + "-" + (nbCaseNoirex+2);
+	        		$(mElemry).remove();
+	        		$(mElemrx).remove();
 	        		
 	        	} else {
+	        		// ajoute case noire
 	        		$(this).removeClass("caseLettre");
 	        		$(this).addClass("caseNoire");
+	        		//remplit tableau
+	        		var idCase = $(this).attr("id");
+					var mTab = idCase.split("-");
+					var x = mTab[0];
+					var y = mTab[1];
+					var mDefH = $("#defH" + y);
+					var mDefV = $("#defV" + x);
+					var mNewInput = "<input type='text' />";
+					var addy = y;
+					var addx = x;
+					addy++;
+					addx++;
+					var nbCaseNoirey = 0;
+					var nbCaseNoirex = 0;
+					$("#grilleMotFleche td").each(function(index, element) {
+	        			var mId = $(this).attr("id");
+	        			var mTab = mId.split("-");
+						var xTmp = mTab[0];
+						var yTmp = mTab[1];
+						if (yTmp == y) {
+							if ($(this).hasClass("caseNoire")) {
+								nbCaseNoirey++;
+							}
+						}
+						if (xTmp == x) {
+							if ($(this).hasClass("caseNoire")) {
+								nbCaseNoirex++;
+							}
+						}
+	        		});
+					var mElemay = "<div id='defH" + addy + "-" + (nbCaseNoirey+1) +"'>" + addy + "-" + (nbCaseNoirey+1) + " " + mNewInput + "</div>";
+					var mElemax = "<div id='defV" + addx + "-" + (nbCaseNoirex+1) +"'>" + addx + "-" + (nbCaseNoirex+1) + " " + mNewInput + "</div>";
+					mDefH.append(mElemay);
+					mDefV.append(mElemax);
 	        	}
 	            clicks = 0;             //after action performed, reset counter
 	        }
