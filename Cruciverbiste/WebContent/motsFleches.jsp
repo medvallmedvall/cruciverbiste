@@ -3,7 +3,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="s" uri="/struts-tags"%>
 
-<% Map<String, Object> ses= ActionContext.getContext().getSession();%>
+<% Map<String, Object> ses = ActionContext.getContext().getSession();%>
 
 <h2>${grille.nomGrille}</h2>
 
@@ -11,45 +11,38 @@
 
 <div id="menuMotsCroises">
 	<ul id="nav">
-		<li>
-			<a href="#" onclick="return false;">Fichier</a>
+		<li><a href="#" onclick="return false;">Fichier</a>
 			<ul>
 				<li><a href="#" onclick="saveGrid(); return false;">Sauvegarder</a></li>
 			</ul>
-		<li>
-			<a href="#">Aide</a>
+		<li><a href="#">Aide</a>
 			<ul>
-				<li>
-					<a href="#" onclick="return false;">Verifier</a>
+				<li><a href="#" onclick="return false;">Verifier</a>
 					<ul>
-						<li><a href="#" onclick="checkLetter(); return false;">La lettre</a></li>
-						<li><a href="#" onclick="checkWord(); return false;">Le mot</a></li>
-					</ul>
-				</li>
-				<li>
-					<a href="#" onclick="return false;">Obtenir</a>
+						<li><a href="#" onclick="checkLetter(); return false;">La
+								lettre</a></li>
+						<li><a href="#" onclick="checkWord(); return false;">Le
+								mot</a></li>
+					</ul></li>
+				<li><a href="#" onclick="return false;">Obtenir</a>
 					<ul>
-						<li><a href="#" onclick="getLetter(); return false;">La lettre</a></li>
+						<li><a href="#" onclick="getLetter(); return false;">La
+								lettre</a></li>
 						<li><a href="#" onclick="getWord(); return false;">Le mot</a></li>
-					</ul>
-				</li>
-				
+					</ul></li>
+
 				<li><a href="#" onclick="getSynonym(); return false;">Synonyme</a></li>
-			</ul>
-		</li>
-		<li>
-			<a href="#" onclick="return false;">Effacer</a>
+			</ul></li>
+		<li><a href="#" onclick="return false;">Effacer</a>
 			<ul>
-				<li><a href="#" onclick="deleteLetter(); return false;">La lettre</a></li>
-				<li><a href="#" onclick="deleteWord(); return false;">Le mot</a></li>
-				<li><a href="#" onclick="deleteAll(); return false;">La grille</a></li>
-			</ul>
-		</li>
-		<li>
-			<a href="#" onclick="getSolution(); return false;">Solution</a>
-		</li>
-		<li>
-			<a href="telechargerGrille?idGrille=${grille.idGrille}">Télécharger</a>
+				<li><a href="#" onclick="deleteLetter(); return false;">La
+						lettre</a></li>
+				<li><a href="#" onclick="deleteWord(); return false;">Le
+						mot</a></li>
+				<li><a href="#" onclick="deleteAll(); return false;">La
+						grille</a></li>
+			</ul></li>
+		<li><a href="#" onclick="getSolution(); return false;">Solution</a>
 		</li>
 	</ul>
 	<p style="clear: both;"></p>
@@ -77,7 +70,7 @@
 	var width = ${grille.largeur};
 	var height = ${grille.hauteur};
 	mGrid = new GrilleMotsFleches(width, height);
-	var nameGrid="${grille.nomGrille}";
+	var nameGrid = "${grille.nomGrille}";
 //-->
 </script>
 
@@ -85,74 +78,89 @@
 <!--
 	/* loadGrille */
 	function loadGrille() {
-		var loadList="<%= ses.get("listLettre").toString() %>";
-		var session=<%=ses.containsKey("idUser")%>;
-		if(loadList!=""){
-			var tabLoadListe=new Array();
-			tabLoadListe=stringToTab(loadList);
-			var indice=0;
-			for ( var i = 0; i <tabLoadListe.length; i++) {
-				laLettre=tabLoadListe[i];
-				indice=i+1;
-				x=tabLoadListe[indice];
-				indice=i+2;
-				y=tabLoadListe[indice];
-				var mIdCase = x + "-" + y; 
+
+	<% 	String listLettre = "";
+		if (ses.get("listLettre") != null) {
+			listLettre =  ses.get("listLettre").toString();
+		}
+		boolean tmpSession = false;
+		if (ses.containsKey("authentification") &&
+				ses.get("authentification").equals("true")) {
+			tmpSession = true;
+		}
+	%>
+
+	
+	var loadList="<%= listLettre %>";
+	var session=<%=tmpSession%>;
+		if (loadList != "") {
+			var tabLoadListe = new Array();
+			tabLoadListe = stringToTab(loadList);
+			var indice = 0;
+			for ( var i = 0; i < tabLoadListe.length; i++) {
+				laLettre = tabLoadListe[i];
+				indice = i + 1;
+				x = tabLoadListe[indice];
+				indice = i + 2;
+				y = tabLoadListe[indice];
+				var mIdCase = x + "-" + y;
 				$("#" + mIdCase).text(laLettre);
 			}
-		}if(!session){
-			if(readCookie(nameGrid) != null){
-				alert("motsFleches");
-				var tabLoadListe=new Array();
-				var loadList=readCookie(nameGrid);
-				tabLoadListe=stringToTabCookie(loadList);
-				var indice=0;
-				for ( var i = 0; i <tabLoadListe.length; i++) {
-					laLettre=tabLoadListe[i];
-					indice=i+1;
-					x=tabLoadListe[indice];
-					indice=i+2;
-					y=tabLoadListe[indice];
-					var mIdCase = x + "-" + y; 
+		}
+		if (session == "true") {
+			if (readCookie(nameGrid) != null) {
+				//alert("motsFleches");
+				var tabLoadListe = new Array();
+				var loadList = readCookie(nameGrid);
+				tabLoadListe = stringToTabCookie(loadList);
+				var indice = 0;
+				for ( var i = 0; i < tabLoadListe.length; i++) {
+					laLettre = tabLoadListe[i];
+					indice = i + 1;
+					x = tabLoadListe[indice];
+					indice = i + 2;
+					y = tabLoadListe[indice];
+					var mIdCase = x + "-" + y;
 					$("#" + mIdCase).text(laLettre);
 				}
 			}
 		}
 	}
+
+	function saveGrid() {
+		var session = "${authentification}";
+		var listeLettre = new Array();
+		listeLettre = sauvegarder();
+		if (session == "true") {
+			if ($(listeLettre).val() == "") {
+				alert("rien à sauvegarder");
+				return false;
+			}
+			var idGrille = ${grille.idGrille};
+			var params = "idGrille=" + idGrille + "&listeLettre=" + listeLettre;
+			alert(params);
+			$.ajax({
+				url : "Sauvegarder",
+				type : 'POST',
+				cache : false,
+				data : params,
+				success : function(contenu) {
+					alert(contenu);
+				},
+				error : function() {
+					alert("Une erreur lors de la sauvegarde")
+				}
+			});
+		} else {
+			createCookie(nameGrid, listeLettre, 1);
+			alert("La Grille a èté sauvegardé avec succés");
+		}
+
+	}
 //-->
 </script>
 
-<script type="text/javascript">
-<!--
-function saveGrid() {
-	var session=<%=ses.containsKey("idUser")%>
-	var listeLettre = new Array();
-	listeLettre = sauvegarder();
-	if(session==true){
-		if ($(listeLettre).val() == "") {
-			alert("rien à sauvegarder");
-			return false;
-		}
-		var idGrille = ${grille.idGrille};
-		var params = "idGrille=" + idGrille + "&listeLettre=" + listeLettre; /*+ "&commentaire=" + content*/
-		alert(params);
-		$.ajax({
-			url: "Sauvegarder",
-			type: 'POST',
-			cache: false,
-			data: params,
-			success : function(contenu) {
-			alert(contenu);
-		},
-			error : function() {alert("erreur...")}
-		});
-	}else{
-		createCookie(nameGrid,listeLettre,1);
-		alert("La Grille a èté sauvegardé avec succés");
-	}
-}
-//-->
-</script>
+
 
 <!-- Ajout des définitions dans les cases -->
 
@@ -175,15 +183,4 @@ function saveGrid() {
 
 <!-- Div pour le zoom -->
 
-<div id="zoomDiv">
-
-</div>
-
-
-
-
-
-
-
-
-
+<div id="zoomDiv"></div>

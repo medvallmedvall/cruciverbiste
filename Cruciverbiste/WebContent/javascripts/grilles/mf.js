@@ -60,10 +60,17 @@ function GrilleMotsFleches(width, height) {
 				//alert(mCase.children(".conteneurDef").length);
 			}
 			var mDefCont = mCase.children(".conteneurDef").first();
-			mDefCont.append(mElement);
-			
+			if ((mDef.orientation == 1) || (mDef.orientation == 3)) {
+				mDefCont.prepend(mElement);
+			}
+			//si le mot est de sens vertical
+			else if ((mDef.orientation == 2) || (mDef.orientation == 4)) {
+				mDefCont.append(mElement);
+			}
+
+
 			//rajout des fleches liees a la definition dans la case d'a cote
-			
+
 			switch(mDef.orientation) {
 			case 1:
 				//droite
@@ -125,7 +132,7 @@ function GrilleMotsFleches(width, height) {
 					$(this).children("p").last().css("height", "100%");
 				});
 	};
-	
+
 	/*Change l'orientation du mot selectionnee si possible*/
 
 	GrilleMotsFleches.prototype.switchOrientation = function(pCase, pHorizontal) {
@@ -143,7 +150,17 @@ function GrilleMotsFleches(width, height) {
 $(document).ready(function(){
 	mGrid.initialize();
 	var timer = null;
-	
+
+	$(document).scroll(function(e) {
+		var scroll = $(this).scrollTop();
+		var header = $("#principal").offset().top;
+		var height = $("#grilleMotFleche").height();
+		var val = scroll + header;
+		if (val < height) {
+			$("#menuMotsCroises").css("top", scroll);
+		}
+	});
+
 	$(".caseLettre").click(
 			function(e) {
 				var mCase = $(this);
@@ -204,9 +221,9 @@ $(document).ready(function(){
 				selectSquare(mCase);
 			}
 	);
-	
+
 	/*Zoom lorsque la souris est sur une definition */
-	
+
 	$(".definitionMF").mouseenter(
 			function(e) {
 				var mCase = $(this).parent();
@@ -220,8 +237,10 @@ $(document).ready(function(){
 							var topG = $("#grilleMotFleche").position().top;
 							var leftG = $("#grilleMotFleche").position().left;
 							var leftG2 = $("#principal").position().left;
-							var top = mCase.position().top + topG - 5;
-							var left = mCase.position().left + leftG + leftG2 + 60;
+							var top = mCase.position().top + topG;
+							var left = mCase.position().left + leftG + leftG2 + 110;
+							/*var top = mCase.position().top;
+							var left = mCase.position().left;*/
 							$("#zoomDiv").css("top", top);
 							$("#zoomDiv").css("left", left);
 							var mText = mDef.text();
@@ -252,6 +271,7 @@ $(document).ready(function(){
 				}
 				$("#zoomDiv").hide("fast");
 			});
+
 	$("#grilleMotFleche").mouseenter(
 			function(e) {
 				if (timer != null) {
@@ -260,7 +280,7 @@ $(document).ready(function(){
 				}
 				$("#zoomDiv").hide("fast");
 			});
-	
+
 	/*ici*/
 
 	/*Lors de l'appuie sur les touches speciales (direction, backspace, ctr...)*/
@@ -268,7 +288,7 @@ $(document).ready(function(){
 	$("#grilleMotFleche").keyup(
 			function(event) {
 				var c = codeTouche(event);
-				//si on a appuyé sur des fleches directionnelles ou la touche pour effacer
+				//si on a appuyï¿½ sur des fleches directionnelles ou la touche pour effacer
 				if ((c == 8) || ((c >= 37) && (c <= 40))) {
 					var mCase = $(".caseEdition:first");
 					if (mCase == undefined) {
@@ -371,13 +391,13 @@ $(document).ready(function(){
 
 	$(".caseLettre").bind("contextmenu", function(e){  
 		//on selectionne la case
-		var mCase = $(this);
+		var mCaseDef = $(this);
 		mGrid.switchOrientation(mCase, mGrid.horizontal);
-		selectSquare(mCase);
-		var topG = $("#grilleMotFleche").position().top;
-		var leftG = $("#grilleMotFleche").position().left;
-		var top = mCase.position().top + topG + 20;
-		var left = mCase.position().left + leftG + 25;
+		selectSquare(mCaseDef);
+
+		var top = mCaseDef.offset().top + 25;
+		var left = mCaseDef.offset().left + 25;
+
 		$("#menuContext").css("display", "inline");
 		$("#menuContext").css("top", top);
 		$("#menuContext").css("left", left);
@@ -436,6 +456,7 @@ function checkEndGame() {
 		}
 	}
 	callMessageBox();
+	
 	/*mGrid.endGame = true;
 	$("#caseTexte").attr("disabled", true);*/
 }
@@ -547,30 +568,30 @@ function getSolution() {
 	callConfirmDialog(message,
 			//lors de l'appuie sur le bouton non
 			function() {
-				$("#caseTexte").focus();
-			},
-			//lors de l'appuie sur le bouton oui
-			function() {
-				$(".caseLettre").removeClass("correctCase");
-				$(".caseLettre").removeClass("errorCase");
-				$("#caseTexte").removeClass("correctCase");
-				$("#caseTexte").removeClass("errorCase");
-				$(".caseLettre").each(
-						function(index, element) {
-							var mCase = $(this);
-							var mId = mCase.attr('id');
-							var mSquaredata = mGrid.squareDataList[mId];
-							if (mCase.hasClass("caseEdition")) {
-								$("#caseTexte").val(mSquaredata.letter);
-								$("#caseTexte").focus();
-							}
-							else {
-								mCase.text(mSquaredata.letter);
-							}
-						}
-				);
-				checkEndGame();
-			}
+		$("#caseTexte").focus();
+	},
+	//lors de l'appuie sur le bouton oui
+	function() {
+		$(".caseLettre").removeClass("correctCase");
+		$(".caseLettre").removeClass("errorCase");
+		$("#caseTexte").removeClass("correctCase");
+		$("#caseTexte").removeClass("errorCase");
+		$(".caseLettre").each(
+				function(index, element) {
+					var mCase = $(this);
+					var mId = mCase.attr('id');
+					var mSquaredata = mGrid.squareDataList[mId];
+					if (mCase.hasClass("caseEdition")) {
+						$("#caseTexte").val(mSquaredata.letter);
+						$("#caseTexte").focus();
+					}
+					else {
+						mCase.text(mSquaredata.letter);
+					}
+				}
+		);
+		checkEndGame();
+	}
 	);
 }
 
@@ -587,7 +608,7 @@ function getSynonym() {
 	else {
 		alert("Synonyme du mot selectionne: " + mSynonym);
 	}
-	
+
 	$("#caseTexte").focus();
 }
 
@@ -704,7 +725,7 @@ function sauvegarder(){
 	var mSquareList = mGrid.squareDataList;
 	var listeLettre="";
 	for (var mSquareId in mSquareList) {
-		var mSquare = mSquareList[mSquareId];
+		//var mSquare = mSquareList[mSquareId];
 		var mCase = $("#" + mSquareId);
 		var letterUser = "";
 		if (mCase.hasClass("caseEdition")) {
@@ -719,7 +740,6 @@ function sauvegarder(){
 		}
 	}
 	return listeLettre;
-	alert(listeLettre);
 }
 
 /*sauvegarde la grille en cookie */

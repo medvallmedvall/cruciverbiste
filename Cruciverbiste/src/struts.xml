@@ -15,6 +15,7 @@
 			<!--result name="success">motsCroises.jsp</result -->
 			<result name="error">erreur.jsp</result>
 		</action>
+		
 		<action name="choixGrilles" class="actions.GetGridListAction">
 			<result name="success">choixGrilles.jsp</result>
 			<result name="error">erreur.jsp</result>
@@ -27,13 +28,15 @@
 		</action>
 
 		<action name="Connexion" class="actions.Connexion">
-			<result name="success">bienvenue.jsp</result>
-			<result name="input">inscription.jsp</result>
+			<!--result name="success">bienvenue.jsp</result>
+			<result name="input">inscription.jsp</result-->
+			<result name="success" type="redirect">${redirectUrl}</result>
 			<result name="error"> erreur.jsp</result>
 		</action>
 
 		<action name="Deconnexion" class="actions.Deconnexion">
-			<result name="success" type="redirect">index.jsp</result>
+			<result name="success" type="redirect">${redirectUrl}</result>
+			<result name="error"> erreur.jsp</result>
 		</action>
 
 		<action name="Emailer" class="actions.Emailer">
@@ -52,10 +55,11 @@
 		
 		<action name="effacerCommentaire" class="actions.DeleteCommentAction">
 			<!--result name ="success">index.jsp</result -->
-			<result type="redirectAction">
+			<result name="success" type="redirectAction">
 				<param name="actionName">jouer</param>
 				<param name="idGrille">${idGrille}</param>
 			</result>
+			<result name="error">erreur.jsp</result>
 		</action>
 
 		<action name="rechercherMot" class="actions.RechercheMot">
@@ -81,10 +85,10 @@
 			<result name="error"> erreur.jsp</result>
 		</action>
 		
-		<!--action name = "Sauvegarder" class ="actions.Sauvegarder">
+		<action name = "Sauvegarder" class ="actions.Sauvegarder">
 			<result name ="success">grilles/sauvegarde.jsp</result>
 			<result name="error">grilles/sauvegarde.jsp</result>
-		</action-->
+		</action>
 
 		<action name="sauvegarderGrille" class="actions.SaveCreatedGridAction">
 			<result name="success">creationGrille/message.jsp</result>
@@ -111,12 +115,12 @@
 			<result name="error">erreur.jsp</result>
 		</action>
 		
-		<action name="RedirectionForum" class="actions.RedirectionForumAction">
+		<!--action name="RedirectionForum" class="actions.RedirectionForumAction">
 			<result name="success">forum.jsp</result>
 			<result name="error">erreur.jsp</result>
-		</action>
+		</action-->
 		
-		<action name="telechargerGrille" class="actions.TelechargerGrille">
+		<!--action name="telechargerGrille" class="actions.TelechargerGrille">
 			<result name="success" type="stream">
 				<param name="inputName">inputStream</param>
 		    	<param name="contentType">application/pdf</param>
@@ -124,7 +128,7 @@
 		    	
 			</result>
 
-		</action>
+		</action-->
 	</package>
 
 </struts>

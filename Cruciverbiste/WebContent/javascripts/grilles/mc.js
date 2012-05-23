@@ -242,17 +242,27 @@ $(document).ready(function(){
 
 	$(".caseLettre").bind("contextmenu", function(e){  
 		//on selectionne la case
-		var mCase = $(this);
+		var mCaseDef = $(this);
 		mGrid.switchOrientation(mCase, mGrid.horizontal);
-		selectSquare(mCase);
-		var topG = $("#grille1").position().top;
-		var leftG = $("#grille1").position().left;
-		var top = mCase.position().top + topG + 20;
-		var left = mCase.position().left + leftG + 25;
+		selectSquare(mCaseDef);
+		
+		var top = mCaseDef.offset().top + 25;
+		var left = mCaseDef.offset().left + 25;
+		
 		$("#menuContext").css("display", "inline");
 		$("#menuContext").css("top", top);
 		$("#menuContext").css("left", left);
 		return false;  
+	});
+	
+	$(document).scroll(function(e) {
+		var scroll = $(this).scrollTop();
+		var header = $("#principal").offset().top;
+		var height = $("#grille1").height();
+		var val = scroll + header;
+		if (val < height) {
+			$("#menuMotsCroises").css("top", scroll);
+		}
 	});
 
 	$(document).click(

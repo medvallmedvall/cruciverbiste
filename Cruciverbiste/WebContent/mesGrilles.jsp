@@ -48,7 +48,7 @@
 						</c:choose>
 					</td>
 					<td>
-						<a href="tester?action=test&idGrille=${grille.idGrille}">tester</a>
+						<a href="tester?action=test&idGrille=${grille.idGrille}">voir</a>
 					</td>
 				</tr>
 				</c:if>

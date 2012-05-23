@@ -8,12 +8,12 @@ if (session.getAttribute("authentification") != null) {
 }
 if ((auth != null) && (auth.equalsIgnoreCase("true"))) {
 %>
-	Bienvenue ${pseudo}, <a href="#" onclick="disconnect();">Deconnexion</a>
+	Bienvenue ${pseudo}, <a href="Deconnexion">Deconnexion</a>
 <%
 }
 else {
 %>
-	<s:form action="Connexion" method="post" onsubmit="return false;" id="loginForm">
+	<s:form action="Connexion" method="post" onsubmit="return true;" id="loginForm">
 			<s:textfield name="pseudo" label="Identifiant" id="pseudo" />
 			<s:password name="password" label="Mot de passe" id="password" />
 

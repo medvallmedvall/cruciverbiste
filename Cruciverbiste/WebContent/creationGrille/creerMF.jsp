@@ -2,7 +2,7 @@
 <%@ taglib prefix="s" uri="/struts-tags"%>
 
 
-<h2>${grille.nomGrille}</h2>
+<h2>${grille.nomGrille} - ${grille.largeur} X ${grille.hauteur} </h2>
 
 <!-- Creation du menu -->
 
@@ -30,6 +30,9 @@
 		<li>
 			<a href="#" onclick="deleteDefinition(); return false;">supprimer la definition</a>
 		</li>
+		<li>
+			<a href="#" onclick="window.open('aideMF.jsp'); return false;">Tutorial</a>
+		</li>
 	</ul>
 	<p style="clear: both;"></p>
 </div>
@@ -38,7 +41,7 @@
 <!-- Creation de la grille de mots fléchés -->
 
 <div id="synonymes">
-
+	<h3 >Synonymes</h3>
 </div>
 
 <table id="grilleMotFleche">
@@ -50,6 +53,24 @@
 		</tr>
 	</c:forEach>
 </table>
+
+<div>
+
+<c:forEach var="l" items="${langues}">
+	<c:if test="${grille.idLangue == l.idLangue}">
+		<c:out value="Langue: ${l.nomLangue}"/>
+	</c:if>
+</c:forEach>
+
+<br/>
+
+<c:forEach var="l" items="${themes}">
+	<c:if test="${grille.idTheme == l.idTheme}">
+		<c:out value="Theme: ${l.nomTheme}"/>
+	</c:if>
+</c:forEach>
+
+</div>
 
 
 <script type="text/javascript" src="javascripts/jquery-1.7.1.js"></script>
