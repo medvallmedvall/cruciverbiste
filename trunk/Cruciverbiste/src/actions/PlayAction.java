@@ -64,7 +64,7 @@ public class PlayAction extends ActionSupport {
 				}else
 					session.put("listLettre", "");
 			}
-		} catch (SQLException e) {
+		} catch (Exception e) {
 			addActionError(e.getMessage());
 			return ERROR;
 		}
