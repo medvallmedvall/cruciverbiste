@@ -289,11 +289,12 @@ function addDefinition(mCase, mDef) {
 	);
 
 	//ajouter une autre definition sur une definition lors du clique droit
-	$(".caseDefinitions").bind("contextmenu", function(e){  
-		var mCaseDef = $(this);
+	$(".definitionMF").bind("contextmenu", function(e){  
+		var mCaseDef = $(this).parents("td");
+		$(this).click();
 		idCaseSelect = mCaseDef.attr("id");
 		//on selectionne la 1ere case associee a la def
-		mCaseDef.children("div:first").click();
+		//mCaseDef.children("div:first").click();
 		var top = $(this).position().top + 70;
 		var left = $(this).position().left + 25 + 150;
 
@@ -410,7 +411,20 @@ function GrilleMotsFleches(width, height, idGrille) {
 	};
 }
 
+
+
+/*$(window).unload( function () { alert("Bye now!"); } );*/
+
+
 $(document).ready(function(){
+	
+	$(window).unload(function(){
+
+	    alert( "alert not working");
+
+	  });
+
+	
 	mGrid.initialize();
 	
 	$(document).scroll(function(e) {
@@ -777,6 +791,20 @@ function selectSynonym(idMot, synonym) {
 	var mDef = mGrid.definitionList[mIdDef];
 	mDef.textDef = synonym;
 }
+
+function deleteElem() {
+	var mCase = $("#" + idCaseSelect);
+	if (mCase.length <= 0) {
+		return;
+	}
+	if (mCase.hasClass("caseLettre")) {
+		$("#caseTexte").val("");
+	}
+	else if (mCase.hasClass("caseDefinitions")) {
+		deleteDefinition();
+	}
+}
+
 
 function deleteDefinition() {
 	var mDefSelect = $(".definitionSelectionneeMF");

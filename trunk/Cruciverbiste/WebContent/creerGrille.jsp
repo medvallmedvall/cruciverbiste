@@ -23,7 +23,7 @@
 		<c:choose>
 			<c:when test="${grille.idGrille == -1}">
 				<div>
-					<form action="creerGrille" method="post">
+					<form action="creerGrille" method="post" onsubmit="return checkCreationForm();">
 						<label for="nomGrille">Nom de la grille: </label> 
 						<input type="text" name="grille.nomGrille" id="nomGrille" 
 						value="${grille.nomGrille}" maxlength="50" ${disabled}><br />
@@ -71,7 +71,7 @@
 					</form>
 				</div>
 			</c:when>
-			<c:otherwise>
+			<c:otherwise>			
 				<div id="grilleJeuMenu">
 					<c:choose>
 						<c:when test="${grille.idTypeGrille == 1}">
@@ -104,6 +104,39 @@
 					</li>
 				</ul>
 	</div>
+	
+	<script type="text/javascript">
+		function checkCreationForm() {
+			if ($("#nomGrille").val() == "") {
+				alert("Le nom de la grille est vide");
+				$("#nomGrille").focus();
+				return false;
+			}
+			var rowNb = parseInt($("#hauteurGrille").val());
+			var colNb = parseInt($("#largeurGrille").val());
+			if (isNaN(rowNb)) {
+				alert("Le nombre de ligne doit être un nombre");
+				$("#hauteurGrille").focus();
+				return false;
+			}
+			if (isNaN(colNb)) {
+				alert("Le nombre de colonne doit être un nombre");
+				$("#largeurGrille").focus();
+				return false;
+			}
+			if ((rowNb < 2 ) || (rowNb > 20)) {
+				alert("Le nombre de ligne doit être entre 2 et 20");
+				$("#hauteurGrille").focus();
+				return false;
+			}
+			if ((colNb < 2 ) || (colNb > 15)) {
+				alert("Le nombre de colonne doit être entre 2 et 15");
+				$("#largeurGrille").focus();
+				return false;
+			}
+			return true;
+		}
+	</script>
 		
 
 	<%@ include file="pied.jspf"%>

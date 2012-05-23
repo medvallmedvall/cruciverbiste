@@ -128,6 +128,8 @@
 			<li><a href="#" onclick="addOtherDefinition(4); return false;">bas-droite</a></li>
 		</ul>
 	</li>
+	<li><a href="#" onclick="deleteElem(); return false;"> Supprimer </a></li>
+	<li><a href="#" onclick="getSynonyms(); return false;">Obtenir synonyme</a></li>
 </ul>
 
 <!-- Div pour le zoom -->
