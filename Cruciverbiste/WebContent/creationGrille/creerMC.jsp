@@ -26,8 +26,8 @@
 		<p class="titreDefinitions">Horizontalement</p>
 		<c:set var="i" value="1" />
 		
-		<c:forEach var="i" begin="1" end="${grille.hauteur}" step="1">
-			<p> <c:out value="${i}.1" /> <input type='text' id='defH${i}'/></p>
+		<c:forEach var="i" begin="0" end="${grille.hauteur - 1}" step="1">
+			<div id="defH${i}"> <c:out value="${i+1}-1" /> <input type='text' id='dH${i}-1'/></div>
 		</c:forEach>
 		
 		<c:forEach var="mDef" items="${grille.motsGrille}">
@@ -51,8 +51,8 @@
 	<div id="defVerticales">
 		<p class="titreDefinitions">Verticalement</p>
 		
-		<c:forEach var="i" begin="1" end="${grille.largeur}" step="1">
-			<p> <c:out value="${i}.1" /> <input type='text' name='defV${i}'/></p>
+		<c:forEach var="i" begin="0" end="${grille.largeur - 1}" step="1">
+			<div id="defV${i}"> <c:out value="${i+1}-1" /> <input type='text' id='dV${i}-1'/></div>
 		</c:forEach>
 		
 		<c:set var="i" value="65" />
