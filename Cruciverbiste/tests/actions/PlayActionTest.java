@@ -72,20 +72,20 @@ public class PlayActionTest  extends StrutsTestCase{
 	    
 	}
 	
-	@Test
-	public void testExecuteTrue() throws Exception{
-		
-		// parametres de la requette 
-	    request.setParameter("idGrille", "2"); 
-	    
-		// proxy pour simuler l'action 
-	    ActionProxy proxy = getActionProxy("/jouer.action");
-	  
-	    //action
-	    String result = proxy.execute();
-	    
-	    //verification action
-	    assertEquals("success", result);
-	}
+//	@Test
+//	public void testExecuteTrue() throws Exception{
+//		
+//		// parametres de la requette 
+//	    request.setParameter("idGrille", "2"); 
+//	    
+//		// proxy pour simuler l'action 
+//	    ActionProxy proxy = getActionProxy("/jouer.action");
+//	  
+//	    //action
+//	    String result = proxy.execute();
+//	    
+//	    //verification action
+//	    assertEquals("success", result);
+//	}
 
 }
