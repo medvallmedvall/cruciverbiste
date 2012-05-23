@@ -71,8 +71,8 @@ public class ConnexionTest extends StrutsTestCase {
 	
 	
 	// parametres de la requette 
-    request.setParameter("pseudo", "medvallmedvall");
-    request.setParameter("password", "123456789"); 
+    request.setParameter("pseudo", "bolo");
+    request.setParameter("password", "azerty"); 
     
 	// proxy pour simuler l'action et la session
     ActionProxy proxy = getActionProxy("/Connexion.action");
