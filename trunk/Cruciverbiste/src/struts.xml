@@ -67,6 +67,7 @@
 				<param name="actionName">jouer</param>
 				<param name="idGrille">${idGrille}</param>
 			</result>
+			<result name="error">erreur.jsp</result>
 		</action>
 
 		<action name="creerGrille" class="actions.CreateGridAction">
