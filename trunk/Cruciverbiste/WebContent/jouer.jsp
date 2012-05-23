@@ -13,31 +13,31 @@
 	media="screen" />
 <script type="text/javascript" src="javascripts/jquery-1.7.1.js"></script>
 </head>
-<body>
+<body onload="loadGrille();">
 	<%@ include file="entete.jspf"%>
-	<!--%@ include file="menu.jspf" %-->
-		
-		<div id="secondaire">
+	
+	<div id="rechercheMotDiv">
 		<%@ include file="grilles/rechercheMotif.jsp"%>
-		
-		</div>
+	</div>
 
-	<div id="principal">
-		<c:choose>
-			<c:when test="${grille.idTypeGrille == 1}">
-				<jsp:include page="motsFleches.jsp">
-					<jsp:param name="grille" value="${grille}"/>
-				</jsp:include>
-			</c:when>
-			<c:when test="${grille.idTypeGrille == 2}">
-				<jsp:include page="motsCroises.jsp">
-					<jsp:param name="grille" value="${grille}"/>
-				</jsp:include>
-			</c:when>
-		</c:choose>
+	<div id="principal" style="width: auto; margin-left: 230px;">
+		<div id="grilleJeuMenu">
+			<c:choose>
+				<c:when test="${grille.idTypeGrille == 1}">
+					<jsp:include page="/motsFleches.jsp">
+						<jsp:param name="grille" value="${grille}" />
+					</jsp:include>
+				</c:when>
+				<c:when test="${grille.idTypeGrille == 2}">
+					<jsp:include page="/motsCroises.jsp">
+						<jsp:param name="grille" value="${grille}" />
+					</jsp:include>
+				</c:when>
+			</c:choose>
+		</div>
 		
 		<!-- Zone de commentaires -->
-		
+
 		<script type="text/javascript">
 			//pour l'appli de recherche de mots
 			function copyArea() {
@@ -47,23 +47,20 @@
 					return false();
 				}
 				var motif = $("#motif").val();
-				
+
 				if (motif.indexOf("?") == -1) {
 					alert("Votre motif doit comporter au moins un caractère ?");
 					$("#motif").focus();
 					return false();
-				} 
+				}
 				var idGrille = ${grille.idGrille};
-				
-				//var content = $("#resultArea").val();
-				//var params = "idGrille=" + idGrille + "&area=" + content;
 				var params = "idGrille=" + idGrille + "&motif=" + motif;
 				$.ajax({
-					url:"rechercherMot",
-					type :'POST',
-					cache:false ,
+					url : "rechercherMot",
+					type : 'POST',
+					cache : false,
 					data : params,
-					success: function(content) {
+					success : function(content) {
 						$.ajax({
 							url : "grilles/rechercheMotif.jsp",
 							cache : false,
@@ -71,16 +68,17 @@
 								//alert(contenu1);
 								$("#secondaire").html(contenu1);
 							},
-							error : function() {alert("erreur...")}
+							error : function() {
+								alert("erreur...")
+							}
 						}).done(function() {
 							//alert("fin");
 						});
 					},
-					error: function() {
+					error : function() {
 						alert("Une erreur : ");
 					}
 				});
-				
 			}
 			//pour les commentaires
 			function sendComment() {
@@ -89,102 +87,53 @@
 					$("#commentaireArea").focus();
 					return false;
 				}
-				var idGrille = ${grille.idGrille};
-				var content = $("#commentaireArea").val();
-				var params = "idGrille=" + idGrille + "&commentaire=" + content;
-				$.ajax({
-					url: "posterCommentaire",
-					type: 'POST',
-					cache: false,
-					data: params,
-					success: function(contenu) {
-						//chargement du contenu du fichier pour le menu
-						$.ajax({
-							url : "grilles/commentaires.jsp",
-							cache : false,
-							success : function(contenu1) {
-								$("#commentaires").html(contenu1);
-							},
-							error : function() {alert("erreur...")}
-						}).done(function() {
-							//alert("fin");
-						});
-					},
-					error: function() {
-						alert("Une erreur : ");
-					}
-				});
+				return true;
 			}
-
-			function effacerCommentaire(idCommentaire) {
-				var idGrille = ${grille.idGrille};
-				var params = "idGrille=" + idGrille + "&idCommentaire=" + idCommentaire;
-				$.ajax({
-					url: "effacerCommentaire",
-					type: 'POST',
-					cache: false,
-					data: params,
-					success: function(contenu) {
-						//chargement du contenu du fichier pour le menu
-						$.ajax({
-							url : "grilles/commentaires.jsp",
-							cache : false,
-							success : function(contenu1) {
-								$("#commentaires").html(contenu1);
-							},
-							error : function() {alert("erreur...")}
-						});
-					},
-					error: function() {
-						alert("Une erreur lors de la suppression du commentaire: ");
-					}
-			});
-			}
+				
 		</script>
+		
 		<div id="commentaires">
-			<%@ include file="grilles/commentaires.jsp" %>
+			<%@ include file="grilles/commentaires.jsp"%>
 		</div>
 		<!-- Creation du menu contextuel -->
 
 		<ul id="menuContext">
-			<li>
-				<a href="#">Verifier</a>
+			<li><a href="#">Verifier</a>
 				<ul>
-					<li><a href="#" onclick="checkLetter(); return false;">La lettre</a></li>
-					<li><a href="#" onclick="checkWord(); return false;">Le mot</a></li>
-				</ul>
-			</li>
-			<li>
-				<a href="#">Obtenir</a>
+					<li><a href="#" onclick="checkLetter(); return false;">La
+							lettre</a></li>
+					<li><a href="#" onclick="checkWord(); return false;">Le
+							mot</a></li>
+				</ul></li>
+			<li><a href="#">Obtenir</a>
 				<ul>
-					<li><a href="#" onclick="getLetter(); return false;">La lettre</a></li>
+					<li><a href="#" onclick="getLetter(); return false;">La
+							lettre</a></li>
 					<li><a href="#" onclick="getWord(); return false;">Le mot</a></li>
-				</ul>
+				</ul></li>
+			<li><a href="#" onclick="getSynonym(); return false;">Synonyme</a>
 			</li>
-			<li>
-				<a href="#" onclick="getSynonym(); return false;">Synonyme</a>
-			</li>
-			<li>
-				<a href="#" onclick="return false;">Effacer</a>
+			<li><a href="#" onclick="return false;">Effacer</a>
 				<ul>
-					<li><a href="#" onclick="deleteLetter(); return false;">La lettre</a></li>
-					<li><a href="#" onclick="deleteWord(); return false;">Le mot</a></li>
-					<li><a href="#" onclick="deleteAll(); return false;">La grille</a></li>
-				</ul>
+					<li><a href="#" onclick="deleteLetter(); return false;">La
+							lettre</a></li>
+					<li><a href="#" onclick="deleteWord(); return false;">Le
+							mot</a></li>
+					<li><a href="#" onclick="deleteAll(); return false;">La
+							grille</a></li>
+				</ul></li>
+			<li><a href="#" onclick="getSolution(); return false;">Solution</a>
 			</li>
-			<li>
-				<a href="#"  onclick="getSolution(); return false;">Solution</a>
-			</li>
-		</ul> 
-	
+		</ul>
+
 		<!-- Alert et confirm dialogue personnalise -->
-		
+
 		<div id="alertConteneur">
 			<div id="alertPers">
 				<p>Fin de la partie !</p>
 			</div>
 		</div>
-		
+
 		<div id="confirmConteneur">
 			<div id="confirmPers">
 				<p>Voulez vous vraiment obtenir la solution?</p>
@@ -194,10 +143,10 @@
 				</div>
 			</div>
 		</div>
-		
+
 		<script type="text/javascript" src="javascripts/grilles/messageBox.js"></script>
 	</div>
-	
 
 
-<%@ include file="pied.jspf"%>
+
+	<%@ include file="pied.jspf"%>

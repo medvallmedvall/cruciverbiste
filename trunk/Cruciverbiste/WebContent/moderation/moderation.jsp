@@ -35,7 +35,7 @@
 						<tr>
 							<td>${g.nomGrille}</td>
 							<td>${g.dateCreation }</td>
-							<td><a href="tester?action=test&idGrille=${g.idGrille}">tester</a></td>
+							<td><a href="tester?action=test&idGrille=${g.idGrille}">voir</a></td>
 						</tr>
 					</c:forEach>
 				</table>

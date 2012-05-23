@@ -1,5 +1,9 @@
 /*Code de grille*/
 
+#grilleJeuMenu {
+	position: relative;
+}
+
 #grille1, #grilleMotFleche {
 	border-collapse: collapse;
 	background-color: white;
@@ -76,7 +80,7 @@
 	margin-left: 20px;
 	margin-right: 20px;
 	float: right;
-	width: 300px;
+	width: 250px;
 }
 
 .titreDefinitions {
@@ -114,6 +118,7 @@
 	overflow: hidden;
 	border-radius: 0px;
 	border: 1px solid black;
+	//background-color: gray;
 }
 
 #grilleMotFleche .definitionMF {
@@ -130,6 +135,8 @@
 	border-bottom: 1px solid black;
 	z-index: 10;
 	word-wrap: break-word;
+	overflow: hidden;
+	border-radius: 0px;
 }
 
 .correctCase {
@@ -167,6 +174,7 @@ textarea#editDef {
 	z-index: 100;
 }
 
+
 div#synonymes {
 	float: right;
 	width: 150px;
@@ -177,14 +185,15 @@ div#synonymes {
 	font-size: 120%;
 }
 
+div#synonymes h3 {
+	text-align: center;
+}
+
 div#synonymes ul {
 	list-style-type: none;
 	padding: 0px;
 }
 
-div#synonymes li {
-	
-}
 
 div#synonymes a {
 	display: block;
@@ -195,6 +204,10 @@ div#synonymes a {
 
 div#synonymes a:hover {
 	color: green;
+}
+
+.emptyDef {
+	background-color: orange;
 }
 
 
@@ -237,7 +250,7 @@ div#synonymes a:hover {
 	z-index: 100;
 	margin-right: 70px;
 	margin-top: 30px;
-	position: fixed;
+	position: absolute;
 }
 
 #nav{
@@ -255,15 +268,15 @@ div#synonymes a:hover {
 
 #nav ul {
 	position: absolute;
-	left: 105px;
+	left: 85px;
 	top: 0px;
 	display: none;
 }
 
 #nav a {
 	display: block;
-	width: 100px;
-	height: 20px;
+	width: 80px;
+	height: 35px;
 	border-top: 1px solid white;
 	padding: 5px;
 	color: white;
@@ -277,7 +290,7 @@ div#synonymes a:hover {
 }
 
 #nav li {
-	height: 25px;
+	height: 35px;
 	position: relative;
 }
 #nav li:hover > ul {
@@ -353,6 +366,7 @@ div#synonymes a:hover {
 	display: none;
 	position: absolute;
 }
+
 #menuContext, #menuContext ul {
 	margin: 0;
 	padding: 0;
@@ -455,4 +469,18 @@ div#synonymes a:hover {
 	cursor: pointer;
 	color: black;
 	border-color: yellow;
+}
+
+
+/*Recherche de mots*/
+
+#rechercheMotDiv {
+	float: left;
+	background: #F7FFD9;
+	color: #181A12;
+	box-shadow: 10px 10px 5px #888;
+	width: 180px;
+	padding: 10px 20px;
+	position: absolute;
+	top: 550px;
 }

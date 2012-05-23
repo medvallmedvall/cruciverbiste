@@ -2,14 +2,10 @@ package actions;
 
 
 import java.sql.SQLException;
-import java.util.LinkedList;
-import java.util.List;
 import java.util.Map;
-import javax.xml.ws.http.HTTPBinding;
 
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
-import com.opensymphony.xwork2.DefaultTextProvider;
 
 import dao.GrilleDao;
 import dao.GrilleEnCoursUtilisateurDao;
@@ -17,12 +13,10 @@ import dao.LettreEnCoursDao;
 
 import entities.Grille;
 import entities.GrilleEnCoursUtilisateur;
-import entities.LettreEnCour;
 
 @SuppressWarnings("serial")
 public class PlayAction extends ActionSupport {
 	private int idGrille;
-	//private Grilles grille;
 	private Grille grille;
 	
 	public PlayAction() {
@@ -83,8 +77,6 @@ public class PlayAction extends ActionSupport {
 			addActionError("La grille n° " + idGrille + " n'existe pas");
 			return ERROR;
 		}
-		Map<String, Object> session = ActionContext.getContext().getSession();
-		session.put("commentaires", grille.getCommentaires());
 		
 		return SUCCESS;
 	}

@@ -1,7 +1,6 @@
 package actions;
 
 import java.sql.SQLException;
-import java.util.List;
 import java.util.Map;
 
 import com.opensymphony.xwork2.ActionContext;
@@ -15,10 +14,8 @@ public class DeleteCommentAction extends ActionSupport {
 	private int idCommentaire;
 	private int idGrille;
 	private String urlGrille;
-	private List<Commentaire> commentaires;
 	
 	public String execute() {
-		System.out.println(idGrille + " " + idCommentaire);
 		Map<String, Object> session = ActionContext.getContext().getSession();
 		if ((!session.containsKey("authentification")) || 
 				(!session.containsKey("idUser")) ||
@@ -45,13 +42,6 @@ public class DeleteCommentAction extends ActionSupport {
 			return ERROR;
 		}
 		urlGrille = "jouer?idGrille=" + idGrille;
-		try {
-			commentaires = dao.getByIdGrille(idGrille);
-		} catch (SQLException e) {
-			addActionError(e.getMessage());
-			return ERROR;
-		}
-		session.put("commentaires", commentaires);
 		return SUCCESS;
 	}
 
@@ -69,4 +59,10 @@ public class DeleteCommentAction extends ActionSupport {
 	public void setUrlGrille(String url) {
 		this.urlGrille = url;
 	}
+
+	public void setIdCommentaire(int idCommentaire) {
+		this.idCommentaire = idCommentaire;
+	}
+	
+	
 }

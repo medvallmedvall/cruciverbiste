@@ -11,16 +11,12 @@
 
 <c:if test="${empty commentaires}">Il n'y a aucun commentaire</c:if>
 <c:forEach var="mComm" items="${commentaires}" varStatus="status">
-	<c:set var="numTab" value="${status.index / 10}"/>
-	<script>
-		//alert("${numTab}");
-	</script>
 	<p class="commentaire">
 		<b>${mComm.pseudo}</b> a ecrit le ${mComm.dateFormatee} : <br/>
 		<em>${mComm.contenu}</em><br/>
 		<c:if test="${authentification && droit != 0}">
-			<a href="#" onclick="effacerCommentaire(${mComm.idCommentaire}); return false;">
-			Effacer ce commentaire</a>
+			<a href="effacerCommentaire?idCommentaire=${mComm.idCommentaire}
+			&idGrille=${grille.idGrille}">Effacer ce commentaire</a>
 		</c:if>
 	</p>
 </c:forEach>
@@ -28,10 +24,10 @@
 	<c:when test="${authentification == true}">
 		<div id="logMessage">
 			Poster un commentaire : <br/>
-			<s:form action="posterCommentaire" method="post" onsubmit="return false;">
+			<s:form action="posterCommentaire" method="post" onsubmit="return sendComment();">
 				<s:textarea id="commentaireArea" name="commentaire" label="Votre commentaire: " required="true" cols="44" rows="10"></s:textarea>
 				<s:hidden name="idGrille" value="%{grille.idGrille}"></s:hidden>
-				<s:submit name="submit" value="poster" onclick="sendComment()"></s:submit>
+				<s:submit name="submit" value="poster"></s:submit>
 			</s:form>
 		</div>
 	</c:when>

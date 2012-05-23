@@ -16,7 +16,7 @@ public class LettreEnCoursDao extends Dao<LettreEnCour>{
 
 	public String findByid(int idGrille,int idGrilleEnCours) throws SQLException{
 		String listLettreEnCour = null;
-		String query3 = "SELECT * FROM LettreEnCours l INNER JOIN grilleencoursutilisateur g " +
+		String query3 = "SELECT * FROM LettreEnCours l INNER JOIN GrilleEnCoursUtilisateur g " +
 				" WHERE g.idGrille = " + idGrille +
 				" AND g.idGrilleEnCours = l.idGrilleEnCours" +
 				" AND l.idGrilleEnCours = " + idGrilleEnCours;

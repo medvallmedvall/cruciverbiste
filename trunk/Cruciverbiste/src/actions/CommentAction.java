@@ -2,8 +2,6 @@ package actions;
 
 import java.sql.SQLException;
 import java.util.Date;
-import java.util.LinkedList;
-import java.util.List;
 import java.util.Map;
 
 import com.opensymphony.xwork2.ActionContext;
@@ -19,7 +17,6 @@ public class CommentAction extends ActionSupport {
 	private int idGrille;
 	private String commentaire;
 	private String urlGrille;
-	private List<Commentaire> commentaires;
 	
 	public String execute() {
 		if ((commentaire == null) || (commentaire.equals(""))) {
@@ -49,13 +46,6 @@ public class CommentAction extends ActionSupport {
 			return ERROR;
 		}
 		urlGrille = "jouer?idGrille=" + idGrille;
-		try {
-			commentaires = dao.getByIdGrille(idGrille);
-		} catch (SQLException e) {
-			addActionError(e.getMessage());
-			return ERROR;
-		}
-		session.put("commentaires", commentaires);
 		return SUCCESS;
 	}
 	

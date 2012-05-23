@@ -22,8 +22,8 @@ import entities.Utilisateur;
 public class CreateGridAction extends ActionSupport {
 	private final int MIN_ROW = 2;
 	private final int MIN_COL = 2;
-	private final int MAX_ROW = 30;
-	private final int MAX_COL = 30;
+	private final int MAX_ROW = 20;
+	private final int MAX_COL = 15;
 	private int idGrille;
 	private int idTypeGrille;
 	private Grille grille;
@@ -84,7 +84,7 @@ public class CreateGridAction extends ActionSupport {
 			grille.setUtilisateur(u);
 			GrilleDao dao = new GrilleDao();
 			try {
-				dao.create(grille);
+				grille = dao.create(grille);
 			} catch (SQLException e) {
 				e.printStackTrace();
 				addActionError(e.getMessage());

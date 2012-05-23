@@ -54,7 +54,7 @@ public class Sauvegarder extends ActionSupport{
 					sauvegardeOK = dao.Sauvegarder(idGrille, idUser, list);
 			} catch (SQLException e) {
 				addActionError(e.getMessage());
-				System.out.println(e.getMessage());
+				e.printStackTrace();
 				return ERROR;
 			}
 		}// cookies

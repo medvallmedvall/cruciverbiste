@@ -76,14 +76,25 @@ public class ValidateGridAction extends ActionSupport{
 			}
 		}
 		else if (action.equalsIgnoreCase("validate") && (droit != 0)) {
-			/*try {
+			try {
 				dao.validateGrid(idGrille);
 				addActionMessage("grille n°" + idGrille + " validée");
+				List<Grille> list = dao.getGridToValidate();
+				grilleAValiderMF = new LinkedList<Grille>();
+				grilleAValiderMC = new LinkedList<Grille>();
+				for(Grille g : list) {
+					if (g.getIdTypeGrille() == 1) {
+						grilleAValiderMF.add(g);
+					}
+					else {
+						grilleAValiderMC.add(g);
+					}
+				}
 			} catch (SQLException e) {
 				addActionError(e.getMessage());
 				e.printStackTrace();
 				return ERROR;
-			}*/
+			}
 		}
 		else if (action.equals("unvalidate") && (droit != 0)) {
 			if ((message == null) || (message.isEmpty())) {
