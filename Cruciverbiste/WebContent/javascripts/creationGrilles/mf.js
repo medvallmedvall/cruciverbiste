@@ -62,13 +62,14 @@ function addDefinition(mCase, mDef) {
 				(mDef.orientation == 3) && (mDefTmp.orientation == 1) ||
 				(mDef.orientation == 2) && (mDefTmp.orientation == 4) ||
 				(mDef.orientation == 4) && (mDefTmp.orientation == 2)) {
-			alert("Impossible d'ajouter une definition qui vont dans le mm sens");
+			alert("Impossible d'ajouter une definition qui vont dans le même sens");
 			return;
 		}
 	}
 	var id = mCase.attr("id");
 	var x = id.split("-")[0];
 	var y = id.split("-")[1];
+	//variable pour obtenir la case suivante
 	var xC = x; var yC = y;
 	var horizontal = true;
 	switch(mDef.orientation) {
@@ -94,7 +95,6 @@ function addDefinition(mCase, mDef) {
 		y++;
 		urlImage = "url('images/grilles/bas-droite.png')";
 		break;
-
 	default:
 		//erreur
 		break;
@@ -103,35 +103,24 @@ function addDefinition(mCase, mDef) {
 
 	var mIdNextCase = x + "-" + y;
 	var mNextCase = $("#" + mIdNextCase);
+	//si il n'y a pas de case après la definition
 	if (mNextCase.length <= 0) {
-		alert("impossible de placer une case ici");
+		alert("impossible de placer une définition ici");
+		return;
+	}
+	if (mNextCase.hasClass("caseDefinitions")) {
+		alert("impossible de placer une définition ici");
 		return;
 	}
 	if (mCase.children(".conteneurDef").children().length == 2) {
 		alert("Vous ne pouvez pas rajouter plus de definition dans cette case");
 		return;
 	}
-	var tmpSquare = mGrid.squareDataList[mIdNextCase];
-	/*if (tmpSquare != undefined) {
-		if ((mDef.orientation == 1) && (tmpSquare.idDefinition[4] != -1)) {
-			alert(tmpSquare.idDefinition[4]);
-			alert("Impossible d'ajouter une definition qui vont dans le mm sens");
-			return;
-		}
-		if ((mDef.orientation == 2) && (tmpSquare.idDefinition[3] != -1) ) {
-			alert("Impossible d'ajouter une definition qui vont dans le mm sens !!!!");
-			return;
-		}
-		if ((mDef.orientation == 3) && (tmpSquare.idDefinition[2] != -1)) {
-			alert("Impossible d'ajouter une definition qui vont dans le mm sens");
-			return;
-		}
-		if ((mDef.orientation == 4) && (tmpSquare.idDefinition[1] != -1)) {
-			alert("Impossible d'ajouter une definition qui vont dans le mm sens");
-			return;
-		}
-	}*/
-	
+
+	if (!checkPrevCase(mCase)) {
+		return;
+	}
+
 	mNextCase.css("background-image", urlImage).css("background-repeat", "no-repeat");
 	mGrid.switchOrientation(mCase, horizontal);
 	//deselection
@@ -192,7 +181,7 @@ function addDefinition(mCase, mDef) {
 			if (oldSquare != undefined) {
 				mSquare.idDefinition = oldSquare.idDefinition;
 			}
-			
+
 			//si le mot est de sens horizontal
 			if ((mDef.orientation == 1) || (mDef.orientation == 4)) {
 				mSquare.idDefinition[1] = -1;
@@ -210,7 +199,7 @@ function addDefinition(mCase, mDef) {
 		}
 		selectSquare(mNextCase);
 	}
-	
+
 	//ajout de case definitions
 	if ((mDef.orientation == 3) || (mDef.orientation == 4)) {
 		if (mDef.orientation == 3) {
@@ -246,9 +235,9 @@ function addDefinition(mCase, mDef) {
 				mCaseDefEmpty.addClass("emptyDef");
 			}
 		}
-		
+
 	}
-	
+
 	//reajustement des hauteurs de definitions dans les cases 
 	var contDefDiv = mCase.children(".conteneurDef");
 	mCase.children(".conteneurDef").children(".definitionMF").css("height", "");
@@ -258,7 +247,7 @@ function addDefinition(mCase, mDef) {
 	else {
 		contDefDiv.children(".definitionMF").css("height", "20px");
 	}
-	
+
 	//ajout des evenements
 	mCase.children(".conteneurDef").children(".definitionMF").click(
 			function(e) {
@@ -303,7 +292,7 @@ function addDefinition(mCase, mDef) {
 		$("#menuContext").css("left", left);
 		return false;  
 	});
-	
+
 	$(document).scroll(function(e) {
 		var scroll = $(this).scrollTop();
 		var header = $("#principal").offset().top;
@@ -313,7 +302,7 @@ function addDefinition(mCase, mDef) {
 			$("#menuMotsCroises").css("top", scroll);
 		}
 	});
-	
+
 	//editer la definition lors du double clique
 	mCase.children(".conteneurDef").children(".definitionMF").dblclick(
 			function(e) {
@@ -322,21 +311,50 @@ function addDefinition(mCase, mDef) {
 	);
 }
 
+/*Pour verifier qu'une definition peut etre placé dans cette case la */
+function checkPrevCase(mCase) {
+	var id = mCase.attr("id");
+	var x = id.split("-")[0];
+	var y = id.split("-")[1];
+	var auDessus = true;
+	y--;
+	for (var i = 0; i < 2; i++) {
+		var mIdPrecCase = x + "-" + y;
+		var mPrecCase = $("#" + mIdPrecCase);
+		var ok = true;
+		if ((mPrecCase.length > 0) && (mPrecCase.hasClass("caseDefinitions"))) {
+			mPrecCase.children(".conteneurDef:first").children(".definitionMF").each(function(elem, index) {
+				var mTmpId =  $(this).attr("id");
+				var mDefTmp =  mGrid.definitionList[mTmpId];
+				if (auDessus) {
+					if ((mDefTmp.orientation == 2) || (mDefTmp.orientation == 4)) {
+						alert("impossible de placer une définition ici");
+						ok = false;
+						return false;
+					}
+				} 
+				else {
+					if ((mDefTmp.orientation == 1) || (mDefTmp.orientation == 3)) {
+						alert("impossible de placer une définition ici");
+						ok = false;
+						return false;
+					}
+				}
+			});
+			if (!ok) {
+				return false;
+			}
+		}
+		y++;
+		x--;
+		auDessus = false;
+	}
+	return true;
+}
+
 
 function addEmptyDefinition(mCase) {
 	mCase.css("background-color", "orange");
-	/*if (mCase.children(".conteneurDef").length <= 0) {
-		mCase.text("");
-	}
-	mCase.removeClass("caseLettre");
-	mCase.addClass("caseDefinitions");
-	if (mCase.children(".conteneurDef").length == 0) {
-		var mElement = "<div class='definitionMF' id='" + idDefCmpt + "'></div>";
-		var mConteneur = "<div class='conteneurDef'>" + mElement + "</div>";
-		mCase.append(mConteneur);
-		mCase.children(".conteneurDef").children(".definitionMF").height(50);
-		idDefCmpt--;
-	}*/
 }
 
 /*Objet pour une definition*/
@@ -364,12 +382,12 @@ function GrilleMotsFleches(width, height, idGrille) {
 	this.horizontal = true;
 	this.idGrille = idGrille;
 	this.definitionListTmp = new Array();
-	
+
 	GrilleMotsFleches.prototype.addDefinition = function(idDef, textDef, word, synonym, orientation, coord) {
 		var mDef = new Definition(idDef, textDef, word, synonym, coord, orientation);
 		this.definitionListTmp[idDef] = mDef;
 	};
-	
+
 	GrilleMotsFleches.prototype.setLettre = function(lettre, x, y) {
 		var mId = x + "-" + y;
 		var mCase = $("#" + mId);
@@ -417,16 +435,16 @@ function GrilleMotsFleches(width, height, idGrille) {
 
 
 $(document).ready(function(){
-	
+
 	$(window).unload(function(){
 
-	    alert( "alert not working");
+		alert( "alert not working");
 
-	  });
+	});
 
-	
+
 	mGrid.initialize();
-	
+
 	$(document).scroll(function(e) {
 		var scroll = $(this).scrollTop();
 		var header = $("#principal").offset().top;
@@ -454,7 +472,7 @@ $(document).ready(function(){
 				}
 			}
 	);
-	
+
 	/*Lors de l'appuie sur les touches speciales (direction, backspace, ctr...)*/
 
 	$("#grilleMotFleche").keyup(
@@ -911,7 +929,7 @@ function deleteDefinition() {
 				mCaseDefEmpty.removeClass("emptyDef");
 			}
 		}
-		
+
 	}
 }
 
@@ -1039,7 +1057,7 @@ function endGrille() {
 			else {
 				end = true;
 			}
-			
+
 		} while(!end);
 		motsGrille+= mDef.textDef + ":" + mot + ":" + mDef.orientation + ":"
 		+ mDef.coordDef.x + ":" + mDef.coordDef.y;

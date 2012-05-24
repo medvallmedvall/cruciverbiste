@@ -93,7 +93,7 @@
 			</c:otherwise>
 		</c:choose>
 		<s:actionerror />
-		<ul id="menuContext">
+		<!--ul id="menuContext">
 					<li><a href="#">Ajouter definition</a>
 						<ul>
 							<li><a href="#" onclick="addOtherDefinition(1); return false;">droite</a></li>
@@ -102,7 +102,7 @@
 							<li><a href="#" onclick="addOtherDefinition(4); return false;">bas-droite</a></li>
 						</ul>
 					</li>
-				</ul>
+				</ul-->
 	</div>
 	
 	<script type="text/javascript">
