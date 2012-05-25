@@ -80,22 +80,22 @@
 <%-- 		<s:actionerror /> --%>
 
 		<div id="principal" style="width: auto; margin-left: 230px;">
-		<h1>Creation de grille</h1>
+		<h1><s:property value= "getText('message.creer')"/></h1>
 		
 		<c:choose>
 			<c:when test="${grille.idGrille == -1}">
 				<div>
 					<form action="creerGrille" method="post" onsubmit = "return checkCreationForm();">
-						<label for="nomGrille">Nom de la grille: </label> 
+						<label for="nomGrille"><s:property value= "getText('message.nomG')"/></label> 
 						<input type="text" name="grille.nomGrille" id="nomGrille" 
 						value="${grille.nomGrille}" maxlength="50" ${disabled}><br />
-						<label for="hauteurGrille">Nombre de lignes: </label>
+						<label for="hauteurGrille"><s:property value= "getText('message.nbLignes')"/></label>
 						<input type="text" name="grille.hauteur" id="hauteurGrille" maxlength="2"
 						size="1" value="${grille.hauteur}" ${disabled}><br /> 
-						<label for="largeurGrille">Nombre de colonnes: </label> 
+						<label for="largeurGrille"><s:property value= "getText('message.nbCol')"/></label> 
 						<input type="text" name="grille.largeur" id="largeurGrille" maxlength="2" size="1"
 						value="${grille.largeur}" ${disabled}><br /> 
-						Langue: 
+						<s:property value= "getText('message.langue')"/>
 						<select name="grille.idLangue" ${disabled}>
 							<c:forEach var="l" items="${langues}">
 								<c:choose>
@@ -110,7 +110,7 @@
 								</c:choose>
 							</c:forEach>
 						</select> <br />
-						Theme:
+						<s:property value= "getText('message.theme')"/>
 						<select name="grille.idTheme" ${disabled}>
 							<c:forEach var="t" items="${themes}">
 								<c:choose>
@@ -128,7 +128,8 @@
 						<input type="hidden" name="creerGrille" value="true" />
 						<input type="hidden" name="idTypeGrille" value="${idTypeGrille}" /> 
 						<c:if test="${empty disabled}">
-							<input type="submit" name="submit" value="creer la grille" />
+<!-- 							<input type="submit" name="submit" value="creer la grille" /> -->
+							<s:submit key="message.cre" name="submit" > </s:submit>
 						</c:if>
 					</form>
 				</div>
@@ -157,12 +158,12 @@
 		</c:choose>
 		<s:actionerror />
 	<ul id="menuContext">
-		<li><a href="#">Ajouter definition</a>
+		<li><a href="#"><s:property value ="getText('message.ajout')"/></a>
 	<ul>
-		<li><a href="#" onclick="addOtherDefinition(1); return false;">droite</a></li>
-		<li><a href="#" onclick="addOtherDefinition(3); return false;">droite-bas</a></li>
-		<li><a href="#" onclick="addOtherDefinition(2); return false;">bas</a></li>
-		<li><a href="#" onclick="addOtherDefinition(4); return false;">bas-droite</a></li>
+		<li><a href="#" onclick="addOtherDefinition(1); return false;"><s:property value ="getText('message.droite')"/></a></li>
+		<li><a href="#" onclick="addOtherDefinition(3); return false;"><s:property value ="getText('message.droiteb')"/></a></li>
+		<li><a href="#" onclick="addOtherDefinition(2); return false;"><s:property value ="getText('message.bas')"/></a></li>
+		<li><a href="#" onclick="addOtherDefinition(4); return false;"><s:property value ="getText('message.basd')"/></a></li>
 	</ul>
 		</li>
 	</ul>
@@ -180,22 +181,22 @@ return false;
 var rowNb = parseInt($("#hauteurGrille").val());
 var colNb = parseInt($("#largeurGrille").val());
 if (isNaN(rowNb)) {
-ïalert("Le nombre de ligne doit Ãªtre un nombre");
+ïalert("Le nombre de ligne doit être un nombre");
 ï$("#hauteurGrille").focus();
  return false;
 }
 if (isNaN(colNb)) {
-alert("Le nombre de colonne doit Ãªtre un nombre");
+alert("Le nombre de colonne doit être un nombre");
 $("#largeurGrille").focus();
  return false;
 }
 if ((rowNb < 2 ) || (rowNb > 20)) {
- alert("Le nombre de ligne doit Ãªtre entre 2 et 20");
+ alert("Le nombre de ligne doit être entre 2 et 20");
 ï $("#hauteurGrille").focus();
 ï return false;
 }
 if ((colNb < 2 ) || (colNb > 15)) {
-alert("Le nombre de colonne doit Ãªtre entre 2 et 15");
+alert("Le nombre de colonne doit être entre 2 et 15");
 $("#largeurGrille").focus();
  return false;
 }
