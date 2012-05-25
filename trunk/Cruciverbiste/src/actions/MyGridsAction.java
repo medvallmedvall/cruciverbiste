@@ -15,7 +15,7 @@ public class MyGridsAction extends ActionSupport{
 	private List<Grille> mesGrilles;
 	
 	/**
-	 * La liste des grilles cr��s par l'utilisateur
+	 * La liste des grilles cr��s par l'utilisateur
 	 */
 	public String execute() {
 		Map<String, Object> session = ActionContext.getContext().getSession();
@@ -24,7 +24,6 @@ public class MyGridsAction extends ActionSupport{
 			auth = (String) session.get("authentification");
 		}
 		if ((auth == null) || (!auth.equals("true"))) {
-			//addActionError("Vous n'êtes pas authorisé à acceder à cette page");
 			addActionError(getText("message.autorisation"));
 			return ERROR;
 		}
