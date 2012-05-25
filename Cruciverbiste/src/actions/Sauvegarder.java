@@ -25,10 +25,15 @@ public class Sauvegarder extends ActionSupport{
 		sauvegardeOK = false;
 	}
 
+	
+	/**
+	 * Sauvegarder une grille en cours de jeu
+	 */
 	@Override
 	public String execute() throws Exception{
 		if(listeLettre==null){
-			addActionError("La liste de lettre est nulle");
+			//addActionError("La liste de lettre est nulle");
+			addActionError(getText("message.listelettre"));
 			return ERROR;
 		}
 		if(listeLettre.equals("")){

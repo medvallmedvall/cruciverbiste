@@ -9,16 +9,21 @@ import org.apache.struts2.ServletActionContext;
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 
-@SuppressWarnings("serial")
 public class Deconnexion extends ActionSupport {
-	private String redirectUrl;
 	
-	public String execute() throws Exception { 
-		prepare();
-		Map <String, Object> session = ActionContext.getContext().getSession();
-		session.clear();
-		return SUCCESS;
-	}
+	
+	private String redirectUrl;
+
+	
+	/**
+	 * Se deconneter du site
+	 */
+	public String execute() throws Exception {
+		  prepare();
+		  Map <String, Object> session = ActionContext.getContext().getSession();
+		  session.clear();
+		  return SUCCESS;
+	  }
 	
 	public void prepare() throws Exception {
 		HttpServletRequest request = ServletActionContext.getRequest();
