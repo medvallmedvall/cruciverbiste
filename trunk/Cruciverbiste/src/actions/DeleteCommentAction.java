@@ -27,21 +27,18 @@ public class DeleteCommentAction extends ActionSupport {
 		if ((!session.containsKey("authentification")) || 
 				(!session.containsKey("idUser")) ||
 				(!session.get("authentification").equals("true"))) {
-			//addActionError("Vous n'Ãªtes pas connecte");
 			addActionError(getText("message.pasCo"));
 			return ERROR;
 		}
 		if (!(session.containsKey("droit")) ||
 				((Integer) session.get("droit") <= 0)) {
 			addActionError(getText("message.autorisation"));
-			//addActionError("Vous n'Ãªtes pas autorisÃ© Ã  acceder Ã  cette page");
 			return ERROR;
 		}
 		CommentaireDao dao = new CommentaireDao();
 		try {
 			Commentaire com = dao.findById(idCommentaire);
 			if (com == null) {
-				//addActionError("Le commentaire n'existe pas");
 				addActionError(getText("message.comexistance"));
 				return ERROR;
 			}
