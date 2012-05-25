@@ -23,6 +23,10 @@ public class SaveCreatedGridAction extends ActionSupport {
 	private String lettresString;
 	private final String SEPARATOR = "/";
 	private final String SEPARATOR2 = ":";
+	
+	/**
+	 * Sauvegarder une grille en cours de cr�ation
+	 */
 
 	public String execute() {
 		Map<String, Object> session = ActionContext.getContext().getSession();
@@ -31,11 +35,9 @@ public class SaveCreatedGridAction extends ActionSupport {
 			auth = (String) session.get("authentification");
 		}
 		if ((auth == null) || (!auth.equals("true"))) {
-			addActionError("Vous n'êtes pas authorisé à acceder à cette page");
+			addActionError(getText("message.autorisation"));
 			return ERROR;
 		}
-		//int idUser = (Integer) session.get("idUser");
-		//List<MotGrille> motsGrille = new LinkedList<MotGrille>();
 
 		MotGrilleDao motGrilleDao = new MotGrilleDao();
 		try {
@@ -87,7 +89,8 @@ public class SaveCreatedGridAction extends ActionSupport {
 			return ERROR;
 		}
 
-		addActionMessage("Grille sauvegardé");
+		//addActionMessage("Grille sauvegardé");
+		addActionMessage(getText("message.grillesaved"));
 		return SUCCESS;
 	}
 

@@ -10,6 +10,10 @@ import entities.Sujet;
 public class GetSujetsRecentsAction extends ActionSupport {
 	private List<Sujet> sujets = new LinkedList<Sujet>();
 	
+	
+	/**
+	 * Recupère les sujets récents du forum
+	 */
 	public String execute() {
 		ForumDao fofo = new ForumDao();
 		try {
@@ -25,5 +29,9 @@ public class GetSujetsRecentsAction extends ActionSupport {
 	
 	public List<Sujet> getSujetsRecents() {
 		return sujets;
+	}
+	
+	public void setSujtesRecents(List<Sujet> sujets) {
+		this.sujets = sujets;
 	}
 }

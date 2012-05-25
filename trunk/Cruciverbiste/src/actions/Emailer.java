@@ -41,6 +41,10 @@ public class Emailer extends ActionSupport {
 		properties.put("mail.smtp.port", "465");
 	}
 
+	/**
+	 * Envoi d'un e-mail par l'administrateur à un utilisateur 
+	 * ayant oublié ses paramètres de connexion
+	 */
 	public String execute() {
 		UtilisateurDao utilisateurDao = new UtilisateurDao();
 		try {
@@ -61,7 +65,7 @@ public class Emailer extends ActionSupport {
 						PasswordAuthentication("cruciverbiste76@gmail.com", "mrpatrou");
 			}});
 		String nameUser = user.getNom() + " " + user.getPrenom();
-		//Le message ï¿½ envoyer ï¿½ l'utilisateur
+		//Le message Ã  envoyer Ã  l'utilisateur
 		String body = "Votre mot de passe est " + "<h3> <b>" + user.getPassword() + " </b></h3><br>" +
 				"Vous pouvez revenir sur notre site en cliquant <a href = \"http://localhost:8080/Cruciverbiste/index.jsp\"> ici </a> " + "<br>" +
 				" Le site du cruciverbiste ";

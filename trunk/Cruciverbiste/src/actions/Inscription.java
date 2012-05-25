@@ -67,6 +67,10 @@ public class Inscription extends ActionSupport {
 		this.dateNaissance = dateNaissance;
 	}
 
+	
+	/**
+	 * Inscription au site
+	 */
 
 	public String execute() {
 		//verifier que nom, prenom... non vide, non null
@@ -104,16 +108,18 @@ public class Inscription extends ActionSupport {
 				return INPUT;
 			}
 			session.put("authentification","true");
-			session.put("idUser", utilisateur.getIdUtilisateur());
+			//session.put("idUser", 0);
 			session.put("nom",utilisateur.getNom());
 			session.put("pseudo", utilisateur.getPseudo());
 			return SUCCESS;
 		}
 		if (!verEmail) {
-			addActionError("Le mail que vous avez rentr� est d�j� utilis�");
+			//addActionError("Le mail que vous avez rentré est déjà utilisé");
+			addActionError(getText("message.mailUsed"));
 		}
 		if (!verPseudo) {
-			addActionError("Le pseudo que vous avez rentr� est d�j� utilis�");
+			//addActionError("Le pseudo que vous avez rentré est déjà utilisé");
+			addActionError(getText("message.psUsed"));
 		}
 		return INPUT;
 	}

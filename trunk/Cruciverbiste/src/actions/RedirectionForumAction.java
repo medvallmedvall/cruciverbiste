@@ -22,7 +22,11 @@ public class RedirectionForumAction extends ActionSupport{
 	public void setF(int f) {
 		this.f = f;
 	}
-
+	
+	/**
+	 * Action permettant d'accéder au sujet récent du forum en un clic
+	 * à partir de la page d'accueil
+	 */
 	public String execute(){
 		urlSujetsRecents = ("http://localhost/phpBB3/viewtopic.php?f=" + f + "&t=" + t);
 		return SUCCESS;

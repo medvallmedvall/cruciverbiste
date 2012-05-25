@@ -15,20 +15,24 @@ public class WordAction extends ActionSupport {
 	
 	public String execute() {
 		if (action == null) {
-			addActionError("L'action est null");
+			//addActionError("L'action est null");
+			addActionError(getText("message.actionnul"));
 			return ERROR;
 		}
 		if (action.equals("")) {
-			addActionError("L'action est vide");
+			//addActionError("L'action est vide");
+			addActionError(getText("message.actionvide"));
 			return ERROR;
 		}
 		if (action.equalsIgnoreCase("getSynonyms")) {
 			if (mot == null) {
-				addActionError("Le mot est null");
+				//addActionError("Le mot est null");
+				addActionError(getText("message.motnul"));
 				return ERROR;
 			}
 			if (mot.equals("")) {
-				addActionError("Le mot est vide");
+				//addActionError("Le mot est vide");
+				addActionError(getText("message.motvide"));
 				return ERROR;
 			}
 			MotDao dao = new MotDao();

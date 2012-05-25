@@ -14,6 +14,9 @@ import entities.Grille;
 public class MyGridsAction extends ActionSupport{
 	private List<Grille> mesGrilles;
 	
+	/**
+	 * La liste des grilles cr��s par l'utilisateur
+	 */
 	public String execute() {
 		Map<String, Object> session = ActionContext.getContext().getSession();
 		String auth = null;
@@ -21,19 +24,26 @@ public class MyGridsAction extends ActionSupport{
 			auth = (String) session.get("authentification");
 		}
 		if ((auth == null) || (!auth.equals("true"))) {
-			addActionError("Vous n'êtes pas authorisé à acceder à cette page");
+			//addActionError("Vous n'êtes pas authorisé à acceder à cette page");
+			addActionError(getText("message.autorisation"));
 			return ERROR;
 		}
 		int idUser = (Integer) session.get("idUser");
-		GrilleDao dao = new GrilleDao();
-		try {
-			setMesGrilles(dao.getGridCreateByUser(idUser));
-		} catch (SQLException e) {
-			e.printStackTrace();
-			addActionError(e.getMessage());
+		if (idUser == 0) {
+			addActionError(getText("message.autorisation"));
 			return ERROR;
+		} else {
+			GrilleDao dao = new GrilleDao();
+			try {
+				setMesGrilles(dao.getGridCreateByUser(idUser));
+			} catch (SQLException e) {
+				e.printStackTrace();
+				addActionError(e.getMessage());
+				return ERROR;
+			}
+			return SUCCESS;
 		}
-		return SUCCESS;
+		
 	}
 
 	public List<Grille> getMesGrilles() {
