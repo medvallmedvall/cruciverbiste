@@ -79,7 +79,6 @@ public class SubmitGridAction extends ActionSupport {
 			return ERROR;
 		}
 		
-		//addActionMessage("Grille soumise en attente de validation");
 		addActionMessage(getText("message.attente"));
 		return SUCCESS;
 	}
