@@ -141,7 +141,6 @@ public class MotDao extends Dao<Mot> {
 		while (rs.next()) {
 			String mot = rs.getString("mot");
 			listMots.add(mot);
-			System.out.println(mot);
 		}
 		return listMots;
 	}
