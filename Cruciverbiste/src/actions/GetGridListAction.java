@@ -58,11 +58,11 @@ public class GetGridListAction extends ActionSupport {
 				grillesMap.put(g, false);
 			}
 		} else {
-			addActionError("Type de grille inconnu");
+			addActionError(getText("message.type"));
 			return ERROR;
 		}
 		if ((grillesList == null) || (grillesList.isEmpty())) {
-			addActionError("Impossible d'avoir la liste de grilles");
+			addActionError(getText("message.impossibleg"));
 			return ERROR;
 		}
 		if (session.get("idUser") != null) {
@@ -79,7 +79,7 @@ public class GetGridListAction extends ActionSupport {
 		ThemeDao themeDao = new ThemeDao();
 		themesList = themeDao.getThemes();
 		if ((themesList == null) || (themesList.isEmpty())) {
-			addActionError("Impossible d'avoir la liste de themes");
+			addActionError(getText("message.impossiblet"));
 			return ERROR;
 		}
 		return SUCCESS;
