@@ -66,7 +66,6 @@ public class TelechargerGrille {
 					
 			}
 			tableGrille.setWidths(cols);
-			System.out.println("grille mot croise");
 			for (MotGrille mg : g.getMotsGrille()) {
 				String mot = mg.getMot();
 				if(mg.getOrientation() == 5) {
