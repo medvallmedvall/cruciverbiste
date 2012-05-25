@@ -57,7 +57,7 @@
 				<input type="submit" name="unvalidate" value="ne pas valider"><br/>
 				<input type="hidden" name="action" value="unvalidate">
 				<input type="hidden" name="idGrille" value="${grille.idGrille}"/>
-				<textarea cols="50" rows="10" name="message">raison de la non validation</textarea>
+				<textarea cols="50" rows="10" name="message"><s:property value = "getText('message.raison')"/></textarea>
 			</form>	
 			
 		</c:if>
@@ -68,16 +68,16 @@
 		
 		<div id="alertConteneur">
 			<div id="alertPers">
-				<p>Fin de la partie !</p>
+				<p><s:property value = "getText('message.fin')"/></p>
 			</div>
 		</div>
 		
 		<div id="confirmConteneur">
 			<div id="confirmPers">
-				<p>Voulez vous vraiment obtenir la solution?</p>
+				<p><s:property value = "getText('message.questObtain')"/></p>
 				<div id="buttonsConfirm">
-					<button class="bYes">Oui</button>
-					<button class="bNo">Non</button>
+					<button class="bYes"><s:property value = "getText('message.oui')"/></button>
+					<button class="bNo"><s:property value = "getText('message.non')"/></button>
 				</div>
 			</div>
 		</div>
