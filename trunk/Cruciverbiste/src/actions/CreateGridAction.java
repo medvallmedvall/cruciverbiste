@@ -32,6 +32,10 @@ public class CreateGridAction extends ActionSupport {
 	private List<Theme> themes;
 	List<LettreGrilleCreation> lettresGrille;
 	
+	
+	/**
+	 * Creation de grille
+	 */
 	public CreateGridAction() {
 		idGrille = -1;
 		idTypeGrille = -1;
@@ -58,22 +62,20 @@ public class CreateGridAction extends ActionSupport {
 			auth = (String) session.get("authentification");
 		}
 		if ((auth == null) || (!auth.equals("true"))) {
-			addActionError("Vous n'êtes pas authorisé à acceder à cette page");
+			addActionError(getText("message.autorisation"));
 			return ERROR;
 		}
 		int idUser = (Integer) session.get("idUser");
 		if (creerGrille) {
 			//ajout de la nouvelle grille dans la base pour pouvoir l'editer
 			if (grille.getNomGrille().equals("")) {
-				addActionError("Le nom de la grille est vide");
+				addActionError(getText("message.grillevide"));
 			}
 			if ((grille.getHauteur() < MIN_ROW) || (grille.getHauteur() > MAX_ROW)) {
-				addActionError("Le nombre de lignes doit être entre " + 
-			MIN_ROW + " et " + MAX_ROW);
+				addActionError(getText("message.grilletailleligne"));
 			}
 			if ((grille.getLargeur() < MIN_COL) || (grille.getLargeur() > MAX_COL)) {
-				addActionError("Le nombre de colonnes doit être entre " + 
-			MIN_COL + " et " + MAX_COL);
+				addActionError(getText("message.grilletaillecolonne"));
 			}
 			if (hasActionErrors()) {
 				return INPUT;
@@ -103,7 +105,8 @@ public class CreateGridAction extends ActionSupport {
 			try {
 				grille = dao.findById(idGrille);
 				if (grille == null) {
-					addActionError("La grille n'existe pas");
+					//addActionError("La grille n'existe pas");
+					addActionError(getText("message.grilleinexistante"));
 					return ERROR;
 				}
 				LettreGrilleCreationDao lettreDao = 
@@ -116,7 +119,8 @@ public class CreateGridAction extends ActionSupport {
 			}
 		}
 		else {
-			addActionError("Page invalide");
+			//addActionError("Page invalide");
+			addActionError(getText("message.pageinv"));
 			return ERROR;
 		}
 		return SUCCESS;

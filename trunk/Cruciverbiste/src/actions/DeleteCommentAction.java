@@ -1,6 +1,7 @@
 package actions;
 
 import java.sql.SQLException;
+import java.util.List;
 import java.util.Map;
 
 import com.opensymphony.xwork2.ActionContext;
@@ -14,25 +15,34 @@ public class DeleteCommentAction extends ActionSupport {
 	private int idCommentaire;
 	private int idGrille;
 	private String urlGrille;
+	private List<Commentaire> commentaires;
 	
+	
+	/**
+	 * Suppression d'un commentaire par le modérateur
+	 */
 	public String execute() {
+		System.out.println(idGrille + " " + idCommentaire);
 		Map<String, Object> session = ActionContext.getContext().getSession();
 		if ((!session.containsKey("authentification")) || 
 				(!session.containsKey("idUser")) ||
 				(!session.get("authentification").equals("true"))) {
-			addActionError("Vous n'êtes pas connecte");
+			//addActionError("Vous n'Ãªtes pas connecte");
+			addActionError(getText("message.pasCo"));
 			return ERROR;
 		}
 		if (!(session.containsKey("droit")) ||
 				((Integer) session.get("droit") <= 0)) {
-			addActionError("Vous n'êtes pas autorisé à acceder à cette page");
+			addActionError(getText("message.autorisation"));
+			//addActionError("Vous n'Ãªtes pas autorisÃ© Ã  acceder Ã  cette page");
 			return ERROR;
 		}
 		CommentaireDao dao = new CommentaireDao();
 		try {
 			Commentaire com = dao.findById(idCommentaire);
 			if (com == null) {
-				addActionError("Le commentaire n'existe pas");
+				//addActionError("Le commentaire n'existe pas");
+				addActionError(getText("message.comexistance"));
 				return ERROR;
 			}
 			dao.delete(com);
@@ -59,10 +69,8 @@ public class DeleteCommentAction extends ActionSupport {
 	public void setUrlGrille(String url) {
 		this.urlGrille = url;
 	}
-
+	
 	public void setIdCommentaire(int idCommentaire) {
 		this.idCommentaire = idCommentaire;
 	}
-	
-	
 }

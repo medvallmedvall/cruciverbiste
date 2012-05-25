@@ -1,34 +1,49 @@
 package actions;
 
 import java.sql.SQLException;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.struts2.ServletActionContext;
 
+/*import javax.servlet.ServletContext;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+import javax.servlet.http.HttpSessionContext;*/
+
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 
 import dao.DaoFactory;
 import dao.UtilisateurDao;
+import entities.Droit;
 import entities.Utilisateur;
 
-@SuppressWarnings("serial")
 public class Connexion extends ActionSupport {
+
 	private String pseudo;
 	private String password;
 	private String redirectUrl;
+	private List<Utilisateur> users;
+	private List<Droit> statuts;
 
+	
+	/**
+	 * Connexiond e l'utilisateur au site
+	 */
 	public String execute() {
+		
 		if ((pseudo == null) || (pseudo.equals(""))) {
-			addActionError("Le pseudo est null ou vide");
+			addActionError(getText("message.psnul"));
 			return ERROR;
 		}
 		if ((password == null) || (password.equals(""))) {
-			addActionError("Le mot de passe est null ou vide");
+			addActionError(getText("message.passnul"));
 			return ERROR;
 		}
+		
 		try {
 			prepare();
 		} catch (Exception e1) {
@@ -45,9 +60,18 @@ public class Connexion extends ActionSupport {
 			return ERROR;
 		}
 		if (user == null) {
-			addActionError("Vos identifiants ne sont pas corrects");
+			addActionError(getText("message.idcorr"));
 			return ERROR;
 		}
+		
+		try {
+			users = dao.getUtilisateurs();
+		} catch (SQLException e) {
+			addActionError(e.getMessage());
+			e.printStackTrace();
+		}
+		
+		
 		Map<String, Object> session = ActionContext.getContext().getSession();
 		// on renseigne la session
 		session.put("authentification", "true");
@@ -55,9 +79,11 @@ public class Connexion extends ActionSupport {
 		session.put("nom",user.getNom());
 		session.put("pseudo", user.getPseudo());
 		session.put("droit", user.getIdDroit());
+		session.put("users", users);
 		return SUCCESS;
-	}
 
+	}
+	
 	public void prepare() throws Exception {
 		HttpServletRequest request = ServletActionContext.getRequest();
 		if ( request != null ) {
@@ -70,13 +96,13 @@ public class Connexion extends ActionSupport {
 			System.out.println(redirectUrl);
 		}
 	}
-	
+
 	public String logout() throws Exception{
 		Map<String, Object> session = ActionContext.getContext().getSession();
 		session.clear();
 		return SUCCESS;
 	}
-
+	
 	public String getPseudo() {
 		return pseudo;
 	}
@@ -92,10 +118,13 @@ public class Connexion extends ActionSupport {
 	public void setPassword(String password) {
 		this.password = password;
 	}
-
+	
 	public String getRedirectUrl() {
 		return redirectUrl;
 	}
 	
-}
+	public List<Utilisateur> getUtilisateurs() {
+		return users;
+	}
 
+}

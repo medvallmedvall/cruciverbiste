@@ -21,6 +21,10 @@ public class ValidateGridAction extends ActionSupport{
 	private Grille grille;
 	private List<GrilleNonValideeMessage> messages;
 	
+	
+	/**
+	 * Validation d'une grile par le modérateur
+	 */
 	public String execute() {
 		Map<String, Object> session = ActionContext.getContext().getSession();
 		String auth = null;
@@ -32,12 +36,12 @@ public class ValidateGridAction extends ActionSupport{
 			droit = (Integer) session.get("droit");
 		}
 		if ((auth == null) || (!auth.equals("true"))) {
-			addActionError("Vous n'êtes pas authorisé à acceder à cette page");
+			addActionError("Vous n'Ãªtes pas authorisÃ© Ã  acceder Ã  cette page");
 			return ERROR;
 		}
 		//int idUser = (Integer) session.get("idUser");
 		if (action == null) {
-			addActionError("Vous n'avez pas accès à cette page (null)");
+			addActionError("Vous n'avez pas accÃ¨s Ã  cette page (null)");
 			return ERROR;
 		}
 		GrilleDao dao = new GrilleDao();
@@ -52,7 +56,7 @@ public class ValidateGridAction extends ActionSupport{
 			}
 			//si la grille n'existe pas on retourne une erreur
 			if (grille == null) {
-				addActionError("La grille n° " + idGrille + " n'existe pas");
+				addActionError("La grille nÂ° " + idGrille + " n'existe pas");
 				return ERROR;
 			}
 		}
@@ -78,7 +82,7 @@ public class ValidateGridAction extends ActionSupport{
 		else if (action.equalsIgnoreCase("validate") && (droit != 0)) {
 			try {
 				dao.validateGrid(idGrille);
-				addActionMessage("grille n°" + idGrille + " validée");
+				addActionMessage("grille nÂ°" + idGrille + " validÃ©e");
 				List<Grille> list = dao.getGridToValidate();
 				grilleAValiderMF = new LinkedList<Grille>();
 				grilleAValiderMC = new LinkedList<Grille>();
@@ -98,12 +102,12 @@ public class ValidateGridAction extends ActionSupport{
 		}
 		else if (action.equals("unvalidate") && (droit != 0)) {
 			if ((message == null) || (message.isEmpty())) {
-				addActionError("Un message doit être spécifié");
+				addActionError("Un message doit Ãªtre spÃ©cifiÃ©");
 				return ERROR;
 			}
 			try {
 				dao.unvalidateGrid(idGrille, message);
-				addActionMessage("grille n°" + idGrille + " invalidée");
+				addActionMessage("grille nÂ°" + idGrille + " invalidÃ©e");
 			} catch (SQLException e) {
 				addActionError(e.getMessage());
 				e.printStackTrace();
@@ -111,7 +115,7 @@ public class ValidateGridAction extends ActionSupport{
 			}
 		}
 		else {
-			addActionError("Vous n'avez pas accès à cette page");
+			addActionError("Vous n'avez pas accÃ¨s Ã  cette page");
 			return ERROR;
 		}
 		return SUCCESS;

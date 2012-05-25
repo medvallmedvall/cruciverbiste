@@ -18,6 +18,10 @@ public class CommentAction extends ActionSupport {
 	private String commentaire;
 	private String urlGrille;
 	
+	
+	/**
+	 * Poster un commentaire
+	 */
 	public String execute() {
 		if ((commentaire == null) || (commentaire.equals(""))) {
 			addActionError("Le champ commentaire est null ou vide.");
@@ -27,7 +31,7 @@ public class CommentAction extends ActionSupport {
 		if ((!session.containsKey("authentification")) || 
 				(!session.containsKey("idUser")) ||
 				(!session.get("authentification").equals("true"))) {
-			addActionError("Vous n'êtes pas connecte");
+			addActionError(getText("message.pasCo"));
 			return ERROR;
 		}
 		
