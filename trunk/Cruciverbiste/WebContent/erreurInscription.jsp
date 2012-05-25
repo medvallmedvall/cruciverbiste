@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Echec Inscription</title>
+<title><s:property value ="getText('message.erreurins')"/></title>
 <link rel="stylesheet" type="text/css" href="styles/style.css"
 	media="screen" />
 </head>
@@ -15,8 +15,7 @@
 	<%@ include file="entete.jspf"%>
 	<!--%@ include file="menu.jspf" %-->
 	<div id="principal">
-		<h1>Une erreur est survenue lors de l'inscription.<br> </h1>
+		<h1><s:property value ="getText('message.messerreurIns')"/><br> </h1>
 		<s:actionerror/>
-		<p><a href="oubli.jsp">Mot de passe oublié?</a></p>
 	</div>
 	<%@ include file="pied.jspf"%>

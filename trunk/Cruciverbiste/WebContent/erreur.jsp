@@ -8,7 +8,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Erreur!</title>
+<title><s:property value = "getText('message.erreur')"/></title>
 <link rel="stylesheet" type="text/css" href="styles/style.css"
 	media="screen" />
 </head>
@@ -16,7 +16,7 @@
 	<script type="text/javascript" src="javascripts/jquery-1.7.1.js"></script>
 	<%@ include file="entete.jspf"%>
 	<div id="principal">
-		<h1>Une erreur est survenue</h1>
+		<h1><s:text name ="message.messerreur"/></h1>
 		<s:actionerror/>
 	</div>
 	

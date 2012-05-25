@@ -3,7 +3,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="s" uri="/struts-tags"%>
 
-<% Map<String, Object> ses = ActionContext.getContext().getSession();%>
+<% Map<String, Object> ses= ActionContext.getContext().getSession();%>
 
 <h2>${grille.nomGrille}</h2>
 
@@ -11,38 +11,45 @@
 
 <div id="menuMotsCroises">
 	<ul id="nav">
-		<li><a href="#" onclick="return false;">Fichier</a>
+		<li>
+			<a href="#" onclick="return false;"><s:property value="getText('message.fichier')"/></a>
 			<ul>
-				<li><a href="#" onclick="saveGrid(); return false;">Sauvegarder</a></li>
+				<li><a href="#" name="save" id="save" onclick="saveGrid(); return false;"><s:property value="getText('message.sauver')"/></a></li>
 			</ul>
-		<li><a href="#">Aide</a>
+		<li>
+			<a href="#"><s:property value="getText('message.aide')"/></a>
 			<ul>
-				<li><a href="#" onclick="return false;">Verifier</a>
+				<li>
+					<a href="#" onclick="return false;"><s:property value="getText('message.verif')"/></a>
 					<ul>
-						<li><a href="#" onclick="checkLetter(); return false;">La
-								lettre</a></li>
-						<li><a href="#" onclick="checkWord(); return false;">Le
-								mot</a></li>
-					</ul></li>
-				<li><a href="#" onclick="return false;">Obtenir</a>
+						<li><a href="#" onclick="checkLetter(); return false;"><s:property value="getText('message.lettre')"/></a></li>
+						<li><a href="#" onclick="checkWord(); return false;"><s:property value="getText('message.mot')"/></a></li>
+					</ul>
+				</li>
+				<li>
+					<a href="#" onclick="return false;"><s:property value="getText('message.obt')"/></a>
 					<ul>
-						<li><a href="#" onclick="getLetter(); return false;">La
-								lettre</a></li>
-						<li><a href="#" onclick="getWord(); return false;">Le mot</a></li>
-					</ul></li>
-
-				<li><a href="#" onclick="getSynonym(); return false;">Synonyme</a></li>
-			</ul></li>
-		<li><a href="#" onclick="return false;">Effacer</a>
+						<li><a href="#" onclick="getLetter(); return false;"><s:property value="getText('message.lettre')"/></a></li>
+						<li><a href="#" onclick="getWord(); return false;"><s:property value="getText('message.mot')"/></a></li>
+					</ul>
+				</li>
+				
+				<li><a href="#" onclick="getSynonym(); return false;"><s:property value="getText('message.syn')"/></a></li>
+			</ul>
+		</li>
+		<li>
+			<a href="#" onclick="return false;"><s:property value="getText('message.eff')"/></a>
 			<ul>
-				<li><a href="#" onclick="deleteLetter(); return false;">La
-						lettre</a></li>
-				<li><a href="#" onclick="deleteWord(); return false;">Le
-						mot</a></li>
-				<li><a href="#" onclick="deleteAll(); return false;">La
-						grille</a></li>
-			</ul></li>
-		<li><a href="#" onclick="getSolution(); return false;">Solution</a>
+				<li><a href="#" onclick="deleteLetter(); return false;"><s:property value="getText('message.lettre')"/></a></li>
+				<li><a href="#" onclick="deleteWord(); return false;"><s:property value="getText('message.mot')"/></a></li>
+				<li><a href="#" onclick="deleteAll(); return false;"><s:property value="getText('message.grille')"/></a></li>
+			</ul>
+		</li>
+		<li>
+			<a href="#" onclick="getSolution(); return false;"><s:property value="getText('message.solution')"/></a>
+		</li>
+		<li>
+			<a href="telechargerGrille?idGrille=${grille.idGrille}"><s:property value="getText('message.tel')"/></a>
 		</li>
 	</ul>
 	<p style="clear: both;"></p>
@@ -70,7 +77,7 @@
 	var width = ${grille.largeur};
 	var height = ${grille.hauteur};
 	mGrid = new GrilleMotsFleches(width, height);
-	var nameGrid = "${grille.nomGrille}";
+	var nameGrid="${grille.nomGrille}";
 //-->
 </script>
 
@@ -184,3 +191,4 @@
 <!-- Div pour le zoom -->
 
 <div id="zoomDiv"></div>
+

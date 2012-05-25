@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Bienvenue NomClient</title>
+<title><s:property value = "getText('message.titreoubli')"/></title>
 
 <link rel="stylesheet" type="text/css" href="styles/style.css" media="screen" />
 </head>
@@ -16,7 +16,7 @@
  <%@ include file="secondaire.jspf" %>
 <div id="principal">
 
-	There is a problem sending your email to <s:property value="mail"/>.
+	<h4><s:property value = "getText('message.titremessoubli')"/> <s:property value="mail"/>.</h4>
 			
 		
 		
