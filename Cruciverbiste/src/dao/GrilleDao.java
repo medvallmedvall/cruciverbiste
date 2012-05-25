@@ -5,11 +5,14 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 
 import entities.Commentaire;
 import entities.Grille;
+import entities.GrilleJoueeUtilisateur;
 import entities.GrilleNonValideeMessage;
 import entities.MotGrille;
 import entities.Utilisateur;
@@ -178,6 +181,43 @@ public class GrilleDao extends Dao<Grille> {
 		return mList;
 	}
 	
+	public Map<Grille,Date> getGridSavedByUser(int idUser) throws SQLException{
+		Map<Grille,Date> grilles = new HashMap<Grille, Date>();
+		String query = "SELECT * FROM Grille g " +
+						"INNER JOIN grilleencoursutilisateur e " +
+						"WHERE g.idGrille = e.idGrille and e.idUtilisateur = ?" ;		ResultSet results = null;
+		PreparedStatement pstmt = connection.prepareStatement(query);
+		pstmt.setInt(1, idUser);
+		results = pstmt.executeQuery();
+		while (results.next()) {
+			Date date=results.getDate("dateJeu");
+			int idGrille = results.getInt("idGrille");
+			int idLangue  = results.getInt("idLangue");
+			int idTypeGrille  = results.getInt("idTypeGrille");
+			int idUtilisateur = results.getInt("idUtilisateurConcepteur");
+			String nomGrille = results.getString("nomGrille");
+			int largeur = results.getInt("largeur");
+			int longueur = results.getInt("hauteur");
+			Date dateCreation = results.getDate("dateCreation");
+			boolean estFinie = results.getBoolean("estFinie");
+			boolean estValidee = results.getBoolean("estValidee");
+			Date dateValidation = results.getDate("dateValidation");
+			int niveau = results.getInt("niveau");
+			int idTheme = results.getInt("idTheme");
+			//String pseudo = results.getString("pseudo");
+			Utilisateur utilisateur = new Utilisateur();
+			utilisateur.setIdUtilisateur(idUtilisateur);
+			Grille grille = new Grille(idGrille, idLangue, idTypeGrille,
+					nomGrille, largeur, longueur, dateCreation, estFinie,
+					estValidee, dateValidation, niveau, idTheme, utilisateur);
+			MotGrilleDao motsDao = new MotGrilleDao();
+			List<MotGrille> motsGrille = motsDao.getByIdGrille(idGrille);
+			grille.setMotsGrille(motsGrille);
+			grilles.put(grille, date);
+		}
+		return grilles;	
+	}
+	
 	public List<Grille> getGridCreateByUser(int idUser) throws SQLException {
 		List<Grille> grilles = new LinkedList<Grille>();
 		String query = "SELECT * FROM Grille " +
@@ -314,5 +354,39 @@ public class GrilleDao extends Dao<Grille> {
 		}
 		return mList;
 	}
+	
+	
+	public boolean insertFinished(GrilleJoueeUtilisateur obj) throws SQLException {
+		if (obj == null) {
+			throw new IllegalArgumentException("null");
+		}
+		String query = "INSERT INTO grillejoueeutilisateur VALUES (?, ?, ?, ?)";
+		PreparedStatement stmt = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
+		Date date=new Date();
+		stmt.setInt(1, obj.getIdUtilisateur());
+		stmt.setInt(2, obj.getIdGrille());
+		stmt.setDate(3, new java.sql.Date(date.getTime()));
+		stmt.setInt(4, 0);
+		stmt.executeUpdate();
+		return true;
+	}
+	
 
+	public List<GrilleJoueeUtilisateur> getFinishedGrilles(int idUser) throws SQLException {
+		List<GrilleJoueeUtilisateur> mList = new LinkedList<GrilleJoueeUtilisateur>();
+		String query = 	"SELECT * FROM GRILLEJOUEEUTILISATEUR g " +
+				"WHERE g.idUtilisateur = ?";
+		PreparedStatement pstmt = connection.prepareStatement(query);
+		pstmt.setInt(1, idUser);
+		ResultSet results = pstmt.executeQuery();
+		while (results.next()) {
+			int idUtilisateur = results.getInt("idUtilisateur");
+			int idGrille = results.getInt("idGrille");
+			Date dateFinie = results.getDate("dateFinie");
+			int duree=results.getInt("duree");
+			GrilleJoueeUtilisateur grilleJoueeUtilisateur=new GrilleJoueeUtilisateur(idUtilisateur, idGrille, dateFinie, duree);
+			mList.add(grilleJoueeUtilisateur);
+		}
+		return mList;
+	}
 }
