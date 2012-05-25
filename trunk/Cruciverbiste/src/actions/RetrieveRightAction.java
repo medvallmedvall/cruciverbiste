@@ -31,7 +31,6 @@ public class RetrieveRightAction extends ActionSupport {
 		try {
 			dao.retrieveRights(user);
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			addActionError(e.getMessage());
 			return ERROR;
 		}
