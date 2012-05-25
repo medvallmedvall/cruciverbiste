@@ -44,11 +44,11 @@
 			<div id="${mTheme.idTheme}">
 				<table class="tableGrilles" id="tableTheme${mTheme.idTheme}">
 					<tr>
-					        <th>Nom grille</th>
-					        <th>Createur</th>
-					        <th>Taille</th>
-					        <th>Niveau</th>
-					        <th>Terminée</th>
+					        <th><s:property value = "getText('message.nomG')"/></th>
+					        <th><s:property value = "getText('message.createur')"/></th>
+					        <th><s:property value = "getText('message.taille')"/></th>
+					        <th><s:property value = "getText('message.niveau')"/></th>
+					        <th><s:property value = "getText('message.term')"/></th>
 					</tr>
 				</table>
 			</div>
