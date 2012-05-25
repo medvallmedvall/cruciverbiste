@@ -142,7 +142,7 @@ function saveGrid() {
 
 <div id="definitions">
 	<div id="defHorizontales">
-		<p class="titreDefinitions">Horizontalement</p>
+		<p class="titreDefinitions"><s:property value ="getText('message.horizon')"/></p>
 		<c:set var="i" value="1" />
 		<c:forEach var="mDef" items="${grille.motsGrille}">
 			<c:if test="${mDef.orientation == 5}">
@@ -163,7 +163,7 @@ function saveGrid() {
 		</c:forEach>
 	</div>
 	<div id="defVerticales">
-		<p class="titreDefinitions">Verticalement</p>
+		<p class="titreDefinitions"><s:property value ="getText('message.vertical')"/></p>
 		<c:set var="i" value="65" />
 		<c:forEach var="mDef" items="${grille.motsGrille}">
 			<c:if test="${mDef.orientation == 6}">
