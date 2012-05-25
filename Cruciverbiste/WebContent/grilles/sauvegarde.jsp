@@ -2,10 +2,10 @@
 <%@ taglib prefix="s" uri="/struts-tags"%>
 <c:choose>
 <c:when test="${sauvegardeOK}">
-	<p>La grille a été sauvegardé avec succès</p>
+	<p><s:property value = "getText('message.sauve')"/></p>
 </c:when>
 <c:otherwise>
-	<p>la grille n'a pas été sauvegardé</p>
+	<p><s:property value = "getText('message.notsauve')"/></p>
 	<s:actionerror />
 </c:otherwise>
 </c:choose>
