@@ -25,7 +25,7 @@ public class SaveCreatedGridAction extends ActionSupport {
 	private final String SEPARATOR2 = ":";
 	
 	/**
-	 * Sauvegarder une grille en cours de création
+	 * Sauvegarder une grille en cours de crï¿½ation
 	 */
 
 	public String execute() {
@@ -43,7 +43,6 @@ public class SaveCreatedGridAction extends ActionSupport {
 		try {
 			motGrilleDao.deleteByIdGrille(idGrille);
 		} catch (SQLException e1) {
-			// TODO Auto-generated catch block
 			e1.printStackTrace();
 			return ERROR;
 		}
@@ -88,8 +87,6 @@ public class SaveCreatedGridAction extends ActionSupport {
 			addActionError(e.getMessage());
 			return ERROR;
 		}
-
-		//addActionMessage("Grille sauvegardÃ©");
 		addActionMessage(getText("message.grillesaved"));
 		return SUCCESS;
 	}
