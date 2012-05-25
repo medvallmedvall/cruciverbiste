@@ -8,30 +8,30 @@
 
 <div id="menuMotsCroises">
 	<ul id="nav">
-		<li><a href="#" onclick="return false;">Fichier</a>
+		<li><a href="#" onclick="return false;"><s:property value ="getText('message.fichier')"/></a>
 			<ul>
-				<li><a href="#" onclick="saveGrille(); return false;">Sauvegarder</a></li>
-				<li><a href="#" onclick="endGrille(); return false;">Soumettre la grille</a></li>
+				<li><a href="#" onclick="saveGrille(); return false;"><s:property value ="getText('message.sauver')"/></a></li>
+				<li><a href="#" onclick="endGrille(); return false;"><s:property value ="getText('message.soumettre')"/></a></li>
 			</ul>
-		<li><a href="#">Ajouter une definition</a>
+		<li><a href="#"><s:property value ="getText('message.ajout')"/></a>
 			<ul>
-				<li><a href="#" onclick="addNewDefinition(1); return false;">droite</a></li>
-			<li><a href="#" onclick="addNewDefinition(3); return false;">droite-bas</a></li>
-			<li><a href="#" onclick="addNewDefinition(2); return false;">bas</a></li>
-			<li><a href="#" onclick="addNewDefinition(4); return false;">bas-droite</a></li>
-			</ul>
-		</li>
-		<li><a href="#">Edition de definition</a>
-			<ul>
-				<li><a href="#" onclick="editDefinition(); return false;">Editer</a></li>
-				<li><a href="#" onclick="getSynonyms(); return false;">Obtenir synonyme</a></li>
+				<li><a href="#" onclick="addNewDefinition(1); return false;"><s:property value ="getText('message.droite')"/></a></li>
+			<li><a href="#" onclick="addNewDefinition(3); return false;"><s:property value ="getText('message.droiteb')"/></a></li>
+			<li><a href="#" onclick="addNewDefinition(2); return false;"><s:property value ="getText('message.bas')"/></a></li>
+			<li><a href="#" onclick="addNewDefinition(4); return false;"><s:property value ="getText('message.basd')"/></a></li>
 			</ul>
 		</li>
-		<li>
-			<a href="#" onclick="deleteDefinition(); return false;">supprimer la definition</a>
+		<li><a href="#"><s:property value ="getText('message.editF')"/></a>
+			<ul>
+				<li><a href="#" onclick="editDefinition(); return false;"><s:property value ="getText('message.edit')"/></a></li>
+				<li><a href="#" onclick="getSynonyms(); return false;"><s:property value ="getText('message.obtSyn')"/></a></li>
+			</ul>
 		</li>
 		<li>
-			<a href="#" onclick="window.open('aideMF.jsp'); return false;">Tutorial</a>
+			<a href="#" onclick="deleteDefinition(); return false;"><s:property value ="getText('message.supprDef')"/></a>
+		</li>
+		<li>
+			<a href="#" onclick="window.open('aideMF.jsp'); return false;"><s:property value ="getText('message.tuto')"/></a>
 		</li>
 	</ul>
 	<p style="clear: both;"></p>
@@ -120,16 +120,16 @@
 
 
 <ul id="menuContext">
-	<li><a href="#">rajouter definition</a>
+	<li><a href="#"><s:property value ="getText('message.rajDef')"/></a>
 		<ul>
-			<li><a href="#" onclick="addOtherDefinition(1); return false;">droite</a></li>
-			<li><a href="#" onclick="addOtherDefinition(3); return false;">droite-bas</a></li>
-			<li><a href="#" onclick="addOtherDefinition(2); return false;">bas</a></li>
-			<li><a href="#" onclick="addOtherDefinition(4); return false;">bas-droite</a></li>
+			<li><a href="#" onclick="addOtherDefinition(1); return false;"><s:property value ="getText('message.droite')"/></a></li>
+			<li><a href="#" onclick="addOtherDefinition(3); return false;"><s:property value ="getText('message.droiteb')"/></a></li>
+			<li><a href="#" onclick="addOtherDefinition(2); return false;"><s:property value ="getText('message.bas')"/></a></li>
+			<li><a href="#" onclick="addOtherDefinition(4); return false;"><s:property value ="getText('message.basd')"/></a></li>
 		</ul>
 	</li>
-	<li><a href="#" onclick="deleteElem(); return false;"> Supprimer </a></li>
-	<li><a href="#" onclick="getSynonyms(); return false;">Obtenir synonyme</a></li>
+	<li><a href="#" onclick="deleteElem(); return false;"> <s:property value ="getText('message.supprElem')"/> </a></li>
+	<li><a href="#" onclick="getSynonyms(); return false;"><s:property value ="getText('message.obtSyn')"/></a></li>
 </ul>
 
 <!-- Div pour le zoom -->
