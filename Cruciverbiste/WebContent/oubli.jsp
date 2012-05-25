@@ -18,7 +18,7 @@
 <div id="principal">
 	<s:property value = "getText('message.messerroubli')"/>
 	<s:form action = "Emailer" method = "post" onsubmit="return verif_email();"> 
-		<s:textfield name = "mail" label="E-mail" onmousedown="changeColor();"> 
+		<s:textfield key ="message.mail" name = "mail" onmousedown="changeColor();"> 
 		</s:textfield> 
 		<s:submit key="message.env"></s:submit> 
 	
