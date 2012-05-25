@@ -147,17 +147,17 @@ div {
 /*dictionnaire*/
 
 #textDico {
-	height : 100px;
-	width: 450px;
+	height : 80px;
+	width: 500px;
 	float: left;
 	font-family: Verdana, "Bitstream Vera Sans", "Lucida Grande", sans-serif;
 	font-size: 15px;
 }
 #imageDico {
-	height: 50px;
-	width: 50px;
+	height: 40px;
+	width: 40px;
 	float:right;
-	padding-right : 160px;
+	padding-right : 100px;
 	background: #F7FFD9;
 }
 
@@ -247,6 +247,9 @@ table.grilleAValider {
 table.grilleAValider td, table.grilleAValider th {
 	border: 1px solid black;
 }
+
+/*Admin
+
 
 /* **********************************Menu********************************************** */
 
