@@ -74,8 +74,22 @@ public class Utilisateur {
 	 }
 
 	
-	public Utilisateur() {
+	public Utilisateur(int idUtilisateur, String nom, String prenom,
+			String pseudo, String password, String mail,
+			Date dateNaissance) {
+		super();
+		this.idUtilisateur = idUtilisateur;
+		this.nom = nom;
+		this.prenom = prenom;
+		this.pseudo = pseudo;
+		this.password = password;
+		this.mail = mail;
+		this.dateNaissance = dateNaissance;
 
+	}
+	
+	public Utilisateur() {
+		
 	}
 
 	public Integer getIdUtilisateur() {
