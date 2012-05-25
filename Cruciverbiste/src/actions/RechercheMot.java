@@ -43,45 +43,49 @@ public class RechercheMot extends ActionSupport{
 		listMots = mots;
 	}
 	
+	
+	/**
+	 * Action qui permet de rechercher un mot � partir d'un motif
+	 */
 	public String execute() {
 		listMots = new LinkedList<String>();
 		Map<String, Object> session = ActionContext.getContext().getSession();
-		System.out.println("motif " + motif + ", grille: " + idGrille);
 		if (motif == null)
 		{
-			addActionError("le motif est null");
-			return ERROR;
+			//addActionError("le motif est null");
+			addActionError(getText("message.motifnul"));
+			return INPUT;
 		}
 		
 		if (motif.trim().length() <= 1) {
-			addActionError("la longueur du motif doit etre sup�rieure ou �gale � 2");
-			return ERROR;
+			//addActionError("la longueur du motif doit etre supérieure ou égale à 2");
+			addActionError(getText("message.motifsup"));
+			return INPUT;
 		}
 		
 		if (motif.indexOf("?") == -1) {
-			addActionError("Il faut au moins un ? dans votre motif");
-			return ERROR;
+			//addActionError("Il faut au moins un ? dans votre motif");
+			addActionError(getText("message.motifint"));
+			return INPUT;
 		}
 		MotDao dao = (MotDao) DaoFactory.getMotDao();
 		System.out.println("rentre OK");
-		//affiche(listMots);
 		try {
 			listMots = dao.findByMotif(motif);
-			session.put("recherche", "true");
-			
-			if (session.get("recherche") == "true") {
-				if (!listMots.isEmpty()) {
-					session.put("listMots", listMots);
-					return SUCCESS;
-				} else {
-					listMots = new LinkedList<String>();
-					//addActionError("Aucun mot ne correspond � ce motif");
-					return ERROR;
-				}
+			if (!listMots.isEmpty()) {
+				session.put("recherche", "true");
+				session.put("motif", motif);
+				session.put("listMots", listMots);
+				return SUCCESS;
 			} else {
+				session.put("recherche", "false");
+				session.put("motif", motif);
 				listMots.clear();
-				return ERROR;
+				addActionError("aucun mot correspondant au motif");
+				//session.put("listMots", listMots);
+				return INPUT;
 			}
+			
 			
 		} catch (SQLException e) {
 			addActionError(e.getMessage());
@@ -99,11 +103,5 @@ public class RechercheMot extends ActionSupport{
 		return res;
 	}
 
-	public void affiche(LinkedList<String> liste) {
-		// TODO Auto-generated method stub
-		for (String s : liste) {
-			System.out.println("Mot " + s);
-		}
-	}
 
 }

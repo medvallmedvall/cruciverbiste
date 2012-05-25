@@ -21,6 +21,9 @@ public class SubmitGridAction extends ActionSupport {
 	private final String SEPARATOR = "/";
 	private final String SEPARATOR2 = ":";
 	
+	/**
+	 * Soumettre une grille 
+	 */
 	public String execute() {
 		Map<String, Object> session = ActionContext.getContext().getSession();
 		String auth = null;
@@ -28,11 +31,9 @@ public class SubmitGridAction extends ActionSupport {
 			auth = (String) session.get("authentification");
 		}
 		if ((auth == null) || (!auth.equals("true"))) {
-			addActionError("Vous n'êtes pas authorisé à acceder à cette page");
+			addActionError(getText("message.autorisation"));
 			return ERROR;
 		}
-		//int idUser = (Integer) session.get("idUser");
-		//List<MotGrille> motsGrille = new LinkedList<MotGrille>();
 		String[] motsGrilleS = motGrilleString.split(SEPARATOR);
 		MotGrilleDao motGrilleDao = new MotGrilleDao();
 		try {
@@ -78,7 +79,8 @@ public class SubmitGridAction extends ActionSupport {
 			return ERROR;
 		}
 		
-		addActionMessage("Grille soumise en attente de validation");
+		//addActionMessage("Grille soumise en attente de validation");
+		addActionMessage(getText("message.attente"));
 		return SUCCESS;
 	}
 
