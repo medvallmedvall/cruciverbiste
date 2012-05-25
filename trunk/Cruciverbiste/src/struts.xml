@@ -149,6 +149,11 @@
 			<result name="error">erreurConcours.jsp</result>
 			<result name = "input">moderation/moderation.jsp</result>
 		</action>
+			
+		<action name="deleteUser" class="actions.DeleteUserAction">
+			<result name="success">adminCruci.jsp</result>
+			<result name="error">erreur.jsp</result>
+		</action>
 		
 		<action name="telechargerGrille" class="actions.TelechargerGrille">
 			<result name="success" type="stream">
