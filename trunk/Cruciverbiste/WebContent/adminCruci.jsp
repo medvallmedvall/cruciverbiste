@@ -63,6 +63,7 @@
 				<th><s:property value = "getText('message.pseudo')"/> </th>
 				<th><s:property value = "getText('message.donner')"/></th>
 				<th><s:property value = "getText('message.enlever')"/></th>
+				<th><s:property value = "getText('message.suppr')"/></th>
 				<th><s:property value = "getText('message.statut')"/></th>
 			</tr>
 			</thead>
@@ -70,12 +71,14 @@
 			<c:forEach var = "u" items = "${users}">
 			    <c:set var = "nom" value ="${u.getNom()}"/>
 			    <c:set var = "pseudo" value ="${u.getPseudo()}"/>
+			    <c:set scope="session" var="user" value= "${u.getIdUtilisateur()}"/>
 			  
 				<tr class="odd gradeC"> 
 				<td>${nom}</td>
 				<td>${pseudo}</td>
 				<td><a href = "nommer?user=${u.getIdUtilisateur()}"><s:property value = "getText('message.nommer')"/></a> </td>
 				<td><a href = "enlever?user=${u.getIdUtilisateur()}"><s:property value = "getText('message.retrai')"/></a></td>
+				<td><a href = "deleteUser?user=${u.getIdUtilisateur()}"><s:property value = "getText('message.suppr')"/></a></td>
 				<c:choose>
 					<c:when test = "${u.getIdDroit() == 0}">
 						<td><s:property value = "getText('message.usersimple')"/> </td>
