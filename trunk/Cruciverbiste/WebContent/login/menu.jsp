@@ -43,7 +43,7 @@ if (session.getAttribute("authentification") != null) {
 <% 
 	if ((auth1 != null) && (auth1.equalsIgnoreCase("true")) && (droit != 0)) {
 %>
-	<li><a href="validerGrille?action=getGridToValidate">Moderation/Validation</a></li>
+<li><a href="validerGrille?action=getGridToValidate"><s:text name="message.moderationval"/> </a></li>
 <%
 	}
 %>
@@ -51,7 +51,7 @@ if (session.getAttribute("authentification") != null) {
 <% 
 	if ((auth1 != null) && (auth1.equalsIgnoreCase("true")) && (droit == 3)) {
 %>
-	<li><a href = "adminCruci.jsp">Administration</a></li>
+	<li><a href = "adminCruci.jsp"><s:text name="message.administration"/></a></li>
 	
 <%
 	}
