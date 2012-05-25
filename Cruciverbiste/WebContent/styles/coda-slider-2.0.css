@@ -1,0 +1,96 @@
+/*
+	jQuery Coda-Slider v2.0 - http://www.ndoherty.biz/coda-slider
+	Copyright (c) 2009 Niall Doherty
+	This plugin available for use in all personal or commercial projects under both MIT and GPL licenses.
+*/
+
+/* Insignificant stuff, for demo purposes */
+
+	/*body { padding: 20px }
+	.panel h2.title { margin-bottom: 10px }*/
+	
+	.panel h2.title { margin-bottom: 10px }
+	
+
+/* Most common stuff you'll need to change */
+
+	.coda-slider-wrapper { padding: 20px 0 }
+	.coda-slider { background: #B0DFFF }
+	
+	
+	
+	/* Change the width of the entire slider (without dynamic arrows) */
+	.coda-slider, .coda-slider .panel { width: 600px; } 
+	
+	/* Change margin and width of the slider (with dynamic arrows) */
+	.coda-slider-wrapper.arrows .coda-slider, .coda-slider-wrapper.arrows .coda-slider .panel { width: 600px; }
+	.coda-slider-wrapper.arrows .coda-slider { margin: 0 10px }
+	
+	/* Arrow styling */
+	.coda-nav-left a, .coda-nav-right a { background: #B0DFFF; color: #FF4C00; padding: 5px; width: 60px; }
+	
+	/* Tab nav */
+	
+	.coda-nav ul li a.current { background: #B0DFFF; color:#FF4C00 }
+	
+	/* Panel padding */
+	.coda-slider .panel-wrapper { padding: 20px }
+	
+	/* Preloader */
+	.coda-slider p.loading { padding: 20px; text-align: center }
+
+/* Don't change anything below here unless you know what you're doing */
+
+	/* Tabbed nav */
+	.coda-nav ul { clear: both; display: block; margin: 0px auto; overflow: hidden;}
+	.coda-nav ul li { display: inline-block;
+						width: 90px;
+						height: 70px;
+						
+						 }
+	.coda-nav ul li a { background: #000; 
+						color: #FF4C00;
+						width: 70px;
+						height: 70px;
+						display: block; 
+						float: left; 
+						margin-right: 1px; 
+						padding: 3px 6px; 
+						text-decoration: none;
+						text-align: center;}
+	
+	/* Miscellaneous */
+	.coda-slider-wrapper { clear: both; overflow: auto }
+	.coda-slider { float: left; overflow: hidden; position: relative }
+	.coda-slider .panel { display: block; float: left }
+	.coda-slider .panel-container { position: relative }
+	.coda-nav-left { float: left }
+	.coda-nav-right { float: left; }
+	.coda-nav-left a, .coda-nav-right a { display: block; text-align: center; text-decoration: none }
+	
+	
+	
+	
+/*ajouté par moi*/
+
+.coda-slider-wrapper table {
+	border-collapse: collapse;
+	width: 80%;
+	margin: auto;
+	border: 1px solid black;
+}
+
+.coda-slider-wrapper th{
+	border: 1px solid black;
+}
+
+tr.lignePaire {
+	background-color: white;
+}
+
+tr.ligneImpaire {
+	background-color: yellow;
+}
+
+
+	
