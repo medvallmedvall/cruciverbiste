@@ -199,11 +199,51 @@ public class UtilisateurDao extends Dao<Utilisateur> {
 		}
 		return user;
 	}
+	
+	public boolean hasRights(int id) throws SQLException {
+		String query = "select idUtilisateur from droitutilisateur where idUtilisateur = " + id;
+		Boolean b = false;
+		ResultSet rs = this.connection.createStatement().executeQuery(query);
+		
+		if (rs.first()) {
+			b = true;
+		} else {
+			b = false;
+		}
+		return b;
+	}
 
 	@Override
-	public void delete(Utilisateur obj) {
-		// TODO Auto-generated method stub
-
+	public void delete(Utilisateur obj) throws SQLException {
+		int idUtilisateur = obj.getIdUtilisateur();
+		
+		if (hasRights(idUtilisateur)) {
+			String req = "delete from droitutilisateur where idUtilisateur = ?";
+			PreparedStatement stmt = this.connection.prepareStatement(req);
+			stmt.setInt(1, idUtilisateur);
+			stmt.executeUpdate();
+		}
+		String query = "delete from Utilisateur where idUtilisateur = ?";
+		PreparedStatement stmt = this.connection.prepareStatement(query);
+		stmt.setInt(1, idUtilisateur);
+		stmt.executeUpdate();
+		
+	}
+	
+	public void delete(int id) throws SQLException {
+		//int idUtilisateur = obj.getIdUtilisateur();
+		
+		if (hasRights(id)) {
+			String req = "delete from droitutilisateur where idUtilisateur = ?";
+			PreparedStatement stmt = this.connection.prepareStatement(req);
+			stmt.setInt(1, id);
+			stmt.executeUpdate();
+		}
+		String query = "delete from Utilisateur where idUtilisateur = ?";
+		PreparedStatement stmt = this.connection.prepareStatement(query);
+		stmt.setInt(1, id);
+		stmt.executeUpdate();
+		
 	}
 
 	//Verifier que l'e-mail n'existe pas
@@ -286,8 +326,6 @@ public class UtilisateurDao extends Dao<Utilisateur> {
 			String pass = rs.getString("password");
 			String mail = rs.getString("mail");
 			Date naissance = rs.getDate("dateNaissance");
-//			Date dateInscription = rs.getDate("dateInscription");
-//			int idDroit =  rs.getInt("iddroit");
 			Utilisateur user = new Utilisateur(idUtilisateur, nom_utilisateur, 
 					prenom_utilisateur, pseudo_utilisateur, pass, mail, naissance);
 			listUsers.add(user);
