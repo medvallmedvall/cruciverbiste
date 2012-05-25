@@ -15,62 +15,63 @@
 </head>
 <body>
 	<%@ include file="/entete.jspf"%>
-
-	<div id="secondaire">
+		
+		<div id="secondaire">
 		<%@ include file="/grilles/rechercheMotif.jsp"%>
-
-	</div>
+		
+		</div>
 
 	<div id="principal">
 		<div id="grilleJeuMenu">
 		<c:choose>
 			<c:when test="${grille.idTypeGrille == 1}">
 				<jsp:include page="/motsFleches.jsp">
-					<jsp:param name="grille" value="${grille}" />
+					<jsp:param name="grille" value="${grille}"/>
 				</jsp:include>
 			</c:when>
 			<c:when test="${grille.idTypeGrille == 2}">
 				<jsp:include page="/motsCroises.jsp">
-					<jsp:param name="grille" value="${grille}" />
+					<jsp:param name="grille" value="${grille}"/>
 				</jsp:include>
 			</c:when>
 		</c:choose>
 		</div>
-
-
-		Anciennes invalidations:
-		<c:forEach var="mess" items="${messages}">
+		
+	
+			<s:property value = "getText('message.ancienneval')"/>
+			<c:forEach var="mess" items="${messages}">
 			<p>
-				date: ${mess.date} <br /> cause: ${mess.message}
+				date: ${mess.date} <br/>
+				cause: ${mess.message}
 			</p>
-		</c:forEach>
-
-
+			</c:forEach>
+		
+		
 		<c:if test="${droit != 0}">
 			<form method="post" action="validerGrille">
 				<input type="submit" name="validate" value="valider la grille">
-				<input type="hidden" name="action" value="validate"> <input
-					type="hidden" name="idGrille" value="${grille.idGrille}" />
+				<input type="hidden" name="action" value="validate">
+				<input type="hidden" name="idGrille" value="${grille.idGrille}"/>
 			</form>
 			<form method="post" action="validerGrille">
-				<input type="submit" name="unvalidate" value="ne pas valider"><br />
-				<input type="hidden" name="action" value="unvalidate"> <input
-					type="hidden" name="idGrille" value="${grille.idGrille}" />
+				<input type="submit" name="unvalidate" value="ne pas valider"><br/>
+				<input type="hidden" name="action" value="unvalidate">
+				<input type="hidden" name="idGrille" value="${grille.idGrille}"/>
 				<textarea cols="50" rows="10" name="message">raison de la non validation</textarea>
-			</form>
-
+			</form>	
+			
 		</c:if>
-
-
-
+		
+		
+	
 		<!-- Alert et confirm dialogue personnalise -->
-
+		
 		<div id="alertConteneur">
 			<div id="alertPers">
 				<p>Fin de la partie !</p>
 			</div>
 		</div>
-
+		
 		<div id="confirmConteneur">
 			<div id="confirmPers">
 				<p>Voulez vous vraiment obtenir la solution?</p>
@@ -80,10 +81,10 @@
 				</div>
 			</div>
 		</div>
-
+		
 		<script type="text/javascript" src="javascripts/grilles/messageBox.js"></script>
 	</div>
+	
 
 
-
-	<%@ include file="/pied.jspf"%>
+<%@ include file="/pied.jspf"%>
