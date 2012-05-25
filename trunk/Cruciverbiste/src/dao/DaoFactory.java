@@ -1,6 +1,7 @@
 package dao;
 
 import entities.Commentaire;
+import entities.Concours;
 import entities.Mot;
 import entities.Theme;
 import entities.Utilisateur;
