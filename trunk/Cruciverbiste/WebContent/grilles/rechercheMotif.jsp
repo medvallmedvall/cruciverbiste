@@ -2,24 +2,29 @@
 <%@ page import="java.util.LinkedList" %>
 <%String recherche = (String) session.getAttribute("recherche"); %>
 <%LinkedList<String> listMots = (LinkedList<String>) session.getAttribute("listMots"); %>
-<h3>Recherchez un mot à partir d'un motif</h3>
-<%-- <c:forEach var="liste" items="${listMots}" varStatus="status"> --%>
-<%-- 	<c:set var="resultArea" value="${listMots.index}"/>		 --%>
-<%-- </c:forEach> --%>
+<%String motif = (String) session.getAttribute("motif"); %>
 
-		<s:label>Ex : u??v?rs resultat : univers </s:label>
+<h3><s:property value ="getText('message.motif')"/></h3>
+
+		<s:label>Ex : u??v?rs <s:property value ="getText('message.resultat')"/> : univers </s:label>
 		<s:form action="rechercherMot" method ="post" onsubmit="return false;">
-			<tr>
-				<td> <s:textfield id="motif" name="motif" label="Votre motif ici" style="width: 100px;"/> </td>
-			</tr>
-			<tr>
 			<%if (recherche == "true") { %>
-				<td> <s:select id="resultArea" name="resultat" size="4" label="Votre resultat" style="width: 100px;" list= "#session.listMots"> </s:select> 
+				<tr>
+				<td> <s:textfield key ="message.motifSearch" id="motif" name="motif" value = "%{#session.motif}" style="width: 100px;"/> </td>
+				</tr>
+				<tr>
+				<td> <s:select id="resultArea" key ="message.resultat" name="resultat" size="8" style="width: 100px;" list= "#session.listMots"> </s:select> 
 				</td>
-				<%} %>
-			 </tr>
+				 </tr>
+			<%} else { %>
+				<tr>
+				<td> <s:textfield key ="message.motifSearch" id="motif" name="motif" value = "%{#session.motif}" style="width: 100px;"/> </td>
+				</tr>
+				<tr>
+			<%} %>
+			
 			<s:hidden name="idGrille" value="%{grille.idGrille}"></s:hidden>
 			<tr>
-				<td> <s:submit value ="Recherche" label="Recherche"  onclick="copyArea()"></s:submit></td>
+				<td> <s:submit key="message.recherche" label="Recherche"  onclick="copyArea()"></s:submit></td>
 			</tr>
 		</s:form>
