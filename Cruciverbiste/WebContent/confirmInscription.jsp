@@ -13,8 +13,7 @@
 	<%@ include file="entete.jspf"%>
 	<!--%@ include file="menu.jspf" %-->
 	<div id="principal">
-		<h1>Vous êtes bel et bien inscrits sur le site Cruciverbiste.<br> 
-		Vous pouvez désormais vous connecter sur notre site</h1>
+		<h4> <s:property value = "getText('message.confirmInscription')"/> </h4>
 		<s:actionmessage/>
 	</div>
 	<%@ include file="pied.jspf"%>

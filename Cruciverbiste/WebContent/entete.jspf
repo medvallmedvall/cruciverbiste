@@ -1,6 +1,10 @@
+<%@page import="java.util.Locale"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ taglib prefix="s" uri="/struts-tags"%>
+<%@ taglib prefix="s" uri="/struts-tags" %>
+
 <%
+	String langue = (String) session.getAttribute("langue"); 
+	Locale locale = (Locale) session.getAttribute("locale");
 	//String pseudo = (String) session.getAttribute("pseudo");
 	if (session.getAttribute("authentification") != null) {
 		response.setHeader("Cache-Control", "no-cache"); //Forces caches to obtain a new copy of the page from the origin server
@@ -12,12 +16,29 @@
 
 <div id="entete"><!-- debut entete -->
 
+	<s:url id="indexEN" namespace="/" action="changeLangue" >
+      <s:param name="langue">en</s:param>
+   </s:url>
+   <s:url id="indexES" namespace="/" action="changeLangue" >
+      <s:param name="langue">es</s:param>
+   </s:url>
+   <s:url id="indexFR" namespace="/" action="changeLangue">
+      <s:param name="langue">fr</s:param>
+   </s:url>
+    <s:url id="indexDE" namespace="/" action="changeLangue">
+      <s:param name="langue">de</s:param>
+   </s:url>
+
 	<div id="langue">
 		<!-- debut langue -->
-		<a href="#" title="Anglais"><img alt="English"
-			src="images/Angleterre.png" /></a> <a href="#" title="Allemand"><img
-			alt="Allemand" src="images/Allemagne.png" /></a> <a href="#"
-			title="Espagnol"><img alt="Espagnol" src="images/Espagne.png" /></a>
+		<s:a href="%{indexEN}" title="Anglais">
+		<img alt="English"src="images/Angleterre.png" /></s:a> 
+		<s:a href="%{indexDE}" title="Allemand">
+		<img alt="Allemand" src="images/Allemagne.png" /></s:a> 
+		<s:a href="%{indexES}" title="Espagnol" id ="langue">
+		<img alt="Espagnol" src="images/Espagne.png" /></s:a>
+		<s:a href="%{indexFR}" title = "Français">
+		<img alt="Francais" src="images/France.png"/></s:a>
 	</div><!-- fin langue -->
 
 	<div id="sous-entete"><!-- debut sous entete-->
@@ -26,7 +47,7 @@
 			<!-- debut logo -->
 			<h1 id="titre">
 				<a href="index.jsp"> <img alt="Cruciverbiste"
-					src="images/cruciverbiste.jpg" /> Cruciverbiste
+					src="images/cruciverbiste.jpg" /> <s:property value = "getText('message.cruciverbiste')"/>
 				</a>
 			</h1>
 

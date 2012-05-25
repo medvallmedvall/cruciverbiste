@@ -22,40 +22,40 @@
 <%@ include file="secondaire.jspf"%>
 <div id="principal">
 
-<h3>Inscription du client :</h3>
+<h3><s:property value = "getText('message.inscription')"/></h3>
 
 <s:actionerror/>
 
 <s:form action="Inscription" method="post" onsubmit="return verif_formulaire();">
 	<table>
 		<tr>
-			<td><s:textfield name="nom" label="Nom"/></td>
+			<td><s:textfield key ="message.nom" name="nom" /></td>
 		</tr>
 		<tr>
-			<td><s:textfield name="prenom" label="Prenom" /></td>
+			<td><s:textfield key = "message.prenom" name="prenom"/></td>
 		</tr>
 		<tr>
-			<td><sx:datetimepicker name="dateNaissance"
-				label="Date De Naissance(dd-MM-yyyy)" displayFormat="dd-MM-yyyy"/></td>
+			<td><sx:datetimepicker key="message.naissance" name="dateNaissance"
+				 displayFormat="dd-MM-yyyy"/></td>
 		</tr>
 		<tr>
-			<td><s:textfield name="pseudo" label="Pseudo*" onchange="changeColor(this)"/></td>
+			<td><s:textfield key="message.ps" name="pseudo" onchange="changeColor(this)"/></td>
 		</tr>
 		<tr>
-			<td><s:password name="password" label="Mot De Passe*" onchange="changeColor(this)"/></td>
+			<td><s:password key="message.pass" name="password" onchange="changeColor(this)"/></td>
 		</tr>
 		<tr>
-			<td><s:password name="motdepasse2"
-				label="Retapez le mot de passe*" onchange="changeColor(this)"/></td>
+			<td><s:password key="message.reMdp" name="motdepasse2" onchange="changeColor(this)"/></td>
 		</tr>
 		<tr>
-			<td><s:textfield name="mail" label="Adresse email*" onchange="changeColor(this)" /></td>
+			<td><s:textfield key = "message.mail" name="mail" onchange="changeColor(this)" /></td>
 		</tr>
 		<tr>
-			<td><s:submit value="Inscription" style="width: 100px;"
-				label="Inscription"></s:submit></td>
+			<td><s:submit key = "message.ins" style="width: 100px;"></s:submit></td>
 		</tr>
 	</table>
-</s:form></div>
+</s:form>
+<h4> * : <s:property value = "getText('message.asterique')"/></h4>
+</div>
 <!-- fin principale-->
 <%@ include file="pied.jspf"%>

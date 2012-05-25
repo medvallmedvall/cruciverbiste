@@ -15,13 +15,9 @@
 	<!--%@ include file="menu.jspf" %-->
 	<%@ include file="secondaire.jspf"%>
 	<div id="principal"><!-- debut principal -->
-		<h2 style="color: #B0DFFF; font-family: Verdana, sans-serif;">Nos dictionnaires</h2>
+		<h2 style="color: #B0DFFF; font-family: Verdana, sans-serif;"><s:text name ="message.dico"/></h2>
 		<div id = "textDico">
-		Sur ce site , Nous mettons à votre disposition un dictionnaire de langue française de plus de 36000 mots.
-		Vous y retrouverez aussi des verbes conjugués et des définitions.
-		Sachez aussi que vous pouvez contribuer à l'enrichissement de nos dictionnaires en rajoutant des mots lors de la création de vos grilles
-		Les dictionnaires de langue allemande, anglaise et espagnole sont en cours d'ajout.
-		Amusez vous!!!
+		<s:property value ="getText('message.textDico')"/> 
 		</div>
 	<div id ="imageDico">
 	<a href="#"> <img alt="France" src="images/dico.jpg"> </a>
