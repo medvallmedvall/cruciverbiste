@@ -12,38 +12,47 @@ if (session.getAttribute("authentification") != null) {
 }
 %>
 <ul id="navmenu">
-	<li><a href="#">Jouer</a>
+	<li><a href="#"><s:text name="message.jouer"/></a>
 		<ul>
-			<li><a href="choixGrilles?idTypeGrid=2">Mots croises</a></li>
-			<li><a href="choixGrilles?idTypeGrid=1">Mots fleches</a> </li>
+			<li><a href="choixGrilles?idTypeGrid=2"><s:text name="message.motC"/> </a></li>
+			<li><a href="choixGrilles?idTypeGrid=1"><s:text name="message.motF"/></a> </li>
 		</ul></li>
-	<li><a href="#">Espace Jeune</a></li>
-	<li><a href="concours.jsp">Jeu concours</a></li>
+	<li><a href="#"><s:text name="message.jeune"/></a></li>
+	<li><a href="concours.jsp"><s:text name="message.concours"/></a></li>
 	<% 
 	if ((auth1 != null) && (auth1.equalsIgnoreCase("true"))) {
 %>
-	<li><a href="#">Creer une grille</a>
+	<li><a href="#"><s:text name="message.creer"/></a>
 		<ul>
-			<li><a href="creerGrille?idTypeGrille=2">Mots croises</a></li>
-			<li><a href="creerGrille?idTypeGrille=1">Mots fleches</a></li>
+			<li><a href="creerGrille?idTypeGrille=2"><s:text name="message.motC"/></a></li>
+			<li><a href="creerGrille?idTypeGrille=1"><s:text name="message.motF"/></a></li>
 		</ul></li>
-	<li><a href="mesGrilles">Mes Grilles créees</a></li>
-	<li><a href="#">Grilles en cours de jeu</a></li>
+	<li><a href="mesGrilles"><s:text name="message.mes"/></a></li>
+	<li><a href="grillesEnCours"><s:text name="message.mesG"/></a></li>
 	<% 
 	}
 	else {
 		%>
-	<li><a href="inscription.jsp">Inscription</a></li>
+	<li><a href="inscription.jsp"><s:text name="message.inscription"/></a></li>
 	<%
 	}
 %>
 
-	<li><a href="forum.jsp">Forum</a></li>
+	<li><a href="forum.jsp"><s:text name="message.forum"/></a></li>
 	
 <% 
 	if ((auth1 != null) && (auth1.equalsIgnoreCase("true")) && (droit != 0)) {
 %>
 	<li><a href="validerGrille?action=getGridToValidate">Moderation/Validation</a></li>
+<%
+	}
+%>
+
+<% 
+	if ((auth1 != null) && (auth1.equalsIgnoreCase("true")) && (droit == 3)) {
+%>
+	<li><a href = "adminCruci.jsp">Administration</a></li>
+	
 <%
 	}
 %>	
