@@ -8,21 +8,21 @@ if (session.getAttribute("authentification") != null) {
 }
 if ((auth != null) && (auth.equalsIgnoreCase("true"))) {
 %>
-	Bienvenue ${pseudo}, <a href="Deconnexion">Deconnexion</a>
+	<s:property value = "getText('message.bienvenue')"/> ${pseudo}, <a href="Deconnexion"> <s:property value = "getText('message.deconnexion')"/></a>
 <%
 }
 else {
 %>
 	<s:form action="Connexion" method="post" onsubmit="return true;" id="loginForm">
-			<s:textfield name="pseudo" label="Identifiant" id="pseudo" />
-			<s:password name="password" label="Mot de passe" id="password" />
+			<s:textfield name="pseudo" key ="message.pseudo"  id="pseudo" />
+			<s:password name="password"  key="message.password" id="password" />
 
-			<s:submit label="Connexion" value="Connexion" id="submit"
-				cssStyle="text-align: center;" onclick="connect();">
+			<s:submit key="message.connexion" id="submit"
+				cssStyle="text-align: center;">
 			</s:submit>
 		</s:form>
 		<p id="loginP">
-			<a href="oubli.jsp">Mot de passe oublié?</a>
+			<s:a href ="oubli.jsp" > <s:text name = "message.oubli"/></s:a>
 		</p>
 <%
 }
