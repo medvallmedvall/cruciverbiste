@@ -16,7 +16,7 @@ public class LettreEnCoursDao extends Dao<LettreEnCour>{
 
 	public String findByid(int idGrille,int idGrilleEnCours) throws SQLException{
 		String listLettreEnCour = null;
-		String query3 = "SELECT * FROM LettreEnCours l INNER JOIN GrilleEnCoursUtilisateur g " +
+		String query3 = "SELECT * FROM LettreEnCour l INNER JOIN grilleencoursutilisateur g " +
 				" WHERE g.idGrille = " + idGrille +
 				" AND g.idGrilleEnCours = l.idGrilleEnCours" +
 				" AND l.idGrilleEnCours = " + idGrilleEnCours;
@@ -44,7 +44,7 @@ public class LettreEnCoursDao extends Dao<LettreEnCour>{
 	@Override
 	public LettreEnCour create(LettreEnCour obj) throws SQLException {
 		LettreEnCour lettreEnCours=null;
-		String requete="INSERT INTO LettreEnCours VALUES (?,?,?,?)";
+		String requete="INSERT INTO LettreEnCour VALUES (?,?,?,?)";
 		PreparedStatement pstmt=connection.prepareStatement(requete);
 		pstmt.setInt(1, obj.getIdGrilleEnCours());
 		pstmt.setString(2, obj.getLettre());
@@ -66,7 +66,7 @@ public class LettreEnCoursDao extends Dao<LettreEnCour>{
 	}
 	
 	public void delete(int idGrilleEnCours) throws SQLException {
-		String query = "DELETE FROM LettreEnCours WHERE idGrilleEnCours = ?";
+		String query = "DELETE FROM LettreEnCour WHERE idGrilleEnCours = ?";
 		PreparedStatement stmt = connection.prepareStatement(query);
 		stmt.setInt(1, idGrilleEnCours);
 		stmt.executeUpdate();
