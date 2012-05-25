@@ -45,7 +45,7 @@ public class RechercheMot extends ActionSupport{
 	
 	
 	/**
-	 * Action qui permet de rechercher un mot à partir d'un motif
+	 * Action qui permet de rechercher un mot ï¿½ partir d'un motif
 	 */
 	public String execute() {
 		listMots = new LinkedList<String>();
@@ -81,7 +81,7 @@ public class RechercheMot extends ActionSupport{
 				session.put("recherche", "false");
 				session.put("motif", motif);
 				listMots.clear();
-				addActionError("aucun mot correspondant au motif");
+				addActionError(getText("message.aucunmotif"));
 				//session.put("listMots", listMots);
 				return INPUT;
 			}
