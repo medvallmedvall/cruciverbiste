@@ -10,11 +10,13 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 
 import entities.Commentaire;
+import entities.Droit;
 import entities.Utilisateur;
 
 public class UtilisateurDao extends Dao<Utilisateur> {
@@ -23,6 +25,41 @@ public class UtilisateurDao extends Dao<Utilisateur> {
 	public UtilisateurDao() {
 		super();
 	}
+	
+	
+	/**
+	 * Cryptage du mot de passe en Md5 pour la base de données
+	 * @param password
+	 * @return
+	 */
+	private String encode(String password)
+    {
+        byte[] uniqueKey = password.getBytes();
+        byte[] hash      = null;
+
+        try
+        {
+            hash = MessageDigest.getInstance("MD5").digest(uniqueKey);
+        }
+        catch (NoSuchAlgorithmException e)
+        {
+            throw new Error("No MD5 support in this VM.");
+        }
+
+        StringBuilder hashString = new StringBuilder();
+        for (int i = 0; i < hash.length; i++)
+        {
+            String hex = Integer.toHexString(hash[i]);
+            if (hex.length() == 1)
+            {
+                hashString.append('0');
+                hashString.append(hex.charAt(hex.length() - 1));
+            }
+            else
+                hashString.append(hex.substring(hex.length() - 2));
+        }
+        return hashString.toString();
+    }
 
 	@Override
 
@@ -63,16 +100,18 @@ public class UtilisateurDao extends Dao<Utilisateur> {
 			String mail = obj.getMail();
 			
 			//le mot de passe doit Ãªtre crypte dans phpBB_users
-			
-			MessageDigest md;
-			try {
-				md = MessageDigest.getInstance("MD5");
-			} catch (NoSuchAlgorithmException e) {
-				throw new IllegalStateException(e.getMessage());
-			}
-			md.update(password.getBytes());
-			byte[] thedigest = md.digest();
-			String passwordCrypted = new String(thedigest);
+			String perm = "00000000006xv29nwg\n" +
+					"qlctzq000000\n"
+					+ "\n"
+                    + "\n"
+					+"qlctzq000000\n"
+                    + "\n"
+                    + "\n"
+                    + "\n"
+                    + "\n"
+					+"qlctzq000000\n"
+					+"qlctzq000000\n "
+					+"qlctzq000000";
 			
 			String query = "INSERT INTO phpbb_users (group_id,username_clean, username, user_permissions, user_sig, user_occ, user_interests, user_password, user_email, user_birthday) VALUES(" +
 					  2
@@ -81,7 +120,7 @@ public class UtilisateurDao extends Dao<Utilisateur> {
 					+ "','"
 					+ pseudo.toLowerCase()
 					+ "','"
-					+ null
+					+ perm
 					+ "','"
 					+ null
 					+ "','"
@@ -89,7 +128,7 @@ public class UtilisateurDao extends Dao<Utilisateur> {
 					+ "','"
 					+ null
 					+ "','"
-					+ passwordCrypted
+					+ encode(password)
 					+ "','"
 					+ mail
 					+ "','"
@@ -209,6 +248,8 @@ public class UtilisateurDao extends Dao<Utilisateur> {
 		return b;
 
 	}
+	
+	
 
 
 	public Utilisateur getBy(String mail) throws SQLException {
@@ -234,22 +275,26 @@ public class UtilisateurDao extends Dao<Utilisateur> {
 
 	//Tous les utilisateurs du site
 	public List<Utilisateur> getUtilisateurs() throws SQLException {
-		String query = "select * from Utilisateur";
+		String query = "select * from utilisateur where idUtilisateur not in (select idutilisateur from droitutilisateur where iddroit = 3)";
 		List <Utilisateur> listUsers = new LinkedList<Utilisateur>();
 		ResultSet rs = this.connection.createStatement().executeQuery(query);
 		while (rs.next()) {
+			Integer idUtilisateur = rs.getInt("idutilisateur");
 			String nom_utilisateur = rs.getString("nom");
 			String prenom_utilisateur = rs.getString("prenom");
 			String pseudo_utilisateur = rs.getString("pseudo");
 			String pass = rs.getString("password");
 			String mail = rs.getString("mail");
 			Date naissance = rs.getDate("dateNaissance");
-			Utilisateur user = new Utilisateur(nom_utilisateur, 
+//			Date dateInscription = rs.getDate("dateInscription");
+//			int idDroit =  rs.getInt("iddroit");
+			Utilisateur user = new Utilisateur(idUtilisateur, nom_utilisateur, 
 					prenom_utilisateur, pseudo_utilisateur, pass, mail, naissance);
 			listUsers.add(user);
 		}
 		return listUsers;
 	}
+		
 	
 	//Verification des paramï¿½tres de connexion de l'utilisateur
 	public Utilisateur verifyUtilisateurConnects(String pseudo, String password) throws SQLException {
@@ -275,11 +320,48 @@ public class UtilisateurDao extends Dao<Utilisateur> {
 			String email = rs.getString("mail");
 			Date dateNaissance = rs.getDate("dateNaissance");
 			Date dateInscription = rs.getDate("dateInscription");
-			int idDroit =  rs.getInt("idDroit");
+			int idDroit =  rs.getInt("iddroit");
 			utilisateur = new Utilisateur(id, nom, prenom, pseudo, password, 
 					email, dateNaissance, dateInscription, idDroit);
 		}
 		return utilisateur;
 	}
+	
+	public void giveRights(int idUtilisateur) throws SQLException {
+		List<Utilisateur> users =  getUtilisateurs();
+		List<Integer> ids = new ArrayList<Integer>();
+		for (int i = 0; i < users.size(); i++) {
+			ids.add(users.get(i).getIdUtilisateur());
+		}
+		if (ids.contains(idUtilisateur)) {
+			String req = "select * from droitutilisateur where idUtilisateur = " + idUtilisateur;
+			ResultSet rsSet = this.connection.createStatement().executeQuery(req);
+			if (!rsSet.next()) {
+				String query = "insert into droitutilisateur values(" + idUtilisateur +",1)";
+				this.connection.createStatement().executeUpdate(query);
+			}
+			
+		}
+	}
+	
+	public void retrieveRights(int idUtilisateur) throws SQLException {
+		List<Utilisateur> users =  getUtilisateurs();
+		List<Integer> ids = new ArrayList<Integer>();
+		for (int i = 0; i < users.size(); i++) {
+			ids.add(users.get(i).getIdUtilisateur());
+		}
+		if (ids.contains(idUtilisateur)) {
+			String req = "select * from droitutilisateur where idUtilisateur = " + idUtilisateur;
+			ResultSet rsSet = this.connection.createStatement().executeQuery(req);
+			if (rsSet.first()) {
+				String query = "delete from droitutilisateur where idUtilisateur = " + idUtilisateur;
+				this.connection.createStatement().execute(query);
+			}
+		}
+		
+	}
+	
+	
+	
 
 }
