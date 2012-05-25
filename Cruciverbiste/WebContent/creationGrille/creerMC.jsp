@@ -8,12 +8,12 @@
 
 <div id="menuMotsCroises">
 	<ul id="nav">
-		<li><a href="#" onclick="return false;">Fichier</a>
+		<li><a href="#" onclick="return false;"><s:property value ="getText('message.fichier')"/></a>
 			<ul>
-				<li><a href="#" onclick="saveGrille(); return false;">Sauvegarder</a></li>
-				<li><a href="#" onclick="endGrille(); return false;">Soumettre la grille</a></li>
+				<li><a href="#" onclick="saveGrille(); return false;"><s:property value ="getText('message.sauver')"/></a></li>
+				<li><a href="#" onclick="endGrille(); return false;"><s:property value ="getText('message.soumettre')"/></a></li>
 			</ul>
-		<li><a href="#" onclick="deleteDefinition(); return false;">supprimer la definition</a>
+		<li><a href="#" onclick="deleteDefinition(); return false;"><s:property value ="getText('message.supprDef')"/></a>
 		</li>
 	</ul>
 	<p style="clear: both;"></p>
@@ -23,7 +23,7 @@
 
 <div id="definitions">
 	<div id="defHorizontales">
-		<p class="titreDefinitions">Horizontalement</p>
+		<p class="titreDefinitions"><s:property value ="getText('message.horizon')"/></p>
 		<c:set var="i" value="1" />
 		
 		<c:forEach var="i" begin="0" end="${grille.hauteur - 1}" step="1">
@@ -49,7 +49,7 @@
 		</c:forEach>
 	</div>
 	<div id="defVerticales">
-		<p class="titreDefinitions">Verticalement</p>
+		<p class="titreDefinitions"><s:property value ="getText('message.vertical')"/></p>
 		
 		<c:forEach var="i" begin="0" end="${grille.largeur - 1}" step="1">
 			<div id="defV${i}"> <c:out value="${i+1}-1" /> <input type='text' id='dV${i}-1'/></div>
