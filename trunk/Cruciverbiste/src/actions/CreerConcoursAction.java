@@ -54,6 +54,17 @@ public class CreerConcoursAction extends ActionSupport {
 		System.out.println(getIdGrille());
 		Map<String, Object> session = ActionContext.getContext().getSession();
 		ConcoursDao dao = new ConcoursDao();
+		if ((!session.containsKey("authentification")) || 
+				(!session.containsKey("idUser")) ||
+				(!session.get("authentification").equals("true"))) {
+			addActionError(getText("message.pasCo"));
+			return ERROR;
+		}
+		if (!(session.containsKey("droit")) ||
+				((Integer) session.get("droit") <= 0)) {
+			addActionError(getText("message.autorisation"));
+			return ERROR;
+		}
 		if (dao.verifyGrilleConcours(idGrille)) {
 			addActionError(getText("message.grilledejautilise"));
 			return ERROR;
