@@ -185,7 +185,8 @@ public class GrilleDao extends Dao<Grille> {
 		Map<Grille,Date> grilles = new HashMap<Grille, Date>();
 		String query = "SELECT * FROM Grille g " +
 						"INNER JOIN grilleencoursutilisateur e " +
-						"WHERE g.idGrille = e.idGrille and e.idUtilisateur = ?" ;		ResultSet results = null;
+						"WHERE g.idGrille = e.idGrille and e.idUtilisateur = ?" ;		
+		ResultSet results = null;
 		PreparedStatement pstmt = connection.prepareStatement(query);
 		pstmt.setInt(1, idUser);
 		results = pstmt.executeQuery();
