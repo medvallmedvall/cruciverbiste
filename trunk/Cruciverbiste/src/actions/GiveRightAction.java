@@ -9,7 +9,6 @@ import com.opensymphony.xwork2.ActionSupport;
 import dao.DaoFactory;
 import dao.UtilisateurDao;
 import entities.Droit;
-import entities.Utilisateur;
 
 public class GiveRightAction extends ActionSupport {
 	
@@ -39,12 +38,24 @@ public class GiveRightAction extends ActionSupport {
 	public String execute() {
 		UtilisateurDao dao = (UtilisateurDao) DaoFactory.getUtilisateurDao();
 		Map<String, Object> session = ActionContext.getContext().getSession();
+		if ((!session.containsKey("authentification")) || 
+				(!session.containsKey("idUser")) ||
+				(!session.get("authentification").equals("true"))) {
+			addActionError(getText("message.pasCo"));
+			return ERROR;
+		}
+		if (!(session.containsKey("droit")) ||
+				((Integer) session.get("droit") < 3)) {
+			addActionError(getText("message.autorisation"));
+			return ERROR;
+		}
 		try {
 			dao.giveRights(user);
 		} catch (SQLException e) {
 			addActionError(e.getMessage());
 			return ERROR;
 		}
+
 		session.put("user", user);
 		return SUCCESS;
 	}
