@@ -6,6 +6,7 @@
     pageEncoding="ISO-8859-1"%>
 <%List<Utilisateur>  utilisateurs = (List<Utilisateur>)session.getAttribute("users"); 
   Integer user = (Integer)session.getAttribute("user");
+  List<Utilisateur> modos = (List<Utilisateur>)session.getAttribute("modos");
 %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -49,6 +50,8 @@
 <%@ include file="entete.jspf" %>
  <%@ include file="secondaire.jspf" %>
 <div id="principal">
+<c:choose>
+	<c:when test="${authentification && droit == 3}">
 	<h3><s:property value = "getText('message.pageadmin')"/></h3>
 	<c:choose>
 		<c:when test = "${users == null}">
@@ -63,7 +66,6 @@
 				<th><s:property value = "getText('message.pseudo')"/> </th>
 				<th><s:property value = "getText('message.donner')"/></th>
 				<th><s:property value = "getText('message.enlever')"/></th>
-				<th><s:property value = "getText('message.suppr')"/></th>
 				<th><s:property value = "getText('message.statut')"/></th>
 			</tr>
 			</thead>
@@ -71,14 +73,27 @@
 			<c:forEach var = "u" items = "${users}">
 			    <c:set var = "nom" value ="${u.getNom()}"/>
 			    <c:set var = "pseudo" value ="${u.getPseudo()}"/>
-			    <c:set scope="session" var="user" value= "${u.getIdUtilisateur()}"/>
 			  
 				<tr class="odd gradeC"> 
 				<td>${nom}</td>
 				<td>${pseudo}</td>
-				<td><a href = "nommer?user=${u.getIdUtilisateur()}"><s:property value = "getText('message.nommer')"/></a> </td>
-				<td><a href = "enlever?user=${u.getIdUtilisateur()}"><s:property value = "getText('message.retrai')"/></a></td>
-				<td><a href = "deleteUser?user=${u.getIdUtilisateur()}"><s:property value = "getText('message.suppr')"/></a></td>
+				<c:choose>
+					<c:when test = "${u.getIdDroit() == 0}">
+						<td><a href = "nommer?user=${u.getIdUtilisateur()}" ><s:property value = "getText('message.nommer')"/></a> </td>
+					</c:when>
+					<c:otherwise>
+						<td> </td>
+					</c:otherwise>
+				</c:choose>
+				
+				<c:choose>
+					<c:when test = "${u.getIdDroit() == 0}">
+						<td></td>
+					</c:when>
+					<c:otherwise>
+							<td><a href = "enlever?user=${u.getIdUtilisateur()}"><s:property value = "getText('message.retrai')"/></a></td>
+					</c:otherwise>
+				</c:choose>
 				<c:choose>
 					<c:when test = "${u.getIdDroit() == 0}">
 						<td><s:property value = "getText('message.usersimple')"/> </td>
@@ -96,6 +111,13 @@
 		</c:otherwise>
 	
 	</c:choose>
-			
+	</c:when>
+	<c:otherwise>
+		<h3><s:property value = "getText('message.validationacces')"/></h3>
+	</c:otherwise>
+	</c:choose>
+	<c:set var="nbMembres" value="${users.size()}"/>
+	
+	<h4> Nous avons ${nbMembres} utilisateurs inscrits sur le site Cruciverbiste </h4>	
 		</div><!-- fin principale-->
 	<%@ include file="pied.jspf" %>	
