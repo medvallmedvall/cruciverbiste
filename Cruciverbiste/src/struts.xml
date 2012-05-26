@@ -149,11 +149,6 @@
 			<result name="error">erreurConcours.jsp</result>
 			<result name = "input">moderation/moderation.jsp</result>
 		</action>
-			
-		<action name="deleteUser" class="actions.DeleteUserAction">
-			<result name="success">adminCruci.jsp</result>
-			<result name="error">erreur.jsp</result>
-		</action>
 		
 		<action name="telechargerGrille" class="actions.TelechargerGrille">
 			<result name="success" type="stream">
@@ -162,6 +157,11 @@
 		    	<param name="contentDisposition">filename="Grille.pdf"</param>
 		    	
 			</result>
+		</action>
+		
+		<action name = "GrilleFinie" class ="actions.GrilleFinie">
+			<result name ="success">grilles/finie.jsp</result>
+			<result name="error">grilles/finie.jsp</result>
 		</action>
 	</package>
 
