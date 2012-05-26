@@ -28,6 +28,17 @@ public class RetrieveRightAction extends ActionSupport {
 	public String execute() {
 		UtilisateurDao dao = (UtilisateurDao) DaoFactory.getUtilisateurDao();
 		Map<String, Object> session = ActionContext.getContext().getSession();
+		if ((!session.containsKey("authentification")) || 
+				(!session.containsKey("idUser")) ||
+				(!session.get("authentification").equals("true"))) {
+			addActionError(getText("message.pasCo"));
+			return ERROR;
+		}
+		if (!(session.containsKey("droit")) ||
+				((Integer) session.get("droit") < 3)) {
+			addActionError(getText("message.autorisation"));
+			return ERROR;
+		}
 		try {
 			dao.retrieveRights(user);
 		} catch (SQLException e) {
