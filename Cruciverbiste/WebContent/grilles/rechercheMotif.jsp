@@ -5,7 +5,7 @@
 <%String motif = (String) session.getAttribute("motif"); %>
 
 <h3><s:property value ="getText('message.motif')"/></h3>
-
+		<s:actionerror/>
 		<s:label>Ex : u??v?rs <s:property value ="getText('message.resultat')"/> : univers </s:label>
 		<s:form action="rechercherMot" method ="post" onsubmit="return false;">
 			<%if (recherche == "true") { %>
