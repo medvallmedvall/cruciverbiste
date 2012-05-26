@@ -326,8 +326,15 @@ public class UtilisateurDao extends Dao<Utilisateur> {
 			String pass = rs.getString("password");
 			String mail = rs.getString("mail");
 			Date naissance = rs.getDate("dateNaissance");
+			Date inscription = rs.getDate("dateInscription");
 			Utilisateur user = new Utilisateur(idUtilisateur, nom_utilisateur, 
-					prenom_utilisateur, pseudo_utilisateur, pass, mail, naissance);
+					prenom_utilisateur, pseudo_utilisateur, pass, mail, naissance,inscription);
+			for (Utilisateur u : getModerateurs()) {
+				if (idUtilisateur == u.getIdUtilisateur()) {
+					user.setIdDroit(1);
+				}
+			}
+		
 			listUsers.add(user);
 		}
 		return listUsers;
@@ -396,6 +403,29 @@ public class UtilisateurDao extends Dao<Utilisateur> {
 				this.connection.createStatement().execute(query);
 			}
 		}
+		
+	}
+	
+	public List<Utilisateur> getModerateurs() throws SQLException {
+		List<Utilisateur> moderateurs = new ArrayList<Utilisateur>();
+		String query = "SELECT * from utilisateur u, droitutilisateur d where u.idUtilisateur = d.idUtilisateur and iddroit = 1";
+		ResultSet rs = this.connection.createStatement().executeQuery(query);
+		while (rs.next()) {
+			Integer idUtilisateur = rs.getInt("u.idutilisateur");
+			String nom_utilisateur = rs.getString("nom");
+			String prenom_utilisateur = rs.getString("prenom");
+			String pseudo_utilisateur = rs.getString("pseudo");
+			String pass = rs.getString("password");
+			String mail = rs.getString("mail");
+			Date naissance = rs.getDate("dateNaissance");
+			Date inscription = rs.getDate("dateInscription");
+			Integer iddroit = rs.getInt("iddroit");
+			Utilisateur user = new Utilisateur(idUtilisateur, nom_utilisateur, 
+					prenom_utilisateur, pseudo_utilisateur, pass, mail, inscription, naissance, iddroit);
+			moderateurs.add(user);
+			
+		}
+		return moderateurs;
 		
 	}
 	
