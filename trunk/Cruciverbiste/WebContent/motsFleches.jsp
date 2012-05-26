@@ -85,75 +85,87 @@
 <!--
 	/* loadGrille */
 	function loadGrille() {
-		var loadList="<%= ses.get("listLettre").toString() %>";
-		var session=<%=ses.containsKey("idUser")%>;
-		if(loadList!=""){
-			var tabLoadListe=new Array();
-			tabLoadListe=stringToTab(loadList);
-			var indice=0;
-			for ( var i = 0; i <tabLoadListe.length; i++) {
-				laLettre=tabLoadListe[i];
-				indice=i+1;
-				x=tabLoadListe[indice];
-				indice=i+2;
-				y=tabLoadListe[indice];
-				var mIdCase = x + "-" + y; 
+
+	<% 	String listLettre = "";
+		if (ses.get("listLettre") != null) {
+			listLettre =  ses.get("listLettre").toString();
+		}
+		boolean tmpSession = false;
+		if (ses.containsKey("authentification") &&
+				ses.get("authentification").equals("true")) {
+			tmpSession = true;
+		}
+	%>
+
+	
+	var loadList="<%= listLettre %>";
+	var session=<%=tmpSession%>;
+		if (loadList != "") {
+			var tabLoadListe = new Array();
+			tabLoadListe = stringToTab(loadList);
+			var indice = 0;
+			for ( var i = 0; i < tabLoadListe.length; i++) {
+				laLettre = tabLoadListe[i];
+				indice = i + 1;
+				x = tabLoadListe[indice];
+				indice = i + 2;
+				y = tabLoadListe[indice];
+				var mIdCase = x + "-" + y;
 				$("#" + mIdCase).text(laLettre);
 			}
-		}if(!session){
-			if(readCookie(nameGrid) != null){
-				var tabLoadListe=new Array();
-				var loadList=readCookie(nameGrid);
-				tabLoadListe=stringToTabCookie(loadList);
-				var indice=0;
-				for ( var i = 0; i <tabLoadListe.length; i++) {
-					laLettre=tabLoadListe[i];
-					indice=i+1;
-					x=tabLoadListe[indice];
-					indice=i+2;
-					y=tabLoadListe[indice];
-					var mIdCase = x + "-" + y; 
+		}
+		if (!session) {
+			if (readCookie(nameGrid) != null) {
+				//alert("motsFleches");
+				var tabLoadListe = new Array();
+				var loadList = readCookie(nameGrid);
+				tabLoadListe = stringToTabCookie(loadList);
+				var indice = 0;
+				for ( var i = 0; i < tabLoadListe.length; i++) {
+					laLettre = tabLoadListe[i];
+					indice = i + 1;
+					x = tabLoadListe[indice];
+					indice = i + 2;
+					y = tabLoadListe[indice];
+					var mIdCase = x + "-" + y;
 					$("#" + mIdCase).text(laLettre);
 				}
 			}
 		}
 	}
-//-->
-</script>
 
-<script type="text/javascript">
-<!--
-function saveGrid() {
-	var session=<%=ses.containsKey("idUser")%>
-	var listeLettre = new Array();
-	listeLettre = sauvegarder();
-	if(session==true){
-		if ($(listeLettre).val() == "") {
-			alert("rien à sauvegarder");
-			return false;
+	function saveGrid() {
+		var session = "${authentification}";
+		var listeLettre = new Array();
+		listeLettre = sauvegarder();
+		if (session == "true") {
+			if ($(listeLettre).val() == "") {
+				alert("rien à sauvegarder");
+				return false;
+			}
+			var idGrille = ${grille.idGrille};
+			var params = "idGrille=" + idGrille + "&listeLettre=" + listeLettre;
+			alert(params);
+			$.ajax({
+				url : "Sauvegarder",
+				type : 'POST',
+				cache : false,
+				data : params,
+				success : function(contenu) {
+					alert("La grille 	a été sauvegardée avec succès");
+				},
+				error : function() {
+					alert("Une erreur lors de la sauvegarde")
+				}
+			});
+		} else {
+			createCookie(nameGrid, listeLettre, 1);
+			alert("La Grille a èté sauvegardé avec succés");
 		}
-		var idGrille = ${grille.idGrille};
-		var params = "idGrille=" + idGrille + "&listeLettre=" + listeLettre; /*+ "&commentaire=" + content*/
-		$.ajax({
-			url: "Sauvegarder",
-			type: 'POST',
-			cache: false,
-			data: params,
-			success : function(contenu) {
-				alert("La Grille a èté sauvegardée avec succés");
-// 				alert(contenu);
-		},
-			error : function() {alert("erreur...")}
-		});
-	}else{
-		createCookie(nameGrid,listeLettre,1);
-		alert("La Grille a èté sauvegardée avec succés");
+
 	}
-}
 //-->
 </script>
-
-
 
 <!-- Ajout des définitions dans les cases -->
 
