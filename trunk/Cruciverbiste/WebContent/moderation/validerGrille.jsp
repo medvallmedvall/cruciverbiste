@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Jouer</title>
+<title>Valider la Grille</title>
 
 <link rel="stylesheet" type="text/css" href="styles/style.css"
 	media="screen" />
@@ -13,12 +13,11 @@
 	media="screen" />
 <script type="text/javascript" src="javascripts/jquery-1.7.1.js"></script>
 </head>
-<body>
+<body onload ="clearArea();">
 	<%@ include file="/entete.jspf"%>
 		
-		<div id="secondaire">
+		<div id="rechercheMotDiv">
 		<%@ include file="/grilles/rechercheMotif.jsp"%>
-		
 		</div>
 
 	<div id="principal">
@@ -85,6 +84,53 @@
 		<script type="text/javascript" src="javascripts/grilles/messageBox.js"></script>
 	</div>
 	
+	<script type="text/javascript">
+	//pour l'appli de recherche de mots
+	function copyArea() {
+		if ($("#motif").val() == "") {
+			alert("Vous devez rentrer un motif de plus de 2 caractères");
+			$("#motif").focus();
+			return false();
+		}
+		var motif = $("#motif").val();
 
+		if (motif.indexOf("?") == -1) {
+			alert("Votre motif doit comporter au moins un caractère ?");
+			$("#motif").focus();
+			return false();
+		}
+		var idGrille = ${grille.idGrille};
+		var params = "idGrille=" + idGrille + "&motif=" + motif;
+		$.ajax({
+			url : "rechercherMot",
+			type : 'POST',
+			cache : false,
+			data : params,
+			success : function(content) {
+				$.ajax({
+					url : "grilles/rechercheMotif.jsp",
+					cache : false,
+					success : function(contenu1) {
+						$("#rechercheMotDiv").html(contenu1);
+					},
+					error : function() {
+						alert("erreur...")
+					}
+				}).done(function() {
+					//alert("fin");
+				});
+			},
+			error : function() {
+				alert("Une erreur : ");
+			}
+		});
+	}
+	function clearArea() {
+	    document.getElementById("motif").value ="";
+	    document.getElementById("resultArea").options.length = 0;
+		
+	}	
+	
+	</script>
 
 <%@ include file="/pied.jspf"%>
