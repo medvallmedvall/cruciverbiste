@@ -67,13 +67,7 @@
 		}else
 			idValue="<img src='images/non.png' alt='la grille n est finie'/>";
 		var mUrl = "jouer?idGrille=" + ${grille.key.idGrille};
-		var mElement = /*"<tr>"+
-		   				   "<td align=center>Nom de la grille</td>"+
-						   "<td align=center>Concepteur</td>"+
-						   "<td align=center>largeur et hauteur</td>"+
-						   "<td align=center>niveau</td>"+
-						   "<td align=center>Terminée</td>"+
-					   "</tr>"+*/
+		var mElement = 
 					   "<tr onclick=\"location.href='"+ mUrl + "'\">" +
 	                       "<td align=center>${grille.key.nomGrille}</td>" +
 	                       "<td align=center>${grille.key.pseudo}</td>" +
