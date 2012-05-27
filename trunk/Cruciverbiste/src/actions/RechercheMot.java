@@ -52,19 +52,16 @@ public class RechercheMot extends ActionSupport{
 		Map<String, Object> session = ActionContext.getContext().getSession();
 		if (motif == null)
 		{
-			//addActionError("le motif est null");
 			addActionError(getText("message.motifnul"));
 			return INPUT;
 		}
 		
 		if (motif.trim().length() <= 1) {
-			//addActionError("la longueur du motif doit etre supérieure ou égale à 2");
 			addActionError(getText("message.motifsup"));
 			return INPUT;
 		}
 		
 		if (motif.indexOf("?") == -1) {
-			//addActionError("Il faut au moins un ? dans votre motif");
 			addActionError(getText("message.motifint"));
 			return INPUT;
 		}

@@ -85,6 +85,16 @@ public class CreateGridAction extends ActionSupport {
 			u.setIdUtilisateur(idUser);
 			grille.setUtilisateur(u);
 			GrilleDao dao = new GrilleDao();
+			if (((session.containsKey("droit")) &&
+					((Integer) session.get("droit") >= 1))) {
+				try {
+					grille = dao.createGrilleConcours(grille);
+				} catch (SQLException e) {
+					addActionError(e.getMessage());
+					e.printStackTrace();
+					return ERROR;
+				}
+			}
 			try {
 				grille = dao.create(grille);
 			} catch (SQLException e) {

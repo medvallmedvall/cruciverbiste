@@ -10,10 +10,12 @@ import com.opensymphony.xwork2.ActionSupport;
 
 import dao.ConcoursDao;
 import dao.GrilleDao;
+
 import entities.Concours;
 import entities.Grille;
 
-public class CreerConcoursAction extends ActionSupport {
+public class DeleteConcoursAction extends ActionSupport {
+	
 	private int idGrille;
 	private Date dateDebut;
 	private Date dateFin;
@@ -57,18 +59,18 @@ public class CreerConcoursAction extends ActionSupport {
 		this.dateFin = dateFin;
 	}
 	
-	public int getIdConcours() {
-		return idConcours;
+	public void setIdConcours(int idConcours) {
+		this.idConcours = idConcours;
 	}
 	
-	/**
-	 * Creation du jeu concours par l'administrateur ou le modérateur
-	 */
+	public List<Concours> getListConcours() {
+		return listConcours;
+	}
+	
 	public String execute() {
-		Concours conc = new Concours(getIdGrille(), getDateDebut(), getDateFin());
+		//Concours conc = new Concours(getIdGrille(), getDateDebut(), getDateFin());
 		Map<String, Object> session = ActionContext.getContext().getSession();
 		ConcoursDao dao = new ConcoursDao();
-		GrilleDao grilledao = new GrilleDao();
 		if ((!session.containsKey("authentification")) || 
 				(!session.containsKey("idUser")) ||
 				(!session.get("authentification").equals("true"))) {
@@ -80,21 +82,29 @@ public class CreerConcoursAction extends ActionSupport {
 			addActionError(getText("message.autorisation"));
 			return ERROR;
 		}
-			if (dao.verifyGrilleConcours(idGrille)) {
-				addActionError(getText("message.grilledejautilise"));
+		try {
+			Concours conc = dao.findById(idConcours);
+			if (conc == null) {
+				addActionError(getText("message.concoursinv"));
 				return ERROR;
-			} else {
-				try {
-					dao.create(conc);
-				} catch (SQLException e) {
-					addActionError(e.getMessage());
-					return ERROR;
-				}
 			}
-		
-		//session.put("concours", idConcours);
+			System.out.println("concours id : " + conc.getIdGrille());
+			System.out.println("id grille :" + getIdGrille());
+			GrilleDao grilledao = new GrilleDao();
+			grille = grilledao.findById(conc.getIdGrille());
+			if (grille == null) {
+				addActionError(getText("message.grilleinexistante"));
+				return ERROR;
+			}
+			grille.setForConcours(false);
+			dao.delete(conc);
+			
+		} catch (SQLException e) {
+			addActionError(e.getMessage());
+			e.printStackTrace();
+			return ERROR;
+		}
 		return SUCCESS;
-		
 		
 	}
 

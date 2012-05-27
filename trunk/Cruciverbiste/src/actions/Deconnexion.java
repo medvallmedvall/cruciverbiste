@@ -34,7 +34,6 @@ public class Deconnexion extends ActionSupport {
 			} else {
 				redirectUrl = request.getContextPath();
 			}
-			System.out.println(redirectUrl);
 		}
 	}
 	

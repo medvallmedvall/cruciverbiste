@@ -22,7 +22,7 @@ public class SubmitGridAction extends ActionSupport {
 	private final String SEPARATOR2 = ":";
 	
 	/**
-	 * Soumettre une grille 
+	 * Soumettre une grille créée
 	 */
 	public String execute() {
 		Map<String, Object> session = ActionContext.getContext().getSession();

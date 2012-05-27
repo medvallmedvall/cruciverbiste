@@ -15,7 +15,7 @@ public class MyGridsAction extends ActionSupport{
 	private List<Grille> mesGrilles;
 	
 	/**
-	 * La liste des grilles cr��s par l'utilisateur
+	 * La liste des grilles crees par l'utilisateur
 	 */
 	public String execute() {
 		Map<String, Object> session = ActionContext.getContext().getSession();
