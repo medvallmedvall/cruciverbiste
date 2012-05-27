@@ -22,6 +22,13 @@
 				<img alt="grille du jour" src="images/grillesJour/grille4.png">
 			</a>
 		</div>
+		<div id = "textDico">
+		<h2><s:text name ="message.dico"/></h2>
+		<s:property value ="getText('message.textDico')"/> 
+		</div>
+		<div id ="imageDico">
+			<a href="#"> <img alt="France" src="images/dico.jpg"> </a>
+		</div>
 		
 	</div><!-- fin principale-->
 	<script>
