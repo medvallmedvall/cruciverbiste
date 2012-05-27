@@ -25,6 +25,7 @@ public class Grille {
 	private int idTheme;
 	private List<MotGrille> motsGrille;
 	private List<Commentaire> commentaires;
+	private boolean forConcours;
 
 	public Grille() {
 	}
@@ -68,6 +69,27 @@ public class Grille {
 		this.idTheme = idTheme;
 		this.motsGrille = motsGrille;
 		this.utilisateur = utilisateur;
+	}
+	
+	public Grille(int idGrille, int idLangue, int typeGrille,
+			String nomGrille, int largeur,
+			int hauteur, Date dateCreation, boolean estFinie,
+			boolean estValidee, Date dateValidation, int niveau, int idTheme,
+			Utilisateur utilisateur, boolean forConcours) {
+		this.idGrille = idGrille;
+		this.idLangue = idLangue;
+		this.idTypeGrille = typeGrille;
+		this.nomGrille = nomGrille;
+		this.largeur = largeur;
+		this.hauteur = hauteur;
+		this.dateCreation = dateCreation;
+		this.estFinie = estFinie;
+		this.estValidee = estValidee;
+		this.dateValidation = dateValidation;
+		this.niveau = niveau;
+		this.idTheme = idTheme;
+		this.utilisateur = utilisateur;
+		this.forConcours = forConcours;
 	}
 
 	public Integer getIdGrille() {
@@ -215,6 +237,14 @@ public class Grille {
 	
 	public void setIdLangue(int idLangue) {
 		this.idLangue = idLangue;
+	}
+
+	public boolean isForConcours() {
+		return forConcours;
+	}
+
+	public void setForConcours(boolean forConcours) {
+		this.forConcours = forConcours;
 	}
 
 }
