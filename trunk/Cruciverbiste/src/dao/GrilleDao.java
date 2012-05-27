@@ -52,9 +52,10 @@ public class GrilleDao extends Dao<Grille> {
 		Utilisateur utilisateur = new Utilisateur();
 		utilisateur.setIdUtilisateur(idUtilisateur);
 		utilisateur.setPseudo(pseudo);
+		boolean forConcours = results.getBoolean("forConcours");
 		grille = new Grille(id, idLangue, idTypeGrille,
 				nomGrille, largeur, longueur, dateCreation, estFinie,
-				estValidee, dateValidation, niveau, idTheme, utilisateur);
+				estValidee, dateValidation, niveau, idTheme, utilisateur, forConcours);
 		CommentaireDao commDao = new CommentaireDao();
 		List<Commentaire> commList = commDao.getByIdGrille(id);
 		grille.setCommentaires(commList);
@@ -70,7 +71,7 @@ public class GrilleDao extends Dao<Grille> {
 			throw new IllegalArgumentException("La grille est null");
 		}
 		Grille grille = null;
-		String query = "INSERT INTO Grille VALUES (NULL, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+		String query = "INSERT INTO Grille VALUES (NULL, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 		PreparedStatement stmt = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
 		Date date = new Date();
 		stmt.setString(1, obj.getNomGrille());
@@ -89,6 +90,7 @@ public class GrilleDao extends Dao<Grille> {
 		stmt.setDate(10, null);
 		stmt.setInt(11, obj.getNiveau());
 		stmt.setInt(12, obj.getIdTheme());
+		stmt.setBoolean(13, false);
 		stmt.executeUpdate();
 		ResultSet rs = stmt.getGeneratedKeys();
 		if (rs.first()) {
@@ -97,6 +99,43 @@ public class GrilleDao extends Dao<Grille> {
 		}
 		return grille;
 	}
+	
+	public Grille createGrilleConcours(Grille obj) throws SQLException {
+		if (obj == null) {
+			throw new IllegalArgumentException("La grille est null");
+		}
+		Grille grille = null;
+		String query = "INSERT INTO Grille VALUES (NULL, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+		PreparedStatement stmt = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
+		Date date = new Date();
+		stmt.setString(1, obj.getNomGrille());
+		stmt.setInt(2, obj.getLargeur());
+		stmt.setInt(3, obj.getHauteur());
+		stmt.setInt(4, obj.getIdLangue());
+		stmt.setInt(5, obj.getIdTypeGrille());
+		stmt.setInt(6, obj.getUtilisateur().getIdUtilisateur());
+		//date creation
+		stmt.setDate(7, new java.sql.Date(date.getTime()));
+		//est finie
+		stmt.setBoolean(8, false);
+		//estValidee
+		stmt.setBoolean(9, false);
+		//date validation
+		stmt.setDate(10, null);
+		stmt.setInt(11, obj.getNiveau());
+		stmt.setInt(12, obj.getIdTheme());
+		stmt.setBoolean(13, true);
+		stmt.executeUpdate();
+		ResultSet rs = stmt.getGeneratedKeys();
+		if (rs.first()) {
+			int id = rs.getInt(1);
+			grille = findById(id);
+		}
+		return grille;
+	}
+	
+	
+	
 
 	@Override
 	public Grille update(Grille obj) throws SQLException {
@@ -173,10 +212,14 @@ public class GrilleDao extends Dao<Grille> {
 			Utilisateur utilisateur = new Utilisateur();
 			utilisateur.setIdUtilisateur(idUtilisateur);
 			utilisateur.setPseudo(pseudo);
+			boolean forConcours = results.getBoolean("forConcours");
 			Grille grille = new Grille(idGrille, idLangue, idTypeGrille,
 					nomGrille, largeur, longueur, dateCreation, estFinie,
 					estValidee, dateValidation, niveau, idTheme, utilisateur);
-			mList.add(grille);
+			if (!forConcours) {
+				mList.add(grille);
+			}
+			
 		}
 		return mList;
 	}
@@ -390,4 +433,5 @@ public class GrilleDao extends Dao<Grille> {
 		}
 		return mList;
 	}
+	
 }
