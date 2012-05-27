@@ -118,7 +118,7 @@
 	overflow: hidden;
 	border-radius: 0px;
 	border: 1px solid black;
-	//background-color: gray;
+	background-color: gray;
 }
 
 #grilleMotFleche .definitionMF {
@@ -164,6 +164,11 @@
 	display: none;
 }
 
+.caseLettre div {
+	height: 100%;
+	width: 100%;
+}
+
 /*********************** EDITEUR ******************************/
 
 textarea#editDef {
@@ -172,6 +177,7 @@ textarea#editDef {
 	width: 90%;
 	height: 90%;
 	z-index: 100;
+	overflow:hidden;
 }
 
 
