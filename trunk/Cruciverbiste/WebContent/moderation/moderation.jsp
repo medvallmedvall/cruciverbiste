@@ -45,10 +45,10 @@
 	<%@ include file="/entete.jspf"%>
 
 	<div id="principal">
-	<h2><s:property value = "getText('message.creerConcours')"/></h2>
-		<a href = "creerConcours.jsp"><s:property value = "getText('message.parici')"/></a>
 		<c:choose>
 			<c:when test="${authentification && droit != 0}">
+			<h2><s:property value = "getText('message.creerConcours')"/></h2>
+				<a href = "creerConcours.jsp"><s:property value = "getText('message.parici')"/></a>
 				<h2><s:property value = "getText('message.moderation')"/></h2>
 				<s:actionmessage/>
 				<h3><s:property value = "getText('message.aval')"/></h3>
@@ -98,7 +98,7 @@
 				</div>
 			</c:when>
 			<c:otherwise>
-				<p><s:property value = "getText('message.validationacces')"/>e</p>
+				<p><s:property value = "getText('message.validationacces')"/></p>
 			</c:otherwise>
 		</c:choose>
 	</div>
