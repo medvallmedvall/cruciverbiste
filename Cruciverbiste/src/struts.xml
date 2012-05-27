@@ -17,6 +17,12 @@
 			<!--result name="success">motsCroises.jsp</result -->
 			<result name="error">erreur.jsp</result>
 		</action>
+		
+		<action name="jouerConcours" class="actions.PlayConcours">
+			<result name="success">jouer.jsp</result>
+			<result name="error">erreur.jsp</result>
+		</action>
+		
 		<action name="choixGrilles" class="actions.GetGridListAction">
 			<result name="success">choixGrilles.jsp</result>
 			<result name="error">erreur.jsp</result>
@@ -157,6 +163,21 @@
 		    	<param name="contentDisposition">filename="Grille.pdf"</param>
 		    	
 			</result>
+		</action>
+		
+		<action name ="Jeuconcours" class="actions.TheConcoursAction">
+			<result name ="success">concours.jsp</result>
+			<result name="error">erreur.jsp</result>
+		</action>
+		
+		<action name ="SupprJeuconcours" class="actions.DeleteConcoursAction">
+			<result name ="success">confirmSupprConcours.jsp</result>
+			<result name="error">erreur.jsp</result>
+		</action>
+		
+		<action name ="validerJeuconcours" class="actions.ValidateJeuConcours">
+			<result name ="success">validerConcours.jsp</result>
+			<result name="error">erreur.jsp</result>
 		</action>
 		
 		<action name = "GrilleFinie" class ="actions.GrilleFinie">
