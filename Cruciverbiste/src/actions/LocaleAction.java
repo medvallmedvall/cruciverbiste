@@ -44,7 +44,6 @@ public class LocaleAction extends ActionSupport {
 			} else {
 				redirectUrl = request.getContextPath();
 			}
-			System.out.println(redirectUrl);
 		}
 	}
 

@@ -25,7 +25,7 @@ public class SaveCreatedGridAction extends ActionSupport {
 	private final String SEPARATOR2 = ":";
 	
 	/**
-	 * Sauvegarder une grille en cours de cr�ation
+	 * Sauvegarder une grille en cours de création
 	 */
 
 	public String execute() {

@@ -102,7 +102,7 @@ public class ValidateGridAction extends ActionSupport{
 		}
 		else if (action.equals("unvalidate") && (droit != 0)) {
 			if ((message == null) || (message.isEmpty())) {
-				addActionError("Un message doit être spécifié");
+				addActionError(getText("message.specifie"));
 				return ERROR;
 			}
 			try {

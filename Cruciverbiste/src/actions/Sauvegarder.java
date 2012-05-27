@@ -32,7 +32,6 @@ public class Sauvegarder extends ActionSupport{
 	@Override
 	public String execute() throws Exception{
 		if(listeLettre==null){
-			//addActionError("La liste de lettre est nulle");
 			addActionError(getText("message.listelettre"));
 			return ERROR;
 		}
@@ -59,10 +58,9 @@ public class Sauvegarder extends ActionSupport{
 					sauvegardeOK = dao.Sauvegarder(idGrille, idUser, list);
 			} catch (SQLException e) {
 				addActionError(e.getMessage());
-				e.printStackTrace();
 				return ERROR;
 			}
-		}// cookies
+		}
 		return SUCCESS;
 	}
 

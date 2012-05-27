@@ -1,6 +1,7 @@
 package actions;
 
 import java.sql.SQLException;
+import java.util.List;
 import java.util.Map;
 
 import com.opensymphony.xwork2.ActionContext;
@@ -8,42 +9,20 @@ import com.opensymphony.xwork2.ActionSupport;
 
 import dao.DaoFactory;
 import dao.UtilisateurDao;
-import entities.Droit;
+
 import entities.Utilisateur;
 
-public class GiveRightAction extends ActionSupport {
-	
-	
-	public int user;
-	public Droit droit;
-	public int statut;
-	public Utilisateur utilisateur;
-	
-	public int getIdUtilisateur() {
-		return user;
-	}
-	
-	public void setIdUtilisateur(int user) {
-		this.user = user;
-	}
-	
-	public Droit getDroit() {
-		return droit;
-	}
-	
-	public int getStatut() {
-		return statut;
-	}
-	public Utilisateur getUtilisateur() {
-		return utilisateur;
-	}
 
-	public void setUtilisateur(Utilisateur utilisateur) {
-		this.utilisateur = utilisateur;
-	}
+public class AdministrationAction extends ActionSupport {
+	
+	private List<Utilisateur> users;
 
+	
+	public List<Utilisateur> getUsers() {
+		return users;
+	}
 	/**
-	 * Donne les droits de modération à un utilisateur
+	 * Accéder à la page d'administration
 	 */
 	public String execute() {
 		UtilisateurDao dao = (UtilisateurDao) DaoFactory.getUtilisateurDao();
@@ -59,21 +38,17 @@ public class GiveRightAction extends ActionSupport {
 			addActionError(getText("message.autorisation"));
 			return ERROR;
 		}
-		
 		try {
-			utilisateur = dao.findById(user);
-			dao.giveRights(user);
+			users = dao.getUtilisateurs();
 		} catch (SQLException e) {
 			addActionError(e.getMessage());
+			e.printStackTrace();
 			return ERROR;
 		}
-
-		session.put("user", user);
 		return SUCCESS;
+		
+		
 	}
-	
-	
-	
 	
 	
 

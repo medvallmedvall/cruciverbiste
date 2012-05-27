@@ -26,12 +26,10 @@ public class Connexion extends ActionSupport {
 	private String pseudo;
 	private String password;
 	private String redirectUrl;
-	private List<Utilisateur> users;
-	private List<Droit> statuts;
 
 	
 	/**
-	 * Connexiond e l'utilisateur au site
+	 * Connexion de l'utilisateur au site
 	 */
 	public String execute() {
 		
@@ -64,13 +62,6 @@ public class Connexion extends ActionSupport {
 			return ERROR;
 		}
 		
-		try {
-			users = dao.getUtilisateurs();
-		} catch (SQLException e) {
-			addActionError(e.getMessage());
-			e.printStackTrace();
-		}
-		
 		
 		Map<String, Object> session = ActionContext.getContext().getSession();
 		// on renseigne la session
@@ -79,7 +70,6 @@ public class Connexion extends ActionSupport {
 		session.put("nom",user.getNom());
 		session.put("pseudo", user.getPseudo());
 		session.put("droit", user.getIdDroit());
-		session.put("users", users);
 		return SUCCESS;
 
 	}
@@ -93,7 +83,6 @@ public class Connexion extends ActionSupport {
 			} else {
 				redirectUrl = request.getContextPath();
 			}
-			System.out.println(redirectUrl);
 		}
 	}
 
@@ -121,10 +110,6 @@ public class Connexion extends ActionSupport {
 	
 	public String getRedirectUrl() {
 		return redirectUrl;
-	}
-	
-	public List<Utilisateur> getUtilisateurs() {
-		return users;
 	}
 
 }

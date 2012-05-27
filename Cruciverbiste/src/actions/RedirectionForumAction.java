@@ -28,7 +28,7 @@ public class RedirectionForumAction extends ActionSupport{
 	 * à partir de la page d'accueil
 	 */
 	public String execute(){
-		urlSujetsRecents = ("http://localhost/phpBB3/viewtopic.php?f=" + f + "&t=" + t);
+		urlSujetsRecents = ("http://localhost:8081/phpBB3/viewtopic.php?f=" + f + "&t=" + t);
 		return SUCCESS;
 	}
 
