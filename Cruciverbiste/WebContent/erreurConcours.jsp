@@ -19,6 +19,3 @@
 	<a href = "/moderation/moderation.jsp"><s:property value = "getText('message.retourmod')"/></a>
 	</div>
 	<%@ include file="/pied.jspf"%>
-	
-</body>
-</html>
