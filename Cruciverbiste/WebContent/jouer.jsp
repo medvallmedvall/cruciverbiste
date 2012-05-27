@@ -16,14 +16,16 @@
 	media="screen" />
 <script type="text/javascript" src="javascripts/jquery-1.7.1.js"></script>
 </head>
-<body onload = "loadGrille();" >
+<body onload = "loadGrille();clearArea(); " >
 	
 	<%@ include file="entete.jspf"%>
-	
-	<div id="rechercheMotDiv">
-		<%@ include file="grilles/rechercheMotif.jsp"%>
-	</div>
-
+	<c:if test = "${!grille.isForConcours()}">
+		<div id="rechercheMotDiv">
+		<s:actionerror/>
+			<%@ include file="grilles/rechercheMotif.jsp"%>
+		</div>
+		
+	</c:if>
 	<div id="principal" style="width: auto; margin-left: 230px;">
 		<div id="grilleJeuMenu">
 			<c:choose>
@@ -41,19 +43,25 @@
 		</div>
 		
 		<!-- Zone de commentaires -->
+		
+		<script type="text/javascript">
+			var size = ${listMots.size()};
+		</script>
 
 		<script type="text/javascript">
+		
+			//var size = ${listMots.size()};
 			//pour l'appli de recherche de mots
 			function copyArea() {
 				if ($("#motif").val() == "") {
-					alert("Vous devez rentrer un motif de plus de 2 caractÃ¨res");
+					alert("Vous devez rentrer un motif de plus de 2 caractères");
 					$("#motif").focus();
 					return false();
 				}
 				var motif = $("#motif").val();
 
 				if (motif.indexOf("?") == -1) {
-					alert("Votre motif doit comporter au moins un caractÃ¨re ?");
+					alert("Votre motif doit comporter au moins un caractère ?");
 					$("#motif").focus();
 					return false();
 				}
@@ -72,14 +80,14 @@
 								$("#rechercheMotDiv").html(contenu1);
 							},
 							error : function() {
-								alert("erreur...")
+								alert("erreur: Aucun mot ne correspond à votre motif dans notre dictionnaire")
 							}
 						}).done(function() {
 							//alert("fin");
 						});
 					},
 					error : function() {
-						alert("Une erreur : ");
+						alert("Une erreur : Aucun mot ne correspond à votre motif dans notre dictionnaire");
 					}
 				});
 			}
@@ -92,12 +100,19 @@
 				}
 				return true;
 			}
+			function clearArea() {
+			    document.getElementById("motif").value ="";
+			    document.getElementById("resultArea").options.length = 0;
+				
+			}
 				
 		</script>
-		<div id="commentaires">
-			<%@ include file="grilles/commentaires.jsp" %>
-		</div>
-		<!-- Creation du menu contextuel -->
+		<c:choose>
+			<c:when test = "${!grille.isForConcours()}">
+				<div id="commentaires">
+					<%@ include file="grilles/commentaires.jsp" %>
+				</div>
+					<!-- Creation du menu contextuel -->
 
 		<ul id="menuContext">
 			<li>
@@ -149,6 +164,19 @@
 		</div>
 		
 		<script type="text/javascript" src="javascripts/grilles/messageBox.js"></script>
+				
+			</c:when>
+			<c:otherwise>
+				<s:form action="validerJeuconcours" method="post">
+					<s:submit value="Valider" label="Valider" style="width: 100px;"> 
+					</s:submit>
+				</s:form>
+			</c:otherwise>
+			
+		</c:choose>
+		
+		
+	
 	</div>
 	
 
