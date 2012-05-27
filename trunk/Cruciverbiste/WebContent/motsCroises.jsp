@@ -9,6 +9,8 @@
 
 <!-- Creation du menu -->
 
+<c:choose>
+	<c:when test = "${!grille.isForConcours()}">
 <div id="menuMotsCroises">
 	<ul id="nav">
 		<li>
@@ -54,6 +56,8 @@
 	</ul>
 	<p style="clear: both;"></p>
 </div>
+</c:when>
+</c:choose>
 
 <script type="text/javascript" src="javascripts/jquery-1.7.1.js"></script>
 <script type="text/javascript" src="javascripts/grilles/mc.js"></script>
