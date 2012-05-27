@@ -25,7 +25,6 @@ public class GrilleEnCoursUtilisateurDao extends Dao<GrilleEnCoursUtilisateur> {
 			grilleEnCoursUtilisateur = new GrilleEnCoursUtilisateur(
 					res.getInt("idGrilleEnCours"), res.getInt("idUtilisateur"),
 					res.getInt("idGrille"), res.getDate("dateJeu"));
-			System.out.println("id=" + grilleEnCoursUtilisateur.getIdGrille());
 		}
 		return grilleEnCoursUtilisateur;
 	}
@@ -79,10 +78,10 @@ public class GrilleEnCoursUtilisateurDao extends Dao<GrilleEnCoursUtilisateur> {
 
 	public boolean Sauvegarder(int idGrille, int idUtilisateur,
 			List<LettreEnCour> liste) throws SQLException {
+		System.out.println("holla sauvegarder");
 		GrilleEnCoursUtilisateur grilleEnCoursUtilisateur = findByGrilleUser(
 				idGrille, idUtilisateur);
 		if (grilleEnCoursUtilisateur == null) {
-			System.out.println("null");
 			Date date = new Date();
 			grilleEnCoursUtilisateur = new GrilleEnCoursUtilisateur(
 					idUtilisateur, idGrille, date);
@@ -95,7 +94,6 @@ public class GrilleEnCoursUtilisateurDao extends Dao<GrilleEnCoursUtilisateur> {
 				lettreEnCoursDao.create(l);
 			}
 		}else{
-			System.out.println("machi null");
 			int idGrilleEnCours = grilleEnCoursUtilisateur.getIdGrilleEnCours();
 			LettreEnCoursDao lettreEnCoursDao = new LettreEnCoursDao();
 			lettreEnCoursDao.delete(idGrilleEnCours);
