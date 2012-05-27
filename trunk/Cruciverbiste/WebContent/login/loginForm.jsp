@@ -3,12 +3,19 @@
 
 <%
 String auth= null;
+int droit1 = 0;
 if (session.getAttribute("authentification") != null) {
 	auth = (String) session.getAttribute("authentification");
+	if (session.getAttribute("droit") != null) {
+		droit1 = (Integer)session.getAttribute("droit");
+	}
 }
 if ((auth != null) && (auth.equalsIgnoreCase("true"))) {
 %>
 	<s:property value = "getText('message.bienvenue')"/> ${pseudo}, <a href="Deconnexion"> <s:property value = "getText('message.deconnexion')"/></a>
+	<%if (droit1 == 1) {%>
+		<h4><s:property value= "getText('message.droitmodo')"/></h4>
+	<% }%>
 <%
 }
 else {
