@@ -15,7 +15,7 @@
 <!--%@ include file="menu.jspf" %-->
  <%@ include file="secondaire.jspf" %>
 <div id="principal">
-	le mail a été bien envoyé à <s:property value="mail"/>
+	<s:property value ="getText('message.bienenvoye')"/><s:property value="mail"/>
 				
 		</div><!-- fin principale-->
 	<%@ include file="pied.jspf" %>	
