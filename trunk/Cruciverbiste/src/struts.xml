@@ -75,7 +75,7 @@
 				<param name="actionName">jouer</param>
 				<param name="idGrille">${idGrille}</param>
 			</result>
-			<result name="input">jouer.jsp</result>
+			<result name="input">rechercheMotif.jsp</result>
 		</action>
 
 		<action name="creerGrille" class="actions.CreateGridAction">
@@ -141,12 +141,12 @@
 		
 		
 		<action name="nommer" class="actions.GiveRightAction">
-			<result name="success">adminCruci.jsp</result>
+			<result name="success">administration/giveright.jsp</result>
 			<result name="error">erreur.jsp</result>
 		</action>
 		
 		<action name="enlever" class="actions.RetrieveRightAction">
-			<result name="success">adminCruci.jsp</result>
+			<result name="success">administration/retrieveright.jsp</result>
 			<result name="error">erreur.jsp</result>
 		</action>
 		
@@ -177,6 +177,11 @@
 		
 		<action name ="validerJeuconcours" class="actions.ValidateJeuConcours">
 			<result name ="success">validerConcours.jsp</result>
+			<result name="error">erreur.jsp</result>
+		</action>
+		
+		<action name="accesAdmin" class="actions.AdministrationAction">
+			<result name ="success">administration/adminCruci.jsp</result>
 			<result name="error">erreur.jsp</result>
 		</action>
 		
