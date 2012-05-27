@@ -17,7 +17,8 @@
 
 <div id="principal">
 
-<c:if test="${empty urlSujetsRecents}"> <c:set var = "urlSujetsRecents" value = "http://localhost/phpBB3/index.php"/></c:if>
+<c:if test="${empty urlSujetsRecents}"> <c:set var = "urlSujetsRecents" value = "http://localhost:8081/phpBB3/index.php"/></c:if>
 <IFRAME SRC= ${urlSujetsRecents} id="forumFrame" width="95%" height="780" scrolling="no" align="middle">
 </IFRAME>
+</div>
 <%@ include file="pied.jspf" %>	
