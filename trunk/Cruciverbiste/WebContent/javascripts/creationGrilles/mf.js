@@ -76,24 +76,24 @@ function addDefinition(mCase, mDef) {
 	case 1:
 		//droite
 		x++;
-		urlImage = "url('images/grilles/droite.png')";
+		urlImage = "images/grilles/droite.png";
 		break;
 	case 2:
 		//bas
 		y++;
-		urlImage = "url('images/grilles/bas.png')";
+		urlImage = "images/grilles/bas.png";
 		horizontal = false;
 		break;
 	case 3:
 		//droite-bas
 		x++;
-		urlImage = "url('images/grilles/droite-bas.png')";
+		urlImage = "images/grilles/droite-bas.png";
 		horizontal = false;
 		break;
 	case 4:
 		//bas-droite
 		y++;
-		urlImage = "url('images/grilles/bas-droite.png')";
+		urlImage = "images/grilles/bas-droite.png";
 		break;
 	default:
 		//erreur
@@ -121,7 +121,17 @@ function addDefinition(mCase, mDef) {
 		return;
 	}
 
-	mNextCase.css("background-image", urlImage).css("background-repeat", "no-repeat");
+	if(mNextCase.css("background-image") == "none") {
+		var mUrl = "url('" +  urlImage + "')";
+		mNextCase.css("background-image", mUrl).css("background-repeat", "no-repeat");
+	}
+	else {
+		var tmp = "<div class='" + mDef.idDefinition + "'/>";
+		mNextCase.append(tmp);
+		var mUrl = "url('" +  urlImage + "')";
+		var mSelec = "div." + mDef.idDefinition;
+		$(mSelec).css("background-image", mUrl).css("background-repeat", "no-repeat");
+	}
 	mGrid.switchOrientation(mCase, horizontal);
 	//deselection
 
@@ -245,7 +255,7 @@ function addDefinition(mCase, mDef) {
 		contDefDiv.children(".definitionMF").height(50);
 	}
 	else {
-		contDefDiv.children(".definitionMF").css("height", "20px");
+		contDefDiv.children(".definitionMF:last").css("height", "100%");
 	}
 
 	//ajout des evenements
@@ -642,6 +652,11 @@ function validateDefinition() {
 		var mIdDef = $(".definitionSelectionneeMF").attr("id");
 		var mDef = mGrid.definitionList[mIdDef];
 		mDef.textDef = content;
+		var mContDef = $(".definitionSelectionneeMF").parent(".conteneurDef");
+		mContDef.children(".definitionMF").height("");
+		if (mContDef.children(".definitionMF").length == 1) {
+			mContDef.children(".definitionMF").css("height", "100%");
+		}
 	}
 }
 
@@ -656,7 +671,6 @@ function selectSquare(mCase) {
 	$("#caseTexte").remove();
 	$(".definitionMF").removeClass("definitionSelectionneeMF");
 	$(".caseLettre").removeClass("casesMotSelectionne");
-	$(".caseLettre").removeClass("errorCase");
 
 	//selection de la definition associe au mot
 	var mIdCase = mCase.attr("id");
@@ -725,9 +739,21 @@ function selectSquare(mCase) {
 	mCase.addClass("caseEdition");
 	//on prend la lettre deja dans la case
 	letter = mCase.text();
+	var mDiv = undefined;
+	if (mCase.children("div").length > 0) {
+		mDiv = mCase.children("div").clone();
+		alert("pet de cable");
+	}
 	mCase.text("");
-	var input = "<input type='text' id='caseTexte' name='caseTexte' maxlength='1'/>";
-	mCase.append(input);
+	//var mDivStr = mCase.html();
+	var inputStr = "<input type='text' id='caseTexte' name='caseTexte' maxlength='1'/>";
+	mCase.append(inputStr);
+	if (mDiv != undefined) {
+		mCase.append(mDiv);
+	}
+	
+	//mCase.html(input);
+
 	$("#caseTexte").val(letter);
 	$("#caseTexte").focus();
 }
@@ -744,8 +770,30 @@ function editDefinition() {
 	var textArea = "<textarea id='editDef' name='editDef' cols='5' rows='5' wrap='default'>"
 		+ content + "</textarea>";
 	mDefSelect.append(textArea);
-	$("#editDef").css("height", "100%");
-	$("#editDef").focus();	
+	//$("#editDef").css("height", "100%");
+	$("#editDef").focus();
+	$("#editDef").css("height", "");
+	var mContDef = mDefSelect.parent(".conteneurDef");
+	if (mContDef.children(".definitionMF").length == 2) {
+		if (mDefSelect.index() == 0) {
+			mContDef.children(".definitionMF:first").css("height", "");
+			mContDef.children(".definitionMF:last").css("height", "");
+			var lastHeight = mContDef.children(".definitionMF:last").height();
+			var newHeight = 50 - lastHeight;
+			$("#editDef").height(newHeight);
+		}
+	}
+	$("#editDef").keypress(function(event) {
+		event.preventDefault();
+		var nbChar = $(this).val().length;
+		mContDef.children(".definitionMF").each(function(elem, index) {
+			nbChar+= $(this).text().length;
+		});
+		if (nbChar > 40) {
+			alert("Plus de place dans la case");
+			return false;
+		}
+	});
 }
 
 function getSynonyms() {
