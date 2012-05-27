@@ -9,6 +9,8 @@
 
 <!-- Creation du menu -->
 
+<c:choose>
+	<c:when test = "${!grille.isForConcours()}">
 <div id="menuMotsCroises">
 	<ul id="nav">
 		<li>
@@ -54,7 +56,8 @@
 	</ul>
 	<p style="clear: both;"></p>
 </div>
-
+</c:when>
+</c:choose>
 
 <!-- Creation de la grille de mots fléchés -->
 
@@ -68,6 +71,7 @@
 		</tr>
 	</c:forEach>
 </table>
+
 
 
 <script type="text/javascript" src="javascripts/jquery-1.7.1.js"></script>
@@ -152,7 +156,7 @@
 				cache : false,
 				data : params,
 				success : function(contenu) {
-					alert("La grille 	a été sauvegardée avec succès");
+					alert("La grille a été sauvegardée avec succès");
 				},
 				error : function() {
 					alert("Une erreur lors de la sauvegarde")
@@ -160,7 +164,7 @@
 			});
 		} else {
 			createCookie(nameGrid, listeLettre, 1);
-			alert("La Grille a èté sauvegardé avec succés");
+			alert("La Grille a èté sauvegardée avec succés");
 		}
 
 	}
