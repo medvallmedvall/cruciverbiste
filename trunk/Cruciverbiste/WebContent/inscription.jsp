@@ -19,7 +19,6 @@
 <body>
 <%@ include file="entete.jspf"%>
 <!--%@ include file="menu.jspf" %-->
-<%@ include file="secondaire.jspf"%>
 <div id="principal">
 
 <h3><s:property value = "getText('message.inscription')"/></h3>
