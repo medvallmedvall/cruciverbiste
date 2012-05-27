@@ -18,7 +18,6 @@ if (session.getAttribute("authentification") != null) {
 			<li><a href="choixGrilles?idTypeGrid=1"><s:text name="message.motF"/></a> </li>
 		</ul></li>
 	<li><a href="#"><s:text name="message.jeune"/></a></li>
-	<li><a href="concours.jsp"><s:text name="message.concours"/></a></li>
 	<% 
 	if ((auth1 != null) && (auth1.equalsIgnoreCase("true"))) {
 %>
@@ -27,6 +26,7 @@ if (session.getAttribute("authentification") != null) {
 			<li><a href="creerGrille?idTypeGrille=2"><s:text name="message.motC"/></a></li>
 			<li><a href="creerGrille?idTypeGrille=1"><s:text name="message.motF"/></a></li>
 		</ul></li>
+	<li><a href="Jeuconcours"><s:text name="message.jeuconcours"/></a></li>
 	<li><a href="mesGrilles"><s:text name="message.mes"/></a></li>
 	<li><a href="grillesEnCours"><s:text name="message.mesG"/></a></li>
 	<% 
@@ -51,7 +51,7 @@ if (session.getAttribute("authentification") != null) {
 <% 
 	if ((auth1 != null) && (auth1.equalsIgnoreCase("true")) && (droit == 3)) {
 %>
-	<li><a href = "adminCruci.jsp"><s:text name="message.administration"/></a></li>
+	<li><a href = "accesAdmin"><s:text name="message.administration"/></a></li>
 	
 <%
 	}
