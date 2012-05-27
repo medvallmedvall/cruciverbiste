@@ -12,7 +12,7 @@
 <link rel="stylesheet" type="text/css" href="styles/styleGrilles.css"
 	media="screen" />
 </head>
-<body>
+<body onload="clearArea();">
 
 	<script type="text/javascript" src="javascripts/jquery-1.7.1.js"></script>
 	<%@ include file="entete.jspf"%>
@@ -20,64 +20,6 @@
 	<div id="rechercheMotDiv">
 		<%@ include file="grilles/rechercheMotif.jsp"%>
 	</div>
-<!-- 	<div id="principal"> -->
-<%-- 		<h1><s:property value= "getText('message.creer')"/></h1> --%>
-<%-- 		    <c:choose> --%>
-<%-- 			<c:when test="${grille.idGrille == -1}"> --%>
-<!-- 				<div> -->
-<!-- 					<form action="creerGrille" method="post"> -->
-<%-- 						<label for="nomGrille"><s:property value= "getText('message.nomG')"/> </label>  --%>
-<!-- 						<input type="text" name="grille.nomGrille" id="nomGrille"  -->
-<%-- 						value="${grille.nomGrille}" maxlength="50" ${disabled}><br /> --%>
-<%-- 						<label for="hauteurGrille"><s:property value= "getText('message.nbLignes')"/></label> --%>
-<!-- 						<input type="text" name="grille.hauteur" id="hauteurGrille" maxlength="2" -->
-<%-- 						size="1" value="${grille.hauteur}" ${disabled}><br />  --%>
-<%-- 						<label for="largeurGrille"><s:property value= "getText('message.nbCol')"/> </label>  --%>
-<!-- 						<input type="text" name="grille.largeur" id="largeurGrille" maxlength="2" size="1" -->
-<%-- 						value="${grille.largeur}" ${disabled}><br />  --%>
-<%-- 						<s:property value= "getText('message.langue')"/> --%> --%>
-<%-- 						<select name="grille.idLangue" ${disabled}> --%>
-<%-- 							<c:forEach var="l" items="${langues}"> --%>
-<%-- 								<c:choose> --%>
-<%-- 									<c:when test="${grille.idLangue == l.idLangue}"> --%>
-<%-- 										<option value="${l.idLangue}" selected="selected"> --%>
-<%-- 											${l.nomLangue} --%>
-<!-- 										</option> -->
-<%-- 									</c:when> --%>
-<%-- 									<c:otherwise> --%>
-<%-- 										<option value="${l.idLangue}">${l.nomLangue}</option> --%>
-<%-- 									</c:otherwise> --%>
-<%-- 								</c:choose> --%>
-<%-- 							</c:forEach> --%>
-<%-- 						</select> <br /> --%>
-<%-- 						<s:property value= "getText('message.theme')"/> --%>
-<%-- 						<select name="grille.idTheme" ${disabled}> --%>
-<%-- 							<c:forEach var="t" items="${themes}"> --%>
-<%-- 								<c:choose> --%>
-<%-- 									<c:when test="${grille.idTheme == t.idTheme}"> --%>
-<%-- 										<option value="${t.idTheme}" selected="selected"> --%>
-<%-- 											${t.nomTheme} --%>
-<!-- 										</option> -->
-<%-- 									</c:when> --%>
-<%-- 									<c:otherwise> --%>
-<%-- 										<option value="${t.idTheme}">${t.nomTheme}</option> --%>
-<%-- 									</c:otherwise> --%>
-<%-- 								</c:choose> --%>
-<%-- 							</c:forEach> --%>
-<%-- 						</select> --%>
-<!-- 						<input type="hidden" name="creerGrille" value="true" /> -->
-<%-- 						<input type="hidden" name="idTypeGrille" value="${idTypeGrille}" />  --%>
-<%-- 						<c:if test="${empty disabled}"> --%>
-<%-- 							<s:submit key="message.cre" name="submit" > </s:submit> --%>
-<%-- 						</c:if> --%>
-<!-- 					</form> -->
-<!-- 				</div> -->
-<%-- 			</c:when> --%>
-<%-- 			<c:otherwise> --%>
-			
-<%-- 			</c:otherwise> --%>
-<%-- 		</c:choose> --%>
-<%-- 		<s:actionerror /> --%>
 
 		<div id="principal" style="width: auto; margin-left: 230px;">
 		<h1><s:property value= "getText('message.creer')"/></h1>
@@ -86,17 +28,22 @@
 			<c:when test="${grille.idGrille == -1}">
 				<div>
 					<form action="creerGrille" method="post" onsubmit = "return checkCreationForm();">
-						<label for="nomGrille"><s:property value= "getText('message.nomG')"/></label> 
-						<input type="text" name="grille.nomGrille" id="nomGrille" 
-						value="${grille.nomGrille}" maxlength="50" ${disabled}><br />
-						<label for="hauteurGrille"><s:property value= "getText('message.nbLignes')"/></label>
-						<input type="text" name="grille.hauteur" id="hauteurGrille" maxlength="2"
-						size="1" value="${grille.hauteur}" ${disabled}><br /> 
-						<label for="largeurGrille"><s:property value= "getText('message.nbCol')"/></label> 
-						<input type="text" name="grille.largeur" id="largeurGrille" maxlength="2" size="1"
-						value="${grille.largeur}" ${disabled}><br /> 
-						<s:property value= "getText('message.langue')"/>
-						<select name="grille.idLangue" ${disabled}>
+					<table>
+						<tr>
+							<td><label for="nomGrille"><s:property value= "getText('message.nomG')"/></label> </td>
+							<td><input type="text" name="grille.nomGrille" id="nomGrille" value="${grille.nomGrille}" maxlength="50" ${disabled}> </td>
+						</tr>
+						<tr>
+							<td><label for="hauteurGrille"><s:property value= "getText('message.nbLignes')"/></label> </td>
+							<td><input type="text" name="grille.hauteur" id="hauteurGrille" maxlength="2" size="1" value="${grille.hauteur}" ${disabled}> </td>
+						</tr>
+						<tr>
+							<td><label for="largeurGrille"><s:property value= "getText('message.nbCol')"/></label>  </td>
+							<td><input type="text" name="grille.largeur" id="largeurGrille" maxlength="2" size="1" value="${grille.largeur}" ${disabled}> </td>
+						</tr>
+						<tr>
+							<td><s:property value= "getText('message.langue')"/> </td>
+							<td><select name="grille.idLangue" ${disabled}>
 							<c:forEach var="l" items="${langues}">
 								<c:choose>
 									<c:when test="${grille.idLangue == l.idLangue}">
@@ -109,9 +56,11 @@
 									</c:otherwise>
 								</c:choose>
 							</c:forEach>
-						</select> <br />
-						<s:property value= "getText('message.theme')"/>
-						<select name="grille.idTheme" ${disabled}>
+						</select> </td>
+						</tr>
+						<tr>
+							<td><s:property value= "getText('message.theme')"/> </td>
+							<td><select name="grille.idTheme" ${disabled}>
 							<c:forEach var="t" items="${themes}">
 								<c:choose>
 									<c:when test="${grille.idTheme == t.idTheme}">
@@ -124,13 +73,19 @@
 									</c:otherwise>
 								</c:choose>
 							</c:forEach>
-						</select>
+						</select> </td>
+						</tr>
+						<tr>
 						<input type="hidden" name="creerGrille" value="true" />
-						<input type="hidden" name="idTypeGrille" value="${idTypeGrille}" /> 
-						<c:if test="${empty disabled}">
-<!-- 							<input type="submit" name="submit" value="creer la grille" /> -->
-							<s:submit key="message.cre" name="submit" > </s:submit>
-						</c:if>
+						<input type="hidden" name="idTypeGrille" value="${idTypeGrille}" />
+						</tr>
+						<tr>
+							<c:if test="${empty disabled}">
+							<td><s:submit key="message.cre" name="submit" > </s:submit> </td>
+							</c:if>
+						</tr>
+					</table>
+						
 					</form>
 				</div>
 			</c:when>
@@ -203,5 +158,52 @@ $("#largeurGrille").focus();
  return true;
 }
 </script>
+<script type= "text/javascript">
+	//pour l'appli de recherche de mots
+	function copyArea() {
+		if ($("#motif").val() == "") {
+			alert("Vous devez rentrer un motif de plus de 2 caractères");
+			$("#motif").focus();
+			return false();
+		}
+		var motif = $("#motif").val();
 
-	<%@ include file="pied.jspf"%>
+		if (motif.indexOf("?") == -1) {
+			alert("Votre motif doit comporter au moins un caractère ?");
+			$("#motif").focus();
+			return false();
+		}
+		var idGrille = ${grille.idGrille};
+		var params = "idGrille=" + idGrille + "&motif=" + motif;
+		$.ajax({
+			url : "rechercherMot",
+			type : 'POST',
+			cache : false,
+			data : params,
+			success : function(content) {
+				$.ajax({
+					url : "grilles/rechercheMotif.jsp",
+					cache : false,
+					success : function(contenu1) {
+						$("#rechercheMotDiv").html(contenu1);
+					},
+					error : function() {
+						alert("erreur...")
+					}
+				}).done(function() {
+					//alert("fin");
+				});
+			},
+			error : function() {
+				alert("Une erreur : ");
+			}
+		});
+	}
+	function clearArea() {
+	    document.getElementById("motif").value ="";
+	    document.getElementById("resultArea").options.length = 0;
+		
+	}
+</script>
+
+<%@ include file="pied.jspf"%>
