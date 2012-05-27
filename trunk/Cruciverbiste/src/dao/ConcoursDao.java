@@ -5,9 +5,12 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import entities.Concours;
+import entities.UtilisateurConcours;
 
 public class ConcoursDao extends Dao<Concours>{
 	
@@ -19,7 +22,7 @@ public class ConcoursDao extends Dao<Concours>{
 	public Concours findById(int id) throws SQLException {
 		// TODO Auto-generated method stub
 		Concours conc = null;
-		String query = "select * from concours where idconcours = " + id;
+		String query = "select * from concours where idconcours = ?" ;
 		PreparedStatement pstmt = connection.prepareStatement(query);
 		pstmt.setInt(1, id);
 		ResultSet results = pstmt.executeQuery();
@@ -63,9 +66,38 @@ public class ConcoursDao extends Dao<Concours>{
 	@Override
 	public void delete(Concours obj) throws SQLException {
 		// TODO Auto-generated method stub
-		String query = "delete * from concours where idconcours = " + obj.getIdConcours();
+		String query = "delete from concours where idconcours = " + obj.getIdConcours();
 		PreparedStatement pstmt = connection.prepareStatement(query);
+		while (!this.getUtilisateurs(obj.getIdConcours()).isEmpty()) {
+			for (UtilisateurConcours c : this.getUtilisateurs(obj.getIdConcours())) {
+				String req = "delete from UtilisateurConcours where idUtilisateur = " + c.getIdUtilisateur() +  " and idConcours = " + c.getIdConcours();
+				this.connection.prepareStatement(req).executeUpdate();
+			}
+		}
 		pstmt.executeUpdate();
+	}
+	
+	public List<UtilisateurConcours> getUtilisateurs(int idConcours) {
+		String query = "select * from utilisateurconcours where idConcours = ?";
+		List<UtilisateurConcours> list = new ArrayList<UtilisateurConcours>();
+		PreparedStatement stmt;
+		try {
+			stmt = this.connection.prepareStatement(query);
+			stmt.setObject(1, idConcours);
+			ResultSet rs = stmt.executeQuery();
+			while (rs.next()) {
+				int idUtilisateur = rs.getInt("idUtilisateur");
+				Boolean aReussi = rs.getBoolean("aReussi");
+				UtilisateurConcours user = new UtilisateurConcours(idConcours, idUtilisateur, aReussi);
+				list.add(user);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return list;
+	
+		
+		
 	}
 	
 	
@@ -84,7 +116,6 @@ public class ConcoursDao extends Dao<Concours>{
 				b =  false;
 			}
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return b;
@@ -92,20 +123,16 @@ public class ConcoursDao extends Dao<Concours>{
 	}
 	
 	
-	public void create(int idConcours, int idUtilisateur) {
+	public UtilisateurConcours create(int idConcours, int idUtilisateur) throws SQLException {
+		UtilisateurConcours userConcours = null;
 		String query = "insert into utilisateurconcours values(?,?,?)";
-		PreparedStatement stmt;
-		try {
-			stmt = this.connection.prepareStatement(query);
-			stmt.setObject(1, idConcours);
-			stmt.setObject(2, idUtilisateur);
-			stmt.setObject(3, false);
-			stmt.executeUpdate();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
+		PreparedStatement stmt = this.connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
+		stmt.setObject(1, idConcours);
+		stmt.setObject(2, idUtilisateur);
+		stmt.setObject(3, false);
+		stmt.executeUpdate();
+		userConcours = new UtilisateurConcours(idConcours, idUtilisateur, false);
+		return userConcours;
 	}
 	
 	public void update(int idConcours, int idUtilisateur) {
@@ -118,6 +145,31 @@ public class ConcoursDao extends Dao<Concours>{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		
+	}
+	
+	public List<Concours> getAllConcours() {
+		List<Concours> listConcours = new ArrayList<Concours>();
+		//SimpleDateFormat format = new SimpleDateFormat("dd-MM-yyyy");
+		String query = "select * from concours";
+		try {
+			PreparedStatement stmt = this.connection.prepareStatement(query);
+			ResultSet rs = stmt.executeQuery();
+			
+			while (rs.next()) {
+				int idConcours = rs.getInt("idConcours");
+				Date dateDeb = rs.getDate("datedeb");
+				Date dateFin = rs.getDate("datefin");
+				int idGrille = rs.getInt("idGrille");
+				Concours conc = new Concours(idConcours, idGrille, dateDeb , dateFin);
+				listConcours.add(conc);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return listConcours;
+		
 		
 	}
 
