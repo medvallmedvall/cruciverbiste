@@ -12,7 +12,7 @@
 <script type="text/javascript" src="javascripts/jquery-1.7.1.js"></script>
 <%@ include file="/entete.jspf" %>
 <div id="principal">
-	<h3><s:property value = "getText('message.giveright1')"/>${utilisateur.getPseudo()}<s:property value = "getText('message.giveright2')"/></h3>
+	<h3><s:property value = "getText('message.givedroit1')"/> ${utilisateur.getPseudo()} <s:property value = "getText('message.givedroit2')"/></h3>
 	<a href="accesAdmin"><s:property value = "getText('message.retouradm')"/></a>
 </div>
 <%@ include file="/pied.jspf" %>
