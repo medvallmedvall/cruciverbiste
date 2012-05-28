@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title><s:property value = "getText('message.mesgrilles')"/></title>
+<title><s:property value="getText('message.mesG')"/></title>
 <style type="text/css" title="currentStyle">
 			@import "styles/demo_page.css";
 			@import "styles/demo_table_jui.css";
@@ -42,9 +42,9 @@
 </script>
 	<%@ include file="entete.jspf"%>
 	<div id="principal">
-		<h2><s:property value = "getText('message.mesgrilles')"/></h2>
+		<h2><s:property value="getText('message.mesG')"/></h2>
 		
-		<h2><s:property value = "getText('message.motF')"/></h2>
+		<h3><s:property value = "getText('message.motF')"/></h3>
 		<div id="tabs-1">
 		<table cellpadding="0" cellspacing="0" border="0" class="display" id="example1">
 			<thead>
@@ -71,7 +71,7 @@
 		</div>
 		<br/><br/>
 		
-		<h2><s:property value = "getText('message.motC')"/></h2>
+		<h3><s:property value = "getText('message.motC')"/></h3>
 		<div id="tabs-2">
 		<table cellpadding="0" cellspacing="0" border="0" class="display" id="example1">
 			<thead>
