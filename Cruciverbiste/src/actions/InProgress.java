@@ -30,6 +30,11 @@ public class InProgress extends ActionSupport{
 			addActionError(getText("message.autorisation"));
 			return ERROR;
 		}
+		
+		if (session.get("idUser") == null) {
+			addActionError(getText("message.autorisation"));
+			return ERROR;
+		}
 		int idUser = (Integer) session.get("idUser");
 		GrilleDao dao = new GrilleDao();
 		try {
