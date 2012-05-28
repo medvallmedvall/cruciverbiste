@@ -16,6 +16,7 @@
 	<%@ include file="/entete.jspf"%>
 	<div id = "principal">
 	<h2><s:property value = "getText('message.erreur')"/></h2>
-	<a href = "/moderation/moderation.jsp"><s:property value = "getText('message.retourmod')"/></a>
+	<s:actionerror/>
+	<a href = "validerGrille?action=getGridToValidate"><s:property value = "getText('message.retourmod')"/></a>
 	</div>
 	<%@ include file="/pied.jspf"%>
