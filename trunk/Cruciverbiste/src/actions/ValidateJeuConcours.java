@@ -89,7 +89,10 @@ public class ValidateJeuConcours extends ActionSupport {
 			if (grilleJoueeUtilisateur.getIdGrille() == grille.getIdGrille()) {
 				for (MotGrille g : motgrilledao.getByIdGrille(grilleJoueeUtilisateur.getIdGrille())) {
 					for (MotGrille mg : motgrilledao.getByIdGrille(grille.getIdGrille())) {
-						userconc.setaReussi(g == mg);
+						if (g == mg) {
+							dao.update(idConcours, userconc.getIdUtilisateur());
+						}
+						
 					}
 				}
 			}
