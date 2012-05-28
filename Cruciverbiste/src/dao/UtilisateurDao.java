@@ -294,20 +294,24 @@ public class UtilisateurDao extends Dao<Utilisateur> {
 
 	public Utilisateur getBy(String mail) throws SQLException {
 		String query = "select * from Utilisateur where mail = '"  + mail + "'" ;
+		int id = 0;
 		String pass = new String();
 		String pseudo = new String();
 		String nom = new String();
 		String prenom = new String();
 		Date dateNaissance = null;
+		Date dateInscription = null;
 		Utilisateur user = null;
 		ResultSet rs = this.connection.createStatement().executeQuery(query);
 		while (rs.next()) {
+			id = rs.getInt("idutilisateur");
 			pass = rs.getString("password");
 			pseudo = rs.getString("pseudo");
 			nom = rs.getString("nom");
 			prenom = rs.getString("prenom");
 			dateNaissance = rs.getDate("dateNaissance");
-			user = new Utilisateur(nom, prenom, pseudo, pass, mail, dateNaissance);
+			dateInscription = rs.getDate("dateInscription");
+			user = new Utilisateur(id, nom, prenom, pseudo, pass, mail, dateNaissance,dateInscription);
 
 		}
 		return user;
