@@ -18,7 +18,6 @@ public class CreerConcoursAction extends ActionSupport {
 	private Date dateDebut;
 	private Date dateFin;
 	private int idConcours;
-	private List<Concours> listConcours;
 	private Grille grille;
 	
 	public Grille getGrille() {
@@ -27,10 +26,6 @@ public class CreerConcoursAction extends ActionSupport {
 
 	public void setGrille(Grille grille) {
 		this.grille = grille;
-	}
-
-	public void setListConcours(List<Concours> listConcours) {
-		this.listConcours = listConcours;
 	}
 
 	public int getIdGrille() {
@@ -84,6 +79,10 @@ public class CreerConcoursAction extends ActionSupport {
 				addActionError(getText("message.grilledejautilise"));
 				return ERROR;
 			} else {
+				if (conc.getDateDebut().after(conc.getDateFin())) {
+					addActionError(getText("message.concoursinv"));
+					return ERROR;
+				}
 				try {
 					dao.create(conc);
 				} catch (SQLException e) {
