@@ -22,15 +22,20 @@ public class PlayConcours extends ActionSupport {
 		ConcoursDao dao = new ConcoursDao();
 		GrilleDao grilledao = new GrilleDao();
 		Map<String, Object> session = ActionContext.getContext().getSession();
-		idUtilisateur = (Integer) session.get("idUser");
 		if (session.get("idUser") == null) {
-			addActionError(getText("message.acces"));
+			addActionError(getText("message.validationacces"));
 			return ERROR;
 		}
+		idUtilisateur = (Integer) session.get("idUser");
+		
 		UtilisateurConcours userconc = null;
 		try {
 			Concours conc = dao.findById(idConcours);
 			grille = grilledao.findById(conc.getIdGrille());
+			if (dao.verifyParticicipationconcours(idConcours, idUtilisateur)) {
+				addActionError("Vous avez déjà participer à ce jeu concours");
+				return ERROR;
+			}
 			userconc = dao.create(idConcours, idUtilisateur);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
