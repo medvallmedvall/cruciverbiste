@@ -16,4 +16,3 @@
 		<a href ="index.jsp" ><s:property value ="getText('message.retouraccueil)"/></a>
 	</div>
 <%@ include file="pied.jspf"%>
-</html>
