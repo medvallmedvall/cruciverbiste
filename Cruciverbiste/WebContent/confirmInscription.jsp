@@ -13,7 +13,11 @@
 	<%@ include file="entete.jspf"%>
 	<!--%@ include file="menu.jspf" %-->
 	<div id="principal">
-		<h4> <s:property value = "getText('message.confirmInscription')"/> </h4>
+		<h2> <s:property value = "getText('message.confirmInscription')"/> </h2>
 		<s:actionmessage/>
+		<h3>Le menu à gauche vous permettra de parcourir aisément notre site. Vous avez accès à plusieurs fonctionnalités<br>
+		et la possibilité de partager votre expérience de cruciverbiste sur le forum.<br>
+		Vous participerez aussi à la vie du site par la création de grilles, l'ajout de nouveaux mots à nos dictionnaires etc..<br>
+		Amusez vous!! </h3>
 	</div>
 	<%@ include file="pied.jspf"%>
