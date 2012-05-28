@@ -8,7 +8,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Bienvenue pour l'inscription</title>
+<title><s:property value = "getText('message.inscription')"/></title>
 
 <link rel="stylesheet" type="text/css" href="styles/style.css"
 	media="screen" />
@@ -22,8 +22,6 @@
 <div id="principal">
 
 <h3><s:property value = "getText('message.inscription')"/></h3>
-
-<s:actionerror/>
 
 <s:form action="Inscription" method="post" onsubmit="return verif_formulaire();">
 	<table>
