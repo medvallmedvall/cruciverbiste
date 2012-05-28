@@ -109,16 +109,15 @@ public class Inscription extends ActionSupport {
 			}
 			session.put("authentification","true");
 			//session.put("idUser", 0);
+			session.put("idUser", utilisateur.getIdUtilisateur());
 			session.put("nom",utilisateur.getNom());
 			session.put("pseudo", utilisateur.getPseudo());
 			return SUCCESS;
 		}
 		if (!verEmail) {
-			//addActionError("Le mail que vous avez rentré est déjà utilisé");
 			addActionError(getText("message.mailUsed"));
 		}
 		if (!verPseudo) {
-			//addActionError("Le pseudo que vous avez rentré est déjà utilisé");
 			addActionError(getText("message.psUsed"));
 		}
 		return INPUT;
