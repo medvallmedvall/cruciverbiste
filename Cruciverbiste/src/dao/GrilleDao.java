@@ -134,6 +134,17 @@ public class GrilleDao extends Dao<Grille> {
 		return grille;
 	}
 	
+	public void updateGrilleConcours(Grille obj) throws SQLException {
+		if (obj == null) {
+			throw new IllegalArgumentException("La grille est null");
+		}
+		//Grille grille = null;
+		String query = "UPDATE Grille SET forConcours = false WHERE idGrille =" + obj.getIdGrille();
+		System.out.println("Test : " + obj.getIdGrille());
+		this.connection.createStatement().execute(query);
+		
+	}
+	
 	
 	
 
