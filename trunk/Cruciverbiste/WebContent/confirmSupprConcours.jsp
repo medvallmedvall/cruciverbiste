@@ -15,7 +15,7 @@
 	<%@ include file="/entete.jspf"%>
 	<div id = "principal">
 	<c:set var="numeroConcours" value="${idConcours}" />
-	<s:property value = "getText('message.concours')"/>${numeroConcours} <s:property value = "getText('message.belsuppr')"/>
+	<s:property value = "getText('message.concours')"/> &nbsp; n°${numeroConcours} <s:property value = "getText('message.belsuppr')"/>
 	</div>
 	<%@ include file="/pied.jspf"%>
 
