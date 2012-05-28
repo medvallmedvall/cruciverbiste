@@ -146,6 +146,16 @@ public class ConcoursDao extends Dao<Concours>{
 		
 	}
 	
+	public boolean verifyParticicipationconcours(int idConcours, int idUtilisateur) throws SQLException {
+		String query = "select * from utilisateurconcours where idconcours = " + idConcours + " and idutilisateur = " + idUtilisateur +"";
+		ResultSet rs = this.connection.createStatement().executeQuery(query);
+		if (rs.first()) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+	
 	public List<Concours> getAllConcours() {
 		List<Concours> listConcours = new ArrayList<Concours>();
 		//SimpleDateFormat format = new SimpleDateFormat("dd-MM-yyyy");
