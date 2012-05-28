@@ -153,7 +153,7 @@
 		<action name="creerConcours" class="actions.CreerConcoursAction">
 			<result name="success">confirmConcours.jsp</result>
 			<result name="error">erreurConcours.jsp</result>
-			<result name = "input">moderation/moderation.jsp</result>
+			<result name = "input">/moderation.jsp</result>
 		</action>
 		
 		<action name="telechargerGrille" class="actions.TelechargerGrille">
