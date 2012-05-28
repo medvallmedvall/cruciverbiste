@@ -103,13 +103,13 @@ public class Inscription extends ActionSupport {
 			Map<String, Object> session = ActionContext.getContext().getSession();
 			try {
 				utilisateurDao.create(utilisateur);
+				Utilisateur u = utilisateurDao.getBy(utilisateur.getMail());
+				session.put("idUser", u.getIdUtilisateur());
 			} catch (SQLException e) {
 				addActionError(e.getMessage());
 				return INPUT;
 			}
-			session.put("authentification","true");
-			//session.put("idUser", 0);
-			session.put("idUser", utilisateur.getIdUtilisateur());
+			session.put("authentification","true");			
 			session.put("nom",utilisateur.getNom());
 			session.put("pseudo", utilisateur.getPseudo());
 			return SUCCESS;
