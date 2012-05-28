@@ -88,15 +88,13 @@ public class DeleteConcoursAction extends ActionSupport {
 				addActionError(getText("message.concoursinv"));
 				return ERROR;
 			}
-			System.out.println("concours id : " + conc.getIdGrille());
-			System.out.println("id grille :" + getIdGrille());
 			GrilleDao grilledao = new GrilleDao();
 			grille = grilledao.findById(conc.getIdGrille());
 			if (grille == null) {
 				addActionError(getText("message.grilleinexistante"));
 				return ERROR;
 			}
-			grille.setForConcours(false);
+			grilledao.updateGrilleConcours(grille);
 			dao.delete(conc);
 			
 		} catch (SQLException e) {
