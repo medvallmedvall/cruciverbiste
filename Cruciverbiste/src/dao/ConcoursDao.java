@@ -136,13 +136,11 @@ public class ConcoursDao extends Dao<Concours>{
 	}
 	
 	public void update(int idConcours, int idUtilisateur) {
-		String query = "update utilisateurconcours set estfini = 1 where idConcours = " + idConcours 
+		String query = "update utilisateurconcours set aReussi = 1 where idConcours = " + idConcours 
 				+ "and idUtilisateur = " + idUtilisateur + "";
-		ResultSet rs = null;
 		try {
-			rs = this.connection.createStatement().executeQuery(query);
+			this.connection.createStatement().execute(query);
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
