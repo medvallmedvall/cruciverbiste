@@ -1,6 +1,8 @@
 package actions;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 import com.opensymphony.xwork2.ActionContext;
@@ -12,6 +14,7 @@ import dao.MotGrilleDao;
 import entities.Concours;
 import entities.Grille;
 import entities.GrilleJoueeUtilisateur;
+import entities.Mot;
 import entities.MotGrille;
 import entities.UtilisateurConcours;
 
@@ -56,7 +59,7 @@ public class ValidateJeuConcours extends ActionSupport {
 			return ERROR;
 		}
 		Concours conc;
-		
+		System.out.println("entrer methode");
 		int idConcours = (Integer)session.get("idConcours");
 		Integer id = (Integer)session.get("idUser");
 		if (id == null) {
@@ -72,31 +75,11 @@ public class ValidateJeuConcours extends ActionSupport {
 				return ERROR;
 			}
 			
-		//	UtilisateurConcours userconcours = dao.create(conc.getIdConcours(), idUtilisateur);
-			//int idUser = (Integer)session.get("idUser");
-			GrilleJoueeUtilisateur grilleJoueeUtilisateur=new GrilleJoueeUtilisateur(id,conc.getIdGrille(),null,0);
-			try {
-				sauvegardeOK=(grilledao.insertFinished(grilleJoueeUtilisateur));
-			} catch (SQLException e) {
-				addActionError(e.getMessage());
-				return ERROR;
+			if (grilledao.aFiniGrilleConcours(id, conc.getIdConcours())) {
+				dao.update(idConcours, userconc.getIdUtilisateur());
 			}
-			Grille grille = grilledao.findById(conc.getIdGrille());
-			if (grille == null) {
-				addActionError(getText("message.grilleinv"));
-				return ERROR;
-			}
-			if (grilleJoueeUtilisateur.getIdGrille() == grille.getIdGrille()) {
-				for (MotGrille g : motgrilledao.getByIdGrille(grilleJoueeUtilisateur.getIdGrille())) {
-					for (MotGrille mg : motgrilledao.getByIdGrille(grille.getIdGrille())) {
-						if (g == mg) {
-							dao.update(idConcours, userconc.getIdUtilisateur());
-						}
-						
-					}
-				}
-			}
-			return SUCCESS;
+			
+			System.out.println("que dalle");
 			
 			
 		} catch (SQLException e) {
@@ -104,7 +87,7 @@ public class ValidateJeuConcours extends ActionSupport {
 			e.printStackTrace();
 			return ERROR;
 		}
-		
+		return SUCCESS;
 		
 	}
 	
