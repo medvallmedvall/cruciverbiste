@@ -61,6 +61,10 @@
 
 <!-- Creation de la grille de mots fléchés -->
 
+<div id="synonymes">
+	<h3 >Synonymes</h3>
+	<p></p>
+</div>
 
 <table id="grilleMotFleche">
 	<c:forEach var="i" begin="0" end="${grille.hauteur - 1}">

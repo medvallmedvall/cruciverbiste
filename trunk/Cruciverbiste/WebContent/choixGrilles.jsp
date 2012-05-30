@@ -21,10 +21,8 @@
 <body>
         
         <%@ include file="entete.jspf" %>
-       <!--%@ include file="menu.jspf" %-->
-        <%@ include file="secondaire.jspf" %>
          
- <div id="principal">
+ <div id="principal" style="width: auto; margin-left: 230px;">
 	<c:choose>
 		<c:when test="${idTypeGrid == 1}">
 		        <h1><s:property value = "getText('message.motF')"/></h1>
@@ -67,7 +65,7 @@
 		}else
 			idValue="<img src='images/non.png' alt='la grille n est finie'/>";
 		var mUrl = "jouer?idGrille=" + ${grille.key.idGrille};
-		var mElement = 
+		var mElement =
 					   "<tr onclick=\"location.href='"+ mUrl + "'\">" +
 	                       "<td align=center>${grille.key.nomGrille}</td>" +
 	                       "<td align=center>${grille.key.pseudo}</td>" +
