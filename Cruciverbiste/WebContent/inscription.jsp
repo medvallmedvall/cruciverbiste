@@ -20,7 +20,7 @@
 <%@ include file="entete.jspf"%>
 <!--%@ include file="menu.jspf" %-->
 <div id="principal">
-
+<s:actionerror/>
 <h3><s:property value = "getText('message.inscription')"/></h3>
 
 <s:form action="Inscription" method="post" onsubmit="return verif_formulaire();">
