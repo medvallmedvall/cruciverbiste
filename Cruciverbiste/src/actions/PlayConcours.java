@@ -33,10 +33,14 @@ public class PlayConcours extends ActionSupport {
 			Concours conc = dao.findById(idConcours);
 			grille = grilledao.findById(conc.getIdGrille());
 			if (dao.verifyParticicipationconcours(idConcours, idUtilisateur)) {
-				addActionError("Vous avez déjà participer à ce jeu concours");
+				addActionError("Vous avez déjà participé à ce jeu concours");
 				return ERROR;
 			}
 			userconc = dao.create(idConcours, idUtilisateur);
+			
+			if (grilledao.aFiniGrilleConcours(conc.getIdGrille(), conc.getIdConcours())) {
+				dao.update(idConcours, userconc.getIdUtilisateur());
+			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			addActionError(e.getMessage());
