@@ -29,13 +29,14 @@ function Coord(x, y) {
 	this.y = y;
 }
 
-function GrilleMotsFleches(width, height) {
+function GrilleMotsFleches(width, height, idGrille) {
 	this.width = width;
 	this.height = height;
 	this.squareDataList = new Array();
 	this.definitionList = new Array();
 	this.horizontal = true;
 	this.endGame = false;
+	this.idGrille = idGrille;
 
 	GrilleMotsFleches.prototype.addDefinition = function(idDef, textDef, word, synonym, orientation, coord) {
 		var mDef = new Definition(idDef, textDef, word, synonym, coord, orientation);
@@ -455,6 +456,17 @@ function checkEndGame() {
 			return;
 		}
 	}
+	var params = "idGrille=" + mGrid.idGrille;
+	$.ajax({
+		url: "GrilleFinie",
+		type: 'POST',
+		cache: false,
+		data: params,
+		success : function(contenu) {
+		alert(contenu);
+	},
+		error : function() {alert("erreur...")}
+	});
 	callMessageBox();
 	
 	/*mGrid.endGame = true;
