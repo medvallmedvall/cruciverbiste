@@ -80,7 +80,8 @@
 <!--
 	var width = ${grille.largeur};
 	var height = ${grille.hauteur};
-	mGrid = new GrilleMotsFleches(width, height);
+	var idGrille = ${grille.idGrille};
+	mGrid = new GrilleMotsFleches(width, height, idGrille);
 	var nameGrid="${grille.nomGrille}";
 //-->
 </script>
