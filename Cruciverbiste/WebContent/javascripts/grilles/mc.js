@@ -26,13 +26,14 @@ function Coord(x, y) {
 	};
 }
 
-function GrilleMotsCroises(width, height) {
+function GrilleMotsCroises(width, height, idGrille) {
 	this.width = width;
 	this.height = height;
 	this.squareDataList = new Array();
 	this.definitionList = new Array();
 	this.horizontal = true;
 	this.endGame = false;
+	this.idGrille = idGrille;
 
 	GrilleMotsCroises.prototype.addDefinition = function(idDef, word, synonym, coord, orientation) {
 		var mDef = new Definition(idDef, word, synonym, coord, orientation);
@@ -317,6 +318,17 @@ function checkEndGame() {
 			return;
 		}
 	}
+	var params = "idGrille=" + mGrid.idGrille;
+	$.ajax({
+		url: "GrilleFinie",
+		type: 'POST',
+		cache: false,
+		data: params,
+		success : function(contenu) {
+		alert(contenu);
+	},
+		error : function() {alert("erreur...")}
+	});
 	/*alert("Fin de la partie !");
 	mGrid.endGame = true;
 	$("#caseTexte").attr("disabled", true);*/
