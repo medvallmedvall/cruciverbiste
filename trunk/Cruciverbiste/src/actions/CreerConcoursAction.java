@@ -2,7 +2,6 @@ package actions;
 
 import java.sql.SQLException;
 import java.util.Date;
-import java.util.List;
 import java.util.Map;
 
 import com.opensymphony.xwork2.ActionContext;
@@ -90,8 +89,7 @@ public class CreerConcoursAction extends ActionSupport {
 					return ERROR;
 				}
 			}
-		
-		//session.put("concours", idConcours);
+
 		return SUCCESS;
 		
 		
