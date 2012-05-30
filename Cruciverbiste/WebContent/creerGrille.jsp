@@ -158,6 +158,12 @@ $("#largeurGrille").focus();
  return true;
 }
 </script>
+
+<script type="text/javascript">
+	var navHeight = $("#navmenu").height() + 200;
+	$("#rechercheMotDiv").css("top", navHeight + "px");
+</script>
+
 <script type= "text/javascript">
 	//pour l'appli de recherche de mots
 	function copyArea() {

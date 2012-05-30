@@ -16,7 +16,7 @@
 	media="screen" />
 <script type="text/javascript" src="javascripts/jquery-1.7.1.js"></script>
 </head>
-<body onload = "loadGrille();clearArea(); " >
+<body onload = "loadGrille(); clearArea();" >
 	
 	<%@ include file="entete.jspf"%>
 	<c:if test = "${!grille.isForConcours()}">
@@ -179,6 +179,9 @@
 	
 	</div>
 	
-
+<script type="text/javascript">
+	var navHeight = $("#navmenu").height() + 200;
+	$("#rechercheMotDiv").css("top", navHeight + "px");
+</script>
 
 <%@ include file="pied.jspf"%>
