@@ -42,7 +42,7 @@
 </script>
 	<%@ include file="entete.jspf"%>
 	<div id="principal">
-		<h1><s:property value ="getText('message.mesgrilles')"/></h1>
+		<h2><s:property value ="getText('message.mesgrilles')"/></h2>
 		
 		
 		<h3><s:text name="message.motF"/></h3>
