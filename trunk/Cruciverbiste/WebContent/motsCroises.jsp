@@ -66,7 +66,8 @@
 <!--
 	var width = ${grille.largeur};
 	var height = ${grille.hauteur};
-	mGrid = new GrilleMotsCroises(width, height);
+	var idGrille = ${grille.idGrille};
+	mGrid = new GrilleMotsCroises(width, height, idGrille);
 	var nameGrid="${grille.nomGrille}";
 //-->
 </script>
