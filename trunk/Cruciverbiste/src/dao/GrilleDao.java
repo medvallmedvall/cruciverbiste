@@ -426,6 +426,13 @@ public class GrilleDao extends Dao<Grille> {
 		return true;
 	}
 	
+	public boolean aFiniGrilleConcours(int idUtilisateur, int idGrille) throws SQLException {
+		String query = "select * from  grillejoueeutilisateur where idGrille = " + idGrille 
+				+ " and idUtilisateur = " + idUtilisateur;
+		ResultSet rs = this.connection.createStatement().executeQuery(query);
+		return rs.first();
+	}
+	
 
 	public List<GrilleJoueeUtilisateur> getFinishedGrilles(int idUser) throws SQLException {
 		List<GrilleJoueeUtilisateur> mList = new LinkedList<GrilleJoueeUtilisateur>();
