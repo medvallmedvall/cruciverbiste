@@ -56,7 +56,7 @@
 		
 					<div id = "resultatJeu">
 					<h4><s:property value = "getText('message.concoursdu')"/> <%=format.format(current) %> </h4>
-						 <div style="text-align: right;"><s:property value = "getText('message.concoursdu')"/> Mr Dupont (Test) </div>
+						 <div style="text-align: right;"><s:property value = "getText('message.gagnant')"/> Mr Dupont (Test) </div>
 					</div>
 					<div id="tabs-2">
 					<table cellpadding="0" cellspacing="0" border="0" class="display" id="example1">
