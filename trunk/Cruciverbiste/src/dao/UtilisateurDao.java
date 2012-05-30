@@ -8,15 +8,13 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 
-import entities.Commentaire;
-import entities.Droit;
+
 import entities.Utilisateur;
 
 public class UtilisateurDao extends Dao<Utilisateur> {
@@ -32,7 +30,7 @@ public class UtilisateurDao extends Dao<Utilisateur> {
 	 * @param password
 	 * @return
 	 */
-	private String encode(String password)
+	private String encodeMD5(String password)
     {
         byte[] uniqueKey = password.getBytes();
         byte[] hash      = null;
@@ -128,7 +126,7 @@ public class UtilisateurDao extends Dao<Utilisateur> {
 					+ "','"
 					+ null
 					+ "','"
-					+ encode(password)
+					+ encodeMD5(password)
 					+ "','"
 					+ mail
 					+ "','"
@@ -144,7 +142,7 @@ public class UtilisateurDao extends Dao<Utilisateur> {
 			ps.setObject(1, nom);
 			ps.setObject(2, prenom);
 			ps.setObject(3, pseudo);
-			ps.setObject(4, password);
+			ps.setObject(4, encodeMD5(password));
 			ps.setObject(5, mail);
 			ps.setObject(6, s);
 			ps.setObject(7, t);
@@ -262,8 +260,7 @@ public class UtilisateurDao extends Dao<Utilisateur> {
 				}
 				
 			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-			e.printStackTrace();
+				e.printStackTrace();
 			}
 			return b;
 		}
@@ -359,7 +356,7 @@ public class UtilisateurDao extends Dao<Utilisateur> {
 						"WHERE pseudo = ? AND password = ?";
 		PreparedStatement ps = this.connection.prepareStatement(query);
 		ps.setObject(1, pseudo);
-		ps.setObject(2, password);
+		ps.setObject(2, encodeMD5(password));
 		ResultSet rs = ps.executeQuery();
 		Utilisateur utilisateur = null;
 		if (rs.first()) {
