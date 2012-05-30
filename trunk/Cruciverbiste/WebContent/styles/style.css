@@ -58,7 +58,6 @@ a img {
 }
 
 
-
 div {
 	border-radius : 20px;
 }
@@ -147,17 +146,19 @@ div {
 /*dictionnaire*/
 
 #textDico {
-	height : 80px;
-	width: 500px;
-	float: left;
+	height :80px;
+	width: 400px;
+	margin:auto;
+	float : left;
 	font-family: Verdana, "Bitstream Vera Sans", "Lucida Grande", sans-serif;
 	font-size: 15px;
 }
 #imageDico {
-	height: 40px;
-	width: 40px;
-	float:right;
-	padding-right : 100px;
+	height: 20px;
+	width: 20px;
+	float :right;
+	padding-right : 30%;
+	padding-top:60px;
 	background: #F7FFD9;
 }
 
@@ -196,7 +197,7 @@ div {
 
 #grilleJour img {
 	width: 400px;
-	margin: auto;
+	margin:auto;
 	border: 1px solid black;
 }
 
