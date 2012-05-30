@@ -1,14 +1,29 @@
 package actions;
 
+import java.awt.Toolkit;
+import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
+
+import javax.imageio.ImageIO;
+import javax.servlet.ServletContext;
+
+import org.apache.struts2.ServletActionContext;
+import org.apache.struts2.components.URL;
 
 import com.itextpdf.text.BaseColor;
 import com.itextpdf.text.Chunk;
 import com.itextpdf.text.Document;
+import com.itextpdf.text.Element;
+import com.itextpdf.text.Font;
+import com.itextpdf.text.FontFactory;
+import com.itextpdf.text.Image;
 import com.itextpdf.text.Paragraph;
+import com.itextpdf.text.Phrase;
 import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
@@ -22,11 +37,11 @@ import entities.MotGrille;
 public class TelechargerGrille {
 	private int idGrille;
 	private InputStream inputStream;
-	private final float CELLSIZE = 25f;
+	private final float CELLSIZE = 50f;
 
 
 	/**
-	 * Télécharger une grille au format PDF
+	 * Tï¿½lï¿½charger une grille au format PDF
 	 * @return
 	 * @throws Exception
 	 */
@@ -41,18 +56,19 @@ public class TelechargerGrille {
 		ByteArrayOutputStream buffer = new ByteArrayOutputStream();
 		PdfWriter.getInstance(document, buffer);
 		
-		char [][] grille = new char[g.getHauteur()][g.getLargeur()];
 		
-
-		for (int i = 0; i < grille.length; i++) {
-			for (int j = 0; j < grille[i].length; j++) {
-				grille[i][j] = '0';
-			}
-		}
-
 		
 
 		if(g.getIdTypeGrille() == 2) {
+			char [][] grille = new char[g.getHauteur()][g.getLargeur()];
+			
+
+			for (int i = 0; i < grille.length; i++) {
+				for (int j = 0; j < grille[i].length; j++) {
+					grille[i][j] = '0';
+				}
+			}
+
 			
 			PdfPTable tableGrille = new PdfPTable(g.getHauteur() + 1);
 			
@@ -227,12 +243,28 @@ public class TelechargerGrille {
 		return "success";
 		}
 		else{
+			
+			ServletContext servletcontext = ServletActionContext.getServletContext();
+			String path = "workspace" + servletcontext.getContextPath() + "/WebContent/images/grilles/";
+			System.out.println(path);
+			
 			System.out.println("grille mot fleche");
+			System.out.println("nb mot " + g.getMotsGrille().size());
 			System.out.println("Hauteur " + g.getHauteur() + "Largeur " + g.getLargeur());
 			System.out.println("Mot :  " + g.getMotsGrille().get(2).getSynonyme());
 			System.out.println("X :  " + g.getMotsGrille().get(2).getCoordX() + "Y :  " + g.getMotsGrille().get(2).getCoordY());
 			
-			PdfPTable tableGrille = new PdfPTable(g.getHauteur());
+			
+			String [][] grille = new String[g.getHauteur()][g.getLargeur()];
+			for(int i=0; i< g.getHauteur(); i++){
+				for (int j =0; j<g.getLargeur(); j++){
+					grille[i][j] = "";
+				}
+			}
+
+			
+			//Element[][] e = new Element[g.getHauteur()][g.getLargeur()];
+			PdfPTable tableGrille = new PdfPTable(g.getLargeur());
 			float[] cols = new float[g.getLargeur() + 1];
 			for (int i = 0; i < cols.length; i++) {
 				if (i==0) {
@@ -242,45 +274,96 @@ public class TelechargerGrille {
 				}
 					
 			}
+			
 			for (MotGrille mg : g.getMotsGrille()) {
+				
+				int x = mg.getCoordY();
+				int y = mg.getCoordX();
+				
 				if(mg.getOrientation() == 1)
 				{
-					grille[mg.getCoordY()][mg.getCoordX() + 1] = 'a';
+					grille[x][y] = grille[x][y] + "a";
+					//grille[x + 1][y] = grille[x + 1][y] + "1";
+					
+					
 				}else{
 					if(mg.getOrientation() == 2){
-						grille[mg.getCoordY() + 1][mg.getCoordX()] = 'b';
+						grille[x][y] = grille[x][y] + "b";
+						//grille[x][y + 1] = grille[x][y + 1] + "2";
 					}else{
 						if(mg.getOrientation() == 3)
 						{
-							grille[mg.getCoordY()][mg.getCoordX() + 1]= 'c';
+							grille[x][y] = grille[x][y] + "c";
+							//grille[x + 1][y] = grille[x + 1][y] + "3";
 						}
 						else{
-							grille[mg.getCoordY() + 1][mg.getCoordX()] = 'd';
+							grille[x][y] = grille[x][y] + "d";
+							//grille[x][y + 1] = grille[x][y + 1] + "4";
 						}
 					}
 				}
 				
 			}
-			for(int i=0; i< grille.length; i++){
-				for (int j =0; j<grille[i].length; j++){
-					System.out.print(grille[i][j] + " ");
-				}
-				System.out.println();
-			}
 			
+
 			for (int i=0; i<grille.length; i++) {
 				for (int j=0; j < grille[i].length; j++) {
+					PdfPCell cell = new PdfPCell(new Phrase(grille[i][j]));
+					cell.setFixedHeight(CELLSIZE);
+				
 					
+					if(grille[i][j].length() >1) {
+						PdfPTable t = new PdfPTable(1);
+						t.setWidthPercentage(100);
+						for(MotGrille mg : g.getMotsGrille()){
+							if(mg.getCoordX() == j && mg.getCoordY() == i){
+								Paragraph p = new Paragraph(new Chunk(mg.getDefinition(), FontFactory.getFont(FontFactory.TIMES, 8f, Font.BOLD, BaseColor.BLACK)));
+								t.addCell(p);
+							}
+						}
+						
+						cell.addElement(t);
+						tableGrille.addCell(cell);
+
+					} else if (grille[i][j].length() == 1){
+						if(grille[i][j].equals("1")){
+							
+						}else if(grille[i][j].equals("2")){
+							
+							
+						}else if(grille[i][j].equals("3")){
+							
+							
+						}else if(grille[i][j].equals("4")){
+							
+							
+						}else{
+							for(MotGrille mg : g.getMotsGrille()){
+								if(mg.getCoordX() == j && mg.getCoordY() == i){
+									Paragraph p = new Paragraph(new Chunk(mg.getDefinition(), FontFactory.getFont(FontFactory.TIMES, 8f, Font.BOLD, BaseColor.BLACK)));
+									tableGrille.addCell(p);
+								}
+							}
+						}
 					
+						
+					} else{
+						tableGrille.addCell(new Phrase(""));
+					}
 					
+						
+						//
 					
-					PdfPCell cell = new PdfPCell();
-					
-					tableGrille.addCell(cell);
 				}		
 			}
 			document.open();
 			document.add(new Paragraph("Grille " + g.getNomGrille()));
+			document.add(Chunk.NEWLINE); 
+			document.add(tableGrille);
+			
+			//Image image = Image.getInstance(path + "bas.png"); 
+			
+			//document.add(image);
 			document.close();
 			setInputStream(new ByteArrayInputStream(buffer.toByteArray()));
 			return "success";
